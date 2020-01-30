@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Pos Toko</string>
+    <string name="txt_logo">Logo</string>
+    <string name="txt_username">Nama Pengguna</string>
+    <string name="txt_password">Kata Sandi</string>
+    <string name="txt_remember_me">Ingat Saya</string>
+    <string name="txt_forget_password">Lupa Kata Sandi?</string>
+    <string name="txt_login">Masuk</string>
+    <string name="txt_sign_up">Daftar</string>
+    <string name="txt_copyright">Ⓒ 2020 PT. SISI, All Rights Reserved.</string>
 </resources>
