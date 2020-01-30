@@ -1,9 +1,9 @@
 package id.sisi.postoko.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import id.sisi.postoko.R
-import id.sisi.postoko.utils.extensions.logE
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btn_login?.setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
             //TODO - API Post Login
         }
     }

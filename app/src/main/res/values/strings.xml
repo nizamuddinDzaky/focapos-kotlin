@@ -8,4 +8,7 @@
     <string name="txt_login">Masuk</string>
     <string name="txt_sign_up">Daftar</string>
     <string name="txt_copyright">Ⓒ 2020 PT. SISI, All Rights Reserved.</string>
+    <string name="txt_purchase">Pemesanan</string>
+    <string name="txt_history">Transaksi</string>
+    <string name="txt_account">Akun</string>
 </resources>
