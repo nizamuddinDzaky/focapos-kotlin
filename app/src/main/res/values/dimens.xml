@@ -5,4 +5,5 @@
     <dimen name="logo_height">100dp</dimen>
     <dimen name="edittext_layout_height">56dp</dimen>
     <dimen name="button_height">48dp</dimen>
+    <dimen name="bt_buy_margin">25dp</dimen>
 </resources>
