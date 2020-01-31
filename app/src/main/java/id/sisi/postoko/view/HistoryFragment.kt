@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import id.sisi.postoko.R
+import id.sisi.postoko.adapter.ListOrderAdapter
+import kotlinx.android.synthetic.main.fragment_history.*
 
 class HistoryFragment : Fragment() {
     override fun onCreateView(
@@ -17,6 +20,14 @@ class HistoryFragment : Fragment() {
         activity?.title = getString(R.string.txt_history)
         val view = inflater.inflate(R.layout.fragment_history, container, false)
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        rv_list_order?.layoutManager = LinearLayoutManager(this.context)
+        rv_list_order?.setHasFixedSize(false)
+        rv_list_order?.adapter = ListOrderAdapter()
     }
 
     companion object {
