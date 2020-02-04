@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (MyApp.prefs.isLogin) {
+            startActivity(Intent(this, HomeActivity::class.java))
+            return
+        }
         setContentView(R.layout.activity_main)
 
         val mandatory = listOf<EditText>(et_username, et_password)
@@ -52,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                     logE("berhasil")
                     tryMe {
                         if (response.body()?.code == 200) {
+                            prefs.posToken = response.body()?.data?.token
                             if (checkbox_remember_me?.isChecked == true) {
                                 prefs.usernameLogin = username
                                 prefs.passwordLogin = password

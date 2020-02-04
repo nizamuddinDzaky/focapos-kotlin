@@ -12,6 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.HeaderMap
 import retrofit2.http.POST
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
@@ -23,7 +24,7 @@ interface ApiServices {
     fun postLogin(@Body body: Map<String, String>): Call<BaseResponse<DataLogin>>
 
     @GET("api/v1/retailer/auth/profile")
-    fun getProfile(): Call<BaseResponse<DataProfile>>
+    fun getProfile(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProfile>>
 
     companion object {
         private var retrofit : Retrofit? = null

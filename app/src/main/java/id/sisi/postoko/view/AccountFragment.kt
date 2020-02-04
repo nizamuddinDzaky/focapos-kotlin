@@ -1,17 +1,18 @@
 package id.sisi.postoko.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.SimpleAdapter
-import android.widget.SimpleCursorAdapter
 import androidx.fragment.app.Fragment
+import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
+import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.tryMe
 import kotlinx.android.synthetic.main.fragment_account.*
 
 
@@ -29,6 +30,19 @@ class AccountFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
+        ApiServices.getInstance()?.getProfile(headers)?.exe(
+            onFailure = { call, throwable ->
+                logE("gagal")
+            },
+            onResponse = { call, response ->
+                logE("berhasil profile")
+                tryMe {
+                    logE("tes ${response.body()?.data?.user?.username}")
+                }
+            }
+        )
+
         val menus = arrayOf(
             "Perbarui Profil",
             "Daftar Alamat",
@@ -39,17 +53,8 @@ class AccountFragment : Fragment() {
             "Keluar"
         )
 
-//        val adapter = StableArrayAdapter(
-//            this.context,
-//            android.R.layout.simple_list_item_1, menus.asList()
-//        )
-
-        //val datas = arrayListOf<Map<String, String>>()
         val datas = menus.map {
-            val map = mutableMapOf<String, String>()
-            map.put("data1", it)
-            map.put("data2", it)
-            return@map map
+            return@map mutableMapOf("data1" to it, "data2" to it)
         }
         val adapter = SimpleAdapter(
             this.context, datas, R.layout.list_item_menu_account, arrayOf("data1", "data2"), arrayOf(R.id.tv_menu_account_name).toIntArray()
@@ -59,6 +64,9 @@ class AccountFragment : Fragment() {
         lv_menu_account?.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, i, l ->
                 logE("click $i")
+                if (i == menus.size - 1) {
+                    MyApp.prefs.isLogin = false
+                }
             }
     }
 
@@ -66,27 +74,4 @@ class AccountFragment : Fragment() {
         val TAG: String = AccountFragment::class.java.simpleName
         fun newInstance() = AccountFragment()
     }
-
-    private class StableArrayAdapter(
-        context: Context?, textViewResourceId: Int,
-        objects: List<String>
-    ) : ArrayAdapter<String?>(context!!, textViewResourceId, objects) {
-        var mIdMap = HashMap<String, Int>()
-
-        override fun getItemId(position: Int): Long {
-            val item = getItem(position)
-            return mIdMap[item]?.toLong() ?: 0
-        }
-
-        override fun hasStableIds(): Boolean {
-            return true
-        }
-
-        init {
-            for (i in objects.indices) {
-                mIdMap[objects[i]] = i
-            }
-        }
-    }
-
 }

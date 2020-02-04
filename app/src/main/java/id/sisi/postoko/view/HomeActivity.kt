@@ -3,6 +3,7 @@ package id.sisi.postoko.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.active
 import id.sisi.postoko.utils.extensions.attach
@@ -22,6 +23,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         restoreSaveInstanceState(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        MyApp.prefs.isLogin = true
 
         bottom_navigation?.apply {
             active(navPosition.position) // Extension function

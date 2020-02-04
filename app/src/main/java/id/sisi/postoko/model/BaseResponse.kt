@@ -14,7 +14,5 @@ data class DataLogin(
 )
 
 data class DataProfile(
-    var user_id: String?,
-    var company_id: String?,
-    var token: String?
+    var user: User?
 )

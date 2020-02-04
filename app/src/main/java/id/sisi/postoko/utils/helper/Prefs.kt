@@ -8,6 +8,7 @@ class Prefs(context: Context) {
     companion object {
         private const val PREFS_FILENAME = "pos_toko_prefs"
 
+        private const val KEY_TOKEN_LOGIN = "token_login"
         private const val KEY_USERNAME_LOGIN = "username_login"
         private const val KEY_PASSWORD_LOGIN = "password_login"
         private const val KEY_ISLOGIN = "islogin"
@@ -25,6 +26,10 @@ class Prefs(context: Context) {
         val key = this
         sharedPrefs.edit { putBoolean(key, value) }
     }
+
+    var posToken: String?
+        get() = sharedPrefs.getString(KEY_TOKEN_LOGIN, null)
+        set(value) = KEY_TOKEN_LOGIN.putStringPref(value)
 
     var usernameLogin: String?
         get() = sharedPrefs.getString(KEY_USERNAME_LOGIN, null)
