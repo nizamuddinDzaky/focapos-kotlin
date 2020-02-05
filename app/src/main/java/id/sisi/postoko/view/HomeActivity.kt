@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
     private val KEY_POSITION = "keyPosition"
 
-    private var navPosition: BottomNavigationPosition = BottomNavigationPosition.PURCHASE
+    private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +42,18 @@ class HomeActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
+    override fun onBackPressed() {
+        moveTaskToBack(false)
+    }
+
     private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
-        savedInstanceState?.getInt(KEY_POSITION, BottomNavigationPosition.PURCHASE.id)?.also {
+        savedInstanceState?.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)?.also {
             navPosition = findNavigationPositionById(it)
         }
     }
 
     private fun initFragment(savedInstanceState: Bundle?) {
-        savedInstanceState ?: switchFragment(BottomNavigationPosition.PURCHASE)
+        savedInstanceState ?: switchFragment(BottomNavigationPosition.HOME)
     }
 
     private fun switchFragment(navPosition: BottomNavigationPosition): Boolean {
