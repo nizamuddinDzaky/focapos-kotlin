@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.SimpleAdapter
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
-import id.sisi.postoko.network.ApiServices
-import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.tryMe
 import kotlinx.android.synthetic.main.fragment_account.*
 
 
 class AccountFragment : Fragment() {
+    private lateinit var viewModel: AccountViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,18 +31,19 @@ class AccountFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        ApiServices.getInstance()?.getProfile(headers)?.exe(
-            onFailure = { call, throwable ->
-                logE("gagal")
-            },
-            onResponse = { call, response ->
-                logE("berhasil profile")
-                tryMe {
-                    logE("tes ${response.body()?.data?.user?.username}")
-                }
+        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
+        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            if (it) {
+                logE("progress")
+            } else {
+                logE("selesai")
             }
-        )
+        })
+        viewModel.getUser().observe(viewLifecycleOwner, Observer {
+            logE("cek data ${it}")
+            tv_user_company?.text = it.company ?: "~"
+            tv_user_company_code?.text = it.address ?: "~"
+        })
 
         val menus = arrayOf(
             "Perbarui Profil",
