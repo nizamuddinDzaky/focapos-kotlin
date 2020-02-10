@@ -41,8 +41,8 @@ class AccountFragment : Fragment() {
         })
         viewModel.getUser().observe(viewLifecycleOwner, Observer {
             logE("cek data ${it}")
-            tv_user_company?.text = it.company ?: "~"
-            tv_user_company_code?.text = it.address ?: "~"
+            tv_user_company?.text = it?.company ?: "~"
+            tv_user_company_code?.text = it?.address ?: "~"
         })
 
         val menus = arrayOf(

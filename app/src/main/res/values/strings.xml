@@ -13,4 +13,6 @@
     <string name="txt_account">Akun</string>
     <string name="txt_search_product">Cari Produk</string>
     <string name="txt_home">Beranda</string>
+    <string name="txt_category_purchase_process">Dalam Proses</string>
+    <string name="txt_category_purchase_finish">Selesai</string>
 </resources>

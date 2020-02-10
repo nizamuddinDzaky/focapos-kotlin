@@ -20,16 +20,17 @@ import java.util.concurrent.TimeUnit
 import javax.net.ssl.*
 
 interface ApiServices {
-    @POST("api/v1/retailer/auth/login")
+    @POST("auth/login")
     fun postLogin(@Body body: Map<String, String>): Call<BaseResponse<DataLogin>>
 
-    @GET("api/v1/retailer/auth/profile")
+    @GET("auth/profile")
     fun getProfile(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProfile>>
 
     companion object {
-        private var retrofit : Retrofit? = null
+        private var retrofit: Retrofit? = null
 
-        private const val BASE_URL: String = "https://qp.forca.id/"
+        //        private const val BASE_URL: String = "https://qp.forca.id/"
+        private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {
@@ -75,7 +76,8 @@ interface ApiServices {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.HEADERS
             interceptor.level = HttpLoggingInterceptor.Level.BODY
-            val builder = OkHttpClient.Builder().connectionSpecs(arrayListOf(spec))
+            val builder =
+                OkHttpClient.Builder().connectionSpecs(arrayListOf(spec, ConnectionSpec.CLEARTEXT))
             builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
             builder.hostnameVerifier { hostname, session -> true }
             builder.addInterceptor(interceptor)

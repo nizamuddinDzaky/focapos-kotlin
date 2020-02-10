@@ -11,7 +11,7 @@ import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class AccountViewModel : ViewModel() {
-    private val user = MutableLiveData<User>()
+    private val user = MutableLiveData<User?>()
     private var isExecute = MutableLiveData<Boolean>()
 
     init {
@@ -47,7 +47,7 @@ class AccountViewModel : ViewModel() {
         return isExecute
     }
 
-    internal fun getUser(): LiveData<User> {
+    internal fun getUser(): LiveData<User?> {
         return user
     }
 }

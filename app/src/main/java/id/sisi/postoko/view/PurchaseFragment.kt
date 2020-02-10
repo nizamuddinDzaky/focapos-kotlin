@@ -17,7 +17,8 @@ class PurchaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = getString(R.string.txt_purchase)
+        //activity?.title = getString(R.string.txt_purchase)
+        activity?.title = getString(CATEGORY.title)
         val view = inflater.inflate(R.layout.fragment_purchase, container, false)
         return view
     }
@@ -32,6 +33,12 @@ class PurchaseFragment : Fragment() {
 
     companion object {
         val TAG: String = PurchaseFragment::class.java.simpleName
+        var CATEGORY: CategoryPurchasePage = CategoryPurchasePage.PROCESS
         fun newInstance() = PurchaseFragment()
+    }
+
+    enum class CategoryPurchasePage(val position: Int, val title: Int) {
+        PROCESS(0, R.string.txt_category_purchase_process),
+        FINISH(1, R.string.txt_category_purchase_finish);
     }
 }
