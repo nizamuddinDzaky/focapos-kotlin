@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAdapter
+import id.sisi.postoko.adapter.ListPurchaseAdapter
 import kotlinx.android.synthetic.main.fragment_purchase.*
 
 class PurchaseFragment : Fragment() {
@@ -26,9 +28,9 @@ class PurchaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_list_product?.layoutManager = GridLayoutManager(this.context, 2)
+        rv_list_product?.layoutManager = LinearLayoutManager(this.context)
         rv_list_product?.setHasFixedSize(false)
-        rv_list_product?.adapter = ListProductAdapter()
+        rv_list_product?.adapter = ListPurchaseAdapter()
     }
 
     companion object {

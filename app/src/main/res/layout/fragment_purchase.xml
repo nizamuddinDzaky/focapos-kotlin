@@ -7,22 +7,6 @@
     android:paddingTop="@dimen/et_top_margin"
     tools:context=".view.PurchaseFragment">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_search_product"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edittext_layout_height"
-        android:layout_marginStart="@dimen/standart_margin"
-        android:layout_marginLeft="@dimen/standart_margin"
-        android:layout_marginEnd="@dimen/standart_margin"
-        android:layout_marginRight="@dimen/standart_margin"
-        android:background="@drawable/edit_text_style"
-        android:hint="@string/txt_search_product"
-        android:paddingStart="@dimen/et_top_margin"
-        android:paddingLeft="@dimen/et_top_margin"
-        android:paddingTop="@dimen/et_top_margin"
-        android:paddingEnd="@dimen/et_top_margin"
-        android:paddingRight="@dimen/et_top_margin" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list_product"
         android:layout_width="match_parent"
@@ -32,8 +16,9 @@
         android:paddingLeft="@dimen/et_top_margin"
         android:paddingEnd="@dimen/et_top_margin"
         android:paddingRight="@dimen/et_top_margin"
-        android:paddingTop="@dimen/et_top_margin"
         android:paddingBottom="@dimen/standart_margin"
         tools:itemCount="5"
-        tools:listitem="@layout/list_item_product" />
+        android:background="#E5E5E5"
+        tools:listitem="@layout/list_item_purchase" />
+
 </LinearLayout>
