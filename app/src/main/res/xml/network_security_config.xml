@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">forca.id</domain>
         <domain includeSubdomains="true">10.37.11.119</domain>
+        <domain includeSubdomains="true">10.15.4.102</domain>
     </domain-config>
 </network-security-config>
