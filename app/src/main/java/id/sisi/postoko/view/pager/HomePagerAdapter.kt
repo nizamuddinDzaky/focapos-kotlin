@@ -5,12 +5,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import id.sisi.postoko.view.AccountFragment
 import id.sisi.postoko.view.HistoryFragment
-import id.sisi.postoko.view.PurchaseFragment
+import id.sisi.postoko.view.GoodReceived
 
 class HomePagerAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val pages = listOf(
-        PurchaseFragment(),
+        GoodReceived(),
         HistoryFragment(),
         AccountFragment()
     )

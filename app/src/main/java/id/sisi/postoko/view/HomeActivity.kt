@@ -23,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         restoreSaveInstanceState(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+        supportActionBar?. elevation = 0.0f
         MyApp.prefs.isLogin = true
 
         bottom_navigation?.apply {

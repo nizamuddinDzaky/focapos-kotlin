@@ -1,19 +1,18 @@
 package id.sisi.postoko.view
 
+import android.app.SearchManager;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
+
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import id.sisi.postoko.R
-import id.sisi.postoko.adapter.ListProductAdapter
 import id.sisi.postoko.adapter.ListPurchaseAdapter
-import kotlinx.android.synthetic.main.fragment_purchase.*
+import kotlinx.android.synthetic.main.fragment_gr.*
 
-class PurchaseFragment : Fragment() {
+class GoodReceived :Fragment (){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,7 +20,7 @@ class PurchaseFragment : Fragment() {
     ): View? {
         //activity?.title = getString(R.string.txt_purchase)
         activity?.title = getString(CATEGORY.title)
-        val view = inflater.inflate(R.layout.fragment_purchase, container, false)
+        val view = inflater.inflate(R.layout.fragment_gr, container, false)
         return view
     }
 
@@ -33,10 +32,30 @@ class PurchaseFragment : Fragment() {
         rv_list_product?.adapter = ListPurchaseAdapter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater!!.inflate(R.menu.menu_search_gr, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return (when(item.itemId) {
+            R.id.menu_action_search -> {
+                true
+            }
+            else ->
+                super.onOptionsItemSelected(item)
+        })
+    }
+
     companion object {
-        val TAG: String = PurchaseFragment::class.java.simpleName
+        val TAG: String = GoodReceived::class.java.simpleName
         var CATEGORY: CategoryPurchasePage = CategoryPurchasePage.PROCESS
-        fun newInstance() = PurchaseFragment()
+        fun newInstance() = GoodReceived()
     }
 
     enum class CategoryPurchasePage(val position: Int, val title: Int) {

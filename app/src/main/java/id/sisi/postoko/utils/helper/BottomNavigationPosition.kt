@@ -5,7 +5,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.view.AccountFragment
 import id.sisi.postoko.view.HistoryFragment
 import id.sisi.postoko.view.HomeFragment
-import id.sisi.postoko.view.PurchaseFragment
+import id.sisi.postoko.view.GoodReceivedFragment
 
 enum class BottomNavigationPosition(val position: Int, val id: Int) {
     HOME(0, R.id.menu_home),
@@ -24,14 +24,14 @@ fun findNavigationPositionById(id: Int): BottomNavigationPosition = when (id) {
 
 fun BottomNavigationPosition.createFragment(): Fragment = when (this) {
     BottomNavigationPosition.HOME -> HomeFragment.newInstance()
-    BottomNavigationPosition.PURCHASE -> PurchaseFragment.newInstance()
+    BottomNavigationPosition.PURCHASE -> GoodReceivedFragment.newInstance()
     BottomNavigationPosition.HISTORY -> HistoryFragment.newInstance()
     BottomNavigationPosition.ACCOUNT -> AccountFragment.newInstance()
 }
 
 fun BottomNavigationPosition.getTag(): String = when (this) {
     BottomNavigationPosition.HOME -> HomeFragment.TAG
-    BottomNavigationPosition.PURCHASE -> PurchaseFragment.TAG
+    BottomNavigationPosition.PURCHASE -> GoodReceivedFragment.TAG
     BottomNavigationPosition.HISTORY -> HistoryFragment.TAG
     BottomNavigationPosition.ACCOUNT -> AccountFragment.TAG
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/et_top_margin"
-    tools:context=".view.PurchaseFragment">
+    tools:context=".view.GoodReceivedFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list_product"
@@ -19,6 +19,6 @@
         android:paddingBottom="@dimen/standart_margin"
         tools:itemCount="5"
         android:background="#E5E5E5"
-        tools:listitem="@layout/list_item_purchase" />
+        tools:listitem="@layout/list_item_gr" />
 
 </LinearLayout>

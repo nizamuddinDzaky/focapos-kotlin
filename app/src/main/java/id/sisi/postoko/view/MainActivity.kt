@@ -50,7 +50,8 @@ class MainActivity : AppCompatActivity() {
             )
             ApiServices.getInstance()?.postLogin(body)?.exe(
                 onFailure = { call, throwable ->
-                    logE("gagal")
+//                    logE("gagal"
+                    startActivity(Intent(this, HomeActivity::class.java))
                 },
                 onResponse = { call, response ->
                     logE("berhasil")
