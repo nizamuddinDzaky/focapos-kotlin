@@ -6,13 +6,18 @@ import androidx.fragment.app.FragmentPagerAdapter
 import id.sisi.postoko.view.AccountFragment
 import id.sisi.postoko.view.HistoryFragment
 import id.sisi.postoko.view.PurchaseFragment
+import id.sisi.postoko.view.ui.customer.CustomerFragment
+import id.sisi.postoko.view.ui.product.ProductFragment
+import id.sisi.postoko.view.ui.supplier.SupplierFragment
+import id.sisi.postoko.view.ui.warehouse.WarehouseFragment
 
 class HomePagerAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val pages = listOf(
-        PurchaseFragment(),
-        HistoryFragment(),
-        AccountFragment()
+        CustomerFragment(),
+        ProductFragment(),
+        SupplierFragment(),
+        WarehouseFragment()
     )
 
     override fun getItem(position: Int): Fragment {
@@ -24,10 +29,6 @@ class HomePagerAdapter(fm: FragmentManager) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return when (position) {
-            0 -> "First Tab"
-            1 -> "Second Tab"
-            else -> "Third Tab"
-        }
+        return pages[position].tagName
     }
 }

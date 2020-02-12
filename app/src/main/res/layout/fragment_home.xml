@@ -18,6 +18,7 @@
             android:id="@+id/tabs_main_pagers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:layout_gravity="top" />
 
     </androidx.viewpager.widget.ViewPager>

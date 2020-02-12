@@ -1,7 +1,6 @@
-package id.sisi.postoko.view.ui.warehouse
+package id.sisi.postoko.view.ui.customer
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,19 +10,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
-import id.sisi.postoko.model.Warehouse
+import id.sisi.postoko.model.Customer
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
-class WarehouseFragment : BaseFragment() {
+class CustomerFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = WarehouseFragment()
+        fun newInstance() = CustomerFragment()
     }
 
-    private lateinit var viewModel: WarehouseViewModel
-    private lateinit var adapter: ListMasterAdapter<Warehouse>
+    private lateinit var viewModel: CustomerViewModel
+    private lateinit var adapter: ListMasterAdapter<Customer>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +32,7 @@ class WarehouseFragment : BaseFragment() {
     }
 
     override var tagName: String
-        get() = "Gudang"
+        get() = "Customer"
         set(value) {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -41,8 +40,8 @@ class WarehouseFragment : BaseFragment() {
 
         setupUI()
 
-        viewModel = ViewModelProvider(this).get(WarehouseViewModel::class.java)
-        viewModel.getListWarehouses().observe(viewLifecycleOwner, Observer {
+        viewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
+        viewModel.getListCustomers().observe(viewLifecycleOwner, Observer {
             logE("cek data ${it}")
             adapter.updateMasterData(it)
         })

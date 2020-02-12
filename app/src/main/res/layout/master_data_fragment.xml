@@ -5,9 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.warehouse.WarehouseFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list_master_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        tools:itemCount="10"
+        tools:listitem="@layout/list_item_master" />
 
 </FrameLayout>

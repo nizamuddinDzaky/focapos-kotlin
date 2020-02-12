@@ -1,9 +1,6 @@
 package id.sisi.postoko.network
 
-import id.sisi.postoko.model.BaseResponse
-import id.sisi.postoko.model.DataLogin
-import id.sisi.postoko.model.DataProfile
-import id.sisi.postoko.model.Warehouse
+import id.sisi.postoko.model.*
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -29,6 +26,15 @@ interface ApiServices {
 
     @GET("warehouses/list_warehouses")
     fun getListWarehouse(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<List<Warehouse>>>
+
+    @GET("suppliers/list_suppliers")
+    fun getListSupplier(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataSupplier>>
+
+    @GET("customers/list_customers")
+    fun getListCustomer(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<List<Customer>>>
+
+    @GET("products/list_products")
+    fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
 
     companion object {
         private var retrofit: Retrofit? = null

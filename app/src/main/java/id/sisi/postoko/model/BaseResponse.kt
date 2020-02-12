@@ -16,3 +16,13 @@ data class DataLogin(
 data class DataProfile(
     var user: User?
 )
+
+data class DataSupplier(
+    var total_supplier: Int?,
+    var list_supplier: List<Supplier>?
+)
+
+data class DataProduct(
+    var total_products: Int?,
+    var list_products: List<Product>?
+)
