@@ -1,18 +1,20 @@
 package id.sisi.postoko.view
 
-import android.app.SearchManager;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
-
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListPurchaseAdapter
 import kotlinx.android.synthetic.main.fragment_gr.*
 
-class GoodReceived :Fragment (){
+
+class GoodReceived : Fragment (){
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,7 +40,7 @@ class GoodReceived :Fragment (){
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(R.menu.menu_search_gr, menu)
+        inflater!!.inflate(R.menu.menu_search_good_receive, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

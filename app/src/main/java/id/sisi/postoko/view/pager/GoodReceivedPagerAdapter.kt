@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import id.sisi.postoko.view.GoodReceived
 
-class GrPagerAdapter (fm: FragmentManager):
+class GoodReceivedPagerAdapter (fm: FragmentManager):
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         private val pages = listOf(
             GoodReceived(),

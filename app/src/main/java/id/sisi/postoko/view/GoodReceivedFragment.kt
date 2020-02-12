@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import id.sisi.postoko.R
 //import id.sisi.postoko.adapter.ListProductAdapter
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.view.pager.GrPagerAdapter
+import id.sisi.postoko.view.pager.GoodReceivedPagerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class GoodReceivedFragment : Fragment() {
@@ -33,7 +33,7 @@ class GoodReceivedFragment : Fragment() {
         }
         main_container?.gone()
         main_view_pager?.let {
-            it.adapter = GrPagerAdapter(childFragmentManager)
+            it.adapter = GoodReceivedPagerAdapter(childFragmentManager)
             tabs_main_pagers?.setupWithViewPager(it)
         }
     }
