@@ -24,7 +24,6 @@ class HomeActivity : AppCompatActivity() {
         restoreSaveInstanceState(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        MyApp.prefs.isLogin = true
         supportActionBar?.elevation = 0.0F
 
         bottom_navigation?.apply {

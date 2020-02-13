@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                                 prefs.usernameLogin = ""
                                 prefs.passwordLogin = ""
                             }
+                            MyApp.prefs.isLogin = true
                             startActivity(Intent(this, HomeActivity::class.java))
                         }
                     }

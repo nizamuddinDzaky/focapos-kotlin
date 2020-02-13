@@ -1,4 +1,4 @@
-package id.sisi.postoko.view
+package id.sisi.postoko.view.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.view.AddProductActivity
 import id.sisi.postoko.view.pager.HomePagerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 

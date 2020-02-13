@@ -1,4 +1,4 @@
-package id.sisi.postoko.view
+package id.sisi.postoko.view.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.view.AccountViewModel
 import kotlinx.android.synthetic.main.fragment_account.*
 
 

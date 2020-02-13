@@ -15,4 +15,8 @@
     <string name="txt_home">Beranda</string>
     <string name="txt_category_purchase_process">Dalam Proses</string>
     <string name="txt_category_purchase_finish">Selesai</string>
+    <string name="txt_menu_sales_booking">Penjualan</string>
+    <string name="txt_menu_delivery_booking">Delivery Booking</string>
+    <string name="txt_menu_good_receive">Penerimaan</string>
+    <string name="txt_menu_master_data">Data</string>
 </resources>
