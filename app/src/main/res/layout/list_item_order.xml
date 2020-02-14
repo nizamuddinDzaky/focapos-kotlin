@@ -31,14 +31,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="(Silog Corp)"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/main_blue" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Sale/2020/02/0020"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/main_blue" />
             </LinearLayout>
 
             <LinearLayout
@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Dikonfirmasi"
-                    android:textColor="@android:color/holo_green_dark" />
+                    android:textColor="@color/main_green" />
             </LinearLayout>
 
         </LinearLayout>
@@ -101,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Belum Bayar"
-                    android:textColor="@android:color/holo_orange_dark" />
+                    android:textColor="@color/main_orange" />
             </LinearLayout>
 
         </LinearLayout>

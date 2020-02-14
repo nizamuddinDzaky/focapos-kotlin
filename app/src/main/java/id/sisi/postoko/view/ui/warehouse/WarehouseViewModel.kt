@@ -33,7 +33,7 @@ class WarehouseViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     tryMe {
                         logE("tes ${response.body()?.data}")
-                        warehouses.postValue(response.body()?.data)
+                        warehouses.postValue(response.body()?.data?.list_warehouses)
                     }
                 } else {
                     isExecute.postValue(true)

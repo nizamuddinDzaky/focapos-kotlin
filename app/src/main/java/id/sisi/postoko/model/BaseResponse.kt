@@ -17,9 +17,19 @@ data class DataProfile(
     var user: User?
 )
 
+data class DataCustomer(
+    var total_supplier: Int?,
+    var list_customers: List<Customer>?
+)
+
+data class DataWarehouse(
+    var total_supplier: Int?,
+    var list_warehouses: List<Warehouse>?
+)
+
 data class DataSupplier(
     var total_supplier: Int?,
-    var list_supplier: List<Supplier>?
+    var list_suppliers: List<Supplier>?
 )
 
 data class DataProduct(

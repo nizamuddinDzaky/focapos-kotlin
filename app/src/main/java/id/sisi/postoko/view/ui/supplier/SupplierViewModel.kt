@@ -32,7 +32,7 @@ class SupplierViewModel : ViewModel() {
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        suppliers.postValue(response.body()?.data?.list_supplier)
+                        suppliers.postValue(response.body()?.data?.list_suppliers)
                     }
                 } else {
                     isExecute.postValue(true)

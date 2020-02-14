@@ -32,7 +32,7 @@ class CustomerViewModel : ViewModel() {
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        customers.postValue(response.body()?.data)
+                        customers.postValue(response.body()?.data?.list_customers)
                     }
                 } else {
                     isExecute.postValue(true)

@@ -25,13 +25,13 @@ interface ApiServices {
     fun getProfile(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProfile>>
 
     @GET("warehouses/list_warehouses")
-    fun getListWarehouse(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<List<Warehouse>>>
+    fun getListWarehouse(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataWarehouse>>
 
     @GET("suppliers/list_suppliers")
     fun getListSupplier(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataSupplier>>
 
     @GET("customers/list_customers")
-    fun getListCustomer(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<List<Customer>>>
+    fun getListCustomer(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataCustomer>>
 
     @GET("products/list_products")
     fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
@@ -39,9 +39,9 @@ interface ApiServices {
     companion object {
         private var retrofit: Retrofit? = null
 
-        //private const val BASE_URL: String = "https://qp.forca.id/"
+        private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-        private const val BASE_URL: String = "http://10.15.4.102:9090/api/v1/distributor/"
+//        private const val BASE_URL: String = "http://10.15.4.102:9090/api/v1/distributor/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {

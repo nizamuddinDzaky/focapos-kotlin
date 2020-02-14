@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 onResponse = { call, response ->
                     logE("berhasil")
                     tryMe {
-                        if (response.body()?.code == 200) {
+                        if (response.body()?.code == 200 && !response.body()?.data?.token.isNullOrEmpty()) {
                             prefs.posToken = response.body()?.data?.token
                             if (checkbox_remember_me?.isChecked == true) {
                                 prefs.usernameLogin = username

@@ -17,7 +17,7 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = getString(R.string.txt_history)
+        activity?.title = getString(R.string.txt_menu_confirmation_delivery)
         val view = inflater.inflate(R.layout.fragment_history, container, false)
         return view
     }

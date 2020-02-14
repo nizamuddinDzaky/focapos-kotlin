@@ -5,15 +5,15 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/txt_home" />
     <item
-        android:id="@+id/menu_sales_booking"
-        android:icon="@drawable/ic_purchase_black_24dp"
-        android:title="@string/txt_menu_sales_booking" />
-    <item
         android:id="@+id/menu_good_receive"
-        android:icon="@drawable/ic_history_black_24dp"
+        android:icon="@drawable/ic_purchase_black_24dp"
         android:title="@string/txt_menu_good_receive" />
     <item
+        android:id="@+id/menu_confirmation_delivery"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="@string/txt_menu_confirmation_delivery" />
+    <item
         android:id="@+id/menu_master_data"
-        android:icon="@drawable/ic_purchase_black_24dp"
+        android:icon="@drawable/ic_master_data_24dp"
         android:title="@string/txt_menu_master_data" />
 </menu>
