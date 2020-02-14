@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#333333</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="colorNotSelect">#CBCBCB</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBackground">#EDEDED</color>
+    <color name="colorLine">#CACACA</color>
+    <color name="colorButtonScrol">#1CA865</color>
 </resources>

@@ -1,5 +1,6 @@
 package id.sisi.postoko.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +69,8 @@ class AccountFragment : Fragment() {
                 logE("click $i")
                 if (i == menus.size - 1) {
                     MyApp.prefs.isLogin = false
+                    val intent = Intent(activity, MainActivity::class.java)
+                    startActivity(intent)
                 }
             }
     }

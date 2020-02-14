@@ -41,5 +41,5 @@ class GoodReceivedFragment : Fragment() {
     companion object {
         val TAG: String = GoodReceivedFragment::class.java.simpleName
         fun newInstance() = GoodReceivedFragment()
-    }
+    }   
 }
