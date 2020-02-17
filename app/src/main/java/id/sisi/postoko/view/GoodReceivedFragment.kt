@@ -6,13 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-//import androidx.recyclerview.widget.GridLayoutManager
 
 import id.sisi.postoko.R
-//import id.sisi.postoko.adapter.ListProductAdapter
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.view.pager.GoodReceivedPagerAdapter
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.good_received.*
 
 class GoodReceivedFragment : Fragment() {
     override fun onCreateView(
