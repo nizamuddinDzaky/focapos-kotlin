@@ -18,5 +18,5 @@ fun FragmentManager.attach(fragment: Fragment, tag: String) {
         beginTransaction().add(R.id.main_container, fragment, tag).commit()
     }
     // Set a transition animation for this transaction.
-    beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
+    //beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
 }
