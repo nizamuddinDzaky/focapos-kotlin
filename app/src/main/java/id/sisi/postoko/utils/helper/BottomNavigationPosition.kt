@@ -5,7 +5,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.view.AccountFragment
 import id.sisi.postoko.view.HistoryFragment
 import id.sisi.postoko.view.HomeFragment
-import id.sisi.postoko.view.GoodReceivedFragment
+import id.sisi.postoko.view.GoodReceived.GoodReceivedFragment
 
 enum class BottomNavigationPosition(val position: Int, val id: Int) {
     HOME(0, R.id.menu_home),

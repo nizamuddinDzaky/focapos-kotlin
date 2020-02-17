@@ -18,6 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.AddProductActivity"></activity>
+        <activity
+            android:name=".view.GoodReceived.DetailGoodReceivedActivity"
+            android:parentActivityName=".view.MainActivity">
+        </activity>
         <activity android:name=".view.HomeActivity" />
         <activity
             android:name=".view.MainActivity"

@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/et_top_margin"
-    tools:context=".view.GoodReceivedFragment">
+    tools:context=".view.GoodReceived.GoodReceivedFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_product"
+        android:id="@+id/rv_list_good_received"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
