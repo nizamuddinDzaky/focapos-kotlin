@@ -20,4 +20,5 @@
     <string name="txt_menu_aksestoko">Penerimaan</string>
     <string name="txt_menu_master_data">Data</string>
     <string name="txt_menu_confirmation_delivery">Pengiriman</string>
+    <string name="menu_search">Pencarian</string>
 </resources>
