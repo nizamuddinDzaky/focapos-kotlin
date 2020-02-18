@@ -12,25 +12,25 @@ import id.sisi.postoko.view.AddProductActivity
 import kotlinx.android.synthetic.main.list_item_gr.view.*
 import kotlin.random.Random
 
-class ListPurchaseAdapter : RecyclerView.Adapter<ListPurchaseAdapter.ProductViewHolder>() {
-    val nData = Random.nextInt(5, 10)
+class ListDetailProductGoodReceivedAdapter : RecyclerView.Adapter<ListDetailProductGoodReceivedAdapter.DetailProductGoodReceivedViewHolder>(){
+    val nData = Random.nextInt(2, 10)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailProductGoodReceivedViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_gr, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_product_good_received, parent, false)
 
-        return ProductViewHolder(view)
+        return DetailProductGoodReceivedViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return nData
     }
 
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DetailProductGoodReceivedViewHolder, position: Int) {
         holder.bind("")
     }
 
-    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class DetailProductGoodReceivedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(value: String) {
             itemView.tv_action_detail_gr?.setOnClickListener {

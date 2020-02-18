@@ -1,19 +1,16 @@
-package id.sisi.postoko.view
+package id.sisi.postoko.view.GoodReceived
 
-import android.app.SearchManager
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
-import id.sisi.postoko.adapter.ListPurchaseAdapter
+import id.sisi.postoko.adapter.ListGoodReceivedAdapter
+import id.sisi.postoko.utils.extensions.logE
 import kotlinx.android.synthetic.main.fragment_gr.*
 
 
-class GoodReceived : Fragment (){
+class GoodReceived : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +24,9 @@ class GoodReceived : Fragment (){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_list_product?.layoutManager = LinearLayoutManager(this.context)
-        rv_list_product?.setHasFixedSize(false)
-        rv_list_product?.adapter = ListPurchaseAdapter()
+        rv_list_good_received?.layoutManager = LinearLayoutManager(this.context)
+        rv_list_good_received?.setHasFixedSize(false)
+        rv_list_good_received?.adapter = ListGoodReceivedAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +40,9 @@ class GoodReceived : Fragment (){
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return (when(item.itemId) {
+        return (when (item.itemId) {
             R.id.menu_action_search -> {
+                logE("tes")
                 true
             }
             else ->
@@ -53,13 +51,15 @@ class GoodReceived : Fragment (){
     }
 
     companion object {
-        val TAG: String = GoodReceived::class.java.simpleName
-        var CATEGORY: CategoryPurchasePage = CategoryPurchasePage.PROCESS
+//        val TAG: String = GoodReceived::class.java.simpleName
+        var CATEGORY: CategoryPurchasePage =
+            CategoryPurchasePage.PROCESS
+
         fun newInstance() = GoodReceived()
     }
 
     enum class CategoryPurchasePage(val position: Int, val title: Int) {
         PROCESS(0, R.string.txt_category_purchase_process),
-        FINISH(1, R.string.txt_category_purchase_finish);
+//        FINISH(1, R.string.txt_category_purchase_finish);
     }
 }

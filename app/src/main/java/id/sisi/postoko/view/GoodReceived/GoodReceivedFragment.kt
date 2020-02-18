@@ -1,4 +1,4 @@
-package id.sisi.postoko.view
+package id.sisi.postoko.view.GoodReceived
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.view.AddProductActivity
 import id.sisi.postoko.view.pager.GoodReceivedPagerAdapter
 import kotlinx.android.synthetic.main.good_received.*
 
@@ -38,6 +39,7 @@ class GoodReceivedFragment : Fragment() {
 
     companion object {
         val TAG: String = GoodReceivedFragment::class.java.simpleName
-        fun newInstance() = GoodReceivedFragment()
-    }
+        fun newInstance() =
+            GoodReceivedFragment()
+    }   
 }

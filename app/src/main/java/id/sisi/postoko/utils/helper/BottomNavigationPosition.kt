@@ -2,10 +2,10 @@ package id.sisi.postoko.utils.helper
 
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
-import id.sisi.postoko.view.GoodReceivedFragment
+import id.sisi.postoko.view.ui.dashboard.DashboardFragment
+import id.sisi.postoko.view.GoodReceived.GoodReceivedFragment
 import id.sisi.postoko.view.ui.sales.SalesRootFragment
 import id.sisi.postoko.view.ui.MasteDataFragment
-import id.sisi.postoko.view.ui.dashboard.DashboardFragment
 
 enum class BottomNavigationPosition(val position: Int, val id: Int) {
     HOME(0, R.id.menu_home),

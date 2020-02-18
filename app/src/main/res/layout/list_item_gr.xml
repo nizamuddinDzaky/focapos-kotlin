@@ -50,7 +50,7 @@
                             android:gravity="center_vertical"
                             android:text="Dynamix Serbaguna 40KG"
                             android:textAllCaps="true"
-                            android:textColor="@color/main_red"
+                            android:textColor="#B20838"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -83,21 +83,12 @@
                     android:textSize="12sp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_30"
                     android:layout_marginBottom="@dimen/margin_30"
                     android:layout_weight="1"
                     android:orientation="horizontal">
-
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -119,7 +110,7 @@
                             android:gravity="center_vertical"
                             android:text="SO/2020/02/0020"
                             android:textAllCaps="true"
-                            android:textColor="@color/main_blue"
+                            android:textColor="#0893B2"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -147,7 +138,7 @@
                             android:gravity="center_vertical"
                             android:text="DO/2020/02/0020"
                             android:textAllCaps="true"
-                            android:textColor="@color/main_blue"
+                            android:textColor="#0893B2"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -159,20 +150,21 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginBottom="10dp"
-            android:background="#333333" />
+            android:layout_height="@dimen/line"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:background="@color/colorLine" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="17dp"
+                android:layout_marginStart="@dimen/margin_17"
+                android:layout_marginLeft="@dimen/margin_17"
                 android:layout_marginTop="5dp">
 
                 <TextView
@@ -186,9 +178,9 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:layout_weight="0.5"
                 android:gravity="end"
                 android:orientation="horizontal">
@@ -199,7 +191,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="@dimen/et_top_margin"
                     android:layout_marginLeft="@dimen/et_top_margin"
-                    android:background="@color/main_red"
+                    android:background="#B20838"
                     android:text="TERIMA"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white" />
