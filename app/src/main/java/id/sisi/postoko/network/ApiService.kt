@@ -36,6 +36,9 @@ interface ApiServices {
     @GET("products/list_products")
     fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
 
+    @GET("sales_booking/list_sales_booking")
+    fun getListSale(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataSales>>
+
     companion object {
         private var retrofit: Retrofit? = null
 

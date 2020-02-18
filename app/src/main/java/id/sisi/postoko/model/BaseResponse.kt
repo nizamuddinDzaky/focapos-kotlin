@@ -36,3 +36,8 @@ data class DataProduct(
     var total_products: Int?,
     var list_products: List<Product>?
 )
+
+data class DataSales(
+    var total_sales_booking: Int?,
+    var list_sales_booking: List<Sales>?
+)
