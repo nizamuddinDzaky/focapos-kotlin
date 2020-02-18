@@ -23,12 +23,12 @@ data class DataCustomer(
 )
 
 data class DataWarehouse(
-    var total_supplier: Int?,
+    var total_warehouses: Int?,
     var list_warehouses: List<Warehouse>?
 )
 
 data class DataSupplier(
-    var total_supplier: Int?,
+    var total_suppliers: Int?,
     var list_suppliers: List<Supplier>?
 )
 
