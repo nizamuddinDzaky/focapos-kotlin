@@ -21,4 +21,21 @@
     <string name="txt_menu_master_data">Data</string>
     <string name="txt_menu_confirmation_delivery">Pengiriman</string>
     <string name="menu_search">Pencarian</string>
+    <string name="txt_status_pending">Menunggu</string>
+    <string name="txt_status_confirmed">Dikonfirmasi</string>
+    <string name="txt_status_reserved">Diterima</string>
+    <string name="txt_status_closed">Ditutup</string>
+    <string name="txt_status_canceled">Dibatalkan</string>
+    <string name="txt_status_partial">Sebagian</string>
+    <string name="txt_status_due">Jatuh Tempo</string>
+    <string name="txt_status_waiting">Menunggu</string>
+    <string name="txt_status_paid">Lunas</string>
+    <string name="txt_status_done">Selesai</string>
+    <string name="txt_status_packing">Dikemas</string>
+    <string name="txt_status_delivering">Mengirim</string>
+    <string name="txt_status_delivered">Dikirim</string>
+    <string name="txt_status_returned">Dikembalikan</string>
+    <string name="txt_status_sent">Diantar</string>
+    <string name="txt_status_completed">Selesai</string>
+    <string name="txt_status_received">Diterima</string>
 </resources>
