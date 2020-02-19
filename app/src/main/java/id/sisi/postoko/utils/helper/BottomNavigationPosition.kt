@@ -3,7 +3,7 @@ package id.sisi.postoko.utils.helper
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.view.ui.dashboard.DashboardFragment
-import id.sisi.postoko.view.GoodReceived.GoodReceivedFragment
+import id.sisi.postoko.view.ui.goodreveived.GoodReceivedRootFragment
 import id.sisi.postoko.view.ui.sales.SalesRootFragment
 import id.sisi.postoko.view.ui.MasteDataFragment
 
@@ -24,14 +24,14 @@ fun findNavigationPositionById(id: Int): BottomNavigationPosition = when (id) {
 
 fun BottomNavigationPosition.createFragment(): Fragment = when (this) {
     BottomNavigationPosition.HOME -> DashboardFragment.newInstance()
-    BottomNavigationPosition.RECEIVE -> GoodReceivedFragment.newInstance()
+    BottomNavigationPosition.RECEIVE -> GoodReceivedRootFragment.newInstance()
     BottomNavigationPosition.SALES -> SalesRootFragment.newInstance()
     BottomNavigationPosition.MASTER -> MasteDataFragment.newInstance()
 }
 
 fun BottomNavigationPosition.getTag(): String = when (this) {
     BottomNavigationPosition.HOME -> DashboardFragment.TAG
-    BottomNavigationPosition.RECEIVE -> GoodReceivedFragment.TAG
+    BottomNavigationPosition.RECEIVE -> GoodReceivedRootFragment.TAG
     BottomNavigationPosition.SALES -> SalesRootFragment.TAG
     BottomNavigationPosition.MASTER -> MasteDataFragment.TAG
 }

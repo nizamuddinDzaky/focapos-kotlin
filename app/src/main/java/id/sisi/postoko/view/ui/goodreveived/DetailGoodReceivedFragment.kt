@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.GoodReceived
+package id.sisi.postoko.view.ui.goodreveived
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.main.detail_good_received_fragment.*
 
 class DetailGoodReceivedFragment : Fragment() {
     companion object {
-        fun newInstance() = DetailGoodReceivedFragment()
+        fun newInstance() =
+            DetailGoodReceivedFragment()
     }
 
     override fun onCreateView(

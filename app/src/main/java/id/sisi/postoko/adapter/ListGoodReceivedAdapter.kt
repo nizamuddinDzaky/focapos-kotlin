@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.view.GoodReceived.DetailGoodReceivedActivity
+import id.sisi.postoko.view.ui.goodreveived.DetailGoodReceivedActivity
 import kotlinx.android.synthetic.main.list_item_gr.view.*
 import kotlin.random.Random
 

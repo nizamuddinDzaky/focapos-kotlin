@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.GoodReceived
+package id.sisi.postoko.view.ui.goodreveived
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +11,9 @@ class DetailGoodReceivedActivity : AppCompatActivity(){
         setContentView(R.layout.detail_good_received_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, DetailGoodReceivedFragment.newInstance())
+                .replace(R.id.container,
+                    DetailGoodReceivedFragment.newInstance()
+                )
                 .commitNow()
         }
     }
