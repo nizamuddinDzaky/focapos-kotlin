@@ -4,14 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
-import id.sisi.postoko.model.Product
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
-class SalesBookingViewModel : ViewModel() {
+class SalesBookingViewModel(var status: String) : ViewModel() {
     private val sales = MutableLiveData<List<Sales>?>()
     private var isExecute = MutableLiveData<Boolean>()
 
@@ -22,7 +21,8 @@ class SalesBookingViewModel : ViewModel() {
     private fun getListSale() {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        ApiServices.getInstance()?.getListSale(headers)?.exe(
+        val params = mutableMapOf("sale_status" to status)
+        ApiServices.getInstance()?.getListSale(headers, params)?.exe(
             onFailure = { call, throwable ->
                 logE("gagal")
                 isExecute.postValue(true)

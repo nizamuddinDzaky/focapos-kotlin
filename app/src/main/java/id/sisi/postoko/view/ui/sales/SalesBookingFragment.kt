@@ -9,11 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListSalesAdapter
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
+import id.sisi.postoko.view.ui.sales.SaleStatus.PENDING
 import kotlinx.android.synthetic.main.fragment_sales_booking.*
 
-class SalesBookingFragment : BaseFragment() {
+class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
 
     companion object {
         fun newInstance() = SalesBookingFragment()
@@ -30,7 +30,7 @@ class SalesBookingFragment : BaseFragment() {
     }
 
     override var tagName: String
-        get() = "Menunggu"
+        get() = status.name
         set(value) {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -38,9 +38,8 @@ class SalesBookingFragment : BaseFragment() {
 
         setupUI()
 
-        viewModel = ViewModelProvider(this).get(SalesBookingViewModel::class.java)
+        viewModel = ViewModelProvider(this, SalesBookingFactory(status.name)).get(SalesBookingViewModel::class.java)
         viewModel.getListSales().observe(viewLifecycleOwner, Observer {
-            logE("cek data ${it}")
             adapter.updateSalesData(it)
         })
     }

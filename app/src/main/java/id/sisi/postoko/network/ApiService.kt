@@ -1,21 +1,22 @@
 package id.sisi.postoko.network
 
 import id.sisi.postoko.model.*
-import okhttp3.*
+import okhttp3.CipherSuite
+import okhttp3.ConnectionSpec
+import okhttp3.OkHttpClient
+import okhttp3.TlsVersion
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.HeaderMap
-import retrofit2.http.POST
+import retrofit2.http.*
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.*
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 
 interface ApiServices {
     @POST("auth/login")
@@ -37,7 +38,10 @@ interface ApiServices {
     fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
 
     @GET("sales_booking/list_sales_booking")
-    fun getListSale(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataSales>>
+    fun getListSale(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataSales>>
 
     companion object {
         private var retrofit: Retrofit? = null

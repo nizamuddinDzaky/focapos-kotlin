@@ -18,7 +18,7 @@ class SalesRootFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Sales Booking"
+        activity?.title = getString(R.string.txt_sales_booking)
         val view = inflater.inflate(R.layout.fragment_root_sales, container, false)
         return view
     }
@@ -31,7 +31,7 @@ class SalesRootFragment : Fragment() {
         }
         main_container?.gone()
         main_view_pager?.let {
-            it.adapter = SalesPagerAdapter(childFragmentManager)
+            it.adapter = SalesPagerAdapter(childFragmentManager, context)
             tabs_main_pagers?.setupWithViewPager(it)
         }
     }

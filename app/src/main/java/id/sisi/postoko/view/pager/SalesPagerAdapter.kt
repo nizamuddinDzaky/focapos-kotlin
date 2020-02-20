@@ -1,16 +1,19 @@
 package id.sisi.postoko.view.pager
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import id.sisi.postoko.utils.extensions.tryValue
+import id.sisi.postoko.view.ui.sales.SaleStatus.*
 import id.sisi.postoko.view.ui.sales.SalesBookingFragment
 
-class SalesPagerAdapter(fm: FragmentManager) :
+class SalesPagerAdapter(fm: FragmentManager, var ctx: Context?) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val pages = listOf(
-        SalesBookingFragment(),
-        SalesBookingFragment(),
-        SalesBookingFragment()
+        SalesBookingFragment(PENDING),
+        SalesBookingFragment(RESERVED),
+        SalesBookingFragment(CLOSED)
     )
 
     override fun getItem(position: Int): Fragment {
@@ -22,6 +25,6 @@ class SalesPagerAdapter(fm: FragmentManager) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return pages[position].tagName
+        return ctx?.getString(PENDING.tryValue(pages[position].tagName)?.stringId ?: 0)
     }
 }
