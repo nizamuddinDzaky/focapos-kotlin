@@ -19,7 +19,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.AddProductActivity"></activity>
         <activity
-            android:name=".view.GoodReceived.DetailGoodReceivedActivity"
+            android:name=".view.ui.goodreveived.DetailGoodReceivedActivity"
+            android:parentActivityName=".view.MainActivity">
+        </activity>
+        <activity
+            android:name=".view.ui.sales.DetailSalesBookingActivity"
             android:parentActivityName=".view.MainActivity">
         </activity>
         <activity android:name=".view.HomeActivity" />

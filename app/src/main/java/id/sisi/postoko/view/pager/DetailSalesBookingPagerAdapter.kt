@@ -3,15 +3,15 @@ package id.sisi.postoko.view.pager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import id.sisi.postoko.view.ui.goodreveived.GoodReceivedFragment
+import id.sisi.postoko.view.ui.sales.DetailSalesBookingFragment
 
-class GoodReceivedPagerAdapter (fm: FragmentManager):
-    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class DetailSalesBookingPagerAdapter (fm: FragmentManager):
+    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
     private val pages = listOf(
-        GoodReceivedFragment(),
-        GoodReceivedFragment()
+        DetailSalesBookingFragment(),
+        DetailSalesBookingFragment(),
+        DetailSalesBookingFragment()
     )
-
     override fun getItem(position: Int): Fragment {
         return pages[position]
     }
@@ -22,8 +22,9 @@ class GoodReceivedPagerAdapter (fm: FragmentManager):
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            1 -> "PENGIRIMAN"
-            else -> "DITERIMA"
+            1 -> "PEMBAYARAN"
+            2 -> "PENGIRIMAN"
+            else -> "DETAIL"
         }
     }
 }

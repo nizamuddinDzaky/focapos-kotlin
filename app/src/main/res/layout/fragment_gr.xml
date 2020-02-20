@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/et_top_margin"
-    tools:context=".view.GoodReceived.GoodReceivedFragment">
+    tools:context=".view.ui.goodreveived.GoodReceivedRootFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list_good_received"

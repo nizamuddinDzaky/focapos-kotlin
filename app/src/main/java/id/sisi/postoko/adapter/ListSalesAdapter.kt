@@ -1,16 +1,19 @@
 package id.sisi.postoko.adapter
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
+import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.list_item_sales_booking.view.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : RecyclerView.Adapter<ListSalesAdapter.SalesViewHolder>() {
 
@@ -35,10 +38,18 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
             sale?.let {
                 itemView.tv_sales_reference_no?.text = it.reference_no
                 itemView.tv_sales_date?.text = " ${it.date.toDisplayDate()}"
-                itemView.tv_sales_delevery_status?.text = itemView.context.getText(it.delivery_status.toDisplayStatus())
-                itemView.tv_sales_payment_status?.text = itemView.context.getText(it.payment_status.toDisplayStatus())
+                itemView.tv_sales_delevery_status?.text =
+                    itemView.context.getText(it.delivery_status.toDisplayStatus())
+                itemView.tv_sales_payment_status?.text =
+                    itemView.context.getText(it.payment_status.toDisplayStatus())
                 itemView.tv_sales_total_price?.text = it.grand_total.toCurrencyID()
                 itemView.tv_sales_detail?.text = "Lihat ${it.total_items} Rincian Item"
+                itemView.tv_sales_detail?.setOnClickListener {
+                    logE("click action detail sales")
+                    val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
+                    page.putExtra("data", Bundle())
+                    itemView.context.startActivity(page)
+                }
             }
         }
     }
