@@ -41,3 +41,8 @@ data class DataSales(
     var total_sales_booking: Int?,
     var list_sales_booking: List<Sales>?
 )
+
+data class DataGoodsReceived(
+    var total_goods_received: Int?,
+    var list_goods_received: List<GoodReceived>?
+)

@@ -63,6 +63,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_good_received_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_time"
@@ -105,6 +106,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_good_received_so_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
@@ -131,6 +133,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_good_received_do_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
