@@ -45,7 +45,7 @@ class DetailSalesBookingRootFragment : Fragment() {
                 when (position) {
                     0 -> activity?.title = getString(R.string.txt_detail_sales_booking)
                     1 -> activity?.title = getString(R.string.txt_pembayaran)
-                    2 -> activity?.title = "Pengiriman"
+                    2 -> activity?.title = getString(R.string.txt_pengiriman)
                 }
             }
         })

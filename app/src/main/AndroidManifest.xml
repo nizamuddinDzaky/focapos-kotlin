@@ -30,6 +30,10 @@
             android:name=".view.ui.payment.PaymentActivity"
             android:parentActivityName=".view.MainActivity">
         </activity>
+        <activity
+            android:name=".view.ui.delivery.DeliveryActivity"
+            android:parentActivityName=".view.MainActivity">
+        </activity>
         <activity android:name=".view.HomeActivity" />
         <activity
             android:name=".view.MainActivity"

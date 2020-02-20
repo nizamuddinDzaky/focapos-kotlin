@@ -3,6 +3,7 @@ package id.sisi.postoko.view.pager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import id.sisi.postoko.view.ui.delivery.DeliveryFragment
 import id.sisi.postoko.view.ui.payment.PaymentFragment
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingFragment
 
@@ -11,7 +12,7 @@ class DetailSalesBookingPagerAdapter (fm: FragmentManager):
     private val pages = listOf(
         DetailSalesBookingFragment(),
         PaymentFragment(),
-        DetailSalesBookingFragment()
+        DeliveryFragment()
     )
     override fun getItem(position: Int): Fragment {
         return pages[position]
