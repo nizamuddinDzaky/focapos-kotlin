@@ -47,7 +47,7 @@ interface ApiServices {
     fun getDetailSale(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
-    ): Call<BaseResponse<DataSales>>
+    ): Call<BaseResponse<DataSaleDetail>>
 
     @GET("purchases/list_goods_received")
     fun getListGoodReceived(

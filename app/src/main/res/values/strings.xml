@@ -26,7 +26,7 @@
     <string name="menu_search">Pencarian</string>
     <string name="txt_status_pending">Menunggu</string>
     <string name="txt_status_confirmed">Dikonfirmasi</string>
-    <string name="txt_status_reserved">Diterima</string>
+    <string name="txt_status_reserved">Dipesan</string>
     <string name="txt_status_closed">Ditutup</string>
     <string name="txt_status_canceled">Dibatalkan</string>
     <string name="txt_status_partial">Sebagian</string>

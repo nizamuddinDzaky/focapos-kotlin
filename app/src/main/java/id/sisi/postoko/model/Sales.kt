@@ -61,4 +61,6 @@ data class Sales (
     val payment_method : String,
     val status_kredit_pro : String,
     val delivery_status : String
-)
+) {
+    var saleItems: List<SaleItem>? = arrayListOf()
+}

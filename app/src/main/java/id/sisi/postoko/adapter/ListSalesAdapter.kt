@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
+import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.list_item_sales_booking.view.*
@@ -45,9 +46,9 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
                 itemView.tv_sales_total_price?.text = it.grand_total.toCurrencyID()
                 itemView.tv_sales_detail?.text = "Lihat ${it.total_items} Rincian Item"
                 itemView.tv_sales_detail?.setOnClickListener {
-                    logE("click action detail sales")
+                    logE("click action detail sales ${sale.id}")
                     val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
-                    page.putExtra("data", Bundle())
+                    page.putExtra(KEY_ID_SALES_BOOKING, sale.id)
                     itemView.context.startActivity(page)
                 }
             }

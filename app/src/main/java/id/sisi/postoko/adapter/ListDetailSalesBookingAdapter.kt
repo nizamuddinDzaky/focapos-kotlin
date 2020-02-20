@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
+import id.sisi.postoko.model.SaleItem
 
-class ListDetailSalesBookingAdapter : RecyclerView.Adapter<ListDetailSalesBookingAdapter.ProductViewHolder>(){
-    val nData = 2
+class ListDetailSalesBookingAdapter(var saleItems: List<SaleItem>? = arrayListOf()) : RecyclerView.Adapter<ListDetailSalesBookingAdapter.ProductViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view =
@@ -17,16 +17,21 @@ class ListDetailSalesBookingAdapter : RecyclerView.Adapter<ListDetailSalesBookin
     }
 
     override fun getItemCount(): Int {
-        return nData
+        return saleItems?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind("")
+        holder.bind(saleItems?.get(position))
     }
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(value: String) {
+        fun bind(saleItem: SaleItem?) {
         }
+    }
+
+    fun updateSaleItems(newSaleItems: List<SaleItem>?) {
+        saleItems = newSaleItems
+        notifyDataSetChanged()
     }
 }
