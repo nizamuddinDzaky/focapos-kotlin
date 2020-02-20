@@ -10,6 +10,8 @@
     <string name="txt_copyright">Ⓒ 2020 PT. SISI, All Rights Reserved.</string>
     <string name="txt_purchase">Pemesanan</string>
     <string name="txt_detail_sales_booking">Detail Penjualan</string>
+    <string name="txt_pembayaran">Pembayaran</string>
+    <string name="txt_pengiriman">Pengiriman</string>
     <string name="txt_history">Transaksi</string>
     <string name="txt_account">Akun</string>
     <string name="txt_search_product">Cari Produk</string>

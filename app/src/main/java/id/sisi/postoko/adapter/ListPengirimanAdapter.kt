@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 
-class ListDetailSalesBookingAdapter : RecyclerView.Adapter<ListDetailSalesBookingAdapter.ProductViewHolder>(){
+class ListPengirimanAdapter : RecyclerView.Adapter<ListPengirimanAdapter.ProductViewHolder>() {
     val nData = 2
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_product_sales_booking, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.list_item_pengiriman, parent, false)
 
         return ProductViewHolder(view)
     }
