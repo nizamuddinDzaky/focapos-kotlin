@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListPaymentAdapter
 import id.sisi.postoko.model.Payment
+import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.AddProductActivity
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
@@ -22,6 +23,7 @@ class PaymentFragment : Fragment(){
 
     private lateinit var viewModel: PaymentViewModel
     private lateinit var adapter: ListPaymentAdapter
+    private var id_sales_booking = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +36,7 @@ class PaymentFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id_sales_booking = (activity as? DetailSalesBookingActivity)?.id_sales_booking ?: 0
+        id_sales_booking = (activity as? DetailSalesBookingActivity)?.id_sales_booking ?: 0
         logE("payment sales booking id $id_sales_booking")
 
         setupUI()
@@ -51,14 +53,14 @@ class PaymentFragment : Fragment(){
 
     private fun setupRecycleView() {
         adapter = ListPaymentAdapter {
-            showBottomSheetDialogFragment(it)
+            showBottomSheetDetailPayment(it)
         }
         rv_list_item_pembayaran?.layoutManager = LinearLayoutManager(this.context)
         rv_list_item_pembayaran?.setHasFixedSize(false)
         rv_list_item_pembayaran?.adapter = adapter
     }
 
-    private fun showBottomSheetDialogFragment(payment: Payment?) {
+    private fun showBottomSheetDetailPayment(payment: Payment?) {
         val bottomSheetFragment = BottomSheetDetailPaymentFragment()
         val bundle = Bundle()
         bundle.putParcelable("payment", payment)
@@ -66,11 +68,22 @@ class PaymentFragment : Fragment(){
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
     }
 
+    private fun showBottomSheetAddPayment(id_sales_booking: Int) {
+        val bottomSheetFragment = BottomSheetAddPaymentFragment()
+        val bundle = Bundle()
+        bundle.putInt(KEY_ID_SALES_BOOKING, id_sales_booking)
+        bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.listener = {
+            viewModel.getListPayment()
+        }
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         fb_add_transaction?.setOnClickListener {
-            startActivity(Intent(this.context, AddProductActivity::class.java))
+            showBottomSheetAddPayment(id_sales_booking)
         }
     }
 

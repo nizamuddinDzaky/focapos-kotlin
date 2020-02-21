@@ -10,31 +10,23 @@ import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
-class PaymentViewModel(var id_sales_booking: Int) : ViewModel() {
-    private val payments = MutableLiveData<List<Payment>?>()
+class AddPaymentViewModel(var id_sales_booking: Int) : ViewModel() {
     private var isExecute = MutableLiveData<Boolean>()
 
-    init {
-        getListPayment()
-    }
-
-    fun getListPayment() {
+    fun postAddPayment(body: Map<String, String>, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf("id_sales_booking" to id_sales_booking.toString())
-        ApiServices.getInstance()?.getListSalePayment(headers, params)?.exe(
+        ApiServices.getInstance()?.postAddPayment(headers, params, body)?.exe(
             onFailure = { call, throwable ->
                 logE("gagal")
                 isExecute.postValue(true)
-                payments.postValue(null)
             },
             onResponse = { call, response ->
                 logE("berhasil product")
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
-                    tryMe {
-                        payments.postValue(response.body()?.data?.list_payments)
-                    }
+                    listener()
                 } else {
                     isExecute.postValue(true)
                 }
@@ -45,9 +37,5 @@ class PaymentViewModel(var id_sales_booking: Int) : ViewModel() {
     internal fun getIsExecute(): LiveData<Boolean> {
         isExecute.postValue(true)
         return isExecute
-    }
-
-    internal fun getListPayments(): LiveData<List<Payment>?> {
-        return payments
     }
 }
