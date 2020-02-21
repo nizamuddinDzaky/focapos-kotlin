@@ -32,7 +32,7 @@ class GoodReceivedRootFragment : Fragment() {
         }
         main_container?.gone()
         main_view_pager?.let {
-            it.adapter = GoodReceivedPagerAdapter(childFragmentManager)
+            it.adapter = GoodReceivedPagerAdapter(childFragmentManager, context)
             tabs_main_pagers?.setupWithViewPager(it)
         }
     }

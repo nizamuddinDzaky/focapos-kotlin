@@ -7,16 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
-import id.sisi.postoko.model.DataGoodsReceived
 import id.sisi.postoko.model.GoodReceived
+import id.sisi.postoko.utils.extensions.checkVisibility
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.goodreveived.DetailGoodReceivedActivity
+import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus
+import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.DELIVERING
 import kotlinx.android.synthetic.main.list_item_gr.view.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.random.Random
 
-class ListGoodReceivedAdapter(private var goodsReceived: List<GoodReceived>? = arrayListOf()) : RecyclerView.Adapter<ListGoodReceivedAdapter.DetailGoodReceivedViewHolder>() {
+class ListGoodReceivedAdapter(
+    private var goodsReceived: List<GoodReceived>? = arrayListOf(),
+    private var status: GoodReceiveStatus = DELIVERING
+) : RecyclerView.Adapter<ListGoodReceivedAdapter.DetailGoodReceivedViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailGoodReceivedViewHolder {
         val view =
@@ -30,16 +34,17 @@ class ListGoodReceivedAdapter(private var goodsReceived: List<GoodReceived>? = a
     }
 
     override fun onBindViewHolder(holder: DetailGoodReceivedViewHolder, position: Int) {
-        holder.bind(goodsReceived?.get(position))
+        holder.bind(goodsReceived?.get(position), status)
     }
 
     class DetailGoodReceivedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(goodReceived: GoodReceived?) {
+        fun bind(goodReceived: GoodReceived?, status: GoodReceiveStatus) {
             goodReceived?.let {
                 itemView.tv_good_received_do_number?.text = it.no_do
                 itemView.tv_good_received_so_number?.text = it.no_so
                 itemView.tv_good_received_date?.text = it.tanggal_do.toDisplayDateFromDO()
+                itemView.btn_action_receive_gr?.checkVisibility(status == DELIVERING)
             }
             itemView.tv_action_detail_gr?.setOnClickListener {
                 logE("click action detail")
