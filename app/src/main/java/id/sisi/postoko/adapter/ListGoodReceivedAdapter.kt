@@ -1,5 +1,6 @@
 package id.sisi.postoko.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,10 +17,14 @@ import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.DELIVERING
 import kotlinx.android.synthetic.main.list_item_gr.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import id.sisi.postoko.view.ui.goodreveived.BottomSheetGoodReceiveFragment
+
 
 class ListGoodReceivedAdapter(
     private var goodsReceived: List<GoodReceived>? = arrayListOf(),
-    private var status: GoodReceiveStatus = DELIVERING
+    private var status: GoodReceiveStatus = DELIVERING,
+    private var listener: () -> Unit = {}
 ) : RecyclerView.Adapter<ListGoodReceivedAdapter.DetailGoodReceivedViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailGoodReceivedViewHolder {
@@ -34,12 +39,12 @@ class ListGoodReceivedAdapter(
     }
 
     override fun onBindViewHolder(holder: DetailGoodReceivedViewHolder, position: Int) {
-        holder.bind(goodsReceived?.get(position), status)
+        holder.bind(goodsReceived?.get(position), status, listener)
     }
 
     class DetailGoodReceivedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(goodReceived: GoodReceived?, status: GoodReceiveStatus) {
+        fun bind(goodReceived: GoodReceived?, status: GoodReceiveStatus, listener: () -> Unit) {
             goodReceived?.let {
                 itemView.tv_good_received_do_number?.text = it.no_do
                 itemView.tv_good_received_so_number?.text = it.no_so
@@ -54,6 +59,7 @@ class ListGoodReceivedAdapter(
             }
             itemView.btn_action_receive_gr?.setOnClickListener {
                 logE("click action receive")
+                listener()
             }
         }
     }

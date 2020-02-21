@@ -1,11 +1,13 @@
 package id.sisi.postoko.view.ui.goodreveived
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.DELIVERING
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListGoodReceivedAdapter
 import id.sisi.postoko.utils.extensions.logE
@@ -42,12 +44,29 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
         })
     }
 
+    fun showBottomSheetDialog() {
+        context?.let {
+            val view = LayoutInflater.from(it).inflate(R.layout.fragment_bottom_sheet_good_received, null)
+            val dialog = BottomSheetDialog(it)
+            dialog.setContentView(view)
+            dialog.show()
+        }
+    }
+
+    fun showBottomSheetDialogFragment() {
+        val bottomSheetFragment = BottomSheetGoodReceiveFragment()
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
+    }
+
     private fun setupUI() {
         setupRecycleView()
     }
 
     private fun setupRecycleView() {
-        adapter = ListGoodReceivedAdapter(status = status)
+        adapter = ListGoodReceivedAdapter(status = status) {
+//            showBottomSheetDialog()
+            showBottomSheetDialogFragment()
+        }
         rv_list_good_received?.layoutManager = LinearLayoutManager(this.context)
         rv_list_good_received?.setHasFixedSize(false)
         rv_list_good_received?.adapter = adapter

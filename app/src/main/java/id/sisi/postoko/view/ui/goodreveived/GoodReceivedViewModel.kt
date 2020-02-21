@@ -21,7 +21,7 @@ class GoodReceivedViewModel(var status: String) : ViewModel() {
     private fun getListGoodReceived() {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("gr_status" to status)
+        val params = mutableMapOf("goods_received_status" to status)
         ApiServices.getInstance()?.getListGoodReceived(headers, params)?.exe(
             onFailure = { call, throwable ->
                 logE("gagal list good received")
