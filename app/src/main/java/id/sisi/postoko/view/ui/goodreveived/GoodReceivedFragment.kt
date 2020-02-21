@@ -44,7 +44,7 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
         })
     }
 
-    fun showBottomSheetDialog() {
+    private fun showBottomSheetDialog() {
         context?.let {
             val view = LayoutInflater.from(it).inflate(R.layout.fragment_bottom_sheet_good_received, null)
             val dialog = BottomSheetDialog(it)
@@ -53,7 +53,7 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
         }
     }
 
-    fun showBottomSheetDialogFragment() {
+    private fun showBottomSheetDialogFragment() {
         val bottomSheetFragment = BottomSheetGoodReceiveFragment()
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
     }

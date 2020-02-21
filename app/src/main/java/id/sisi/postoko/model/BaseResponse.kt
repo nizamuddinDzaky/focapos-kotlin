@@ -51,3 +51,8 @@ data class DataGoodsReceived(
     var total_goods_received: Int?,
     var list_goods_received: List<GoodReceived>?
 )
+
+data class DataPayment(
+    var total_payments: Int?,
+    var list_payments: List<Payment>?
+)
