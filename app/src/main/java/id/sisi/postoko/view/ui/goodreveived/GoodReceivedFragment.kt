@@ -2,7 +2,7 @@ package id.sisi.postoko.view.ui.goodreveived
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
+import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.DELIVERING
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +13,7 @@ import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_gr.*
 
 
-class GoodReceivedFragment : BaseFragment() {
+class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
 
     private lateinit var viewModel: GoodReceivedViewModel
     private lateinit var adapter: ListGoodReceivedAdapter
@@ -28,7 +28,7 @@ class GoodReceivedFragment : BaseFragment() {
     }
 
     override var tagName: String
-        get() = ""
+        get() = status.name
         set(value) {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -36,8 +36,7 @@ class GoodReceivedFragment : BaseFragment() {
 
         setupUI()
 
-//        viewModel = ViewModelProvider(this, SalesBookingFactory(status.name)).get(GoodReceivedViewModel::class.java)
-        viewModel = ViewModelProvider(this, GoodReceivedFactory("")).get(GoodReceivedViewModel::class.java)
+        viewModel = ViewModelProvider(this, GoodReceivedFactory(status.name)).get(GoodReceivedViewModel::class.java)
         viewModel.getListGoodsReceived().observe(viewLifecycleOwner, Observer {
             adapter.updateGoodsReceivedData(it)
         })
@@ -48,7 +47,7 @@ class GoodReceivedFragment : BaseFragment() {
     }
 
     private fun setupRecycleView() {
-        adapter = ListGoodReceivedAdapter()
+        adapter = ListGoodReceivedAdapter(status = status)
         rv_list_good_received?.layoutManager = LinearLayoutManager(this.context)
         rv_list_good_received?.setHasFixedSize(false)
         rv_list_good_received?.adapter = adapter
@@ -76,16 +75,7 @@ class GoodReceivedFragment : BaseFragment() {
     }
 
     companion object {
-//        val TAG: String = GoodReceived::class.java.simpleName
-        var CATEGORY: CategoryPurchasePage =
-    CategoryPurchasePage.PROCESS
-
         fun newInstance() =
             GoodReceivedFragment()
-    }
-
-    enum class CategoryPurchasePage(val position: Int, val title: Int) {
-        PROCESS(0, R.string.txt_category_purchase_process),
-//        FINISH(1, R.string.txt_category_purchase_finish);
     }
 }
