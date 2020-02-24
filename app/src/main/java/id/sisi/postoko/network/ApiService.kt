@@ -18,6 +18,7 @@ import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
+@JvmSuppressWildcards
 interface ApiServices {
     @POST("auth/login")
     fun postLogin(@Body body: Map<String, String>): Call<BaseResponse<DataLogin>>
@@ -27,6 +28,13 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, String>
+    ): Call<BaseResponse<DataLogin>>
+
+    @POST("sales_booking/add_deliveries_booking")
+    fun postAddDelivery(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf(),
+        @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
     @GET("auth/profile")
@@ -55,6 +63,12 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataPayment>>
+
+    @GET("sales_booking/list_deliveries_booking")
+    fun getListSaleDelivery(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataDelivery>>
 
     @GET("sales_booking/detail_sales_booking")
     fun getDetailSale(

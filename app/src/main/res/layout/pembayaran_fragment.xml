@@ -83,6 +83,6 @@
             android:layout_marginRight="@dimen/standart_margin"
             android:layout_marginBottom="@dimen/standart_margin"
             android:src="@drawable/add_payment"
-            android:backgroundTint="@color/add"/>
+            android:backgroundTint="@color/main_blue"/>
 
 </RelativeLayout>

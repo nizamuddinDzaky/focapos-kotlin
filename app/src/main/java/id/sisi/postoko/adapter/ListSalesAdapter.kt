@@ -45,7 +45,7 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
                     itemView.context.getText(it.payment_status.toDisplayStatus())
                 itemView.tv_sales_total_price?.text = it.grand_total.toCurrencyID()
                 itemView.tv_sales_detail?.text = "Lihat ${it.total_items} Rincian Item"
-                itemView.tv_sales_detail?.setOnClickListener {
+                itemView.setOnClickListener {
                     logE("click action detail sales ${sale.id}")
                     val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
                     page.putExtra(KEY_ID_SALES_BOOKING, sale.id)
@@ -119,4 +119,8 @@ fun Number.toCurrency(): String {
 
 fun Number.toCurrencyID(): String {
     return NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(this)
+}
+
+fun Number.toNumberID(): String {
+    return NumberFormat.getNumberInstance(Locale("id", "ID")).format(this)
 }

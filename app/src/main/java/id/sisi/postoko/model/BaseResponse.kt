@@ -56,3 +56,8 @@ data class DataPayment(
     var total_payments: Int?,
     var list_payments: List<Payment>?
 )
+
+data class DataDelivery(
+    var total_deliveries: Int?,
+    var list_deliveries: List<Delivery>?
+)

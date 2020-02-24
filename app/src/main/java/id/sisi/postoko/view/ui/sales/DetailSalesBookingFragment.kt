@@ -50,6 +50,7 @@ class DetailSalesBookingFragment : Fragment(){
     }
 
     private fun setupDetailSale(sale: Sales?){
+        (activity as? DetailSalesBookingActivity)?.tempSale = sale
         tv_sale_detail_reference_no?.text = sale?.reference_no
         tv_sale_detail_grand_total?.text = sale?.grand_total?.toCurrencyID()
         adapter.updateSaleItems(sale?.saleItems)

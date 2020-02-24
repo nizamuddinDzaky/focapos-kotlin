@@ -3,12 +3,14 @@ package id.sisi.postoko.view.ui.sales
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
+import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.extensions.logE
+
 
 class DetailSalesBookingActivity : AppCompatActivity(){
 
     var id_sales_booking: Int = 0
+    var tempSale: Sales? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

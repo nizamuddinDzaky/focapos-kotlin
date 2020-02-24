@@ -33,6 +33,7 @@ class PaymentFragment : Fragment(){
         val view = inflater.inflate(R.layout.pembayaran_fragment, container, false)
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

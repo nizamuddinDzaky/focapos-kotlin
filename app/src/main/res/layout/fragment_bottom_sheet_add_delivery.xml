@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:layout_weight="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menambah Pengiriman"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <View
+        android:layout_weight="0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/et_top_margin"
+        android:background="@color/colorBlack" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorNotSelect"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_date"
+                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:hint="24 Feb 2020"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorNotSelect"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/rg_add_delivery_status"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:text="Sedang Dikemas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:text="Dalam Pengiriman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:text="Sudah Diterima"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Referensi Nomor Pengiriman"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorNotSelect"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_reference_no"
+                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:hint="SALE/2020/02/0001"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Referensi Nomor Penjualan"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorNotSelect"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:hint="SALE/2020/02/0001"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dikirim oleh"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorNotSelect"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_delivered_by"
+                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Diterima oleh"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorNotSelect"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_received_by"
+                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pelanggan"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorNotSelect"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/colorNotSelect"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/et_top_margin" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                tools:itemCount="2"
+                android:background="#E5E5E5"
+                tools:listitem="@layout/list_item_add_delivery" />
+
+            <View
+                android:background="@color/colorNotSelect"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/et_top_margin" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Catatan"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorNotSelect"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:maxLines="5"
+                    android:minLines="3"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:text="Tunai" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_confirmation_add_delivery"
+        android:layout_width="match_parent"
+        android:layout_weight="0"
+        android:layout_height="@dimen/button_height"
+        android:background="@color/main_green"
+        android:text="Kirim"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

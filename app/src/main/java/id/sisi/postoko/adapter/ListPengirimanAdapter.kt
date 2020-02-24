@@ -5,9 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
+import id.sisi.postoko.model.Delivery
 
-class ListPengirimanAdapter : RecyclerView.Adapter<ListPengirimanAdapter.ProductViewHolder>() {
-    val nData = 2
+class ListPengirimanAdapter(
+    var deliveries: List<Delivery>? = listOf(),
+    var listener: (Delivery?) -> Unit = {}
+) : RecyclerView.Adapter<ListPengirimanAdapter.ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view =
@@ -18,16 +21,27 @@ class ListPengirimanAdapter : RecyclerView.Adapter<ListPengirimanAdapter.Product
     }
 
     override fun getItemCount(): Int {
-        return nData
+        return deliveries?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind("")
+        holder.bind(deliveries?.get(position), listener)
     }
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(value: String) {
+        fun bind(delivery: Delivery?, listener: (Delivery?) -> Unit) {
+            delivery?.let {
+
+            }
+            itemView.setOnClickListener {
+
+            }
         }
+    }
+
+    fun updateData(newData: List<Delivery>?) {
+        deliveries = newData
+        notifyDataSetChanged()
     }
 }

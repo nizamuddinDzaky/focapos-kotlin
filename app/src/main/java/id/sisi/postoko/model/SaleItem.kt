@@ -1,5 +1,9 @@
 package id.sisi.postoko.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class SaleItem (
     val id : Int,
     val sale_id : Int,
@@ -32,4 +36,4 @@ data class SaleItem (
     val updated_at : String,
     val uuid : String,
     val uuid_app : String
-)
+) : Parcelable
