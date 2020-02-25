@@ -19,6 +19,7 @@ data class DataProfile(
 
 data class DataCustomer(
     var total_supplier: Int?,
+    var customer: Customer?,
     var list_customers: List<Customer>?
 )
 
@@ -59,5 +60,7 @@ data class DataPayment(
 
 data class DataDelivery(
     var total_deliveries: Int?,
-    var list_deliveries: List<Delivery>?
+    var list_deliveries: List<Delivery>?,
+    var total_deliveries_booking: Int?,
+    var list_deliveries_booking: List<Delivery>?
 )

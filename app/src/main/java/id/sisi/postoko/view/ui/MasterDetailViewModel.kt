@@ -1,40 +1,35 @@
-package id.sisi.postoko.view.ui.delivery
+package id.sisi.postoko.view.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
-import id.sisi.postoko.model.Delivery
-import id.sisi.postoko.model.Payment
+import id.sisi.postoko.model.Customer
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
-class DeliveryViewModel(var id_sales_booking: Int) : ViewModel() {
-    private val deliveries = MutableLiveData<List<Delivery>?>()
+class MasterDetailViewModel : ViewModel() {
+    private val customer = MutableLiveData<Customer>()
     private var isExecute = MutableLiveData<Boolean>()
 
-    init {
-        getListDelivery()
-    }
-
-    fun getListDelivery() {
+    internal fun requestDetailCustomer(idCustomer: Int) {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("id_sales_booking" to id_sales_booking.toString())
-        ApiServices.getInstance()?.getListSaleDelivery(headers, params)?.exe(
+        val params = mutableMapOf("id_customers" to idCustomer.toString())
+        ApiServices.getInstance()?.getDetailCustomer(headers, params)?.exe(
             onFailure = { call, throwable ->
                 logE("gagal")
                 isExecute.postValue(true)
-                deliveries.postValue(null)
+                customer.postValue(null)
             },
             onResponse = { call, response ->
                 logE("berhasil product")
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        deliveries.postValue(response.body()?.data?.list_deliveries_booking)
+                        customer.postValue(response.body()?.data?.customer)
                     }
                 } else {
                     isExecute.postValue(true)
@@ -48,7 +43,7 @@ class DeliveryViewModel(var id_sales_booking: Int) : ViewModel() {
         return isExecute
     }
 
-    internal fun getListDeliveries(): LiveData<List<Delivery>?> {
-        return deliveries
+    internal fun getDetailCustomer(): LiveData<Customer?> {
+        return customer
     }
 }

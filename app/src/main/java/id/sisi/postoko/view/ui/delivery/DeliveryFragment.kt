@@ -1,6 +1,5 @@
 package id.sisi.postoko.view.ui.delivery
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,16 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListPengirimanAdapter
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.view.AddProductActivity
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.pengiriman_fragment.*
 
-class DeliveryFragment : Fragment(){
+class DeliveryFragment : Fragment() {
 
     private lateinit var viewModel: DeliveryViewModel
     private lateinit var adapter: ListPengirimanAdapter
@@ -40,13 +39,13 @@ class DeliveryFragment : Fragment(){
 
         setupUI()
 
-        viewModel = ViewModelProvider(this, DeliveryFactory(id_sales_booking)).get(DeliveryViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            DeliveryFactory(id_sales_booking)
+        ).get(DeliveryViewModel::class.java)
         viewModel.getListDeliveries().observe(viewLifecycleOwner, Observer {
             adapter.updateData(it)
         })
-        rv_list_item_pengiriman?.layoutManager = LinearLayoutManager(this.context)
-        rv_list_item_pengiriman?.setHasFixedSize(false)
-        rv_list_item_pengiriman?.adapter = ListPengirimanAdapter()
     }
 
     private fun setupUI() {
@@ -60,6 +59,12 @@ class DeliveryFragment : Fragment(){
         rv_list_item_pengiriman?.layoutManager = LinearLayoutManager(this.context)
         rv_list_item_pengiriman?.setHasFixedSize(false)
         rv_list_item_pengiriman?.adapter = adapter
+        rv_list_item_pengiriman?.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                LinearLayoutManager.VERTICAL
+            )
+        )
     }
 
     private fun showBottomSheetAddPayment(id_sales_booking: Int) {

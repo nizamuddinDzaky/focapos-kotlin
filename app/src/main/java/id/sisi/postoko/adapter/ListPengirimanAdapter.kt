@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Delivery
+import kotlinx.android.synthetic.main.list_item_pengiriman.view.*
 
 class ListPengirimanAdapter(
     var deliveries: List<Delivery>? = listOf(),
@@ -32,7 +33,12 @@ class ListPengirimanAdapter(
 
         fun bind(delivery: Delivery?, listener: (Delivery?) -> Unit) {
             delivery?.let {
-
+                itemView.tv_delivery_date?.text = it.date.toDisplayDate()
+                itemView.tv_delivery_sales_order_number?.text = it.sale_reference_no
+                itemView.tv_delivery_delivery_order_number?.text = it.do_reference_no
+//                itemView.tv_delivery_quantity?.text = it.
+//                itemView.tv_delivery_total?.text = it.
+                itemView.tv_delivery_driver_name?.text = it.delivered_by
             }
             itemView.setOnClickListener {
 

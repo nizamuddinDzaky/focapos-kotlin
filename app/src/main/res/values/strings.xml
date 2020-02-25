@@ -42,4 +42,5 @@
     <string name="txt_status_completed">Selesai</string>
     <string name="txt_status_received">Diterima</string>
     <string name="txt_sales_booking">Sales Booking</string>
+    <string name="txt_action_close">Tutup</string>
 </resources>
