@@ -33,14 +33,14 @@ data class Supplier(
 //    val longitude: String,
 //    val manager_area: Any,
 //    val mtid: Any,
-    val name: String
+    val name: String,
 //    val payment_term: String,
 //    val phone: String,
 //    val postal_code: String,
 //    val price_group_id: Any,
 //    val price_group_name: Any,
 //    val region: Any,
-//    val state: String,
+    val state: String
 //    val updated_at: String,
 //    val uuid: Any,
 //    val uuid_app: Any,

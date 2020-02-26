@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,9 +16,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:orientation="vertical"
-                android:padding="@dimen/et_top_margin"
-                android:background="#FFFFFF">
+                android:padding="@dimen/et_top_margin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -29,9 +29,9 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:layout_marginTop="@dimen/margin_10"
+                        android:background="#FFFFFF"
                         android:orientation="vertical">
 
                         <ImageView
@@ -44,9 +44,9 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.4"
                         android:layout_marginStart="@dimen/margin_10"
                         android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_weight="2.4"
                         android:background="#FFFFFF"
                         android:orientation="vertical">
 
@@ -57,21 +57,24 @@
                             android:textColor="@color/colorBlack" />
 
                         <TextView
+                            android:id="@+id/tv_detail_sbo_customer_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Helios Toko Jaya"
                             android:textColor="@color/colorBlack"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="Helios Toko Jaya" />
 
                         <TextView
+                            android:id="@+id/tv_detail_sbo_customer_address_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
                         <TextView
+                            android:id="@+id/tv_detail_sbo_customer_address_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Jawa Timur" />
+                            tools:text="Jawa Timur" />
 
                     </LinearLayout>
 
@@ -87,9 +90,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:orientation="vertical"
-                android:padding="@dimen/et_top_margin"
-                android:background="#FFFFFF">
+                android:padding="@dimen/et_top_margin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -100,10 +103,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
                         android:layout_marginStart="@dimen/margin_10"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:layout_marginTop="@dimen/margin_10"
+                        android:background="#FFFFFF"
                         android:orientation="vertical">
 
                         <ImageView
@@ -116,9 +119,9 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.4"
                         android:layout_marginStart="@dimen/margin_10"
                         android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_weight="2.4"
                         android:background="#FFFFFF"
                         android:orientation="vertical">
 
@@ -126,24 +129,27 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Distributor"
-                            android:textColor="@color/colorBlack"/>
+                            android:textColor="@color/colorBlack" />
 
                         <TextView
+                            android:id="@+id/tv_detail_sbo_supplier_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Helios Crop"
+                            android:textColor="@color/colorBlack"
                             android:textStyle="bold"
-                            android:textColor="@color/colorBlack"/>
+                            tools:text="Helios Crop" />
 
                         <TextView
+                            android:id="@+id/tv_detail_sbo_supplier_address_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban "/>
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
                         <TextView
+                            android:id="@+id/tv_detail_sbo_supplier_address_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Jawa Timur"/>
+                            tools:text="Jawa Timur" />
 
                     </LinearLayout>
 
@@ -159,9 +165,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:orientation="vertical"
-                android:padding="@dimen/et_top_margin"
-                android:background="#FFFFFF">
+                android:padding="@dimen/et_top_margin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -172,10 +178,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
                         android:layout_marginStart="@dimen/margin_10"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:layout_marginTop="@dimen/margin_10"
+                        android:background="#FFFFFF"
                         android:orientation="vertical">
 
                         <ImageView
@@ -188,9 +194,9 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.4"
                         android:layout_marginStart="@dimen/margin_10"
                         android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_weight="2.4"
                         android:background="#FFFFFF"
                         android:orientation="vertical">
 
@@ -198,24 +204,27 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Gudang"
-                            android:textColor="@color/colorBlack"/>
+                            android:textColor="@color/colorBlack" />
 
                         <TextView
+                            android:id="@+id/tv_detail_sbo_warehouse_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Helios Warehouse"
+                            android:textColor="@color/colorBlack"
                             android:textStyle="bold"
-                            android:textColor="@color/colorBlack"/>
+                            tools:text="Helios Warehouse" />
 
                         <TextView
+                            android:id="@+id/tv_detail_sbo_warehouse_address_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban "/>
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
                         <TextView
+                            android:id="@+id/tv_detail_sbo_warehouse_address_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Jawa Timur"/>
+                            tools:text="Jawa Timur" />
 
                     </LinearLayout>
 
@@ -226,10 +235,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/et_top_margin"
                 android:layout_marginTop="@dimen/margin_10"
-                android:background="#FFFFFF">
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -254,23 +263,23 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2.4"
                         android:layout_marginStart="@dimen/margin_10"
                         android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_weight="2.4"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1.5"
                             android:layout_marginTop="@dimen/margin_5"
                             android:layout_marginBottom="@dimen/margin_10"
+                            android:layout_weight="1.5"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Referensi"/>
+                                android:text="Referensi" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -287,24 +296,27 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginRight="@dimen/margin_2"
                                         android:orientation="vertical">
+
                                         <TextView
                                             android:id="@+id/tv_sale_detail_reference_no"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            tools:text="SALE/2020/02/0001"
+                                            android:textColor="@color/colorBlack"
                                             android:textStyle="bold"
-                                            android:textColor="@color/colorBlack"/>
+                                            tools:text="SALE/2020/02/0001" />
                                     </LinearLayout>
+
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:orientation="vertical">
+
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="Salin"
-                                            android:textStyle="bold"
-                                            android:textColor="@color/main_red"/>
+                                            android:textColor="@color/main_red"
+                                            android:textStyle="bold" />
                                     </LinearLayout>
 
                                 </LinearLayout>
@@ -315,51 +327,52 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_10"
-                                android:text="Status Penjualan"/>
+                                android:text="Status Penjualan" />
 
                             <TextView
+                                android:id="@+id/tv_sale_detail_sbo_sale_status"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/margin_30"
+                                android:textColor="@color/text_green"
                                 android:textStyle="bold"
-                                android:text="Selesai"
-                                android:textColor="@color/text_green"/>
+                                tools:text="Selesai" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginTop="@dimen/margin_5"
                             android:layout_marginBottom="@dimen/margin_10"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Tanggal"/>
+                                android:text="Tanggal" />
 
                             <TextView
+                                android:id="@+id/tv_sale_detail_sbo_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="13/11/2020 11:40"
+                                android:textColor="@color/colorBlack"
                                 android:textStyle="bold"
-                                android:textColor="@color/colorBlack"/>
+                                tools:text="13/11/2020 11:40" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_10"
-                                android:text="Status Pengiriman"/>
+                                android:text="Status Pengiriman" />
 
                             <TextView
+                                android:id="@+id/tv_sale_detail_sbo_delivery_status"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/margin_30"
+                                android:textColor="@color/text_green"
                                 android:textStyle="bold"
-                                android:text="Selesai"
-                                android:textColor="@color/text_green"/>
+                                tools:text="Selesai" />
 
                         </LinearLayout>
 
@@ -420,56 +433,98 @@
                 android:id="@+id/rv_list_product_sales_booking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="#E5E5E5"
                 android:clipToPadding="false"
                 tools:itemCount="2"
-                android:background="#E5E5E5"
                 tools:listitem="@layout/list_product_sales_booking" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
+                android:padding="@dimen/et_top_margin"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_20"
-                    android:layout_marginTop="@dimen/margin_5"
-                    android:layout_marginBottom="@dimen/margin_10"
+                <TextView
                     android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Amount (IDR)"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_6"
-                    android:layout_marginLeft="@dimen/margin_6"
+                    android:text="Diskon Pesanan (IDR)"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_sale_detail_sbo_discount"
+                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    tools:text="Rp 96.000.000" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="@dimen/et_top_margin"
+                android:orientation="horizontal">
+
+                <TextView
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_5"
-                    android:layout_marginBottom="@dimen/margin_10"
-                    android:gravity="right">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah (IDR)"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tv_sale_detail_grand_total"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rp 96.000.000"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_sale_detail_sbo_total"
+                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    tools:text="Rp 96.000.000" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="@dimen/et_top_margin"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dibayar (IDR)"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_sale_detail_sbo_paid"
+                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    tools:text="Rp 96.000.000" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="@dimen/et_top_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah Akhir(IDR)"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_sale_detail_grand_total"
+                    android:layout_weight="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    tools:text="Rp 96.000.000" />
             </LinearLayout>
         </LinearLayout>
 

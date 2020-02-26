@@ -43,7 +43,7 @@ data class Customer(
     val postal_code: String,
 //    val price_group_id: Any,
 //    val price_group_name: Any,
-//    val region: Any,
+    val region: String,
     val state: String,
     val updated_at: String,
 //    val uuid: Any,

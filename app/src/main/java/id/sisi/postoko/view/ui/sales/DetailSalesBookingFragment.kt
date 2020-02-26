@@ -11,16 +11,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListDetailSalesBookingAdapter
 import id.sisi.postoko.adapter.toCurrencyID
+import id.sisi.postoko.adapter.toDisplayDate
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.extensions.goneIfEmptyOrNull
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.tryValue
 import kotlinx.android.synthetic.main.detail_sales_booking_fragment.*
 
-class DetailSalesBookingFragment : Fragment(){
+class DetailSalesBookingFragment : Fragment() {
 
     private lateinit var viewModel: SaleBookingViewModel
     private lateinit var adapter: ListDetailSalesBookingAdapter
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,21 +40,63 @@ class DetailSalesBookingFragment : Fragment(){
 
         setupUI()
 
-        viewModel = ViewModelProvider(this, SaleBookingFactory(id_sales_booking)).get(SaleBookingViewModel::class.java)
-        viewModel.getDetail().observe(viewLifecycleOwner, Observer {
-            logE("hasil get detail sale $it")
+        viewModel = ViewModelProvider(
+            this,
+            SaleBookingFactory(id_sales_booking)
+        ).get(SaleBookingViewModel::class.java)
+        viewModel.getDetailSale().observe(viewLifecycleOwner, Observer {
             setupDetailSale(it)
+            it?.let {
+                viewModel.requestDetailCustomer(it.customer_id)
+                viewModel.requestDetailWarehouse(it.warehouse_id)
+                viewModel.requestDetailSupplier(it.biller_id)
+            }
         })
+        viewModel.getDetailCustomer().observe(viewLifecycleOwner, Observer {
+            val address = listOf(it?.region, it?.state, it?.country)
+            tv_detail_sbo_customer_name?.text = it?.name
+            tv_detail_sbo_customer_address_1?.text = it?.address
+            tv_detail_sbo_customer_address_2?.text = address.filterNotNull().joinToString()
+            tv_detail_sbo_customer_name?.goneIfEmptyOrNull()
+            tv_detail_sbo_customer_address_1?.goneIfEmptyOrNull()
+            tv_detail_sbo_customer_address_2?.goneIfEmptyOrNull()
+        })
+        viewModel.getDetailWarehouse().observe(viewLifecycleOwner, Observer {
+            tv_detail_sbo_warehouse_name?.text = it?.name
+            tv_detail_sbo_warehouse_address_1?.text = it?.address
+//            tv_detail_sbo_warehouse_address_2?.text = it?.address
+            tv_detail_sbo_warehouse_name?.goneIfEmptyOrNull()
+            tv_detail_sbo_warehouse_address_1?.goneIfEmptyOrNull()
+            tv_detail_sbo_warehouse_address_2?.goneIfEmptyOrNull()
+        })
+        viewModel.getDetailSupplier().observe(viewLifecycleOwner, Observer {
+            tv_detail_sbo_supplier_name?.text = it?.name
+            tv_detail_sbo_supplier_address_1?.text = it?.address
+            tv_detail_sbo_supplier_address_2?.text = it?.state
+            tv_detail_sbo_supplier_name?.goneIfEmptyOrNull()
+            tv_detail_sbo_supplier_address_1?.goneIfEmptyOrNull()
+            tv_detail_sbo_supplier_address_2?.goneIfEmptyOrNull()
+        })
+        viewModel.requestDetailSale()
     }
 
     private fun setupUI() {
         setupRecycleView()
     }
 
-    private fun setupDetailSale(sale: Sales?){
+    private fun setupDetailSale(sale: Sales?) {
         (activity as? DetailSalesBookingActivity)?.tempSale = sale
         tv_sale_detail_reference_no?.text = sale?.reference_no
-        tv_sale_detail_grand_total?.text = sale?.grand_total?.toCurrencyID()
+        tv_sale_detail_sbo_date?.text = sale?.date?.toDisplayDate()
+        sale?.let {
+            tv_sale_detail_sbo_sale_status?.text =
+                getString(SaleStatus.PENDING.tryValue(sale.sale_status)?.stringId ?: R.string.empty)
+        }
+        tv_sale_detail_sbo_delivery_status?.text = sale?.delivery_status
+        tv_sale_detail_sbo_discount?.text = sale?.total_discount?.toCurrencyID()
+        tv_sale_detail_sbo_total?.text = sale?.total?.toCurrencyID()
+        tv_sale_detail_sbo_paid?.text = sale?.paid?.toCurrencyID()
+        tv_sale_detail_grand_total?.text = (sale?.grand_total?.minus(sale.paid))?.toCurrencyID()
         adapter.updateSaleItems(sale?.saleItems)
     }
 

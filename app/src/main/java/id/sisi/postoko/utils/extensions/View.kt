@@ -1,7 +1,9 @@
 package id.sisi.postoko.utils.extensions
 
+import android.graphics.Paint
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 
 fun List<EditText>.validation(): Boolean {
     var result = true
@@ -28,4 +30,18 @@ fun View.invisible() {
 
 fun View.checkVisibility(isShow: Boolean) {
     this.visibility = if (isShow) View.VISIBLE else View.GONE
+}
+
+fun View.strikeText() {
+    if (this is TextView && this.text.isNullOrBlank()) {
+        paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+    }
+}
+
+fun View.goneIfEmptyOrNull() {
+    var check = 0
+    if (this is TextView && this.text.isNullOrBlank()) {
+        check = check.plus(1)
+    }
+    this.visibility = if (check == 0) View.VISIBLE else View.GONE
 }
