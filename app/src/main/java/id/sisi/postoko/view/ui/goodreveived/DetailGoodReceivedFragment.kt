@@ -20,8 +20,7 @@ class DetailGoodReceivedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        activity?.title = "Rincian Pembelian"
-        (activity as DetailGoodReceivedActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity?.title = getString(R.string.txt_title_detail_good_receive)
         return inflater.inflate(R.layout.detail_good_received_fragment, container, false)
     }
 

@@ -55,6 +55,18 @@ interface ApiServices {
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataCustomer>>
 
+    @GET("customers/detail_warehouses")
+    fun getDetailWarehouse(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any> = mapOf()
+    ): Call<BaseResponse<DataCustomer>>
+
+    @GET("customers/detail_suppliers")
+    fun getDetailSupplier(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any> = mapOf()
+    ): Call<BaseResponse<DataCustomer>>
+
     @GET("products/list_products")
     fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
 

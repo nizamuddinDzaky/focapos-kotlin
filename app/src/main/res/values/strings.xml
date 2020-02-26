@@ -43,4 +43,6 @@
     <string name="txt_status_received">Diterima</string>
     <string name="txt_sales_booking">Sales Booking</string>
     <string name="txt_action_close">Tutup</string>
+    <string name="txt_title_detail_good_receive">Rincian Pembelian</string>
+    <string name="empty" />
 </resources>

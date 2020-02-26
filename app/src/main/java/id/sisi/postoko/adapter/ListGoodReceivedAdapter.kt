@@ -1,6 +1,5 @@
 package id.sisi.postoko.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,8 +16,6 @@ import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.DELIVERING
 import kotlinx.android.synthetic.main.list_item_gr.view.*
 import java.text.SimpleDateFormat
 import java.util.*
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import id.sisi.postoko.view.ui.goodreveived.BottomSheetGoodReceiveFragment
 
 
 class ListGoodReceivedAdapter(
@@ -51,7 +48,7 @@ class ListGoodReceivedAdapter(
                 itemView.tv_good_received_date?.text = it.tanggal_do.toDisplayDateFromDO()
                 itemView.btn_action_receive_gr?.checkVisibility(status == DELIVERING)
             }
-            itemView.tv_action_detail_gr?.setOnClickListener {
+            itemView.setOnClickListener {
                 logE("click action detail")
                 val page = Intent(itemView.context, DetailGoodReceivedActivity::class.java)
                 page.putExtra("data", Bundle())
