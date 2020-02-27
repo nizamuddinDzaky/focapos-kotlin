@@ -21,7 +21,7 @@ import java.util.*
 class ListGoodReceivedAdapter(
     private var goodsReceived: List<GoodReceived>? = arrayListOf(),
     private var status: GoodReceiveStatus = DELIVERING,
-    private var listener: () -> Unit = {}
+    private var listener: (GoodReceived?) -> Unit = {}
 ) : RecyclerView.Adapter<ListGoodReceivedAdapter.DetailGoodReceivedViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailGoodReceivedViewHolder {
@@ -41,7 +41,7 @@ class ListGoodReceivedAdapter(
 
     class DetailGoodReceivedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(goodReceived: GoodReceived?, status: GoodReceiveStatus, listener: () -> Unit) {
+        fun bind(goodReceived: GoodReceived?, status: GoodReceiveStatus, listener: (GoodReceived?) -> Unit) {
             goodReceived?.let {
                 itemView.tv_good_received_do_number?.text = it.no_do
                 itemView.tv_good_received_so_number?.text = it.no_so
@@ -56,7 +56,7 @@ class ListGoodReceivedAdapter(
             }
             itemView.btn_action_receive_gr?.setOnClickListener {
                 logE("click action receive")
-                listener()
+                listener(goodReceived)
             }
         }
     }

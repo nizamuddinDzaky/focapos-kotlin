@@ -34,11 +34,10 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
-            android:id="@+id/tv_good_received_detail_spj_no"
+            android:id="@+id/tv_detail_good_received_spj_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             tools:text="Nomor SPJ" />
 
@@ -51,11 +50,12 @@
         android:padding="@dimen/et_top_margin">
 
         <TextView
+            android:id="@+id/tv_detail_good_received_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Dynamix Serbaguna 40 KG"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:text="Dynamix Serbaguna 40 KG" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,11 +75,12 @@
                     android:text="Harga Awal (Rp)" />
 
                 <TextView
+                    android:id="@+id/tv_detail_good_received_price"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="45.000"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    tools:text="45.000" />
             </LinearLayout>
 
             <LinearLayout
@@ -95,11 +96,12 @@
                     android:text="Qty" />
 
                 <TextView
+                    android:id="@+id/tv_detail_good_received_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="200 SAK"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    tools:text="200 SAK" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,19 +117,20 @@
                     android:text="Harga Baru (Rp)" />
 
                 <EditText
+                    android:id="@+id/et_detail_good_received_new_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="45.000" />
+                    tools:text="45.000" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:padding="@dimen/et_top_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/et_top_margin">
 
         <TextView
             android:layout_width="match_parent"
@@ -135,18 +138,19 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="TOTAL"
-            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorNotSelect"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_detail_good_received_total"
             android:layout_width="wrap_content"
-            android:layout_weight="0"
             android:layout_height="match_parent"
+            android:layout_weight="0"
             android:gravity="center_vertical"
-            android:text="9.000.000"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            tools:text="9.000.000" />
 
     </LinearLayout>
 

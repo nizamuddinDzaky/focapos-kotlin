@@ -30,6 +30,13 @@ interface ApiServices {
         @Body body: Map<String, String>
     ): Call<BaseResponse<DataLogin>>
 
+    @POST("purchases/add_gr_to_po")
+    fun postAddGoodReceived(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf(),
+        @Body body: Map<String, String>
+    ): Call<BaseResponse<DataLogin>>
+
     @POST("sales_booking/add_deliveries_booking")
     fun postAddDelivery(
         @HeaderMap headerMap: Map<String, String>,
@@ -110,7 +117,7 @@ interface ApiServices {
     fun getDetailGoodReceived(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
-    ): Call<BaseResponse<DataSales>>
+    ): Call<BaseResponse<DataGoodsReceived>>
 
     companion object {
         private var retrofit: Retrofit? = null

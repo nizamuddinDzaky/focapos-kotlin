@@ -1,6 +1,5 @@
 package id.sisi.postoko.view.ui.goodreveived
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.DELIVERING
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListGoodReceivedAdapter
+import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_gr.*
@@ -46,15 +46,21 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
 
     private fun showBottomSheetDialog() {
         context?.let {
-            val view = LayoutInflater.from(it).inflate(R.layout.fragment_bottom_sheet_good_received, null)
+            val view = LayoutInflater.from(it).inflate(R.layout.fragment_bottom_sheet_add_good_received, null)
             val dialog = BottomSheetDialog(it)
             dialog.setContentView(view)
             dialog.show()
         }
     }
 
-    private fun showBottomSheetDialogFragment() {
-        val bottomSheetFragment = BottomSheetGoodReceiveFragment()
+    private fun showBottomSheetDialogFragment(goodReceived: GoodReceived?) {
+        val bottomSheetFragment = BottomSheetAddGoodReceivedFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("good_received", goodReceived)
+        bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.listener = {
+            viewModel.getListGoodReceived()
+        }
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
     }
 
@@ -65,7 +71,7 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
     private fun setupRecycleView() {
         adapter = ListGoodReceivedAdapter(status = status) {
 //            showBottomSheetDialog()
-            showBottomSheetDialogFragment()
+            showBottomSheetDialogFragment(it)
         }
         rv_list_good_received?.layoutManager = LinearLayoutManager(this.context)
         rv_list_good_received?.setHasFixedSize(false)

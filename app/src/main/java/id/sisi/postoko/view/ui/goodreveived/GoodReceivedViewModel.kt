@@ -18,7 +18,7 @@ class GoodReceivedViewModel(var status: String) : ViewModel() {
         getListGoodReceived()
     }
 
-    private fun getListGoodReceived() {
+    fun getListGoodReceived() {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf("goods_received_status" to status)
