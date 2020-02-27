@@ -41,15 +41,5 @@
     <string name="txt_status_sent">Diantar</string>
     <string name="txt_status_completed">Selesai</string>
     <string name="txt_status_received">Diterima</string>
-    <string name="title_activity_add_sales">AddSalesActivity</string>
-    <string name="selected_item">Selected item:</string>
-    <string-array name="Biller">
-        <item>Biller1</item>
-        <item>Biller2</item>
-        <item>Biller3</item>
-        <item>Biller4</item>
-        <item>Biller5</item>
-        <item>Biller6</item>
-    </string-array>
-    <string name="title_activity_add_product_sales">AddProductSalesActivity</string>
+    <string name="txt_sales_booking">Sales Booking</string>
 </resources>

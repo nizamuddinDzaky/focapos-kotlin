@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/et_top_margin"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/et_top_margin"
+            android:layout_marginTop="@dimen/margin_6"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -41,13 +39,14 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
+                        android:layout_weight="0.7"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_6"
                             android:gravity="center_vertical"
                             android:text="Dynamix Serbaguna 40KG"
                             android:textAllCaps="true"
@@ -59,63 +58,48 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_90"
                         android:layout_weight="0.3"
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tv_good_received_date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_time"
-                            android:drawableLeft="@drawable/ic_time"
-                            android:text=" 20 feb 2020"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
+
 
                     </LinearLayout>
-                </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="200 SAK"
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_30"
-                    android:layout_marginBottom="@dimen/margin_30"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_5"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_weight="0.7"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="No SO"
+                            android:gravity="center_vertical"
+                            android:text="Jumlah"
                             android:textColor="#666666"
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/tv_good_received_so_number"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_5"
                             android:gravity="center_vertical"
-                            android:text="SO/2020/02/0020"
-                            android:textAllCaps="true"
-                            android:textColor="#0893B2"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                            android:text="200 SAK"
+                            android:textColor="#666666"
+                            android:textSize="12sp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -123,29 +107,78 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="No DO"
+                            android:gravity="center_vertical"
+                            android:text="Jumlah Kirim"
                             android:textColor="#666666"
                             android:textSize="12sp" />
 
-                        <TextView
-                            android:id="@+id/tv_good_received_do_number"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:text="DO/2020/02/0020"
-                            android:textAllCaps="true"
-                            android:textColor="#0893B2"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="@dimen/margin_15"
+                                    android:layout_height="@dimen/margin_15"
+                                    android:layout_marginTop="@dimen/margin_3"
+                                    android:src="@drawable/plus" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_10"
+                                android:layout_marginRight="@dimen/margin_10"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_5"
+                                    android:gravity="center_horizontal"
+                                    android:text="200"
+                                    android:textColor="#666666"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="@dimen/margin_15"
+                                    android:layout_height="@dimen/margin_15"
+                                    android:layout_marginTop="@dimen/margin_3"
+                                    android:src="@drawable/minus" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="@dimen/margin_70"
+                            android:layout_height="@dimen/line"
+                            android:background="@color/colorLine" />
 
                     </LinearLayout>
+
                 </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -153,36 +186,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/line"
+            android:layout_marginTop="@dimen/margin_10"
             android:background="@color/colorLine" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_8">
-
-            <TextView
-                android:id="@+id/tv_action_detail_gr"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="0.7"
-                android:gravity="center_vertical"
-                android:text="Detail" />
-
-            <Button
-                android:id="@+id/btn_action_receive_gr"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="0.3"
-                android:background="@color/main_red"
-                android:text="TERIMA"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                tools:visibility="visible" />
-
-        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

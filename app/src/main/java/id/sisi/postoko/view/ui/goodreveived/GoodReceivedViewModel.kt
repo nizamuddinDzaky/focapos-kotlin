@@ -1,39 +1,39 @@
-package id.sisi.postoko.view.ui.sales
+package id.sisi.postoko.view.ui.goodreveived
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
-import id.sisi.postoko.model.Sales
+import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
-class SalesBookingViewModel(var status: String) : ViewModel() {
-    private val sales = MutableLiveData<List<Sales>?>()
+class GoodReceivedViewModel(var status: String) : ViewModel() {
+    private val goodsReceived = MutableLiveData<List<GoodReceived>?>()
     private var isExecute = MutableLiveData<Boolean>()
 
     init {
-        getListSale()
+        getListGoodReceived()
     }
 
-    private fun getListSale() {
+    private fun getListGoodReceived() {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("sale_status" to status)
-        ApiServices.getInstance()?.getListSale(headers, params)?.exe(
+        val params = mutableMapOf("goods_received_status" to status)
+        ApiServices.getInstance()?.getListGoodReceived(headers, params)?.exe(
             onFailure = { call, throwable ->
-                logE("gagal")
+                logE("gagal list good received")
                 isExecute.postValue(true)
-                sales.postValue(null)
+                goodsReceived.postValue(null)
             },
             onResponse = { call, response ->
-                logE("berhasil product")
+                logE("berhasil list good received")
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        sales.postValue(response.body()?.data?.list_sales_booking)
+                        goodsReceived.postValue(response.body()?.data?.list_goods_received)
                     }
                 } else {
                     isExecute.postValue(true)
@@ -47,7 +47,7 @@ class SalesBookingViewModel(var status: String) : ViewModel() {
         return isExecute
     }
 
-    internal fun getListSales(): LiveData<List<Sales>?> {
-        return sales
+    internal fun getListGoodsReceived(): LiveData<List<GoodReceived>?> {
+        return goodsReceived
     }
 }

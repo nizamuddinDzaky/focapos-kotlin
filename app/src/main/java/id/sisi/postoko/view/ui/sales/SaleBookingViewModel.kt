@@ -10,30 +10,32 @@ import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
-class SalesBookingViewModel(var status: String) : ViewModel() {
-    private val sales = MutableLiveData<List<Sales>?>()
+class SaleBookingViewModel(var id: Int) : ViewModel() {
+    private val sale = MutableLiveData<Sales?>()
     private var isExecute = MutableLiveData<Boolean>()
 
     init {
-        getListSale()
+        getDetailSale()
     }
 
-    private fun getListSale() {
+    private fun getDetailSale() {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("sale_status" to status)
-        ApiServices.getInstance()?.getListSale(headers, params)?.exe(
+        val params = mutableMapOf("id_sales_booking" to id.toString())
+        ApiServices.getInstance()?.getDetailSale(headers, params)?.exe(
             onFailure = { call, throwable ->
                 logE("gagal")
                 isExecute.postValue(true)
-                sales.postValue(null)
+                sale.postValue(null)
             },
             onResponse = { call, response ->
                 logE("berhasil product")
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        sales.postValue(response.body()?.data?.list_sales_booking)
+                        val newSale = response.body()?.data?.sale
+                        newSale?.saleItems = response.body()?.data?.sale_items
+                        sale.postValue(newSale)
                     }
                 } else {
                     isExecute.postValue(true)
@@ -47,7 +49,7 @@ class SalesBookingViewModel(var status: String) : ViewModel() {
         return isExecute
     }
 
-    internal fun getListSales(): LiveData<List<Sales>?> {
-        return sales
+    internal fun getDetail(): LiveData<Sales?> {
+        return sale
     }
 }
