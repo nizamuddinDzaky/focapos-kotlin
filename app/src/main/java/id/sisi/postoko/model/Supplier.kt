@@ -24,7 +24,7 @@ data class Supplier(
 //    val flag_bk: Any,
 //    val group_id: String,
 //    val group_name: String,
-//    val id: String,
+    val id: String,
 //    val invoice_footer: Any,
 //    val is_active: String,
 //    val is_deleted: Any,

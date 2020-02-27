@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.view.AddProductActivity
 import id.sisi.postoko.view.pager.SalesPagerAdapter
 import kotlinx.android.synthetic.main.fragment_root_sales.*
 
@@ -27,7 +26,7 @@ class SalesRootFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         fb_add_transaction?.setOnClickListener {
-            startActivity(Intent(this.context, AddProductActivity::class.java))
+            startActivity(Intent(this.context, AddSalesActivity::class.java))
         }
         main_container?.gone()
         main_view_pager?.let {
