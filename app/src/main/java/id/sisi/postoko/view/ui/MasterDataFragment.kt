@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.AddProductActivity
 import id.sisi.postoko.view.pager.HomePagerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class MasteDataFragment : Fragment() {
+class MasterDataFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +38,7 @@ class MasteDataFragment : Fragment() {
     }
 
     companion object {
-        val TAG: String = MasteDataFragment::class.java.simpleName
-        fun newInstance() = MasteDataFragment()
+        val TAG: String = MasterDataFragment::class.java.simpleName
+        fun newInstance() = MasterDataFragment()
     }
 }

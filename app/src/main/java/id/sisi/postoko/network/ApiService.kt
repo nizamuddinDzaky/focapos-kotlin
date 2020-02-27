@@ -88,6 +88,12 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataDelivery>>
 
+    @GET("sales_booking/detail_deliveries_booking")
+    fun getDetailSaleDelivery(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataDelivery>>
+
     @GET("sales_booking/detail_sales_booking")
     fun getDetailSale(
         @HeaderMap headerMap: Map<String, String>,

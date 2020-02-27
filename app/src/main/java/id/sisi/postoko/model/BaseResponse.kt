@@ -61,6 +61,7 @@ data class DataPayment(
 data class DataDelivery(
     var total_deliveries: Int?,
     var list_deliveries: List<Delivery>?,
+    var delivery: Delivery?,
     var total_deliveries_booking: Int?,
     var list_deliveries_booking: List<Delivery>?
 )

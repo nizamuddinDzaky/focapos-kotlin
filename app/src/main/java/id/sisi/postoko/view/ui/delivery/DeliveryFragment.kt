@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListPengirimanAdapter
+import id.sisi.postoko.model.Delivery
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
@@ -54,7 +55,9 @@ class DeliveryFragment : Fragment() {
 
     private fun setupRecycleView() {
         adapter = ListPengirimanAdapter {
-            //            showBottomSheetDetailPayment(it)
+            //TODO detail delivery
+            logE("delivery $it")
+            showBottomSheetDetailDelivery(it)
         }
         rv_list_item_pengiriman?.layoutManager = LinearLayoutManager(this.context)
         rv_list_item_pengiriman?.setHasFixedSize(false)
@@ -67,7 +70,15 @@ class DeliveryFragment : Fragment() {
         )
     }
 
-    private fun showBottomSheetAddPayment(id_sales_booking: Int) {
+    private fun showBottomSheetDetailDelivery(delivery: Delivery?) {
+        val bottomSheetFragment = BottomSheetDetailDeliveryFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("detail_delivery", delivery)
+        bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
+    }
+
+    private fun showBottomSheetAddDelivery(id_sales_booking: Int) {
         val sale = (activity as? DetailSalesBookingActivity)?.tempSale
 
         val bottomSheetFragment = BottomSheetAddDeliveryFragment()
@@ -85,7 +96,7 @@ class DeliveryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         fb_add_transaction?.setOnClickListener {
-            showBottomSheetAddPayment(id_sales_booking)
+            showBottomSheetAddDelivery(id_sales_booking)
         }
     }
 

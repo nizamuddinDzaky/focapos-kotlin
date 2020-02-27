@@ -41,7 +41,7 @@ class ListPengirimanAdapter(
                 itemView.tv_delivery_driver_name?.text = it.delivered_by
             }
             itemView.setOnClickListener {
-
+                listener(delivery)
             }
         }
     }

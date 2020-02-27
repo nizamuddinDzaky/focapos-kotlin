@@ -5,7 +5,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.view.ui.dashboard.DashboardFragment
 import id.sisi.postoko.view.ui.goodreveived.GoodReceivedRootFragment
 import id.sisi.postoko.view.ui.sales.SalesRootFragment
-import id.sisi.postoko.view.ui.MasteDataFragment
+import id.sisi.postoko.view.ui.MasterDataFragment
 
 enum class BottomNavigationPosition(val position: Int, val id: Int) {
     HOME(0, R.id.menu_home),
@@ -26,12 +26,12 @@ fun BottomNavigationPosition.createFragment(): Fragment = when (this) {
     BottomNavigationPosition.HOME -> DashboardFragment.newInstance()
     BottomNavigationPosition.RECEIVE -> GoodReceivedRootFragment.newInstance()
     BottomNavigationPosition.SALES -> SalesRootFragment.newInstance()
-    BottomNavigationPosition.MASTER -> MasteDataFragment.newInstance()
+    BottomNavigationPosition.MASTER -> MasterDataFragment.newInstance()
 }
 
 fun BottomNavigationPosition.getTag(): String = when (this) {
     BottomNavigationPosition.HOME -> DashboardFragment.TAG
     BottomNavigationPosition.RECEIVE -> GoodReceivedRootFragment.TAG
     BottomNavigationPosition.SALES -> SalesRootFragment.TAG
-    BottomNavigationPosition.MASTER -> MasteDataFragment.TAG
+    BottomNavigationPosition.MASTER -> MasterDataFragment.TAG
 }

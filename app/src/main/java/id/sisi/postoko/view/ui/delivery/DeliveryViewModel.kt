@@ -13,10 +13,35 @@ import id.sisi.postoko.utils.extensions.tryMe
 
 class DeliveryViewModel(var id_sales_booking: Int) : ViewModel() {
     private val deliveries = MutableLiveData<List<Delivery>?>()
+    private val delivery = MutableLiveData<Delivery?>()
     private var isExecute = MutableLiveData<Boolean>()
 
     init {
         getListDelivery()
+    }
+
+    fun requestDetailDelivery(idDelivery: Int) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf("id_sales_delivery" to idDelivery.toString())
+        ApiServices.getInstance()?.getDetailSaleDelivery(headers, params)?.exe(
+            onFailure = { call, throwable ->
+                logE("gagal")
+                isExecute.postValue(true)
+                delivery.postValue(null)
+            },
+            onResponse = { call, response ->
+                logE("berhasil product")
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    tryMe {
+                        delivery.postValue(response.body()?.data?.delivery)
+                    }
+                } else {
+                    isExecute.postValue(true)
+                }
+            }
+        )
     }
 
     fun getListDelivery() {
@@ -51,4 +76,6 @@ class DeliveryViewModel(var id_sales_booking: Int) : ViewModel() {
     internal fun getListDeliveries(): LiveData<List<Delivery>?> {
         return deliveries
     }
+
+    internal fun getDetailDelivery() = delivery
 }
