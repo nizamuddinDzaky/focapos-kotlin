@@ -28,21 +28,20 @@ class DetailSalesBookingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.detail_sales_booking_fragment, container, false)
-        return view
+        return inflater.inflate(R.layout.detail_sales_booking_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id_sales_booking = (activity as? DetailSalesBookingActivity)?.id_sales_booking ?: 0
-        logE("detail sales booking id $id_sales_booking")
+        val idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
+        logE("detail sales booking id $idSalesBooking")
 
         setupUI()
 
         viewModel = ViewModelProvider(
             this,
-            SaleBookingFactory(id_sales_booking)
+            SaleBookingFactory(idSalesBooking)
         ).get(SaleBookingViewModel::class.java)
         viewModel.getDetailSale().observe(viewLifecycleOwner, Observer {
             setupDetailSale(it)

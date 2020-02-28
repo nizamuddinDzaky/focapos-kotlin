@@ -19,8 +19,7 @@ class DetailPaymentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = getString(R.string.txt_detail_sales_booking)
-        val view = inflater.inflate(R.layout.fragment_detail_payment, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_detail_payment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

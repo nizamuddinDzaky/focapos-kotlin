@@ -33,17 +33,17 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.format(Date())
 
-        val id_sales_booking = arguments?.getInt(KEY_ID_SALES_BOOKING) ?: 0
+        val idSalesBooking = arguments?.getInt(KEY_ID_SALES_BOOKING) ?: 0
 
         viewModel = ViewModelProvider(
             this,
-            AddPaymentFactory(id_sales_booking)
+            AddPaymentFactory(idSalesBooking)
         ).get(AddPaymentViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             if (it) {
                 logE("progress")
             } else {
-                logE("selesai")
+                logE("done")
             }
         })
         tv_add_payment_date?.text = currentDate.toDisplayDate()

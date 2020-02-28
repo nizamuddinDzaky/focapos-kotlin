@@ -1,27 +1,20 @@
 package id.sisi.postoko.view.ui.sales
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListAddProductOnAddSalesAdapter
-import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.product.ProductViewModel
-
 import kotlinx.android.synthetic.main.activity_add_product_sales.*
 import kotlinx.android.synthetic.main.content_add_product_sales.*
-import kotlinx.android.synthetic.main.master_data_fragment.*
-import android.app.Activity
-import android.content.Intent
-import android.view.View
-import id.sisi.postoko.model.Customer
-import kotlinx.android.synthetic.main.fragment_search_customer.*
 
 
 class AddProductSalesActivity : AppCompatActivity() {
@@ -61,7 +54,7 @@ class AddProductSalesActivity : AppCompatActivity() {
         sv_search_product_add_sales.setOnQueryTextListener(object :androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if (!newText.isNullOrEmpty() && newText.length > 2) {
+                if (newText.isNotEmpty() && newText.length > 2) {
                     startSearchData(newText)
                 }else{
                     listProduct?.let { setupUI(it) }
@@ -105,5 +98,10 @@ class AddProductSalesActivity : AppCompatActivity() {
         rv_list_product_add_sale?.adapter = adapter
     }
 
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

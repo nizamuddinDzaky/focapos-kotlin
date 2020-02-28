@@ -3,7 +3,7 @@ package id.sisi.postoko.utils.helper
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.view.ui.dashboard.DashboardFragment
-import id.sisi.postoko.view.ui.goodreveived.GoodReceivedRootFragment
+import id.sisi.postoko.view.ui.gr.GoodReceivedRootFragment
 import id.sisi.postoko.view.ui.sales.SalesRootFragment
 import id.sisi.postoko.view.ui.MasterDataFragment
 

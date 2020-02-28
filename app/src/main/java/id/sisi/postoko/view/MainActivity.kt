@@ -49,10 +49,10 @@ class MainActivity : AppCompatActivity() {
                 "password" to password
             )
             ApiServices.getInstance()?.postLogin(body)?.exe(
-                onFailure = { call, throwable ->
+                onFailure = { _, _ ->
                     logE("gagal")
                 },
-                onResponse = { call, response ->
+                onResponse = { _, response ->
                     logE("berhasil")
                     tryMe {
                         if (response.body()?.code == 200 && !response.body()?.data?.token.isNullOrEmpty()) {

@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import id.sisi.postoko.utils.extensions.tryValue
-import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.DELIVERING
-import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.RECEIVED
-import id.sisi.postoko.view.ui.goodreveived.GoodReceivedFragment
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.RECEIVED
+import id.sisi.postoko.view.ui.gr.GoodReceivedFragment
 
-class GoodReceivedPagerAdapter (fm: FragmentManager, var ctx: Context?) :
+class GoodReceivedPagerAdapter (fm: FragmentManager, private var ctx: Context?) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val pages = listOf(
         GoodReceivedFragment(DELIVERING),

@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.goodreveived
+package id.sisi.postoko.view.ui.gr
 
 import android.content.Intent
 import android.os.Bundle
@@ -20,8 +20,7 @@ class GoodReceivedRootFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = getString(R.string.txt_purchase)
-        val view = inflater.inflate(R.layout.fragment_root_good_received, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_root_good_received, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

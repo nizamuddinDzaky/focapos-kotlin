@@ -28,7 +28,7 @@ class CustomerSearchDialogFragment(var listener: () -> Unit? = {}) : DialogFragm
 
         customers = arguments?.getParcelableArrayList(KEY_CUSTOMER_DATA) ?: arrayListOf()
 
-        sv_search_dialog?.queryHint = "Cari Pelanggan"
+        sv_search_dialog?.queryHint = getString(R.string.txt_hint_search_customer)
         sv_search_dialog?.onActionViewExpanded()
         sv_search_dialog?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -70,7 +70,7 @@ class CustomerSearchDialogFragment(var listener: () -> Unit? = {}) : DialogFragm
                 arrayOf(android.R.id.text1, android.R.id.text2).toIntArray()
             )
             lv_search_dialog?.adapter = adapter
-            lv_search_dialog?.setOnItemClickListener { adapterView, view, i, l ->
+            lv_search_dialog?.setOnItemClickListener { _, _, i, _ ->
                 logE("cek data ${listData[i]}")
                 listener()
             }

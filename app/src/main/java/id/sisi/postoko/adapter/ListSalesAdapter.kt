@@ -1,7 +1,6 @@
 package id.sisi.postoko.adapter
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,40 +62,58 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
 
 fun String.toDisplayStatus(): Int {
     var idString = 0
-    if (this == "pending") {
-        idString = R.string.txt_status_pending
-    } else if (this == "confirmed") {
-        idString = R.string.txt_status_confirmed
-    } else if (this == "reserved") {
-        idString = R.string.txt_status_reserved
-    } else if (this == "closed") {
-        idString = R.string.txt_status_closed
-    } else if (this == "canceled") {
-        idString = R.string.txt_status_canceled
-    } else if (this == "partial") {
-        idString = R.string.txt_status_partial
-    } else if (this == "due") {
-        idString = R.string.txt_status_due
-    } else if (this == "waiting") {
-        idString = R.string.txt_status_waiting
-    } else if (this == "paid") {
-        idString = R.string.txt_status_paid
-    } else if (this == "done") {
-        idString = R.string.txt_status_done
-    } else if (this == "packing") {
-        idString = R.string.txt_status_packing
-    } else if (this == "delivering") {
-        idString = R.string.txt_status_delivering
-    } else if (this == "delivered") {
-        idString = R.string.txt_status_delivered
-    } else if (this == "returned") {
-        idString = R.string.txt_status_returned
-    } else if (this == "sent") {
-        idString = R.string.txt_status_sent
-    } else if (this == "completed") {
-        idString = R.string.txt_status_completed
-    } else if (this == "received") {
-        idString = R.string.txt_status_received
+    when {
+        this == "pending" -> {
+            idString = R.string.txt_status_pending
+        }
+        this == "confirmed" -> {
+            idString = R.string.txt_status_confirmed
+        }
+        this == "reserved" -> {
+            idString = R.string.txt_status_reserved
+        }
+        this == "closed" -> {
+            idString = R.string.txt_status_closed
+        }
+        this == "canceled" -> {
+            idString = R.string.txt_status_canceled
+        }
+        this == "partial" -> {
+            idString = R.string.txt_status_partial
+        }
+        this == "due" -> {
+            idString = R.string.txt_status_due
+        }
+        this == "waiting" -> {
+            idString = R.string.txt_status_waiting
+        }
+        this == "paid" -> {
+            idString = R.string.txt_status_paid
+        }
+        this == "done" -> {
+            idString = R.string.txt_status_done
+        }
+        this == "packing" -> {
+            idString = R.string.txt_status_packing
+        }
+        this == "delivering" -> {
+            idString = R.string.txt_status_delivering
+        }
+        this == "delivered" -> {
+            idString = R.string.txt_status_delivered
+        }
+        this == "returned" -> {
+            idString = R.string.txt_status_returned
+        }
+        this == "sent" -> {
+            idString = R.string.txt_status_sent
+        }
+        this == "completed" -> {
+            idString = R.string.txt_status_completed
+        }
+        this == "received" -> {
+            idString = R.string.txt_status_received
+        }
     }
     return idString
 }
@@ -111,10 +128,6 @@ fun String.toDisplayDate(): String {
     } catch (e: Exception) { }
 
     return this
-}
-
-fun Number.toCurrency(): String {
-    return NumberFormat.getCurrencyInstance(Locale.getDefault()).format(this)
 }
 
 fun Number.toCurrencyID(): String {

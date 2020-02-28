@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.list_item_add_delivery.view.*
 
 
 class ListItemDeliveryAdapter(
-    var payments: List<SaleItem>? = listOf(),
+    private var payments: List<SaleItem>? = listOf(),
     var listener: (SaleItem?) -> Unit = {}
 ) : RecyclerView.Adapter<ListItemDeliveryAdapter.ProductViewHolder>(){
 

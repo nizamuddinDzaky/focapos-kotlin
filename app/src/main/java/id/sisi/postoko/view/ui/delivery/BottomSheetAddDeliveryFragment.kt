@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.core.view.get
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
@@ -15,21 +15,16 @@ import id.sisi.postoko.adapter.ListItemDeliveryAdapter
 import id.sisi.postoko.adapter.toDisplayDate
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.KEY_CUSTOMER_DATA
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.MasterDetailViewModel
-import id.sisi.postoko.view.ui.customer.CustomerViewModel
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
 
     private lateinit var viewModel: AddDeliveryViewModel
-//    private lateinit var viewModelCustomer: CustomerViewModel
     private lateinit var viewModelCustomer: MasterDetailViewModel
     var listener: () -> Unit = {}
     private lateinit var adapter: ListItemDeliveryAdapter
@@ -58,7 +53,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
             if (it) {
                 logE("progress")
             } else {
-                logE("selesai")
+                logE("done")
             }
         })
 
@@ -130,7 +125,6 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
             "products" to saleItems,
             "note" to (et_add_delivery_note?.text?.toString() ?: "")
         )
-        logE("kirim json $body")
         viewModel.postAddDelivery(body) {
             listener()
             this.dismiss()

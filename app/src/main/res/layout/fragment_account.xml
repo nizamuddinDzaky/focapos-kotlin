@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standart_margin"
+        android:layout_margin="@dimen/standard_margin"
         android:background="@drawable/button_red_style"
         android:orientation="vertical">
 
@@ -38,15 +38,15 @@
                     android:id="@+id/tv_user_company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Abdurrouf"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    tools:text="Abdurrouf" />
 
                 <TextView
                     android:id="@+id/tv_user_company_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="170114"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    tools:text="170114" />
 
             </LinearLayout>
 

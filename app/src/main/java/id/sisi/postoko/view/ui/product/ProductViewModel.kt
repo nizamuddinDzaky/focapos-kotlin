@@ -7,7 +7,6 @@ import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class ProductViewModel : ViewModel() {
@@ -22,13 +21,11 @@ class ProductViewModel : ViewModel() {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getListProduct(headers)?.exe(
-            onFailure = { call, throwable ->
-                logE("gagal")
+            onFailure = { _, _ ->
                 isExecute.postValue(true)
                 suppliers.postValue(null)
             },
-            onResponse = { call, response ->
-                logE("berhasil product")
+            onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {

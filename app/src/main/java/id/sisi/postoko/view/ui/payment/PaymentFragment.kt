@@ -1,6 +1,5 @@
 package id.sisi.postoko.view.ui.payment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import id.sisi.postoko.adapter.ListPaymentAdapter
 import id.sisi.postoko.model.Payment
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.view.AddProductActivity
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.pembayaran_fragment.*
 import kotlinx.android.synthetic.main.pembayaran_fragment.fb_add_transaction
@@ -23,26 +21,25 @@ class PaymentFragment : Fragment(){
 
     private lateinit var viewModel: PaymentViewModel
     private lateinit var adapter: ListPaymentAdapter
-    private var id_sales_booking = 0
+    private var idSalesBooking = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.pembayaran_fragment, container, false)
-        return view
+        return inflater.inflate(R.layout.pembayaran_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        id_sales_booking = (activity as? DetailSalesBookingActivity)?.id_sales_booking ?: 0
-        logE("payment sales booking id $id_sales_booking")
+        idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
+        logE("payment sales booking id $idSalesBooking")
 
         setupUI()
 
-        viewModel = ViewModelProvider(this, PaymentFactory(id_sales_booking)).get(PaymentViewModel::class.java)
+        viewModel = ViewModelProvider(this, PaymentFactory(idSalesBooking)).get(PaymentViewModel::class.java)
         viewModel.getListPayments().observe(viewLifecycleOwner, Observer {
             adapter.updateData(it)
         })
@@ -66,7 +63,7 @@ class PaymentFragment : Fragment(){
         val bundle = Bundle()
         bundle.putParcelable("payment", payment)
         bottomSheetFragment.arguments = bundle
-        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     private fun showBottomSheetAddPayment(id_sales_booking: Int) {
@@ -77,14 +74,14 @@ class PaymentFragment : Fragment(){
         bottomSheetFragment.listener = {
             viewModel.getListPayment()
         }
-        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         fb_add_transaction?.setOnClickListener {
-            showBottomSheetAddPayment(id_sales_booking)
+            showBottomSheetAddPayment(idSalesBooking)
         }
     }
 

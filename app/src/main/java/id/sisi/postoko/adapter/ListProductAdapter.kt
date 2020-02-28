@@ -8,7 +8,7 @@ import id.sisi.postoko.R
 import kotlin.random.Random
 
 class ListProductAdapter : RecyclerView.Adapter<ListProductAdapter.ProductViewHolder>() {
-    val nData = Random.nextInt(5, 10)
+    private val nData = Random.nextInt(5, 10)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view =
@@ -22,12 +22,12 @@ class ListProductAdapter : RecyclerView.Adapter<ListProductAdapter.ProductViewHo
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind("")
+        holder.bind()
     }
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(value: String) {
+        fun bind() {
         }
     }
 }

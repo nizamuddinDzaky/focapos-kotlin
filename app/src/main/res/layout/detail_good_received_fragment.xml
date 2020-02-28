@@ -616,7 +616,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorButtonScrol"
+        android:background="@color/colorButtonScroll"
         android:text="TERIMA"
         android:textAllCaps="true"
         android:textColor="@android:color/white" />

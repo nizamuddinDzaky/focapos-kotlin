@@ -29,7 +29,7 @@ class DashboardFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_dashboard, menu);
+        inflater.inflate(R.menu.menu_dashboard, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -50,8 +50,7 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = "Dashboard"
-        val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -62,18 +61,17 @@ class DashboardFragment : Fragment() {
             if (it) {
                 logE("progress")
             } else {
-                logE("selesai")
+                logE("done")
             }
         })
         viewModel.getUser().observe(viewLifecycleOwner, Observer {
-            logE("cek data ${it}")
             tv_user_company?.text = it?.company ?: "~"
             tv_user_company_code?.text = it?.address ?: "~"
         })
         btn_dummy?.setOnClickListener {
             val jsonHelper =
                 Gson().fromJson<BaseResponse<DataWarehouse>>(it.context, "DummyListWarehouses.json")
-            logE("hasil json ${jsonHelper.data?.total_warehouses}")
+            logE("result json ${jsonHelper.data?.total_warehouses}")
         }
     }
 

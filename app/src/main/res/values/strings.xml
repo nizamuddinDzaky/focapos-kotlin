@@ -45,4 +45,7 @@
     <string name="txt_action_close">Tutup</string>
     <string name="txt_title_detail_good_receive">Rincian Pembelian</string>
     <string name="empty" />
+    <string name="txt_title_add_sale">Menambah Penjualan</string>
+    <string name="txt_date">Tanggal</string>
+    <string name="txt_hint_search_customer">Cari Pelanggan</string>
 </resources>

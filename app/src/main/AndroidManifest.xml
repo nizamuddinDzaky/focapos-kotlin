@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
     package="id.sisi.postoko">
 
     <dist:module dist:instant="true" />
@@ -16,18 +17,19 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/forcapos"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:targetApi="n">
         <activity
             android:name=".view.ui.sales.AddProductSalesActivity"
             android:label="Menambahkan Produk"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.sales.AddSalesActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".view.MainActivity"/>
         <activity android:name=".view.AddProductActivity" />
         <activity
-            android:name=".view.ui.goodreveived.DetailGoodReceivedActivity"
+            android:name=".view.ui.gr.DetailGoodReceivedActivity"
             android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.ui.sales.DetailSalesBookingActivity"

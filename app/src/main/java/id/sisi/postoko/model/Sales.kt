@@ -1,6 +1,7 @@
 package id.sisi.postoko.model
 
 import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -66,5 +67,6 @@ data class Sales (
     val status_kredit_pro : String,
     val delivery_status : String
 ) : Parcelable {
+    @IgnoredOnParcel
     var saleItems: List<SaleItem>? = arrayListOf()
 }

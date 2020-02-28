@@ -31,7 +31,7 @@ class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
 
     override var tagName: String
         get() = status.name
-        set(value) {}
+        set(_) {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

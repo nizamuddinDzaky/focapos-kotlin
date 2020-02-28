@@ -25,8 +25,7 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = getString(R.string.txt_account)
-        val view = inflater.inflate(R.layout.fragment_account, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_account, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -37,11 +36,10 @@ class AccountFragment : Fragment() {
             if (it) {
                 logE("progress")
             } else {
-                logE("selesai")
+                logE("done")
             }
         })
         viewModel.getUser().observe(viewLifecycleOwner, Observer {
-            logE("cek data ${it}")
             tv_user_company?.text = it?.company ?: "~"
             tv_user_company_code?.text = it?.address ?: "~"
         })
@@ -65,7 +63,7 @@ class AccountFragment : Fragment() {
 
         lv_menu_account.adapter = adapter
         lv_menu_account?.onItemClickListener =
-            AdapterView.OnItemClickListener { adapterView, view, i, l ->
+            AdapterView.OnItemClickListener { _, _, i, _ ->
                 logE("click $i")
                 if (i == menus.size - 1) {
                     MyApp.prefs.isLogin = false

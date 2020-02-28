@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.Delivery
-import id.sisi.postoko.model.Payment
 import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.utils.KEY_FORCA_TOKEN
+import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.KEY_ID_SALES_DELIVERY
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
-class DeliveryViewModel(var id_sales_booking: Int) : ViewModel() {
+class DeliveryViewModel(private var idSalesBooking: Int) : ViewModel() {
     private val deliveries = MutableLiveData<List<Delivery>?>()
     private val delivery = MutableLiveData<Delivery?>()
     private var isExecute = MutableLiveData<Boolean>()
@@ -22,16 +23,14 @@ class DeliveryViewModel(var id_sales_booking: Int) : ViewModel() {
 
     fun requestDetailDelivery(idDelivery: Int) {
         isExecute.postValue(true)
-        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("id_sales_delivery" to idDelivery.toString())
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_SALES_DELIVERY to idDelivery.toString())
         ApiServices.getInstance()?.getDetailSaleDelivery(headers, params)?.exe(
-            onFailure = { call, throwable ->
-                logE("gagal")
+            onFailure = { _, _ ->
                 isExecute.postValue(true)
                 delivery.postValue(null)
             },
-            onResponse = { call, response ->
-                logE("berhasil product")
+            onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
@@ -46,16 +45,14 @@ class DeliveryViewModel(var id_sales_booking: Int) : ViewModel() {
 
     fun getListDelivery() {
         isExecute.postValue(true)
-        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("id_sales_booking" to id_sales_booking.toString())
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_SALES_BOOKING to idSalesBooking.toString())
         ApiServices.getInstance()?.getListSaleDelivery(headers, params)?.exe(
-            onFailure = { call, throwable ->
-                logE("gagal")
+            onFailure = { _, _ ->
                 isExecute.postValue(true)
                 deliveries.postValue(null)
             },
-            onResponse = { call, response ->
-                logE("berhasil product")
+            onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {

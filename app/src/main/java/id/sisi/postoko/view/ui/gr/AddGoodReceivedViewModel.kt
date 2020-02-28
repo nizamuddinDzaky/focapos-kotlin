@@ -1,29 +1,28 @@
-package id.sisi.postoko.view.ui.goodreveived
+package id.sisi.postoko.view.ui.gr
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.GoodReceived
-import id.sisi.postoko.model.Payment
 import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.utils.KEY_FORCA_TOKEN
+import id.sisi.postoko.utils.KEY_ID_GOODS_RECEIVED
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.tryMe
 
-class AddGoodReceivedViewModel(var id_goods_received: Int) : ViewModel() {
+class AddGoodReceivedViewModel(private var idGoodsReceived: Int) : ViewModel() {
     private var isExecute = MutableLiveData<Boolean>()
     private var goodReceived = MutableLiveData<GoodReceived?>()
 
     fun postAddGoodReceived(body: Map<String, String> = mapOf(), listener: () -> Unit) {
         isExecute.postValue(true)
-        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("id_goods_received" to id_goods_received.toString())
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_GOODS_RECEIVED to idGoodsReceived.toString())
         ApiServices.getInstance()?.postAddGoodReceived(headers, params, body)?.exe(
-            onFailure = { call, throwable ->
+            onFailure = { _, _ ->
                 isExecute.postValue(true)
             },
-            onResponse = { call, response ->
+            onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     listener()
@@ -34,21 +33,21 @@ class AddGoodReceivedViewModel(var id_goods_received: Int) : ViewModel() {
         )
     }
 
-    fun requestDetailGoodReceived(body: Map<String, String> = mapOf(), listener: () -> Unit = {}) {
+    fun requestDetailGoodReceived(listener: () -> Unit = {}) {
         isExecute.postValue(true)
-        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("id_goods_received" to id_goods_received.toString())
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_GOODS_RECEIVED to idGoodsReceived.toString())
         ApiServices.getInstance()?.getDetailGoodReceived(headers, params)?.exe(
-            onFailure = { call, throwable ->
+            onFailure = { _, _ ->
                 isExecute.postValue(true)
                 goodReceived.postValue(null)
             },
-            onResponse = { call, response ->
+            onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     listener()
                     val newGoodReceived = response.body()?.data?.good_received
-                    newGoodReceived?.good_received_items =
+                    newGoodReceived?.goodReceivedItems =
                         response.body()?.data?.good_received_items
                     goodReceived.postValue(newGoodReceived)
                 } else {

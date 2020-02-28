@@ -68,6 +68,4 @@ data class Product(
 //    val uuid_app: Any,
 //    val warehouse: Any,
 //    val weight: String
-) : Parcelable {
-    var tmpQty: Int = 1
-}
+) : Parcelable

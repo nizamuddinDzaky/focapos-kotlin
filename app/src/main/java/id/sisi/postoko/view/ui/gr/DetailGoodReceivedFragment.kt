@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.goodreveived
+package id.sisi.postoko.view.ui.gr
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,32 +39,33 @@ class DetailGoodReceivedFragment : Fragment() {
         setupUI()
 
         idGoodReceived?.let {
-            viewModel = ViewModelProvider(this, AddGoodReceivedFactory(it.toInt())).get(AddGoodReceivedViewModel::class.java)
-            viewModel.getDetailGoodReceived().observe(viewLifecycleOwner, Observer {
-                tv_good_received_detail_from_name?.text = it?.company_name
-                tv_good_received_detail_from_address_1?.text = it?.company_name
-//                val distributorName = "${it?.distributor} (${it?.nama_shipto})"
-                tv_good_received_detail_to_name?.text = it?.distributor
-                tv_good_received_detail_to_address_1?.text = it?.alamat_shipto
-                val distributorName = "${it?.nama_kecamatan} (${it?.nama_shipto})"
+            viewModel = ViewModelProvider(this, AddGoodReceivedFactory(it.toInt())).get(
+                AddGoodReceivedViewModel::class.java
+            )
+            viewModel.getDetailGoodReceived().observe(viewLifecycleOwner, Observer { gr ->
+                tv_good_received_detail_from_name?.text = gr?.company_name
+                tv_good_received_detail_from_address_1?.text = gr?.company_name
+                tv_good_received_detail_to_name?.text = gr?.distributor
+                tv_good_received_detail_to_address_1?.text = gr?.alamat_shipto
+                val distributorName = "${gr?.nama_kecamatan} (${gr?.nama_shipto})"
                 tv_good_received_detail_to_address_2?.text = distributorName
-                tv_good_received_detail_to_name?.text = it?.distributor
-                tv_good_received_detail_do_number?.text = it?.no_do
-                tv_good_received_detail_grand_total?.text = it?.grand_total?.toCurrencyID()
-                tv_good_received_pp_number?.text = it?.no_pp
-                tv_good_received_pp_date?.text = it?.tanggal_pp?.toDisplayDateFromDO()
-                tv_good_received_so_number?.text = it?.no_so
-                tv_good_received_so_date?.text = it?.tanggal_so?.toDisplayDateFromDO()
-                tv_good_received_transaction_number?.text = it?.no_transaksi
-                tv_good_received_order_type?.text = it?.tipe_order
-                tv_good_received_spj_number?.text = it?.no_spj
-                tv_good_received_spj_date?.text = it?.tanggal_spj?.toDisplayDateFromDO()
-                tv_good_received_police_number?.text = it?.no_polisi
-                tv_good_received_driver_name?.text = it?.nama_sopir
-                tv_good_received_plant_name?.text = it?.nama_plant
-                tv_good_received_plant_number?.text = it?.kode_plant
+                tv_good_received_detail_to_name?.text = gr?.distributor
+                tv_good_received_detail_do_number?.text = gr?.no_do
+                tv_good_received_detail_grand_total?.text = gr?.grand_total?.toCurrencyID()
+                tv_good_received_pp_number?.text = gr?.no_pp
+                tv_good_received_pp_date?.text = gr?.tanggal_pp?.toDisplayDateFromDO()
+                tv_good_received_so_number?.text = gr?.no_so
+                tv_good_received_so_date?.text = gr?.tanggal_so?.toDisplayDateFromDO()
+                tv_good_received_transaction_number?.text = gr?.no_transaksi
+                tv_good_received_order_type?.text = gr?.tipe_order
+                tv_good_received_spj_number?.text = gr?.no_spj
+                tv_good_received_spj_date?.text = gr?.tanggal_spj?.toDisplayDateFromDO()
+                tv_good_received_police_number?.text = gr?.no_polisi
+                tv_good_received_driver_name?.text = gr?.nama_sopir
+                tv_good_received_plant_name?.text = gr?.nama_plant
+                tv_good_received_plant_number?.text = gr?.kode_plant
 
-                adapter.updatePurchasesItem(it?.good_received_items)
+                adapter.updatePurchasesItem(gr?.goodReceivedItems)
             })
             viewModel.requestDetailGoodReceived()
         }

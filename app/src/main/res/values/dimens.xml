@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="standart_margin">16dp</dimen>
-    <dimen name="standart_margin_purchase">8dp</dimen>
+    <dimen name="standard_margin">16dp</dimen>
+    <dimen name="standard_margin_purchase">8dp</dimen>
     <dimen name="et_top_margin">8dp</dimen>
     <dimen name="et_right_margin">55dp</dimen>
     <dimen name="et_left_purchase">80dp</dimen>
     <dimen name="logo_height">100dp</dimen>
-    <dimen name="edittext_layout_height">56dp</dimen>
+    <dimen name="edit_text_layout_height">56dp</dimen>
     <dimen name="button_height">48dp</dimen>
     <dimen name="bt_buy_margin">25dp</dimen>
     <dimen name="margin_30">30dp</dimen>

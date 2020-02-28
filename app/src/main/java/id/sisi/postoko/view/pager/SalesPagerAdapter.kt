@@ -8,7 +8,7 @@ import id.sisi.postoko.utils.extensions.tryValue
 import id.sisi.postoko.view.ui.sales.SaleStatus.*
 import id.sisi.postoko.view.ui.sales.SalesBookingFragment
 
-class SalesPagerAdapter(fm: FragmentManager, var ctx: Context?) :
+class SalesPagerAdapter(fm: FragmentManager, private var ctx: Context?) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val pages = listOf(
         SalesBookingFragment(PENDING),

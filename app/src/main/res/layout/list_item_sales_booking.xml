@@ -120,7 +120,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/main_green"
-                            tools:text="Selesai" />
+                            tools:text="done" />
 
                     </LinearLayout>
 
@@ -138,7 +138,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:orientation="horizontal"
             android:padding="@dimen/margin_5"
             android:weightSum="1">

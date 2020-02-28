@@ -1,8 +1,8 @@
-package id.sisi.postoko.view.ui.goodreveived
+package id.sisi.postoko.view.ui.gr
 
 import android.os.Bundle
 import android.view.*
-import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.DELIVERING
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,13 +25,12 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_gr, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_gr, container, false)
     }
 
     override var tagName: String
         get() = status.name
-        set(value) {}
+        set(_) {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -44,15 +43,6 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
         })
     }
 
-    private fun showBottomSheetDialog() {
-        context?.let {
-            val view = LayoutInflater.from(it).inflate(R.layout.fragment_bottom_sheet_add_good_received, null)
-            val dialog = BottomSheetDialog(it)
-            dialog.setContentView(view)
-            dialog.show()
-        }
-    }
-
     private fun showBottomSheetDialogFragment(goodReceived: GoodReceived?) {
         val bottomSheetFragment = BottomSheetAddGoodReceivedFragment()
         val bundle = Bundle()
@@ -61,7 +51,7 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
         bottomSheetFragment.listener = {
             viewModel.getListGoodReceived()
         }
-        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     private fun setupUI() {

@@ -23,8 +23,8 @@ class CustomProgressBar {
     }
 
     fun show(context: Context, title:CharSequence?): Dialog {
-        val inflator = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflator.inflate(R.layout.progress_bar, null)
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.progress_bar, null)
         if (title != null) {
             view.cp_title.text = title
         }
@@ -41,7 +41,7 @@ class CustomProgressBar {
         return dialog
     }
 
-    fun setColorFilter(@NonNull drawable: Drawable, color:Int) {
+    private fun setColorFilter(@NonNull drawable: Drawable, color:Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             drawable.colorFilter = BlendModeColorFilter(color, BlendMode.SRC_ATOP)
         } else {

@@ -9,7 +9,6 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.model.Supplier
 import id.sisi.postoko.model.Warehouse
-import id.sisi.postoko.utils.extensions.logE
 import kotlinx.android.synthetic.main.list_item_master.view.*
 
 class ListMasterAdapter<T>(private var masterData: List<T>? = arrayListOf()) : RecyclerView.Adapter<ListMasterAdapter.MasterViewHolder<T>>() {
@@ -32,18 +31,23 @@ class ListMasterAdapter<T>(private var masterData: List<T>? = arrayListOf()) : R
     class MasterViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(value: T?) {
-            if (value is Warehouse) {
-                itemView.tv_master_data_name?.text = value.name
-                itemView.tv_master_data_description?.text = value.address
-            } else if (value is Supplier) {
-                itemView.tv_master_data_name?.text = value.name
-                itemView.tv_master_data_description?.text = value.address
-            } else if (value is Customer) {
-                itemView.tv_master_data_name?.text = value.name
-                itemView.tv_master_data_description?.text = value.address
-            } else if (value is Product) {
-                itemView.tv_master_data_name?.text = value.name
-                itemView.tv_master_data_description?.text = value.code
+            when (value) {
+                is Warehouse -> {
+                    itemView.tv_master_data_name?.text = value.name
+                    itemView.tv_master_data_description?.text = value.address
+                }
+                is Supplier -> {
+                    itemView.tv_master_data_name?.text = value.name
+                    itemView.tv_master_data_description?.text = value.address
+                }
+                is Customer -> {
+                    itemView.tv_master_data_name?.text = value.name
+                    itemView.tv_master_data_description?.text = value.address
+                }
+                is Product -> {
+                    itemView.tv_master_data_name?.text = value.name
+                    itemView.tv_master_data_description?.text = value.code
+                }
             }
         }
     }

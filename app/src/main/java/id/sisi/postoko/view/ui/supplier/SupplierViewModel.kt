@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.Supplier
 import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class SupplierViewModel : ViewModel() {
@@ -20,15 +20,13 @@ class SupplierViewModel : ViewModel() {
 
     private fun getListSupplier() {
         isExecute.postValue(true)
-        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getListSupplier(headers)?.exe(
-            onFailure = { call, throwable ->
-                logE("gagal")
+            onFailure = { _, _ ->
                 isExecute.postValue(true)
                 suppliers.postValue(null)
             },
-            onResponse = { call, response ->
-                logE("berhasil supplier")
+            onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {

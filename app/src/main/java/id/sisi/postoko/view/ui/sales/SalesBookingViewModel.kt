@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.utils.KEY_FORCA_TOKEN
+import id.sisi.postoko.utils.KEY_SALE_STATUS
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class SalesBookingViewModel(var status: String) : ViewModel() {
@@ -20,16 +21,14 @@ class SalesBookingViewModel(var status: String) : ViewModel() {
 
     private fun getListSale() {
         isExecute.postValue(true)
-        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("sale_status" to status)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_SALE_STATUS to status)
         ApiServices.getInstance()?.getListSale(headers, params)?.exe(
-            onFailure = { call, throwable ->
-                logE("gagal")
+            onFailure = { _, _ ->
                 isExecute.postValue(true)
                 sales.postValue(null)
             },
-            onResponse = { call, response ->
-                logE("berhasil product")
+            onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {

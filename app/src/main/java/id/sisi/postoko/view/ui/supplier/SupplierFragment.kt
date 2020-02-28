@@ -1,18 +1,15 @@
 package id.sisi.postoko.view.ui.supplier
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.Supplier
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
@@ -34,7 +31,7 @@ class SupplierFragment : BaseFragment() {
 
     override var tagName: String
         get() = "Supplier"
-        set(value) {}
+        set(_) {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -43,7 +40,6 @@ class SupplierFragment : BaseFragment() {
 
         viewModel = ViewModelProvider(this).get(SupplierViewModel::class.java)
         viewModel.getListSuppliers().observe(viewLifecycleOwner, Observer {
-            logE("cek data ${it}")
             adapter.updateMasterData(it)
         })
     }

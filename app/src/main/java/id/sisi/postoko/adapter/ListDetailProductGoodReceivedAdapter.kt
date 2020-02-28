@@ -1,7 +1,5 @@
 package id.sisi.postoko.adapter
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,7 @@ import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toNumberID
 import kotlinx.android.synthetic.main.list_product_good_received.view.*
 
-class ListDetailProductGoodReceivedAdapter(var purchasesItem: List<PurchaseItem>? = arrayListOf()) :
+class ListDetailProductGoodReceivedAdapter(private var purchasesItem: List<PurchaseItem>? = arrayListOf()) :
     RecyclerView.Adapter<ListDetailProductGoodReceivedAdapter.DetailProductGoodReceivedViewHolder>() {
 
     override fun onCreateViewHolder(

@@ -5,17 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
-import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Product
-import kotlinx.android.synthetic.main.list_item_master.view.*
 import kotlinx.android.synthetic.main.list_item_product_add_sales.view.*
-
-import java.util.*
-
 import java.text.NumberFormat
-
-
-
+import java.util.*
 
 
 class ListAddProductOnAddSalesAdapter (private var masterData: List<Product>? = arrayListOf()) : RecyclerView.Adapter<ListAddProductOnAddSalesAdapter.SearchCustomerViewHolder>() {

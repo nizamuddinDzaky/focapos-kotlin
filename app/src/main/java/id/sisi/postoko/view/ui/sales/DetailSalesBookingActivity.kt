@@ -9,14 +9,14 @@ import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 
 class DetailSalesBookingActivity : AppCompatActivity(){
 
-    var id_sales_booking: Int = 0
+    var idSalesBooking: Int = 0
     var tempSale: Sales? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_sales_booking_activity)
 
-        id_sales_booking = intent.getIntExtra(KEY_ID_SALES_BOOKING, 0)
+        idSalesBooking = intent.getIntExtra(KEY_ID_SALES_BOOKING, 0)
 
         supportActionBar?.elevation = 0.0F
 

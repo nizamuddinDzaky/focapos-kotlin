@@ -20,8 +20,7 @@ class MasterDataFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = "Master Data"
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

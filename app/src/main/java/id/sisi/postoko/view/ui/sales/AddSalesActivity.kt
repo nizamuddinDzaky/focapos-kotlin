@@ -1,36 +1,26 @@
 package id.sisi.postoko.view.ui.sales
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import id.sisi.postoko.R
-import id.sisi.postoko.model.Customer
-import id.sisi.postoko.model.Supplier
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.view.ui.supplier.SupplierViewModel
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
-import id.sisi.postoko.adapter.ListSearchCustomerAdapter
 import id.sisi.postoko.adapter.OnClickListenerInterface
+import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.model.SaleItem
+import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.view.ui.supplier.SupplierViewModel
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
-import kotlinx.android.synthetic.main.activity_add_product_sales.*
 import kotlinx.android.synthetic.main.activity_add_sales.*
 import kotlinx.android.synthetic.main.content_add_sales.*
-import kotlinx.android.synthetic.main.fragment_search_customer.*
 import java.util.*
 
 class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
@@ -113,12 +103,12 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
             if (resultCode == Activity.RESULT_OK) {
                 val product = data!!.getParcelableExtra<Product>("product_result")
                 var saleItem = SaleItem()
-                saleItem?.product_id =product.id.toInt()
-                saleItem?.product_code = product.code
-                saleItem?.product_name = product.name
-                saleItem?.net_unit_price = product.price.toDouble()
-                saleItem?.unit_price =  product.price.toDouble()
-                saleItem?.quantity = 1.0
+                saleItem.product_id =product.id.toInt()
+                saleItem.product_code = product.code
+                saleItem.product_name = product.name
+                saleItem.net_unit_price = product.price.toDouble()
+                saleItem.unit_price =  product.price.toDouble()
+                saleItem.quantity = 1.0
                 logE("nizamuddin : "+ saleItem.toString())
                 if (saleItem != null) {
                     var cek : Boolean = true

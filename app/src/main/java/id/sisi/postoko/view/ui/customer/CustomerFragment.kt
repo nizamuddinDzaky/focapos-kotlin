@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.Customer
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
@@ -33,7 +31,7 @@ class CustomerFragment : BaseFragment() {
 
     override var tagName: String
         get() = "Customer"
-        set(value) {}
+        set(_) {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -42,7 +40,6 @@ class CustomerFragment : BaseFragment() {
 
         viewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
         viewModel.getListCustomers().observe(viewLifecycleOwner, Observer {
-            logE("cek data ${it}")
             adapter.updateMasterData(it)
         })
     }

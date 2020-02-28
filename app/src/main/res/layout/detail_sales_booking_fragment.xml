@@ -335,7 +335,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/text_green"
                                 android:textStyle="bold"
-                                tools:text="Selesai" />
+                                tools:text="done" />
 
                         </LinearLayout>
 
@@ -372,7 +372,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/text_green"
                                 android:textStyle="bold"
-                                tools:text="Selesai" />
+                                tools:text="done" />
 
                         </LinearLayout>
 

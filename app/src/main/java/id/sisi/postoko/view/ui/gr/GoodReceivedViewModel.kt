@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.goodreveived
+package id.sisi.postoko.view.ui.gr
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,6 @@ import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class GoodReceivedViewModel(var status: String) : ViewModel() {
@@ -23,13 +22,11 @@ class GoodReceivedViewModel(var status: String) : ViewModel() {
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf("goods_received_status" to status)
         ApiServices.getInstance()?.getListGoodReceived(headers, params)?.exe(
-            onFailure = { call, throwable ->
-                logE("gagal list good received")
+            onFailure = { _, _ ->
                 isExecute.postValue(true)
                 goodsReceived.postValue(null)
             },
-            onResponse = { call, response ->
-                logE("berhasil list good received")
+            onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {

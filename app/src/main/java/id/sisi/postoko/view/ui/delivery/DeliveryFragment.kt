@@ -21,28 +21,27 @@ class DeliveryFragment : Fragment() {
 
     private lateinit var viewModel: DeliveryViewModel
     private lateinit var adapter: ListPengirimanAdapter
-    private var id_sales_booking = 0
+    private var idSalesBooking = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.pengiriman_fragment, container, false)
-        return view
+        return inflater.inflate(R.layout.pengiriman_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        id_sales_booking = (activity as? DetailSalesBookingActivity)?.id_sales_booking ?: 0
-        logE("delivery sales booking id $id_sales_booking")
+        idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
+        logE("delivery sales booking id $idSalesBooking")
 
         setupUI()
 
         viewModel = ViewModelProvider(
             this,
-            DeliveryFactory(id_sales_booking)
+            DeliveryFactory(idSalesBooking)
         ).get(DeliveryViewModel::class.java)
         viewModel.getListDeliveries().observe(viewLifecycleOwner, Observer {
             adapter.updateData(it)
@@ -75,7 +74,7 @@ class DeliveryFragment : Fragment() {
         val bundle = Bundle()
         bundle.putParcelable("detail_delivery", delivery)
         bottomSheetFragment.arguments = bundle
-        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     private fun showBottomSheetAddDelivery(id_sales_booking: Int) {
@@ -89,14 +88,14 @@ class DeliveryFragment : Fragment() {
         bottomSheetFragment.listener = {
             viewModel.getListDelivery()
         }
-        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.getTag())
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         fb_add_transaction?.setOnClickListener {
-            showBottomSheetAddDelivery(id_sales_booking)
+            showBottomSheetAddDelivery(idSalesBooking)
         }
     }
 

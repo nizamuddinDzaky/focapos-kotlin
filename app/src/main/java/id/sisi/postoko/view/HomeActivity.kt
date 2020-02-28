@@ -3,7 +3,6 @@ package id.sisi.postoko.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.active
 import id.sisi.postoko.utils.extensions.attach
@@ -15,7 +14,7 @@ import id.sisi.postoko.utils.helper.getTag
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
-    private val KEY_POSITION = "keyPosition"
+    private val mKeyPosition = "keyPosition"
 
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
@@ -38,7 +37,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(KEY_POSITION, navPosition.id)
+        outState.putInt(mKeyPosition, navPosition.id)
         super.onSaveInstanceState(outState)
     }
 
@@ -47,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
-        savedInstanceState?.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)?.also {
+        savedInstanceState?.getInt(mKeyPosition, BottomNavigationPosition.HOME.id)?.also {
             navPosition = findNavigationPositionById(it)
         }
     }

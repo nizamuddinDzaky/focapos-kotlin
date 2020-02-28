@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.goodreveived
+package id.sisi.postoko.view.ui.gr
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

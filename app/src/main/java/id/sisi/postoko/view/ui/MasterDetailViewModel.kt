@@ -7,7 +7,6 @@ import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class MasterDetailViewModel : ViewModel() {
@@ -19,13 +18,11 @@ class MasterDetailViewModel : ViewModel() {
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf("id_customers" to idCustomer.toString())
         ApiServices.getInstance()?.getDetailCustomer(headers, params)?.exe(
-            onFailure = { call, throwable ->
-                logE("gagal")
+            onFailure = { _, _ ->
                 isExecute.postValue(true)
                 customer.postValue(null)
             },
-            onResponse = { call, response ->
-                logE("berhasil product")
+            onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {

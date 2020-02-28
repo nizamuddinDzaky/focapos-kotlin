@@ -5,10 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
-import id.sisi.postoko.model.Product
 import id.sisi.postoko.model.SaleItem
-import id.sisi.postoko.utils.extensions.logE
-import kotlinx.android.synthetic.main.list_item_product_add_sales.view.*
 import kotlinx.android.synthetic.main.list_item_product_add_sales.view.tv_product_name
 import kotlinx.android.synthetic.main.list_item_product_add_sales.view.tv_product_price
 import kotlinx.android.synthetic.main.list_product_sales.view.*
@@ -58,7 +55,7 @@ class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arra
             itemView.iv_minus_product.setOnClickListener {
                 qty = qty - 1
                 value?.quantity = qty
-                itemView.et_qty_produk_sale_booking.setText(qty?.toInt().toString())
+                itemView.et_qty_produk_sale_booking.setText(qty.toInt().toString())
                 var subtotal =hitungSubtotal(qty.toDouble(), price)
                 itemView.tv_subtoal_add_sales_booking?.text = formatRupiah.format(subtotal).toString()
                 value?.subtotal = subtotal
@@ -67,7 +64,7 @@ class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arra
             itemView.iv_add_product.setOnClickListener {
                 qty = qty + 1
                 value?.quantity = qty
-                itemView.et_qty_produk_sale_booking.setText(qty?.toInt().toString())
+                itemView.et_qty_produk_sale_booking.setText(qty.toInt().toString())
                 var subtotal = hitungSubtotal(qty.toDouble(), price)
                 itemView.tv_subtoal_add_sales_booking?.text = formatRupiah.format(subtotal).toString()
                 value?.subtotal = subtotal

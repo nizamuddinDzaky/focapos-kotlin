@@ -1,6 +1,5 @@
 package id.sisi.postoko.adapter
 
-import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import id.sisi.postoko.utils.extensions.goneIfEmptyOrNull
 import id.sisi.postoko.utils.extensions.strikeText
 import kotlinx.android.synthetic.main.list_product_sales_booking.view.*
 
-class ListDetailSalesBookingAdapter(var saleItems: List<SaleItem>? = arrayListOf()) :
+class ListDetailSalesBookingAdapter(private var saleItems: List<SaleItem>? = arrayListOf()) :
     RecyclerView.Adapter<ListDetailSalesBookingAdapter.ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {

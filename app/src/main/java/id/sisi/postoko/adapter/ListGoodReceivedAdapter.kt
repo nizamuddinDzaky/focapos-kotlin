@@ -1,7 +1,6 @@
 package id.sisi.postoko.adapter
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,9 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.utils.extensions.checkVisibility
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.view.ui.goodreveived.DetailGoodReceivedActivity
-import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus
-import id.sisi.postoko.view.ui.goodreveived.GoodReceiveStatus.DELIVERING
+import id.sisi.postoko.view.ui.gr.DetailGoodReceivedActivity
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
 import kotlinx.android.synthetic.main.list_item_gr.view.*
 import java.text.SimpleDateFormat
 import java.util.*

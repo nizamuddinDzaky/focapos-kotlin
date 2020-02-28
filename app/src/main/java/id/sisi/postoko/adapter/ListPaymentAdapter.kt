@@ -9,7 +9,7 @@ import id.sisi.postoko.model.Payment
 import kotlinx.android.synthetic.main.list_item_pembayaran.view.*
 
 class ListPaymentAdapter(
-    var payments: List<Payment>? = listOf(),
+    private var payments: List<Payment>? = listOf(),
     var listener: (Payment?) -> Unit = {}
 ) : RecyclerView.Adapter<ListPaymentAdapter.ProductViewHolder>(){
 

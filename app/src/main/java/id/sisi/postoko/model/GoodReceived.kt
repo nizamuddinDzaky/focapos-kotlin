@@ -1,6 +1,7 @@
 package id.sisi.postoko.model
 
 import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -69,5 +70,6 @@ data class GoodReceived(
 //    val updated_at: Any,
     val warehouse_id: String?
 ) : Parcelable {
-    var good_received_items: List<PurchaseItem>? = arrayListOf()
+    @IgnoredOnParcel
+    var goodReceivedItems: List<PurchaseItem>? = arrayListOf()
 }

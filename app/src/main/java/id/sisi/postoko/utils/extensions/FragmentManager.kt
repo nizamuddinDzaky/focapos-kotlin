@@ -2,7 +2,6 @@ package id.sisi.postoko.utils.extensions
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import id.sisi.postoko.R
 
 fun FragmentManager.detach() {

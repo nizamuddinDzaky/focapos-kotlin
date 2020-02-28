@@ -8,7 +8,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorBackground">#EDEDED</color>
     <color name="colorLine">#CACACA</color>
-    <color name="colorButtonScrol">#1CA865</color>
+    <color name="colorButtonScroll">#1CA865</color>
 
     <color name="main_red">#AE0D28</color>
     <color name="main_green">#1CA865</color>

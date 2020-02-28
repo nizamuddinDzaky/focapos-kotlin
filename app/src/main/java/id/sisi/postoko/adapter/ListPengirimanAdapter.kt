@@ -9,7 +9,7 @@ import id.sisi.postoko.model.Delivery
 import kotlinx.android.synthetic.main.list_item_pengiriman.view.*
 
 class ListPengirimanAdapter(
-    var deliveries: List<Delivery>? = listOf(),
+    private var deliveries: List<Delivery>? = listOf(),
     var listener: (Delivery?) -> Unit = {}
 ) : RecyclerView.Adapter<ListPengirimanAdapter.ProductViewHolder>() {
 

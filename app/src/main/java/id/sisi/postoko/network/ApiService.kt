@@ -173,7 +173,7 @@ interface ApiServices {
             val builder =
                 OkHttpClient.Builder().connectionSpecs(arrayListOf(spec, ConnectionSpec.CLEARTEXT))
             builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-            builder.hostnameVerifier { hostname, session -> true }
+            builder.hostnameVerifier { _, _ -> true }
             builder.addInterceptor(interceptor)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
