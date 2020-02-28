@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.activity_add_product_sales.*
 import kotlinx.android.synthetic.main.activity_add_sales.*
 import kotlinx.android.synthetic.main.content_add_sales.*
 import kotlinx.android.synthetic.main.fragment_search_customer.*
+import java.text.NumberFormat
 import java.util.*
 
 class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
@@ -48,6 +49,7 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
         val actionBar = supportActionBar
         actionBar!!.title = ""
         actionBar.setDisplayHomeAsUpEnabled(true)
+
 
         et_tanggal.setOnClickListener { view ->
             val c = Calendar.getInstance()
@@ -111,30 +113,7 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                val product = data!!.getParcelableExtra<Product>("product_result")
-                var saleItem = SaleItem()
-                saleItem?.product_id =product.id.toInt()
-                saleItem?.product_code = product.code
-                saleItem?.product_name = product.name
-                saleItem?.net_unit_price = product.price.toDouble()
-                saleItem?.unit_price =  product.price.toDouble()
-                saleItem?.quantity = 1.0
-                logE("nizamuddin : "+ saleItem.toString())
-                if (saleItem != null) {
-                    var cek : Boolean = true
-
-                    for (x in 0 until listSaleItems.size){
-                        if(product.code == listSaleItems.get(x).product_code){
-                            cek = false
-                        }
-                    }
-
-                    if(cek)
-                        listSaleItems.add(saleItem)
-                    else
-                        Toast.makeText(this, "Produk sama bro", Toast.LENGTH_SHORT).show()
-                    setupRecycleView(listSaleItems)
-                }
+                setDataFromAddProduct(data)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -145,14 +124,47 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
         adapter = ListProductAddSalesAdapter()
         adapter.updateMasterData(it)
         adapter.listenerProduct = this
-
-//        adapter.listener = {
-//            listener(it)
-//            dismisDialog()
-//        }
         rv_list_product_add_sale?.layoutManager = LinearLayoutManager(this)
         rv_list_product_add_sale?.setHasFixedSize(false)
         rv_list_product_add_sale?.adapter = adapter
+        sumTotal()
+    }
+
+    fun sumTotal (){
+        val localeID = Locale("in", "ID")
+        var formatRupiah = NumberFormat.getCurrencyInstance(localeID)
+        var total : Double = 0.0
+        for (x in 0 until listSaleItems.size){
+            total += listSaleItems.get(x).subtotal?.toDouble()!!
+        }
+        tv_total_add_sale.text = formatRupiah.format(total).toString()
+    }
+
+    private fun setDataFromAddProduct(data: Intent?){
+        val product = data!!.getParcelableExtra<Product>("product_result")
+        var saleItem = SaleItem()
+        saleItem?.product_id =product.id.toInt()
+        saleItem?.product_code = product.code
+        saleItem?.product_name = product.name
+        saleItem?.net_unit_price = product.price.toDouble()
+        saleItem?.unit_price =  product.price.toDouble()
+        saleItem?.quantity = 1.0
+        saleItem?.subtotal =saleItem?.quantity!! * saleItem?.unit_price!!
+        if (saleItem != null) {
+            var cek : Boolean = true
+
+            for (x in 0 until listSaleItems.size){
+                if(product.code == listSaleItems.get(x).product_code){
+                    cek = false
+                }
+            }
+
+            if(cek)
+                listSaleItems.add(saleItem)
+            else
+                Toast.makeText(this, "Produk sama bro", Toast.LENGTH_SHORT).show()
+            setupRecycleView(listSaleItems)
+        }
     }
 
     override fun onClickPlus(){
@@ -162,13 +174,9 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
     override fun onClickMinus(){
         sumTotal()
     }
-
-    fun sumTotal (){
-        var total : Double = 0.0
-        for (x in 0 until listSaleItems.size){
-            total += listSaleItems.get(x).subtotal?.toDouble()!!
-        }
-
-        Toast.makeText(this, "Produk sama bro"+listSaleItems.size+"=>"+total, Toast.LENGTH_SHORT).show()
+    override fun onClickEdit(saleItem: SaleItem, position: Int) {
+        val intent = Intent(this, EditProductSalesActivity::class.java)
+        intent.putExtra("sale_item", saleItem)
+        startActivityForResult(intent , 2)
     }
 }

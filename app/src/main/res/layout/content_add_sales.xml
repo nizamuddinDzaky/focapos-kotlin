@@ -143,9 +143,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="#fff"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingTop="@dimen/margin_20"
-                android:paddingBottom="@dimen/margin_20">
+                android:padding="@dimen/margin_20"
+                >
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -157,6 +156,21 @@
                         android:layout_height="wrap_content"
                         android:text="Total"
                         android:textColor="#000"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_total_add_sale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total"
+                        android:textColor="#000"
+                        android:textAlignment="textEnd"
+                        android:gravity="end" />
                 </LinearLayout>
             </LinearLayout>
             <Button

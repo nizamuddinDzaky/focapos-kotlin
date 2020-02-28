@@ -38,6 +38,7 @@ class FragmentSearchCustomer: DialogFragment() {
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_search_customer, container, false)
+        return inflater.inflate(R.layout.fragment_search_customer, container, false)
     }
     override fun onViewCreated(view:View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)

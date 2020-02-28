@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.content_add_product_sales.*
 import kotlinx.android.synthetic.main.master_data_fragment.*
 import android.app.Activity
 import android.content.Intent
+import android.view.MenuItem
 import android.view.View
 import id.sisi.postoko.model.Customer
 import kotlinx.android.synthetic.main.fragment_search_customer.*
@@ -34,7 +35,7 @@ class AddProductSalesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product_sales)
         setSupportActionBar(toolbar)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         viewModel.getListProducts().observe(this, Observer {
 //            adapter.updateMasterData(it)
@@ -47,6 +48,7 @@ class AddProductSalesActivity : AppCompatActivity() {
             tv_search_product_add_sales.visibility = View.GONE
             sv_search_product_add_sales.visibility = View.VISIBLE
             ll_search_product_add_sales.visibility = View.GONE
+            sv_search_product_add_sales?.onActionViewExpanded()
         }
 
         sv_search_product_add_sales.setOnCloseListener(object :androidx.appcompat.widget.SearchView.OnCloseListener {
@@ -105,5 +107,10 @@ class AddProductSalesActivity : AppCompatActivity() {
         rv_list_product_add_sale?.adapter = adapter
     }
 
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

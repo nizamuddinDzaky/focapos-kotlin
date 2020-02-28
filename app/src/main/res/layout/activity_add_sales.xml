@@ -15,6 +15,7 @@
             android:id="@+id/toolbar_add_sales"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/back_arrow_foreground"
             android:background="#fff"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <TextView

@@ -17,14 +17,19 @@
         android:roundIcon="@mipmap/forcapos"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".view.ui.sales.EditProductSalesActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.sales.AddProductSalesActivity"
-            android:label="Menambahkan Produk"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.sales.AddSalesActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".view.MainActivity"/>
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.AddProductActivity" />
         <activity
             android:name=".view.ui.goodreveived.DetailGoodReceivedActivity"

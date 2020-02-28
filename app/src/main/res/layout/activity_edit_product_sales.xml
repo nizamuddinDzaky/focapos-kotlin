@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.sales.AddProductSalesActivity">
+    tools:context=".view.ui.sales.EditProductSalesActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,21 +15,21 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#fff"
             app:navigationIcon="@drawable/back_arrow_foreground"
+            android:background="#fff"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/choose_product"
                 android:layout_gravity="center"
-                android:id="@+id/toolbar_title"
-                android:textColor="#000"
-                android:textSize="20dp"/>
+                android:textColor="#676767"
+                android:textStyle="bold"
+                android:textSize="15dp"/>
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_add_product_sales" />
+    <include layout="@layout/content_edit_product_sales" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
