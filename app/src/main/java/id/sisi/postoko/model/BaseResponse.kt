@@ -51,7 +51,7 @@ data class DataSaleDetail(
 data class DataGoodsReceived(
     var total_goods_received: Int?,
     var good_received: GoodReceived?,
-    var good_received_items: List<Product>?,
+    var good_received_items: List<PurchaseItem>?,
     var list_goods_received: List<GoodReceived>?
 )
 

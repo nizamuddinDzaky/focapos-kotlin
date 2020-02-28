@@ -7,41 +7,47 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.view.AddProductActivity
-import kotlinx.android.synthetic.main.list_item_gr.view.*
-import kotlin.random.Random
+import id.sisi.postoko.model.PurchaseItem
+import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toNumberID
+import kotlinx.android.synthetic.main.list_product_good_received.view.*
 
-class ListDetailProductGoodReceivedAdapter : RecyclerView.Adapter<ListDetailProductGoodReceivedAdapter.DetailProductGoodReceivedViewHolder>(){
-    val nData = Random.nextInt(2, 10)
+class ListDetailProductGoodReceivedAdapter(var purchasesItem: List<PurchaseItem>? = arrayListOf()) :
+    RecyclerView.Adapter<ListDetailProductGoodReceivedAdapter.DetailProductGoodReceivedViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailProductGoodReceivedViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): DetailProductGoodReceivedViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_product_good_received, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.list_product_good_received, parent, false)
 
         return DetailProductGoodReceivedViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return nData
+        return purchasesItem?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: DetailProductGoodReceivedViewHolder, position: Int) {
-        holder.bind("")
+        holder.bind(purchasesItem?.get(position))
     }
 
     class DetailProductGoodReceivedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(value: String) {
-            itemView.tv_action_detail_gr?.setOnClickListener {
-                logE("action detail")
-                val page = Intent(itemView.context, AddProductActivity::class.java)
-                page.putExtra("data", Bundle())
-                itemView.context.startActivity(page)
-            }
-            itemView.btn_action_receive_gr?.setOnClickListener {
-                logE("action receive")
+        fun bind(purchaseItem: PurchaseItem?) {
+            purchaseItem?.let {
+                itemView.tv_good_received_detail_item_product_name?.text = it.product_name
+                val quantity = "${it.quantity.toNumberID()} SAK"
+                itemView.tv_good_received_detail_item_quantity?.text = quantity
+                itemView.tv_good_received_detail_item_price?.text = it.unit_price.toCurrencyID()
             }
         }
+    }
+
+    fun updatePurchasesItem(newPurchasesItem: List<PurchaseItem>?) {
+        purchasesItem = newPurchasesItem
+        notifyDataSetChanged()
     }
 }

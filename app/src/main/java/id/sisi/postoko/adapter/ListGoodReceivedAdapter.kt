@@ -45,13 +45,13 @@ class ListGoodReceivedAdapter(
             goodReceived?.let {
                 itemView.tv_good_received_do_number?.text = it.no_do
                 itemView.tv_good_received_so_number?.text = it.no_so
-                itemView.tv_good_received_date?.text = it.tanggal_do.toDisplayDateFromDO()
+                itemView.tv_good_received_date?.text = it.tanggal_do?.toDisplayDateFromDO()
                 itemView.btn_action_receive_gr?.checkVisibility(status == DELIVERING)
             }
             itemView.setOnClickListener {
                 logE("click action detail")
                 val page = Intent(itemView.context, DetailGoodReceivedActivity::class.java)
-                page.putExtra("data", Bundle())
+                page.putExtra("good_received", goodReceived)
                 itemView.context.startActivity(page)
             }
             itemView.btn_action_receive_gr?.setOnClickListener {

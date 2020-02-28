@@ -34,20 +34,20 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
         val goodReceived = arguments?.getParcelable<GoodReceived>("good_received")
 
         goodReceived?.let {
-            viewModel = ViewModelProvider(this, AddGoodReceivedFactory(it.id.toInt())).get(
+            viewModel = ViewModelProvider(this, AddGoodReceivedFactory(it.id?.toInt() ?: 0)).get(
                 AddGoodReceivedViewModel::class.java
             )
             viewModel.getDetailGoodReceived().observe(viewLifecycleOwner, Observer { gr ->
                 gr?.let {
                     tv_detail_good_received_name?.text = gr.nama_produk
                     tryMe {
-                        val price = (gr.grand_total.toDouble() / gr.qty_do.toDouble())
+                        val price = (gr.grand_total?.toDouble() ?: 0.0).div(gr.qty_do?.toDouble() ?: 1.0)
                         tv_detail_good_received_price.text = price.toCurrencyID()
                         et_detail_good_received_new_price?.setText(price.format(0))
                     }
-                    tv_detail_good_received_quantity?.text = gr.qty_do.toDouble().toNumberID()
+                    tv_detail_good_received_quantity?.text = gr.qty_do?.toDouble()?.toNumberID()
                     tv_detail_good_received_spj_no?.text = gr.no_spj
-                    tv_detail_good_received_total?.text = gr.grand_total.toDouble().toCurrencyID()
+                    tv_detail_good_received_total?.text = gr.grand_total?.toDouble()?.toCurrencyID()
                 }
             })
             viewModel.requestDetailGoodReceived()

@@ -1,100 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorBackground">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/button_terima">
+        android:layout_above="@+id/btn_action_good_received">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/et_top_margin"
-                    android:background="#FFFFFF">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#FFFFFF"
-                            android:layout_marginLeft="@dimen/margin_10"
-                            android:layout_marginTop="@dimen/margin_10"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="@dimen/margin_15"
-                                android:layout_height="@dimen/margin_15"
-                                android:src="@drawable/mark" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2.4"
-                            android:background="#FFFFFF"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin_5"
-                                android:layout_marginLeft="@dimen/margin_5"
-                                android:text="From"
-                                android:textColor="@color/colorBlack"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin_5"
-                                android:layout_marginLeft="@dimen/margin_5"
-                                android:text="Semen Gresik"
-                                android:textStyle="bold"
-                                android:textColor="@color/colorBlack"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin_5"
-                                android:layout_marginLeft="@dimen/margin_5"
-                                android:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban "/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin_5"
-                                android:layout_marginLeft="@dimen/margin_5"
-                                android:text="Jawa Timur"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line"
-                android:background="@color/colorLine" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:orientation="vertical"
-                android:padding="@dimen/et_top_margin"
-                android:background="#FFFFFF">
+                android:padding="@dimen/et_top_margin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -105,10 +31,9 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:layout_marginStart="@dimen/margin_10"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:layout_marginTop="@dimen/margin_10"
+                        android:background="#FFFFFF"
                         android:orientation="vertical">
 
                         <ImageView
@@ -122,8 +47,89 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2.4"
+                        android:background="#FFFFFF"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_5"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:text="From"
+                            android:textColor="@color/colorBlack" />
+
+                        <TextView
+                            android:id="@+id/tv_good_received_detail_from_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_5"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            tools:text="Semen Gresik" />
+
+                        <TextView
+                            android:id="@+id/tv_good_received_detail_from_address_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_5"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
+
+                        <TextView
+                            android:id="@+id/tv_good_received_detail_from_address_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_5"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            tools:text="Jawa Timur" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:background="@color/colorLine" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:background="#FFFFFF"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/margin_15"
+                            android:layout_height="@dimen/margin_15"
+                            android:src="@drawable/mark" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_5"
                         android:layout_marginLeft="@dimen/margin_5"
+                        android:layout_weight="2.4"
                         android:background="#FFFFFF"
                         android:orientation="vertical">
 
@@ -131,24 +137,27 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="To"
-                            android:textColor="@color/colorBlack"/>
+                            android:textColor="@color/colorBlack" />
 
                         <TextView
+                            android:id="@+id/tv_good_received_detail_to_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Helios Crop"
+                            android:textColor="@color/colorBlack"
                             android:textStyle="bold"
-                            android:textColor="@color/colorBlack"/>
+                            tools:text="Helios Crop" />
 
                         <TextView
+                            android:id="@+id/tv_good_received_detail_to_address_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban "/>
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
                         <TextView
+                            android:id="@+id/tv_good_received_detail_to_address_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Jawa Timur"/>
+                            tools:text="Jawa Timur" />
 
                     </LinearLayout>
 
@@ -190,11 +199,12 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_good_received_detail_do_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="088887627862"
                         android:textColor="@color/colorBlack"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="088887627862" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -216,6 +226,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line"
@@ -225,17 +236,17 @@
                 android:id="@+id/rv_list_product_detail_good_received"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="#E5E5E5"
                 android:clipToPadding="false"
                 tools:itemCount="2"
-                android:background="#E5E5E5"
                 tools:listitem="@layout/list_product_good_received" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:background="#FFFFFF"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/margin_10">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -249,9 +260,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:text="Total Amount (IDR)"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -260,20 +271,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_6"
                     android:layout_marginLeft="@dimen/margin_6"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:layout_marginEnd="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_6"
                     android:layout_weight="1"
                     android:background="#FFFFFF"
-                    android:orientation="vertical"
-                    android:layout_marginTop="@dimen/margin_2"
-                    android:layout_marginBottom="@dimen/margin_6"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:gravity="right">
+                    android:gravity="right"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_good_received_detail_grand_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rp 96.000.000"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="Rp 96.000.000" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -316,9 +328,9 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_3"
                     android:layout_weight="1.4"
                     android:background="#FFFFFF"
-                    android:layout_marginBottom="@dimen/margin_3"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -332,77 +344,93 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No. PP"/>
+                            android:text="No. PP" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tanggal PP"/>
+                            android:text="Tanggal PP" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No. SO"/>
+                            android:text="No. SO" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tanggal PP"/>
+                            android:text="Tanggal SO" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No Transaksi"/>
+                            android:text="No Transaksi" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tipe Order"/>
+                            android:text="Tipe Order" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="@dimen/margin_20"
                         android:layout_marginLeft="@dimen/margin_20"
-                        android:layout_marginRight="@dimen/margin_10"
                         android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_good_received_pp_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="1000092928"/>
+                            tools:text="1000092928" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_pp_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="19/09/2020"/>
+                            tools:text="19/09/2020" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_so_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="889920229283"/>
+                            tools:text="889920229283" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_so_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="19/09/2020"/>
+                            tools:text="19/09/2020" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_transaction_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="889920229283"/>
+                            tools:text="889920229283" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_order_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="ZOR"/>
+                            tools:text="ZOR" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:layout_marginRight="@dimen/margin_5"
                         android:layout_marginEnd="@dimen/margin_5"
+                        android:layout_marginRight="@dimen/margin_5"
+                        android:layout_weight="0.2"
                         android:orientation="vertical">
 
                         <TextView
@@ -411,18 +439,22 @@
                             android:text="Salin"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Salin"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -432,10 +464,12 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/line"
                 android:background="@color/colorLine" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -461,77 +495,93 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No SPJ"/>
+                            android:text="No SPJ" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tanggal SPJ"/>
+                            android:text="Tanggal SPJ" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No Polisi"/>
+                            android:text="No Polisi" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nama Driver"/>
+                            android:text="Nama Driver" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pabrik"/>
+                            android:text="Pabrik" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nama Pabrik"/>
+                            android:text="Nama Pabrik" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="@dimen/margin_20"
                         android:layout_marginLeft="@dimen/margin_20"
-                        android:layout_marginRight="@dimen/margin_10"
                         android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_good_received_spj_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="1000092928"/>
+                            tools:text="1000092928" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_spj_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="19/09/2020"/>
+                            tools:text="19/09/2020" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_police_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="W 008 AB"/>
+                            tools:text="W 008 AB" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_driver_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="SAIKUN"/>
+                            tools:text="SAIKUN" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_plant_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="5401"/>
+                            tools:text="5401" />
+
                         <TextView
+                            android:id="@+id/tv_good_received_plant_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="CP REMBANG"/>
+                            tools:text="CP REMBANG" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:layout_marginRight="@dimen/margin_5"
                         android:layout_marginEnd="@dimen/margin_5"
+                        android:layout_marginRight="@dimen/margin_5"
+                        android:layout_weight="0.2"
                         android:orientation="vertical">
 
                         <TextView
@@ -540,9 +590,11 @@
                             android:text="Salin"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -560,7 +612,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <Button
-        android:id="@+id/button_terima"
+        android:id="@+id/btn_action_good_received"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
