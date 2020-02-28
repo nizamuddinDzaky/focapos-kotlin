@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Detail Pembayaran"
+        android:text="@string/txt_payment_detail"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No Referensi"
+                android:text="@string/txt_reference_number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorNotSelect"
                 android:textStyle="bold" />
@@ -65,7 +65,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tanggal"
+                android:text="@string/txt_date"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorNotSelect"
                 android:textStyle="bold" />
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jenis Pembayaran"
+                android:text="@string/txt_payment_type"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorNotSelect"
                 android:textStyle="bold" />
@@ -128,7 +128,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jumlah"
+                android:text="@string/txt_total"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorNotSelect"
                 android:textStyle="bold" />
@@ -160,7 +160,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Catatan"
+            android:text="@string/txt_note"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/colorNotSelect"
             android:textStyle="bold" />
@@ -180,7 +180,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:background="@color/main_green"
-        android:text="Terima"
+        android:text="@string/txt_receive"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white"

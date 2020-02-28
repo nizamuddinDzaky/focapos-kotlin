@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No DO" />
+                android:text="@string/txt_do_number" />
 
             <TextView
                 android:id="@+id/tv_delivery_delivery_order_number"
@@ -39,7 +39,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No SO" />
+                android:text="@string/txt_so_number" />
 
             <TextView
                 android:id="@+id/tv_delivery_sales_order_number"
@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kuantitas" />
+                android:text="@string/txt_quantity" />
 
             <TextView
                 android:id="@+id/tv_delivery_quantity"
@@ -90,7 +90,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nominal" />
+                android:text="@string/txt_nominal" />
 
             <TextView
                 android:id="@+id/tv_delivery_total"
@@ -109,7 +109,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama Pengemudi" />
+                android:text="@string/txt_driver_name" />
 
             <TextView
                 android:id="@+id/tv_delivery_driver_name"

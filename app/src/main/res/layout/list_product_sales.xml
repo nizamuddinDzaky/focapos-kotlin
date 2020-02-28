@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
@@ -43,11 +44,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_6"
                         android:gravity="center_vertical"
-                        android:text="Dynamix Serbaguna 40KG"
                         android:textAllCaps="true"
                         android:textColor="#B20838"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="Dynamix Serbaguna 40KG" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -56,7 +57,7 @@
                     android:layout_marginLeft="@dimen/margin_90"
                     android:layout_weight="0.3"
                     android:gravity="center"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical" />
             </LinearLayout>
 
             <LinearLayout
@@ -78,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="Harga"
+                        android:text="@string/txt_price"
                         android:textColor="#666666"
                         android:textSize="12sp" />
 
@@ -88,19 +89,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_5"
                         android:gravity="center_vertical"
-                        android:text="200 SAK"
                         android:textColor="#666666"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="200 SAK" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin_20"
+                    android:layout_marginLeft="@dimen/margin_20"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -135,9 +137,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_5"
                                 android:gravity="center_horizontal"
-                                android:text="qwe"
                                 android:textColor="#666666"
-                                android:textSize="15sp" />
+                                android:textSize="15sp"
+                                tools:text="qwe" />
 
                         </LinearLayout>
 
@@ -171,8 +173,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/margin_20">
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -183,7 +186,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sub Total"
+                android:text="@string/txt_sub_total"
                 android:textSize="12sp" />
 
             <TextView
@@ -204,7 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="Ubah"
+                android:text="@string/txt_edit"
                 android:textColor="#004C97" />
 
         </RelativeLayout>

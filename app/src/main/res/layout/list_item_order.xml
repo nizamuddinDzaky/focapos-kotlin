@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/et_top_margin"
@@ -25,20 +26,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ID Pemesanan" />
+                    android:text="@string/txt_booking_id" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="(Silog Corp)"
-                    android:textColor="@color/main_blue" />
+                    android:textColor="@color/main_blue"
+                    tools:text="(Silog Corp)" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sale/2020/02/0020"
                     android:textAllCaps="true"
-                    android:textColor="@color/main_blue" />
+                    android:textColor="@color/main_blue"
+                    tools:text="Sale/2020/02/0020" />
             </LinearLayout>
 
             <LinearLayout
@@ -50,13 +51,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Status Pesanan" />
+                    android:text="@string/txt_booking_status" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dikonfirmasi"
-                    android:textColor="@color/main_green" />
+                    android:textColor="@color/main_green"
+                    tools:text="Dikonfirmasi" />
             </LinearLayout>
 
         </LinearLayout>
@@ -77,13 +78,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tanggal Pemesanan" />
+                    android:text="@string/txt_booking_date" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="22 Februari 2020"
-                    android:textColor="#333333" />
+                    android:textColor="#333333"
+                    tools:text="22 Februari 2020" />
             </LinearLayout>
 
             <LinearLayout
@@ -95,13 +96,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Status Pembayaran" />
+                    android:text="@string/txt_payment_status" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Belum Bayar"
-                    android:textColor="@color/main_orange" />
+                    android:textColor="@color/main_orange"
+                    tools:text="Belum Bayar" />
             </LinearLayout>
 
         </LinearLayout>
@@ -134,13 +135,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dynamix Serbaguna 40KG"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Dynamix Serbaguna 40KG" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rp 46.000 / SAK" />
+                    tools:text="Rp 46.000 / SAK" />
             </LinearLayout>
 
         </LinearLayout>
@@ -165,14 +166,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TOTAL"
+                    android:text="@string/txt_total"
                     android:textAllCaps="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp 52.000"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    tools:text="Rp 52.000" />
 
             </LinearLayout>
 
@@ -187,13 +188,13 @@
                     android:id="@+id/tv_action_detail_sales_booking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lihat Detail"
+                    android:text="@string/txt_see_detail"
                     android:textAllCaps="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-->" />
+                    tools:text="-->" />
 
             </LinearLayout>
 

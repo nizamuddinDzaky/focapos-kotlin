@@ -37,13 +37,15 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
         fun bind(sale: Sales?) {
             sale?.let {
                 itemView.tv_sales_reference_no?.text = it.reference_no
-                itemView.tv_sales_date?.text = " ${it.date.toDisplayDate()}"
+                val date = " ${it.date.toDisplayDate()}"
+                itemView.tv_sales_date?.text = date
                 itemView.tv_sales_delevery_status?.text =
                     itemView.context.getText(it.delivery_status.toDisplayStatus())
                 itemView.tv_sales_payment_status?.text =
                     itemView.context.getText(it.payment_status.toDisplayStatus())
                 itemView.tv_sales_total_price?.text = it.grand_total.toCurrencyID()
-                itemView.tv_sales_detail?.text = "Lihat ${it.total_items} Rincian Item"
+                val seeDetail = "Lihat ${it.total_items} Rincian Item"
+                itemView.tv_sales_detail?.text = seeDetail
                 itemView.setOnClickListener {
                     logE("click action detail sales ${sale.id}")
                     val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)

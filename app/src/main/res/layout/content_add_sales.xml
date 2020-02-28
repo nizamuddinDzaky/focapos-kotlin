@@ -28,14 +28,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Tanggal Sale"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:text="@string/txt_date_sale"
                     android:textColor="#000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -50,14 +52,15 @@
                         android:layout_height="50dp"
                         android:layout_marginTop="1dp"
                         android:editable="false"
-                        android:hint="Enter Date" />
+                        android:hint="@string/txt_choose_date" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Biller"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:text="@string/txt_biler"
                     android:textColor="#000" />
 
                 <LinearLayout
@@ -82,14 +85,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Gudang"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:text="@string/txt_warehouse"
                     android:textColor="#000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -108,14 +113,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Customer"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:text="@string/txt_customer"
                     android:textColor="#000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -131,7 +138,7 @@
                         android:layout_marginTop="1dp"
                         android:editable="false"
                         android:focusableInTouchMode="false"
-                        android:hint="Enter Date" />
+                        android:hint="@string/txt_choose_date" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -145,8 +152,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Product"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:text="@string/txt_product"
                     android:textColor="#000" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -172,7 +180,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Total"
+                        android:text="@string/txt_total"
                         android:textColor="#000" />
                 </LinearLayout>
 
@@ -188,7 +196,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="Total"
+                        android:text="@string/txt_total"
                         android:textAlignment="textEnd"
                         android:textColor="#000" />
                 </LinearLayout>
@@ -199,7 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#f3f2f2"
-                android:text="Tamah Product"
+                android:text="@string/txt_add_product"
                 android:textColor="#0f569d" />
 
             <LinearLayout
@@ -214,36 +222,36 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Diskon"
+                    android:text="@string/txt_discount"
                     android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/et_diskon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Diskon" />
+                    android:hint="@string/txt_discount" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Biaya Pengiriman"
+                    android:text="@string/txt_delivery_fee"
                     android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/et_biaya_pengiriman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Biaya Pengiriman" />
+                    android:hint="@string/txt_delivery_fee" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Status Penjualan"
+                    android:text="@string/txt_sale_status"
                     android:textColor="#000" />
 
-                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -253,14 +261,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
-                        android:text="Dipesan" />
+                        android:text="Dipesan"
+                        tools:targetApi="lollipop" />
 
                     <RadioButton
                         android:id="@+id/rb_penjualan_menunggu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
-                        android:text="Menunggu" />
+                        android:text="@string/txt_status_pending"
+                        tools:targetApi="lollipop" />
                 </RadioGroup>
 
                 <TextView
@@ -274,13 +284,13 @@
                     android:id="@+id/et_jangka_waktu_pembayaran"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Biaya Pengiriman" />
+                    android:hint="@string/txt_delivery_fee" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Status Pembayaran"
+                    android:text="@string/txt_payment_status"
                     android:textColor="#000" />
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
@@ -293,42 +303,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
-                        android:text="Menunggu" />
+                        android:text="@string/txt_status_pending"
+                        tools:targetApi="lollipop" />
 
                     <RadioButton
                         android:id="@+id/rb_pembayaran_jatuh_tempo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
-                        android:text="Jatuh Tempo" />
+                        android:text="Jatuh Tempo"
+                        tools:targetApi="lollipop" />
 
                     <RadioButton
                         android:id="@+id/rb_pembayaran_sebagian"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
-                        android:text="Sebagian" />
+                        android:text="@string/txt_status_partial"
+                        tools:targetApi="lollipop" />
 
                     <RadioButton
                         android:id="@+id/rb_pembayaran_dibayar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
-                        android:text="Dibayar" />
+                        android:text="@string/txt_status_paid"
+                        tools:targetApi="lollipop" />
                 </RadioGroup>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Catatan Penjulan"
+                    android:text="@string/txt_sale_note"
                     android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/et_catatan_penjualan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Catatan Penjualan" />
+                    android:hint="@string/txt_sale_note" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -341,7 +355,7 @@
                     android:id="@+id/et_catatan_pegawai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Biaya Pengiriman" />
+                    android:hint="@string/txt_delivery_fee" />
             </LinearLayout>
 
             <Button
@@ -349,7 +363,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#1CA865"
-                android:text="Tambah" />
+                android:text="@string/txt_add" />
         </LinearLayout>
 
     </ScrollView>

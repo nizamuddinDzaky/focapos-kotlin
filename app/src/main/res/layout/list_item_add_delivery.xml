@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -49,11 +50,11 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_6"
                             android:gravity="center_vertical"
-                            android:text="Dynamix Serbaguna 40KG"
                             android:textAllCaps="true"
                             android:textColor="#B20838"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="Dynamix Serbaguna 40KG" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -63,7 +64,6 @@
                         android:layout_weight="0.3"
                         android:gravity="center"
                         android:orientation="vertical">
-
 
 
                     </LinearLayout>
@@ -88,7 +88,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="Jumlah"
+                            android:text="@string/txt_total"
                             android:textColor="#666666"
                             android:textSize="12sp" />
 
@@ -98,10 +98,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_5"
                             android:gravity="center_vertical"
-                            android:text="200 SAK"
+                            tools:text="200 SAK"
                             android:textColor="#666666"
                             android:textSize="12sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -115,7 +115,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="Jumlah Kirim"
+                            android:text="@string/txt_delivery_total_qty"
                             android:textColor="#666666"
                             android:textSize="12sp" />
 
@@ -152,7 +152,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/margin_5"
                                     android:gravity="center_horizontal"
-                                    android:text="200"
+                                    tools:text="200"
                                     android:textColor="#666666"
                                     android:textSize="12sp" />
 

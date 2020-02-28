@@ -310,7 +310,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Salin"
+                                        android:text="@string/txt_copy"
                                         android:textColor="@color/main_red"
                                         android:textStyle="bold" />
                                 </LinearLayout>
@@ -438,87 +438,90 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:padding="@dimen/et_top_margin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/et_top_margin">
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Diskon Pesanan (IDR)"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_sale_detail_sbo_discount"
-                android:layout_weight="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0"
                 android:textStyle="bold"
                 tools:text="Rp 96.000.000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:padding="@dimen/et_top_margin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/et_top_margin">
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Jumlah (IDR)"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_sale_detail_sbo_total"
-                android:layout_weight="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0"
                 android:textStyle="bold"
                 tools:text="Rp 96.000.000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:padding="@dimen/et_top_margin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/et_top_margin">
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Dibayar (IDR)"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_sale_detail_sbo_paid"
-                android:layout_weight="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0"
                 android:textStyle="bold"
                 tools:text="Rp 96.000.000" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:padding="@dimen/et_top_margin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/et_top_margin">
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Jumlah Akhir(IDR)"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_sale_detail_grand_total"
-                android:layout_weight="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0"
                 android:textStyle="bold"
                 tools:text="Rp 96.000.000" />
         </LinearLayout>

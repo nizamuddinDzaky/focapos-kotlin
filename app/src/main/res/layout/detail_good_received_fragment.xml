@@ -436,7 +436,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Salin"
+                            android:text="@string/txt_copy"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
 
@@ -447,7 +447,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Salin"
+                            android:text="@string/txt_copy"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
 
@@ -458,7 +458,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Salin"
+                            android:text="@string/txt_copy"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -587,7 +587,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Salin"
+                            android:text="@string/txt_copy"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
 
@@ -598,7 +598,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Salin"
+                            android:text="@string/txt_copy"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold" />
                     </LinearLayout>

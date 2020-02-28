@@ -1,5 +1,6 @@
 package id.sisi.postoko.network
 
+import android.annotation.SuppressLint
 import id.sisi.postoko.model.*
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
@@ -120,12 +121,14 @@ interface ApiServices {
             val trustAllCerts =
                 arrayOf<TrustManager>(
                     object : X509TrustManager {
+                        @SuppressLint("TrustAllX509TrustManager")
                         override fun checkClientTrusted(
                             chain: Array<X509Certificate>,
                             authType: String
                         ) {
                         }
 
+                        @SuppressLint("TrustAllX509TrustManager")
                         override fun checkServerTrusted(
                             chain: Array<X509Certificate>,
                             authType: String

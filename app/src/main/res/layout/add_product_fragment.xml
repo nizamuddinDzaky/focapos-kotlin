@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/addproduct"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -23,7 +24,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gudang"
+                    android:text="@string/txt_warehouse"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -45,7 +46,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pilih Gudang"
+                        android:text="@string/txt_choose_warehouse"
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>
@@ -66,7 +67,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Customer/Toko"
+                    android:text="@string/txt_customer"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -88,7 +89,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pilih Customer/Toko"
+                        android:text="@string/txt_choose_customer"
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>
@@ -109,7 +110,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Produk"
+                    android:text="@string/txt_product"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -130,7 +131,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tambah Produk"
+                        android:text="@string/txt_add_product"
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>
@@ -158,7 +159,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Alamat Pengiriman"
+                        android:text="@string/txt_delivery_address"
                         android:textStyle="bold" />
 
                     <TextView
@@ -169,8 +170,8 @@
                         android:paddingTop="@dimen/et_top_margin"
                         android:paddingEnd="@dimen/et_top_margin"
                         android:paddingRight="@dimen/et_top_margin"
-                        android:text="Abdurrouf | 087750805181"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="Abdurrouf | 087750805181" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -179,7 +180,7 @@
                         android:paddingLeft="@dimen/et_top_margin"
                         android:paddingEnd="@dimen/et_top_margin"
                         android:paddingRight="@dimen/et_top_margin"
-                        android:text="Jalan Dr. Soetomo 29, Gresik" />
+                        tools:text="Jalan Dr. Soetomo 29, Gresik" />
                 </LinearLayout>
 
                 <TextView
@@ -187,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0"
-                    android:text=">>>" />
+                    tools:text=">>>" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

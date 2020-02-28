@@ -49,7 +49,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="Dynamix Serbaguna 40KG"
+                            tools:text="Dynamix Serbaguna 40KG"
                             android:textAllCaps="true"
                             android:textColor="#B20838"
                             android:textSize="12sp"
@@ -69,7 +69,7 @@
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_time"
                             android:drawableLeft="@drawable/ic_time"
-                            android:text=" 20 feb 2020"
+                            tools:text=" 20 feb 2020"
                             android:textColor="#666666"
                             android:textSize="12sp" />
 
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="200 SAK"
+                    tools:text="200 SAK"
                     android:textColor="#666666"
                     android:textSize="12sp" />
 
@@ -102,7 +102,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No SO"
+                            android:text="@string/txt_so_number"
                             android:textColor="#666666"
                             android:textSize="12sp" />
 
@@ -111,7 +111,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="SO/2020/02/0020"
+                            tools:text="SO/2020/02/0020"
                             android:textAllCaps="true"
                             android:textColor="#0893B2"
                             android:textSize="13sp"
@@ -129,7 +129,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No DO"
+                            android:text="@string/txt_do_number"
                             android:textColor="#666666"
                             android:textSize="12sp" />
 
@@ -138,7 +138,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="DO/2020/02/0020"
+                            tools:text="DO/2020/02/0020"
                             android:textAllCaps="true"
                             android:textColor="#0893B2"
                             android:textSize="13sp"
@@ -169,7 +169,7 @@
                 android:layout_height="30dp"
                 android:layout_weight="0.7"
                 android:gravity="center_vertical"
-                android:text="Detail" />
+                android:text="@string/txt_see_detail" />
 
             <Button
                 android:id="@+id/btn_action_receive_gr"
@@ -177,7 +177,7 @@
                 android:layout_height="30dp"
                 android:layout_weight="0.3"
                 android:background="@color/main_red"
-                android:text="TERIMA"
+                android:text="@string/txt_receive"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 tools:visibility="visible" />

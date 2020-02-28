@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jenis Pembayaran"
+            android:text="@string/txt_payment_type"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/colorNotSelect"
             android:textStyle="bold" />

@@ -3,5 +3,5 @@
 
     <item
         android:id="@+id/menu_account_logout"
-        android:title="Keluar" />
+        android:title="@string/txt_logout" />
 </menu>
