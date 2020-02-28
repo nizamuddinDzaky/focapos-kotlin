@@ -138,11 +138,35 @@
                     android:id="@+id/rv_list_product_add_sale"
                     />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#fff"
+                android:paddingLeft="@dimen/margin_20"
+                android:paddingTop="@dimen/margin_20"
+                android:paddingBottom="@dimen/margin_20">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total"
+                        android:textColor="#000"/>
+                </LinearLayout>
+            </LinearLayout>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tamah Product"
-                android:id="@+id/btn_tambah_product"/>
+                android:id="@+id/btn_tambah_product"
+                android:background="#f3f2f2"
+                android:textColor="#0f569d"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
