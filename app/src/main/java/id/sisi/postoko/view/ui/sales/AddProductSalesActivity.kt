@@ -19,32 +19,80 @@ import kotlinx.android.synthetic.main.content_add_product_sales.*
 import kotlinx.android.synthetic.main.master_data_fragment.*
 import android.app.Activity
 import android.content.Intent
-
+import android.view.View
+import id.sisi.postoko.model.Customer
+import kotlinx.android.synthetic.main.fragment_search_customer.*
 
 
 class AddProductSalesActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ProductViewModel
     private lateinit var adapter: ListAddProductOnAddSalesAdapter
+    var listProduct: List<Product>? = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product_sales)
         setSupportActionBar(toolbar)
-        setupUI()
+
         viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         viewModel.getListProducts().observe(this, Observer {
-            logE("cek produk : $it")
-            adapter.updateMasterData(it)
+//            adapter.updateMasterData(it)
+            if (it != null) {
+                listProduct = it
+                setupUI(it)
+            }
+        })
+        tv_search_product_add_sales.setOnClickListener{
+            tv_search_product_add_sales.visibility = View.GONE
+            sv_search_product_add_sales.visibility = View.VISIBLE
+            ll_search_product_add_sales.visibility = View.GONE
+        }
+
+        sv_search_product_add_sales.setOnCloseListener(object :androidx.appcompat.widget.SearchView.OnCloseListener {
+            override fun onClose(): Boolean {
+                tv_search_product_add_sales.visibility = View.VISIBLE
+                sv_search_product_add_sales.visibility = View.GONE
+                ll_search_product_add_sales.visibility = View.VISIBLE
+                return true
+            }
+        })
+
+        sv_search_product_add_sales.setOnQueryTextListener(object :androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (!newText.isNullOrEmpty() && newText.length > 2) {
+                    startSearchData(newText)
+                }else{
+                    listProduct?.let { setupUI(it) }
+                }
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+
+                return false
+            }
+
         })
     }
 
-    private fun setupUI() {
-        setupRecycleView()
+    private fun startSearchData(query: String) {
+        listProduct?.let {
+            val listSearchResult = listProduct!!.filter {
+                it.name.contains(query, true) or it.code.contains(query, true)
+            }
+            setupUI(listSearchResult)
+        }
     }
 
-    private fun setupRecycleView() {
+    private fun setupUI(it: List<Product>) {
+        setupRecycleView(it)
+    }
+
+    private fun setupRecycleView(it: List<Product>) {
         adapter = ListAddProductOnAddSalesAdapter()
+        adapter.updateMasterData(it)
         adapter.listenerProductAdapter = {
 
             val returnIntent = Intent()

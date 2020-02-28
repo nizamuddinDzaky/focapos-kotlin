@@ -38,8 +38,11 @@ class ListAddProductOnAddSalesAdapter (private var masterData: List<Product>? = 
 
     class SearchCustomerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(value: Product?, listener: (Product) -> Unit) {
-            itemView.tv_product_name?.text = value?.name
-            itemView.tv_product_price?.text = "Rp " + value?.price
+            val localeID = Locale("in", "ID")
+            var formatRupiah = NumberFormat.getCurrencyInstance(localeID)
+
+            itemView.tv_product_name?.text = value?.name?.toUpperCase()
+            itemView.tv_product_price?.text = formatRupiah.format(value?.price.toString().toDouble())
             itemView.setOnClickListener {
                 if (value != null) {
                     listener(value)

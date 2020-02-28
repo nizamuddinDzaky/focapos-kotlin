@@ -23,7 +23,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.adapter.ListSearchCustomerAdapter
+import id.sisi.postoko.adapter.OnClickListenerInterface
 import id.sisi.postoko.model.Product
+import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_add_product_sales.*
 import kotlinx.android.synthetic.main.activity_add_sales.*
@@ -31,13 +33,13 @@ import kotlinx.android.synthetic.main.content_add_sales.*
 import kotlinx.android.synthetic.main.fragment_search_customer.*
 import java.util.*
 
-class AddSalesActivity : AppCompatActivity() {
+class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
     var customer : Customer? = null
     private lateinit var viewModelSupplier: SupplierViewModel
     private lateinit var viewModelGudang: WarehouseViewModel
     var listSupplier = ArrayList<String>()
     var listGudang= ArrayList<String>()
-    var listProduct= ArrayList<Product>()
+    var listSaleItems= ArrayList<SaleItem>()
     private lateinit var adapter: ListProductAddSalesAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,18 +112,40 @@ class AddSalesActivity : AppCompatActivity() {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 val product = data!!.getParcelableExtra<Product>("product_result")
-                listProduct.add(product)
-                Toast.makeText(this, listProduct.size.toString(), Toast.LENGTH_SHORT).show()
-                setupRecycleView(listProduct)
+                var saleItem = SaleItem()
+                saleItem?.product_id =product.id.toInt()
+                saleItem?.product_code = product.code
+                saleItem?.product_name = product.name
+                saleItem?.net_unit_price = product.price.toDouble()
+                saleItem?.unit_price =  product.price.toDouble()
+                saleItem?.quantity = 1.0
+                logE("nizamuddin : "+ saleItem.toString())
+                if (saleItem != null) {
+                    var cek : Boolean = true
+
+                    for (x in 0 until listSaleItems.size){
+                        if(product.code == listSaleItems.get(x).product_code){
+                            cek = false
+                        }
+                    }
+
+                    if(cek)
+                        listSaleItems.add(saleItem)
+                    else
+                        Toast.makeText(this, "Produk sama bro", Toast.LENGTH_SHORT).show()
+                    setupRecycleView(listSaleItems)
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
-    private fun setupRecycleView(it : List<Product>) {
+    private fun setupRecycleView(it : List<SaleItem>) {
         adapter = ListProductAddSalesAdapter()
         adapter.updateMasterData(it)
+        adapter.listenerProduct = this
+
 //        adapter.listener = {
 //            listener(it)
 //            dismisDialog()
@@ -129,5 +153,22 @@ class AddSalesActivity : AppCompatActivity() {
         rv_list_product_add_sale?.layoutManager = LinearLayoutManager(this)
         rv_list_product_add_sale?.setHasFixedSize(false)
         rv_list_product_add_sale?.adapter = adapter
+    }
+
+    override fun onClickPlus(){
+        sumTotal()
+    }
+
+    override fun onClickMinus(){
+        sumTotal()
+    }
+
+    fun sumTotal (){
+        var total : Double = 0.0
+        for (x in 0 until listSaleItems.size){
+            total += listSaleItems.get(x).subtotal?.toDouble()!!
+        }
+
+        Toast.makeText(this, "Produk sama bro"+listSaleItems.size+"=>"+total, Toast.LENGTH_SHORT).show()
     }
 }

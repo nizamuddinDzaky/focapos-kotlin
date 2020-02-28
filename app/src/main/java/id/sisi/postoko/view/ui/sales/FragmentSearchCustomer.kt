@@ -47,8 +47,8 @@ class FragmentSearchCustomer: DialogFragment() {
                 setupUI(it)
             }
         })
-        search_customer?.onActionViewExpanded()
-        search_customer.setOnQueryTextListener(object :androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        sv_search_customer_add_sales?.onActionViewExpanded()
+        sv_search_customer_add_sales.setOnQueryTextListener(object :androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (!newText.isNullOrEmpty() && newText.length > 2) {
