@@ -42,7 +42,7 @@ class ListDetailSalesBookingAdapter(var saleItems: List<SaleItem>? = arrayListOf
             val quantity = "${saleItem?.quantity?.toNumberID()} SAK"
             itemView.tv_detail_sbo_item_quantity?.text = quantity
             itemView.tv_detail_sbo_item_end_price?.text =
-                saleItem?.unit_price?.minus(saleItem.discount)?.toCurrencyID()
+                saleItem?.unit_price?.minus(saleItem.discount ?: 0)?.toCurrencyID()
         }
     }
 

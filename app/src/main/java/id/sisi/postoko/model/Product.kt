@@ -1,5 +1,9 @@
 package id.sisi.postoko.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Product(
 //    val alert_quantity: String,
 //    val barcode_symbology: String,
@@ -19,14 +23,15 @@ data class Product(
 //    val e_minqty: String,
 //    val end_date: Any,
 //    val `file`: Any,
-//    val id: String,
+    val id: String,
 //    val image: String,
 //    val is_deleted: Any,
 //    val is_retail: String,
 //    val item_id: String,
 //    val mtid: Any,
-    val name: String
-//    val price: String,
+    val name: String,
+    val price: String
+//
 //    val price_public: String,
 //    val product_details: String,
 //    val promo_price: Any,
@@ -63,4 +68,6 @@ data class Product(
 //    val uuid_app: Any,
 //    val warehouse: Any,
 //    val weight: String
-)
+) : Parcelable {
+    var tmpQty: Int = 1
+}

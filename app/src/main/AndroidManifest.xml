@@ -17,23 +17,27 @@
         android:roundIcon="@mipmap/forcapos"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.AddProductActivity"></activity>
+        <activity
+            android:name=".view.ui.sales.AddProductSalesActivity"
+            android:label="Menambahkan Produk"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.ui.sales.AddSalesActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".view.MainActivity"/>
+        <activity android:name=".view.AddProductActivity" />
         <activity
             android:name=".view.ui.goodreveived.DetailGoodReceivedActivity"
-            android:parentActivityName=".view.MainActivity">
-        </activity>
+            android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.ui.sales.DetailSalesBookingActivity"
-            android:parentActivityName=".view.MainActivity">
-        </activity>
+            android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.ui.payment.PaymentActivity"
-            android:parentActivityName=".view.MainActivity">
-        </activity>
+            android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.ui.delivery.DeliveryActivity"
-            android:parentActivityName=".view.MainActivity">
-        </activity>
+            android:parentActivityName=".view.MainActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity
             android:name=".view.MainActivity"

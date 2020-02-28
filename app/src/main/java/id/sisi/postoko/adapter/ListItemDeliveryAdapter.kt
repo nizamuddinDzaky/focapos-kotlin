@@ -34,8 +34,8 @@ class ListItemDeliveryAdapter(
         fun bind(saleItem: SaleItem?, listener: (SaleItem?) -> Unit) {
             saleItem?.let {
                 itemView.tv_sale_item_name?.text = it.product_name
-                itemView.tv_sale_item_qty?.text = it.quantity.toNumberID()
-                itemView.tv_sale_item_qty_unit_name?.text = "${it.quantity.toNumberID()} SAK"
+                itemView.tv_sale_item_qty?.text = it.quantity?.toNumberID()
+                itemView.tv_sale_item_qty_unit_name?.text = "${it.quantity?.toNumberID()} SAK"
             }
             itemView.setOnClickListener {
                 listener(saleItem)
