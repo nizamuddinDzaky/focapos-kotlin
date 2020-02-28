@@ -18,14 +18,15 @@
             android:background="#fff"
             app:navigationIcon="@drawable/back_arrow_foreground"
             app:popupTheme="@style/AppTheme.PopupOverlay">
+
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/choose_product"
                 android:layout_gravity="center"
-                android:id="@+id/toolbar_title"
+                android:text="@string/choose_product"
                 android:textColor="#000"
-                android:textSize="20dp"/>
+                android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>

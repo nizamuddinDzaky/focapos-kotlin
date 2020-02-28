@@ -43,8 +43,4 @@ class ListItemDeliveryAdapter(
         }
     }
 
-    fun updateData(newPayments: List<SaleItem>?) {
-        payments = newPayments
-        notifyDataSetChanged()
-    }
 }

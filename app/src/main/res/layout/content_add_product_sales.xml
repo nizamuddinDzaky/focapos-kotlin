@@ -39,13 +39,6 @@
                         android:layout_height="48dp"
                         android:background="@drawable/my_button_bg"
                         android:visibility="gone"/>
-                    <!--                <EditText-->
-                    <!--                    android:id="@+id/et_search_product_add_sales"-->
-                    <!--                    android:layout_width="match_parent"-->
-                    <!--                    android:layout_height="48dp"-->
-                    <!--                    android:visibility="gone"-->
-                    <!--                    android:paddingLeft="@dimen/margin_20"-->
-                    <!--                    android:gravity="center_vertical"/>-->
                 </RelativeLayout>
 
             </LinearLayout>

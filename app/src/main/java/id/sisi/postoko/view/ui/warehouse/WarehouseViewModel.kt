@@ -19,7 +19,7 @@ class WarehouseViewModel : ViewModel() {
         getListWarehouse()
     }
 
-    fun getListWarehouse() {
+    private fun getListWarehouse() {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getListWarehouse(headers)?.exe(

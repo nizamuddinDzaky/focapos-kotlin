@@ -18,10 +18,6 @@ class CustomProgressBar {
 
     lateinit var dialog: Dialog
 
-    fun show(context: Context): Dialog {
-        return show(context, null)
-    }
-
     fun show(context: Context, title:CharSequence?): Dialog {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.progress_bar, null)

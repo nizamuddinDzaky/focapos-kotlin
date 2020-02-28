@@ -45,13 +45,13 @@ class SaleBookingViewModel(var id: Int) : ViewModel() {
     }
 
     fun requestDetailWarehouse(idWarehouse: Int) {
-        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf(KEY_ID_WAREHOUSES to idWarehouse.toString())
+        mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        mutableMapOf(KEY_ID_WAREHOUSES to idWarehouse.toString())
     }
 
     fun requestDetailSupplier(idSupplier: Int) {
-        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf(KEY_ID_SUPPLIERS to idSupplier.toString())
+        mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        mutableMapOf(KEY_ID_SUPPLIERS to idSupplier.toString())
     }
 
     fun requestDetailSale() {

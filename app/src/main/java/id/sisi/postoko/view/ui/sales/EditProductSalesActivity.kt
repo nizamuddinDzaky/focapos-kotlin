@@ -2,12 +2,11 @@ package id.sisi.postoko.view.ui.sales
 
 import android.os.Bundle
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.model.SaleItem
-
 import kotlinx.android.synthetic.main.activity_edit_product_sales.*
+import java.util.*
 
 class EditProductSalesActivity : AppCompatActivity() {
 
@@ -16,9 +15,8 @@ class EditProductSalesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_product_sales)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val saleItem = intent.getParcelableExtra<SaleItem>("sale_item")
-
-        toolbar_title.text = saleItem.product_name?.toUpperCase()
+        val saleItem = intent?.getParcelableExtra<SaleItem>("sale_item")
+        toolbar_title.text = saleItem?.product_name?.toUpperCase(Locale.getDefault())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

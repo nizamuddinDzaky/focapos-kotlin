@@ -15,17 +15,18 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/back_arrow_foreground"
             android:background="#fff"
+            app:navigationIcon="@drawable/back_arrow_foreground"
             app:popupTheme="@style/AppTheme.PopupOverlay">
+
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#676767"
-                android:textStyle="bold"
-                android:textSize="15dp"/>
+                android:textSize="15sp"
+                android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>

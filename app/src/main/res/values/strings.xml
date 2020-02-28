@@ -12,15 +12,11 @@
     <string name="txt_detail_sales_booking">Detail Penjualan</string>
     <string name="txt_pembayaran">Pembayaran</string>
     <string name="txt_pengiriman">Pengiriman</string>
-    <string name="txt_history">Transaksi</string>
     <string name="txt_account">Akun</string>
     <string name="txt_search_product">Cari Produk</string>
     <string name="txt_home">Beranda</string>
-    <string name="txt_category_purchase_process">Dalam Proses</string>
-    <string name="txt_category_purchase_finish">Selesai</string>
     <string name="txt_menu_sales_booking">Penjualan</string>
     <string name="txt_menu_good_receive">Penerimaan</string>
-    <string name="txt_menu_aksestoko">Penerimaan</string>
     <string name="txt_menu_master_data">Data</string>
     <string name="txt_menu_confirmation_delivery">Pengiriman</string>
     <string name="menu_search">Pencarian</string>
@@ -42,13 +38,8 @@
     <string name="txt_status_completed">Selesai</string>
     <string name="txt_status_received">Diterima</string>
     <string name="txt_sales_booking">Sales Booking</string>
-    <string name="title_activity_edit_product_sales">EditProductSalesActivity</string>
     <string name="choose_product">Pilih Product</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="txt_action_close">Tutup</string>
     <string name="txt_title_detail_good_receive">Rincian Pembelian</string>
     <string name="empty" />
     <string name="txt_title_add_sale">Menambah Penjualan</string>
-    <string name="txt_date">Tanggal</string>
-    <string name="txt_hint_search_customer">Cari Pelanggan</string>
 </resources>

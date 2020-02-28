@@ -11,13 +11,15 @@ import java.text.NumberFormat
 import java.util.*
 
 
-class ListAddProductOnAddSalesAdapter (private var masterData: List<Product>? = arrayListOf()) : RecyclerView.Adapter<ListAddProductOnAddSalesAdapter.SearchCustomerViewHolder>() {
+class ListAddProductOnAddSalesAdapter(private var masterData: List<Product>? = arrayListOf()) :
+    RecyclerView.Adapter<ListAddProductOnAddSalesAdapter.SearchCustomerViewHolder>() {
 
-    var listenerProductAdapter : (Product) -> Unit = {}
+    var listenerProductAdapter: (Product) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchCustomerViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_product_add_sales, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.list_item_product_add_sales, parent, false)
         return SearchCustomerViewHolder(view)
     }
 
@@ -32,10 +34,11 @@ class ListAddProductOnAddSalesAdapter (private var masterData: List<Product>? = 
     class SearchCustomerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(value: Product?, listener: (Product) -> Unit) {
             val localeID = Locale("in", "ID")
-            var formatRupiah = NumberFormat.getCurrencyInstance(localeID)
+            val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
 
-            itemView.tv_product_name?.text = value?.name?.toUpperCase()
-            itemView.tv_product_price?.text = formatRupiah.format(value?.price.toString().toDouble())
+            itemView.tv_product_name?.text = value?.name?.toUpperCase(Locale.getDefault())
+            itemView.tv_product_price?.text =
+                formatRupiah.format(value?.price.toString().toDouble())
             itemView.setOnClickListener {
                 if (value != null) {
                     listener(value)

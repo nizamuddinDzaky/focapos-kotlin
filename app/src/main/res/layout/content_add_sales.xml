@@ -1,81 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".view.ui.sales.AddSalesActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".view.ui.sales.AddSalesActivity"
     tools:showIn="@layout/activity_add_sales">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
-                android:padding="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tanggal Sale"
                     android:layout_marginLeft="10dp"
-                    android:textColor="#000"/>
+                    android:text="Tanggal Sale"
+                    android:textColor="#000" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/calendar_icon_foreground"/>
+                        android:src="@drawable/calendar_icon_foreground" />
+
                     <EditText
                         android:id="@+id/et_tanggal"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="1dp"
-                        android:hint="Enter Date"
-
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:hint="Enter Date" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Biller"
                     android:layout_marginLeft="10dp"
-                    android:textColor="#000"/>
+                    android:text="Biller"
+                    android:textColor="#000" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/building_icon_foreground"/>
+                        android:src="@drawable/building_icon_foreground" />
+
                     <com.tiper.MaterialSpinner
                         android:id="@+id/sp_supplier"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"/>
+                        android:layout_height="50dp" />
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gudang"
                     android:layout_marginLeft="10dp"
-                    android:textColor="#000"/>
+                    android:text="Gudang"
+                    android:textColor="#000" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,218 +101,255 @@
                     <com.tiper.MaterialSpinner
                         android:id="@+id/sp_gudang"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"/>
+                        android:layout_height="50dp" />
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Customer"
                     android:layout_marginLeft="10dp"
-                    android:textColor="#000"/>
+                    android:text="Customer"
+                    android:textColor="#000" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/home_icon_foreground"/>
+                        android:src="@drawable/home_icon_foreground" />
+
                     <EditText
                         android:id="@+id/et_customer"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="1dp"
-                        android:hint="Enter Date"
+                        android:editable="false"
                         android:focusableInTouchMode="false"
-                        android:editable="false"/>
+                        android:hint="Enter Date" />
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Product"
                     android:layout_marginLeft="10dp"
-                    android:textColor="#000"/>
+                    android:text="Product"
+                    android:textColor="#000" />
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/rv_list_product_add_sale"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="#fff"
-                android:padding="@dimen/margin_20"
-                >
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_20">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
 
                     android:gravity="center_horizontal">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Total"
-                        android:textColor="#000"/>
+                        android:textColor="#000" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
 
                     android:gravity="center_horizontal">
+
                     <TextView
                         android:id="@+id/tv_total_add_sale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="end"
                         android:text="Total"
-                        android:textColor="#000"
                         android:textAlignment="textEnd"
-                        android:gravity="end" />
+                        android:textColor="#000" />
                 </LinearLayout>
             </LinearLayout>
+
             <Button
+                android:id="@+id/btn_tambah_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tamah Product"
-                android:id="@+id/btn_tambah_product"
                 android:background="#f3f2f2"
-                android:textColor="#0f569d"/>
+                android:text="Tamah Product"
+                android:textColor="#0f569d" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="#fff"
+                android:orientation="vertical"
                 android:paddingLeft="15dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp">
+                android:paddingTop="5dp"
+                android:paddingRight="5dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Diskon"
-                    android:textColor="#000"/>
+                    android:textColor="#000" />
+
                 <EditText
                     android:id="@+id/et_diskon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Diskon"/>
+                    android:hint="Diskon" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Biaya Pengiriman"
                     android:layout_marginTop="10dp"
-                    android:textColor="#000"/>
+                    android:text="Biaya Pengiriman"
+                    android:textColor="#000" />
+
                 <EditText
                     android:id="@+id/et_biaya_pengiriman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Biaya Pengiriman"/>
+                    android:hint="Biaya Pengiriman" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status Penjualan"
                     android:layout_marginTop="10dp"
-                    android:textColor="#000"/>
+                    android:text="Status Penjualan"
+                    android:textColor="#000" />
+
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rb_penjualan_dipesan"
+
+                    <RadioButton
+                        android:id="@+id/rb_penjualan_dipesan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dipesan"
-                        android:buttonTint="#B20838"/>
-                    <RadioButton android:id="@+id/rb_penjualan_menunggu"
+                        android:buttonTint="#B20838"
+                        android:text="Dipesan" />
+
+                    <RadioButton
+                        android:id="@+id/rb_penjualan_menunggu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Menunggu"
-                        android:buttonTint="#B20838"/>
+                        android:buttonTint="#B20838"
+                        android:text="Menunggu" />
                 </RadioGroup>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jangka Waktu Pembayaran"
                     android:layout_marginTop="10dp"
-                    android:textColor="#000"/>
+                    android:text="Jangka Waktu Pembayaran"
+                    android:textColor="#000" />
+
                 <EditText
                     android:id="@+id/et_jangka_waktu_pembayaran"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Biaya Pengiriman"/>
+                    android:hint="Biaya Pengiriman" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status Pembayaran"
                     android:layout_marginTop="10dp"
-                    android:textColor="#000"/>
+                    android:text="Status Pembayaran"
+                    android:textColor="#000" />
+
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rb_pembayaran_menunggu"
+
+                    <RadioButton
+                        android:id="@+id/rb_pembayaran_menunggu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Menunggu"
-                        android:buttonTint="#B20838"/>
-                    <RadioButton android:id="@+id/rb_pembayaran_jatuh_tempo"
+                        android:buttonTint="#B20838"
+                        android:text="Menunggu" />
+
+                    <RadioButton
+                        android:id="@+id/rb_pembayaran_jatuh_tempo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jatuh Tempo"
-                        android:buttonTint="#B20838"/>
-                    <RadioButton android:id="@+id/rb_pembayaran_sebagian"
+                        android:buttonTint="#B20838"
+                        android:text="Jatuh Tempo" />
+
+                    <RadioButton
+                        android:id="@+id/rb_pembayaran_sebagian"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sebagian"
-                        android:buttonTint="#B20838"/>
-                    <RadioButton android:id="@+id/rb_pembayaran_dibayar"
+                        android:buttonTint="#B20838"
+                        android:text="Sebagian" />
+
+                    <RadioButton
+                        android:id="@+id/rb_pembayaran_dibayar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dibayar"
-                        android:buttonTint="#B20838"/>
+                        android:buttonTint="#B20838"
+                        android:text="Dibayar" />
                 </RadioGroup>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Catatan Penjulan"
                     android:layout_marginTop="10dp"
-                    android:textColor="#000"/>
+                    android:text="Catatan Penjulan"
+                    android:textColor="#000" />
+
                 <EditText
                     android:id="@+id/et_catatan_penjualan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Catatan Penjualan"/>
+                    android:hint="Catatan Penjualan" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Catatan Pegawai"
                     android:layout_marginTop="10dp"
-                    android:textColor="#000"/>
+                    android:text="Catatan Pegawai"
+                    android:textColor="#000" />
+
                 <EditText
                     android:id="@+id/et_catatan_pegawai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Biaya Pengiriman"/>
+                    android:hint="Biaya Pengiriman" />
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_tambah_sale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tambah"
                 android:background="#1CA865"
-                android:id="@+id/btn_tambah_sale"/>
+                android:text="Tambah" />
         </LinearLayout>
 
     </ScrollView>

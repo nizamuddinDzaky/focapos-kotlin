@@ -43,14 +43,12 @@ class AddProductSalesActivity : AppCompatActivity() {
             sv_search_product_add_sales?.onActionViewExpanded()
         }
 
-        sv_search_product_add_sales.setOnCloseListener(object :androidx.appcompat.widget.SearchView.OnCloseListener {
-            override fun onClose(): Boolean {
-                tv_search_product_add_sales.visibility = View.VISIBLE
-                sv_search_product_add_sales.visibility = View.GONE
-                ll_search_product_add_sales.visibility = View.VISIBLE
-                return true
-            }
-        })
+        sv_search_product_add_sales.setOnCloseListener {
+            tv_search_product_add_sales.visibility = View.VISIBLE
+            sv_search_product_add_sales.visibility = View.GONE
+            ll_search_product_add_sales.visibility = View.VISIBLE
+            true
+        }
 
         sv_search_product_add_sales.setOnQueryTextListener(object :androidx.appcompat.widget.SearchView.OnQueryTextListener {
 

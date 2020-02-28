@@ -2,16 +2,15 @@ package id.sisi.postoko.view.ui.gr
 
 import android.os.Bundle
 import android.view.*
-import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListGoodReceivedAdapter
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
 import kotlinx.android.synthetic.main.fragment_gr.*
 
 

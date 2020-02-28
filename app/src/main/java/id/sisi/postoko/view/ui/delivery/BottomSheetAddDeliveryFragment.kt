@@ -81,7 +81,10 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
 //            showSearchDialog()
 //        }
         for (i in 0 until (rg_add_delivery_status?.childCount ?: 0)) {
-            (rg_add_delivery_status?.get(i) as? RadioButton)?.tag = DeliveryStatus.values()[i].name.toLowerCase()
+            (rg_add_delivery_status?.get(i) as? RadioButton)?.tag =
+                DeliveryStatus.values()[i].name.toLowerCase(
+                    Locale.getDefault()
+                )
         }
         rg_add_delivery_status?.setOnCheckedChangeListener { radioGroup, i ->
             val radioButton = radioGroup.findViewById<RadioButton>(i)

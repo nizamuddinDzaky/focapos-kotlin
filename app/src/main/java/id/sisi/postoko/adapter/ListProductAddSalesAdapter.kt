@@ -13,9 +13,10 @@ import java.text.NumberFormat
 import java.util.*
 
 
-class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arrayListOf()) : RecyclerView.Adapter<ListProductAddSalesAdapter.ProductAddSalesViewHolder>() {
+class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = arrayListOf()) :
+    RecyclerView.Adapter<ListProductAddSalesAdapter.ProductAddSalesViewHolder>() {
 
-    var listenerProduct : OnClickListenerInterface? = null
+    var listenerProduct: OnClickListenerInterface? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAddSalesViewHolder {
@@ -29,43 +30,45 @@ class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arra
     }
 
     override fun onBindViewHolder(holder: ProductAddSalesViewHolder, position: Int) {
-        holder.bind(masterData?.get(position), listenerProduct,  position)
+        holder.bind(masterData?.get(position), listenerProduct, position)
     }
 
     class ProductAddSalesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(value: SaleItem?, listener: OnClickListenerInterface?, position: Int) {
             val localeID = Locale("in", "ID")
             val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
-            var price = value?.unit_price.toString().toDouble()
+            val price = value?.unit_price.toString().toDouble()
 
             itemView.tv_product_name?.text = value?.product_name
             itemView.tv_product_price?.text = formatRupiah.format(price).toString()
 
-            if(value?.quantity == 0.0)
+            if (value?.quantity == 0.0)
                 itemView.et_qty_produk_sale_booking.setText("1")
             else
                 itemView.et_qty_produk_sale_booking.setText(value?.quantity?.toInt().toString())
 
             var qty = itemView.et_qty_produk_sale_booking.text.toString().toDouble()
-            var subtotal = hitungSubtotal(qty.toDouble(), price)
+            val subtotal = getSubTotal(qty, price)
             itemView.tv_subtoal_add_sales_booking?.text = formatRupiah.format(subtotal).toString()
 
             itemView.iv_minus_product.setOnClickListener {
-                qty = qty - 1
+                qty -= 1
                 value?.quantity = qty
                 itemView.et_qty_produk_sale_booking.setText(qty.toInt().toString())
-                var subtotal =hitungSubtotal(qty.toDouble(), price)
-                itemView.tv_subtoal_add_sales_booking?.text = formatRupiah.format(subtotal).toString()
-                value?.subtotal = subtotal
+                val subTotal = getSubTotal(qty, price)
+                itemView.tv_subtoal_add_sales_booking?.text =
+                    formatRupiah.format(subTotal).toString()
+                value?.subtotal = subTotal
                 listener?.onClickMinus()
             }
             itemView.iv_add_product.setOnClickListener {
-                qty = qty + 1
+                qty += 1
                 value?.quantity = qty
                 itemView.et_qty_produk_sale_booking.setText(qty.toInt().toString())
-                var subtotal = hitungSubtotal(qty.toDouble(), price)
-                itemView.tv_subtoal_add_sales_booking?.text = formatRupiah.format(subtotal).toString()
-                value?.subtotal = subtotal
+                val subTotal = getSubTotal(qty, price)
+                itemView.tv_subtoal_add_sales_booking?.text =
+                    formatRupiah.format(subTotal).toString()
+                value?.subtotal = subTotal
                 listener?.onClickPlus()
             }
             itemView.tv_edit_product_add_sale.setOnClickListener {
@@ -74,10 +77,9 @@ class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arra
                 }
             }
         }
-        private fun hitungSubtotal(qty: Double, price: Double) : Double{
-            var subtotal : Double
-            subtotal = qty * price
-            return subtotal
+
+        private fun getSubTotal(qty: Double, price: Double): Double {
+            return qty * price
         }
     }
 
