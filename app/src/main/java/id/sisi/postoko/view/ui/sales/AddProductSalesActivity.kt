@@ -27,7 +27,7 @@ class AddProductSalesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product_sales)
         setSupportActionBar(toolbar)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         viewModel.getListProducts().observe(this, Observer {
 //            adapter.updateMasterData(it)
@@ -40,6 +40,7 @@ class AddProductSalesActivity : AppCompatActivity() {
             tv_search_product_add_sales.visibility = View.GONE
             sv_search_product_add_sales.visibility = View.VISIBLE
             ll_search_product_add_sales.visibility = View.GONE
+            sv_search_product_add_sales?.onActionViewExpanded()
         }
 
         sv_search_product_add_sales.setOnCloseListener(object :androidx.appcompat.widget.SearchView.OnCloseListener {
@@ -99,7 +100,7 @@ class AddProductSalesActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
+        if (item.itemId == android.R.id.home){
             finish()
         }
         return super.onOptionsItemSelected(item)

@@ -42,6 +42,9 @@
     <string name="txt_status_completed">Selesai</string>
     <string name="txt_status_received">Diterima</string>
     <string name="txt_sales_booking">Sales Booking</string>
+    <string name="title_activity_edit_product_sales">EditProductSalesActivity</string>
+    <string name="choose_product">Pilih Product</string>
+    <string name="title_activity_main2">Main2Activity</string>
     <string name="txt_action_close">Tutup</string>
     <string name="txt_title_detail_good_receive">Rincian Pembelian</string>
     <string name="empty" />

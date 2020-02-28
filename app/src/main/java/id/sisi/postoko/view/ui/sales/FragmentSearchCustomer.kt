@@ -39,6 +39,7 @@ class FragmentSearchCustomer : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_search_customer, container, false)
+        return inflater.inflate(R.layout.fragment_search_customer, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

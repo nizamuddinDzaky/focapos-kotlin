@@ -15,7 +15,6 @@ import java.util.*
 
 class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arrayListOf()) : RecyclerView.Adapter<ListProductAddSalesAdapter.ProductAddSalesViewHolder>() {
 
-    var listenerProductAdapter : (SaleItem) -> Unit = {}
     var listenerProduct : OnClickListenerInterface? = null
 
 
@@ -30,11 +29,11 @@ class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arra
     }
 
     override fun onBindViewHolder(holder: ProductAddSalesViewHolder, position: Int) {
-        holder.bind(masterData?.get(position), listenerProduct)
+        holder.bind(masterData?.get(position), listenerProduct,  position)
     }
 
     class ProductAddSalesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(value: SaleItem?, listener: OnClickListenerInterface?) {
+        fun bind(value: SaleItem?, listener: OnClickListenerInterface?, position: Int) {
             val localeID = Locale("in", "ID")
             val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
             var price = value?.unit_price.toString().toDouble()
@@ -49,7 +48,6 @@ class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arra
 
             var qty = itemView.et_qty_produk_sale_booking.text.toString().toDouble()
             var subtotal = hitungSubtotal(qty.toDouble(), price)
-            value?.subtotal = subtotal
             itemView.tv_subtoal_add_sales_booking?.text = formatRupiah.format(subtotal).toString()
 
             itemView.iv_minus_product.setOnClickListener {
@@ -70,6 +68,11 @@ class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arra
                 value?.subtotal = subtotal
                 listener?.onClickPlus()
             }
+            itemView.tv_edit_product_add_sale.setOnClickListener {
+                if (value != null) {
+                    listener?.onClickEdit(value, position)
+                }
+            }
         }
         private fun hitungSubtotal(qty: Double, price: Double) : Double{
             var subtotal : Double
@@ -82,11 +85,10 @@ class ListProductAddSalesAdapter (private var masterData: List<SaleItem>? = arra
         masterData = newMasterData
         notifyDataSetChanged()
     }
-
-
 }
 
 interface OnClickListenerInterface {
     fun onClickPlus()
     fun onClickMinus()
+    fun onClickEdit(saleItem: SaleItem, position: Int)
 }

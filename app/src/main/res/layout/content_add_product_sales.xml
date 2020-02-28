@@ -15,45 +15,45 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_search_product_add_sales"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:text="@string/txt_search_product"
-                    android:background="@drawable/my_button_bg"
-                    android:paddingLeft="@dimen/margin_20"
-                    android:gravity="center_vertical"/>
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/sv_search_product_add_sales"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/my_button_bg"
-                    android:visibility="gone"/>
-<!--                <EditText-->
-<!--                    android:id="@+id/et_search_product_add_sales"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="48dp"-->
-<!--                    android:visibility="gone"-->
-<!--                    android:paddingLeft="@dimen/margin_20"-->
-<!--                    android:gravity="center_vertical"/>-->
-            </RelativeLayout>
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_search_product_add_sales"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:text="@string/txt_search_product"
+                        android:background="@drawable/my_button_bg"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:gravity="center_vertical"/>
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/sv_search_product_add_sales"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/my_button_bg"
+                        android:visibility="gone"/>
+                    <!--                <EditText-->
+                    <!--                    android:id="@+id/et_search_product_add_sales"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="48dp"-->
+                    <!--                    android:visibility="gone"-->
+                    <!--                    android:paddingLeft="@dimen/margin_20"-->
+                    <!--                    android:gravity="center_vertical"/>-->
+                </RelativeLayout>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:orientation="horizontal">
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_search_product_add_sales"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.2"
                 android:orientation="vertical">
                 <ImageButton
                     android:id="@+id/btn_search_product_add_sales"
@@ -62,6 +62,13 @@
                     android:background="@drawable/my_button_bg"
                     android:src="@drawable/plus_icon_foreground"/>
             </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
