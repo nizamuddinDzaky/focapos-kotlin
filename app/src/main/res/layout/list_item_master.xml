@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TwoLineListItem xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/listPreferredItemHeight"
-    android:mode="twoLine"
-    android:paddingLeft="?attr/listPreferredItemPaddingStart"
-    android:paddingRight="?attr/listPreferredItemPaddingEnd"
+    android:orientation="vertical"
     android:paddingStart="?attr/listPreferredItemPaddingStart"
-    android:paddingEnd="?attr/listPreferredItemPaddingEnd">
+    android:paddingLeft="?attr/listPreferredItemPaddingStart"
+    android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+    android:paddingRight="?attr/listPreferredItemPaddingEnd">
 
-    <TextView android:id="@+id/tv_master_data_name"
+    <TextView
+        android:id="@+id/tv_master_data_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_marginTop="@dimen/et_top_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
+        tools:text="Title 1" />
 
-    <TextView android:id="@+id/tv_master_data_description"
+    <TextView
+        android:id="@+id/tv_master_data_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_master_data_name"
-        android:layout_alignStart="@+id/tv_master_data_name"
-        android:layout_alignLeft="@+id/tv_master_data_name"
-        android:textAppearance="?attr/textAppearanceListItemSecondary" />
-
-</TwoLineListItem>
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        tools:text="Title 2" />
+</LinearLayout>

@@ -12,72 +12,50 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
             android:padding="@dimen/et_top_margin">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/margin_15"
+                android:layout_height="@dimen/margin_15"
+                android:layout_margin="@dimen/margin_10"
+                android:contentDescription="@string/txt_image_store"
+                android:src="@drawable/toko" />
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.4"
+                android:orientation="vertical">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:background="#FFFFFF"
-                    android:orientation="vertical">
+                    android:text="@string/txt_from"
+                    android:textColor="@color/colorBlack" />
 
-                    <ImageView
-                        android:layout_width="@dimen/margin_15"
-                        android:layout_height="@dimen/margin_15"
-                        android:src="@drawable/toko"
-                        android:contentDescription="@string/txt_image_store" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tv_detail_sbo_customer_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_weight="2.4"
-                    android:background="#FFFFFF"
-                    android:orientation="vertical">
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    tools:text="Helios Toko Jaya" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_from"
-                        android:textColor="@color/colorBlack" />
+                <TextView
+                    android:id="@+id/tv_detail_sbo_customer_address_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
-                    <TextView
-                        android:id="@+id/tv_detail_sbo_customer_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        tools:text="Helios Toko Jaya" />
-
-                    <TextView
-                        android:id="@+id/tv_detail_sbo_customer_address_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
-
-                    <TextView
-                        android:id="@+id/tv_detail_sbo_customer_address_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Jawa Timur" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_detail_sbo_customer_address_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Jawa Timur" />
 
             </LinearLayout>
-
         </LinearLayout>
 
         <View
@@ -88,72 +66,49 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
             android:padding="@dimen/et_top_margin">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/margin_15"
+                android:layout_height="@dimen/margin_15"
+                android:layout_margin="@dimen/margin_10"
+                android:contentDescription="@string/txt_image_building"
+                android:src="@drawable/company" />
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.4"
+                android:orientation="vertical">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:background="#FFFFFF"
-                    android:orientation="vertical">
+                    android:text="@string/txt_distributor"
+                    android:textColor="@color/colorBlack" />
 
-                    <ImageView
-                        android:layout_width="@dimen/margin_15"
-                        android:layout_height="@dimen/margin_15"
-                        android:src="@drawable/company"
-                        android:contentDescription="@string/txt_image_building" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tv_detail_sbo_supplier_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_weight="2.4"
-                    android:background="#FFFFFF"
-                    android:orientation="vertical">
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    tools:text="Helios Crop" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_distributor"
-                        android:textColor="@color/colorBlack" />
+                <TextView
+                    android:id="@+id/tv_detail_sbo_supplier_address_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
-                    <TextView
-                        android:id="@+id/tv_detail_sbo_supplier_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        tools:text="Helios Crop" />
-
-                    <TextView
-                        android:id="@+id/tv_detail_sbo_supplier_address_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
-
-                    <TextView
-                        android:id="@+id/tv_detail_sbo_supplier_address_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Jawa Timur" />
-
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/tv_detail_sbo_supplier_address_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Jawa Timur" />
             </LinearLayout>
-
         </LinearLayout>
 
         <View
@@ -164,117 +119,83 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
             android:padding="@dimen/et_top_margin">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/margin_15"
+                android:layout_height="@dimen/margin_15"
+                android:layout_margin="@dimen/margin_10"
+                android:contentDescription="@string/txt_image_warehouse"
+                android:src="@drawable/warehouse" />
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.4"
+                android:orientation="vertical">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:background="#FFFFFF"
-                    android:orientation="vertical">
+                    android:text="@string/txt_warehouse"
+                    android:textColor="@color/colorBlack" />
 
-                    <ImageView
-                        android:layout_width="@dimen/margin_15"
-                        android:layout_height="@dimen/margin_15"
-                        android:src="@drawable/warehouse"
-                        android:contentDescription="@string/txt_image_warehouse" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tv_detail_sbo_warehouse_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_weight="2.4"
-                    android:background="#FFFFFF"
-                    android:orientation="vertical">
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    tools:text="Helios Warehouse" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_warehouse"
-                        android:textColor="@color/colorBlack" />
+                <TextView
+                    android:id="@+id/tv_detail_sbo_warehouse_address_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
-                    <TextView
-                        android:id="@+id/tv_detail_sbo_warehouse_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        tools:text="Helios Warehouse" />
-
-                    <TextView
-                        android:id="@+id/tv_detail_sbo_warehouse_address_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
-
-                    <TextView
-                        android:id="@+id/tv_detail_sbo_warehouse_address_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Jawa Timur" />
-
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/tv_detail_sbo_warehouse_address_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Jawa Timur" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
             android:padding="@dimen/et_top_margin">
+
+            <ImageView
+                android:layout_width="@dimen/margin_15"
+                android:layout_height="@dimen/margin_15"
+                android:layout_margin="@dimen/margin_10"
+                android:layout_weight="0"
+                android:contentDescription="@string/txt_image_document"
+                android:src="@drawable/file" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_15"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="@dimen/margin_15"
-                        android:layout_height="@dimen/margin_15"
-                        android:src="@drawable/file"
-                        android:contentDescription="@string/txt_image_document" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_weight="2.4"
+                    android:baselineAligned="false"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_5"
-                        android:layout_marginBottom="@dimen/margin_10"
-                        android:layout_weight="1.5"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
@@ -285,67 +206,28 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/tv_sale_detail_reference_no"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"
+                                tools:text="SALE/2020/02/0001" />
 
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="@dimen/margin_2"
-                                    android:layout_marginRight="@dimen/margin_2"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:id="@+id/tv_sale_detail_reference_no"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorBlack"
-                                        android:textStyle="bold"
-                                        tools:text="SALE/2020/02/0001" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/txt_copy"
-                                        android:textColor="@color/main_red"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                            </LinearLayout>
-
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txt_copy"
+                                android:textColor="@color/main_red"
+                                android:textStyle="bold" />
                         </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_10"
-                            android:text="@string/txt_sale_status" />
-
-                        <TextView
-                            android:id="@+id/tv_sale_detail_sbo_sale_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/text_green"
-                            android:textStyle="bold"
-                            tools:text="done" />
-
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_5"
-                        android:layout_marginBottom="@dimen/margin_10"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -361,6 +243,42 @@
                             android:textColor="@color/colorBlack"
                             android:textStyle="bold"
                             tools:text="13/11/2020 11:40" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:text="@string/txt_sale_status" />
+
+                        <TextView
+                            android:id="@+id/tv_sale_detail_sbo_sale_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_green"
+                            android:textStyle="bold"
+                            tools:text="done" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -375,13 +293,10 @@
                             android:textColor="@color/text_green"
                             android:textStyle="bold"
                             tools:text="done" />
-
                     </LinearLayout>
 
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -391,40 +306,19 @@
             android:background="#FFFFFF"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <ImageView
+                android:layout_width="@dimen/margin_15"
+                android:layout_height="@dimen/margin_15"
+                android:layout_margin="@dimen/margin_10"
+                android:contentDescription="@string/txt_icon_product"
+                android:src="@drawable/product" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_20"
-                android:layout_marginLeft="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_4"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/margin_15"
-                    android:layout_height="@dimen/margin_15"
-                    android:src="@drawable/product"
-                    android:contentDescription="@string/txt_icon_product" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
-                android:layout_marginLeft="@dimen/margin_6"
-                android:layout_marginTop="@dimen/margin_2"
-                android:layout_marginBottom="@dimen/margin_3"
-                android:layout_weight="2.4"
-                android:background="#FFFFFF"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_product"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
+                android:layout_gravity="center_vertical"
+                android:text="@string/txt_product"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <View

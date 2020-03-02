@@ -28,11 +28,11 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_serial_number_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
-                android:inputType="text" />
+                android:inputType="text"
+                tools:ignore="LabelFor,TextFields" />
         </LinearLayout>
 
         <LinearLayout
@@ -49,11 +49,11 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_qty_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
-                android:inputType="numberSigned" />
+                android:inputType="numberSigned"
+                tools:ignore="LabelFor" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,11 +70,11 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_satuan_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
-                android:inputType="numberSigned" />
+                android:inputType="numberSigned"
+                tools:ignore="LabelFor" />
         </LinearLayout>
 
         <LinearLayout
@@ -91,11 +91,11 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_diskon_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
-                android:inputType="numberSigned" />
+                android:inputType="numberSigned"
+                tools:ignore="LabelFor" />
         </LinearLayout>
 
         <LinearLayout
@@ -112,18 +112,19 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_satuan_harga_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
-                android:inputType="numberSigned" />
+                android:inputType="numberSigned"
+                tools:ignore="LabelFor" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -144,7 +145,6 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/tv_harga_satuan_bersih_edit_product_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -156,7 +156,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -177,7 +178,6 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/tv_edit_produk_edit_product_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -187,7 +187,6 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_tambah_sale"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_20"

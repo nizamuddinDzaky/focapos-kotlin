@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Payment
+import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toDisplayDate
 import kotlinx.android.synthetic.main.list_item_pembayaran.view.*
 
 class ListPaymentAdapter(

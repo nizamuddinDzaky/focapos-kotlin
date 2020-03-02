@@ -1,4 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".view.ui.sales.AddSalesActivity"
+    tools:showIn="@layout/activity_add_sales">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="@string/txt_date_sale"
+                android:textColor="#000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="@string/txt_icon_calendar"
+                    android:src="@drawable/calendar_icon_foreground" />
+
+                <EditText
+                    android:id="@+id/et_tanggal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="@string/txt_choose_date"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:ignore="KeyboardInaccessibleWidget" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="@string/txt_biler"
+                android:textColor="#000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="@string/txt_icon_biller"
+                    android:src="@drawable/building_icon_foreground" />
+
+                <com.tiper.MaterialSpinner
+                    android:id="@+id/sp_supplier"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="@string/txt_warehouse"
+                android:textColor="#000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="@string/txt_icon_warehouse"
+                    android:src="@drawable/warehouse_icon_foreground" />
+
+                <com.tiper.MaterialSpinner
+                    android:id="@+id/sp_gudang"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="@string/txt_customer"
+                android:textColor="#000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="@string/txt_image_person"
+                    android:src="@drawable/home_icon_foreground" />
+
+                <EditText
+                    android:id="@+id/et_customer"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="@string/txt_product"
+                android:textColor="#000" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_product_add_sale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_20">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_total"
+                    android:textColor="#000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/tv_total_add_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="@string/txt_total"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_tambah_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f3f2f2"
+            android:text="@string/txt_add_product"
+            android:textColor="#0f569d" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingRight="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_discount"
+                android:textColor="#000" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_discount"
+                android:importantForAutofill="no"
+                android:inputType="numberSigned" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_delivery_fee"
+                android:textColor="#000" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_delivery_fee"
+                android:importantForAutofill="no"
+                android:inputType="numberSigned" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_sale_status"
+                android:textColor="#000" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_ordered"
+                    tools:targetApi="lollipop" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_status_pending"
+                    tools:targetApi="lollipop" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_term_of_payment"
+                android:textColor="#000" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_delivery_fee"
+                android:importantForAutofill="no"
+                android:inputType="numberSigned" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_payment_status"
+                android:textColor="#000" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_status_pending"
+                    tools:targetApi="lollipop" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_due_date"
+                    tools:targetApi="lollipop" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_status_partial"
+                    tools:targetApi="lollipop" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_status_paid"
+                    tools:targetApi="lollipop" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_sale_note"
+                android:textColor="#000" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_sale_note"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_employee_records"
+                android:textColor="#000" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_delivery_fee"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1CA865"
+            android:text="@string/txt_add" />
+    </LinearLayout>
+
+</ScrollView><!--
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,341 +383,5 @@
     tools:context=".view.ui.sales.AddSalesActivity"
     tools:showIn="@layout/activity_add_sales">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:text="@string/txt_date_sale"
-                    android:textColor="#000" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="5dp"
-                        android:contentDescription="@string/txt_icon_calendar"
-                        android:src="@drawable/calendar_icon_foreground" />
-
-                    <EditText
-                        android:id="@+id/et_date_add_sale"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="1dp"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:hint="@string/txt_choose_date"
-                        android:importantForAutofill="no"
-                        android:inputType="none"
-                        tools:ignore="KeyboardInaccessibleWidget" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:text="@string/txt_biler"
-                    android:textColor="#000" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="5dp"
-                        android:contentDescription="@string/txt_icon_biller"
-                        android:src="@drawable/building_icon_foreground" />
-
-                    <com.tiper.MaterialSpinner
-                        android:id="@+id/sp_supplier"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:focusable="false"
-                        android:clickable="true"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:text="@string/txt_warehouse"
-                    android:textColor="#000" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="5dp"
-                        android:contentDescription="@string/txt_icon_warehouse"
-                        android:src="@drawable/warehouse_icon_foreground" />
-
-                    <com.tiper.MaterialSpinner
-                        android:id="@+id/sp_warehouse_add_sale"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:focusable="false"
-                        android:clickable="true"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:text="@string/txt_customer"
-                    android:textColor="#000" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="5dp"
-                        android:contentDescription="@string/txt_image_person"
-                        android:src="@drawable/home_icon_foreground" />
-
-                    <EditText
-                        android:id="@+id/et_customer"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="1dp"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="none" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:text="@string/txt_product"
-                    android:textColor="#000" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list_product_add_sale"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:orientation="horizontal"
-                android:padding="@dimen/margin_20">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_total"
-                        android:textColor="#000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_total_add_sale"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="@string/txt_total"
-                        android:textAlignment="textEnd"
-                        android:textColor="#000" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_add_product"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#f3f2f2"
-                android:text="@string/txt_add_product"
-                android:textColor="#0f569d" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:orientation="vertical"
-                android:paddingStart="15dp"
-                android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="5dp"
-                android:paddingRight="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_discount"
-                    android:textColor="#000" />
-
-                <EditText
-                    android:id="@+id/et_discount_add_sale"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/txt_discount"
-                    android:importantForAutofill="no"
-                    android:inputType="numberSigned" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/txt_delivery_fee"
-                    android:textColor="#000" />
-
-                <EditText
-                    android:id="@+id/et_shipping_add_sale"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/txt_delivery_fee"
-                    android:importantForAutofill="no"
-                    android:inputType="numberSigned" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/txt_sale_status"
-                    android:textColor="#000" />
-
-                <RadioGroup
-                    android:id="@+id/rg_status_add_sale"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:id="@+id/rb_penjualan_menunggu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#B20838"
-                        android:text="@string/txt_status_pending"
-                        tools:targetApi="lollipop" />
-                    <RadioButton
-                        android:id="@+id/rb_penjualan_dipesan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#B20838"
-                        android:text="@string/txt_ordered"
-                        tools:targetApi="lollipop" />
-                </RadioGroup>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/txt_term_of_payment"
-                    android:textColor="#000" />
-
-                <EditText
-                    android:id="@+id/et_payment_term_add_sale"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/txt_delivery_fee"
-                    android:importantForAutofill="no"
-                    android:inputType="numberSigned" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/txt_sale_note"
-                    android:textColor="#000" />
-
-                <EditText
-                    android:id="@+id/et_note_add_sale"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/txt_sale_note"
-                    android:importantForAutofill="no"
-                    android:inputType="text" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/txt_employee_records"
-                    android:textColor="#000" />
-
-                <EditText
-                    android:id="@+id/et_staff_note_add_sale"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/txt_delivery_fee"
-                    android:importantForAutofill="no"
-                    android:inputType="text" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_confirmation_add_sale"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#1CA865"
-                android:textColor="#fff"
-                android:text="@string/txt_add" />
-        </LinearLayout>
-
-    </ScrollView>
 </LinearLayout>
+-->

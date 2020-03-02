@@ -10,12 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListDetailSalesBookingAdapter
-import id.sisi.postoko.adapter.toCurrencyID
-import id.sisi.postoko.adapter.toDisplayDate
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.extensions.goneIfEmptyOrNull
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.tryValue
+import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.detail_sales_booking_fragment.*
 
 class DetailSalesBookingFragment : Fragment() {

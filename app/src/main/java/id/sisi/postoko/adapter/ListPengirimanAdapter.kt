@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Delivery
+import id.sisi.postoko.utils.extensions.toDisplayDate
 import kotlinx.android.synthetic.main.list_item_pengiriman.view.*
 
 class ListPengirimanAdapter(

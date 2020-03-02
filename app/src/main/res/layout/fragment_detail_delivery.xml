@@ -45,7 +45,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_detail_delivery_reference_no"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
@@ -70,7 +69,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_detail_delivery_date"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
@@ -95,7 +93,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_detail_delivery_status"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
@@ -120,7 +117,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -198,7 +196,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -572,7 +571,6 @@
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_list_product_detail_delivery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#E5E5E5"

@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemDeliveryAdapter
-import id.sisi.postoko.adapter.toDisplayDate
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.ui.MasterDetailViewModel
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 import java.text.SimpleDateFormat

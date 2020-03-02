@@ -1,143 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_margin="@dimen/margin_5"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_trx_number"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_payment_reference_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_5"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_10"
-                android:layout_marginLeft="@dimen/margin_10"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_6"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txt_trx_number"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_payment_reference_no"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:textAllCaps="true"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="IPAY/2020/02/02" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_10"
-                        android:layout_marginLeft="@dimen/margin_10"
-                        android:layout_marginTop="@dimen/margin_6"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txt_nominal"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_payment_amount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:textAllCaps="true"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="Rp 200.000.000" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_6"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txt_date"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_payment_date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:textAllCaps="true"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="14/10/2020 14:11" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/margin_6"
-                        android:layout_marginEnd="@dimen/margin_5"
-                        android:layout_marginRight="@dimen/margin_5"
-                        android:layout_weight="0.2"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="@dimen/margin_15"
-                            android:layout_height="@dimen/margin_15"
-                            android:src="@drawable/right"
-                            android:contentDescription="@string/txt_image_arrow_right" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/line"
-            android:layout_marginTop="@dimen/margin_10"
-            android:background="@color/colorLine" />
+            android:gravity="center_vertical"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="PAY/2020/02/02" />
 
     </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_nominal"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_payment_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="Rp 200.000.000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_date"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_payment_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="14/10/2020 14:11" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/margin_15"
+        android:layout_height="@dimen/margin_15"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/txt_image_arrow_right"
+        android:src="@drawable/right" />
+</LinearLayout>

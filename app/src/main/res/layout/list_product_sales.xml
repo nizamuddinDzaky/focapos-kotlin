@@ -1,222 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:background="#fff"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/iv_paroduct_add_sales"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/dynamix"
-            android:contentDescription="@string/txt_image_cement" />
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/et_top_margin"
-            android:layout_marginLeft="@dimen/et_top_margin"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="@dimen/et_top_margin">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="66dp"
+                android:contentDescription="@string/txt_image_cement"
+                android:src="@drawable/dynamix" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_6"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="true"
+                    android:textColor="#B20838"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:text="Dynamix Serbaguna 40KG" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_product_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_6"
-                        android:gravity="center_vertical"
-                        android:textAllCaps="true"
-                        android:textColor="#B20838"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        tools:text="Dynamix Serbaguna 40KG" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_90"
-                    android:layout_marginLeft="@dimen/margin_90"
-                    android:layout_weight="0.3"
-                    android:gravity="center"
-                    android:orientation="vertical" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:layout_marginBottom="@dimen/margin_5"
-                android:layout_weight="1"
-
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="@string/txt_price"
-                        android:textColor="#666666"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tv_product_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_5"
-                        android:gravity="center_vertical"
-                        android:textColor="#666666"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        tools:text="200 SAK" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:layout_marginLeft="@dimen/margin_20"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="@string/txt_price"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_product_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:textColor="#666666"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            tools:text="200 SAK" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <LinearLayout
+                        <ImageView
+                            android:id="@+id/iv_add_product"
+                            android:layout_width="@dimen/margin_15"
+                            android:layout_height="@dimen/margin_15"
+                            android:contentDescription="@string/txt_image_plus"
+                            android:src="@drawable/plus" />
+
+                        <EditText
+                            android:id="@+id/et_qty_produk_sale_booking"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:orientation="vertical">
+                            android:layout_marginStart="@dimen/et_top_margin"
+                            android:layout_marginLeft="@dimen/et_top_margin"
+                            android:layout_marginEnd="@dimen/et_top_margin"
+                            android:layout_marginRight="@dimen/et_top_margin"
+                            android:gravity="center_horizontal"
+                            android:textColor="#666666"
+                            android:textSize="12sp"
+                            tools:text="200"
+                            tools:ignore="LabelFor"
+                            android:importantForAutofill="no"
+                            android:inputType="numberSigned" />
 
-                            <ImageView
-                                android:id="@+id/iv_add_product"
-                                android:layout_width="@dimen/margin_30"
-                                android:layout_height="@dimen/margin_30"
-                                android:layout_marginTop="@dimen/margin_3"
-                                android:src="@drawable/minus"
-                                android:contentDescription="@string/txt_image_plus" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="@dimen/margin_30"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_10"
-                            android:layout_marginRight="@dimen/margin_10"
-                            android:orientation="vertical">
-
-                            <EditText
-                                android:id="@+id/et_qty_produk_sale_booking"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_5"
-                                android:gravity="center_horizontal"
-                                android:importantForAutofill="no"
-                                android:inputType="numberSigned"
-                                android:textColor="#666666"
-                                android:textSize="15sp"
-                                tools:ignore="LabelFor"
-                                tools:text="qwe" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/iv_minus_product"
-                                android:layout_width="@dimen/margin_30"
-                                android:layout_height="@dimen/margin_30"
-                                android:layout_marginTop="@dimen/margin_3"
-                                android:src="@drawable/minus"
-                                android:contentDescription="@string/txt_image_minus" />
-
-                        </LinearLayout>
-
+                        <ImageView
+                            android:id="@+id/iv_minus_product"
+                            android:layout_width="@dimen/margin_15"
+                            android:layout_height="@dimen/margin_15"
+                            android:contentDescription="@string/txt_image_minus"
+                            android:src="@drawable/minus" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line"
-        android:layout_marginTop="@dimen/margin_10"
-        android:background="@color/colorLine" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_marginLeft="@dimen/margin_20"
-        android:orientation="horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLine" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_sub_total"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tv_subtoal_add_sales_booking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/et_top_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/et_top_margin"
+                android:layout_marginLeft="@dimen/et_top_margin"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_sub_total" />
+
+                <TextView
+                    android:id="@+id/tv_subtoal_add_sales_booking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    tools:text="@string/txt_hint_example_sales_number" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_edit_product_add_sale"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:layout_weight="0"
                 android:text="@string/txt_edit"
-                android:textColor="#004C97" />
-
-        </RelativeLayout>
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</androidx.cardview.widget.CardView>

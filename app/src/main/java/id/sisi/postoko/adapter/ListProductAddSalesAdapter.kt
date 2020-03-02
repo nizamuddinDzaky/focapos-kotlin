@@ -18,7 +18,6 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
 
     var listenerProduct: OnClickListenerInterface? = null
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAddSalesViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.list_product_sales, parent, false)
@@ -87,10 +86,10 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
         masterData = newMasterData
         notifyDataSetChanged()
     }
-}
 
-interface OnClickListenerInterface {
-    fun onClickPlus()
-    fun onClickMinus()
-    fun onClickEdit(saleItem: SaleItem, position: Int)
+    interface OnClickListenerInterface {
+        fun onClickPlus()
+        fun onClickMinus()
+        fun onClickEdit(saleItem: SaleItem, position: Int)
+    }
 }

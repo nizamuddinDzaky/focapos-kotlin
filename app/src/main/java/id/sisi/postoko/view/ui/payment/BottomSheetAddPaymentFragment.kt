@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
-import id.sisi.postoko.adapter.toDisplayDate
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toDisplayDate
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_payment.*
 import java.text.SimpleDateFormat
 import java.util.*
