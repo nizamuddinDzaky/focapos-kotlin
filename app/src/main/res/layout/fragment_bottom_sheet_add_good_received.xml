@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Membuat Pembelian"
+        android:text="@string/txt_purchase_create"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Nomor SPJ"
+            android:text="@string/txt_spj_number"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
@@ -72,7 +72,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Harga Awal (Rp)" />
+                    android:text="@string/txt_initial_price_idr" />
 
                 <TextView
                     android:id="@+id/tv_detail_good_received_price"
@@ -93,7 +93,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Qty" />
+                    android:text="@string/txt_qty" />
 
                 <TextView
                     android:id="@+id/tv_detail_good_received_quantity"
@@ -114,13 +114,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="Harga Baru (Rp)" />
+                    android:text="@string/txt_new_price_idr" />
 
                 <EditText
                     android:id="@+id/et_detail_good_received_new_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:inputType="numberSigned"
                     tools:text="45.000" />
             </LinearLayout>
         </LinearLayout>
@@ -137,7 +138,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="TOTAL"
+            android:text="@string/txt_total_idr"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/colorNotSelect"
             android:textStyle="bold" />
@@ -159,7 +160,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:background="@color/main_green"
-        android:text="Terima"
+        android:text="@string/txt_receive"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white" />

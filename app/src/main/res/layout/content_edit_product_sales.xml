@@ -30,7 +30,8 @@
             <EditText
                 android:id="@+id/et_serial_number_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
@@ -49,7 +50,8 @@
             <EditText
                 android:id="@+id/et_qty_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,7 +70,8 @@
             <EditText
                 android:id="@+id/et_satuan_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned" />
         </LinearLayout>
 
         <LinearLayout
@@ -87,7 +90,8 @@
             <EditText
                 android:id="@+id/et_diskon_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned" />
         </LinearLayout>
 
         <LinearLayout
@@ -106,7 +110,8 @@
             <EditText
                 android:id="@+id/et_satuan_harga_edit_product_add_sale_booking"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned" />
         </LinearLayout>
 
         <LinearLayout

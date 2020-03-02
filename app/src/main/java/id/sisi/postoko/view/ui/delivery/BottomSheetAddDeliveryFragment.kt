@@ -67,6 +67,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
 
         //setupUI
         et_add_delivery_date?.setText(currentDate.toDisplayDate())
+        et_add_delivery_date?.hint = currentDate.toDisplayDate()
         et_add_delivery_date?.tag = currentDate
         et_add_delivery_reference_no?.setText(sale?.reference_no)
         adapter = ListItemDeliveryAdapter(sale?.saleItems)

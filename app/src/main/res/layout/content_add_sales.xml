@@ -52,7 +52,9 @@
                         android:layout_height="50dp"
                         android:layout_marginTop="1dp"
                         android:editable="false"
-                        android:hint="@string/txt_choose_date" />
+                        android:hint="@string/txt_choose_date"
+                        android:inputType="none"
+                        android:importantForAutofill="no" />
                 </LinearLayout>
 
                 <TextView
@@ -138,7 +140,9 @@
                         android:layout_marginTop="1dp"
                         android:editable="false"
                         android:focusableInTouchMode="false"
-                        android:hint="@string/txt_choose_date" />
+                        android:hint="@string/txt_choose_date"
+                        android:inputType="none"
+                        android:importantForAutofill="no" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -229,7 +233,9 @@
                     android:id="@+id/et_diskon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_discount" />
+                    android:hint="@string/txt_discount"
+                    android:inputType="numberSigned"
+                    android:importantForAutofill="no" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -242,7 +248,9 @@
                     android:id="@+id/et_biaya_pengiriman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_delivery_fee" />
+                    android:hint="@string/txt_delivery_fee"
+                    android:inputType="numberSigned"
+                    android:importantForAutofill="no" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -284,7 +292,9 @@
                     android:id="@+id/et_jangka_waktu_pembayaran"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_delivery_fee" />
+                    android:hint="@string/txt_delivery_fee"
+                    android:inputType="numberSigned"
+                    android:importantForAutofill="no" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -342,7 +352,9 @@
                     android:id="@+id/et_catatan_penjualan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_sale_note" />
+                    android:hint="@string/txt_sale_note"
+                    android:inputType="text"
+                    android:importantForAutofill="no" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -355,7 +367,9 @@
                     android:id="@+id/et_catatan_pegawai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txt_delivery_fee" />
+                    android:hint="@string/txt_delivery_fee"
+                    android:inputType="text"
+                    android:importantForAutofill="no" />
             </LinearLayout>
 
             <Button

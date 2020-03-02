@@ -56,8 +56,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.4"
                 android:gravity="end"
-                android:text="Januari 2020"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                tools:text="Januari 2020" />
         </LinearLayout>
 
         <LinearLayout
@@ -72,7 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="200 :-)" />
+                tools:text="200 :-)" />
 
         </LinearLayout>
 
