@@ -48,7 +48,7 @@
                         android:src="@drawable/calendar_icon_foreground" />
 
                     <EditText
-                        android:id="@+id/et_tanggal"
+                        android:id="@+id/et_date_add_sale"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="1dp"
@@ -85,7 +85,9 @@
                     <com.tiper.MaterialSpinner
                         android:id="@+id/sp_supplier"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp" />
+                        android:layout_height="50dp"
+                        android:focusable="false"
+                        android:clickable="true"/>
 
                 </LinearLayout>
 
@@ -112,9 +114,11 @@
                         android:src="@drawable/warehouse_icon_foreground" />
 
                     <com.tiper.MaterialSpinner
-                        android:id="@+id/sp_gudang"
+                        android:id="@+id/sp_warehouse_add_sale"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp" />
+                        android:layout_height="50dp"
+                        android:focusable="false"
+                        android:clickable="true"/>
 
                 </LinearLayout>
 
@@ -212,7 +216,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_tambah_product"
+                android:id="@+id/btn_add_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#f3f2f2"
@@ -237,7 +241,7 @@
                     android:textColor="#000" />
 
                 <EditText
-                    android:id="@+id/et_diskon"
+                    android:id="@+id/et_discount_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_discount"
@@ -252,7 +256,7 @@
                     android:textColor="#000" />
 
                 <EditText
-                    android:id="@+id/et_biaya_pengiriman"
+                    android:id="@+id/et_shipping_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_delivery_fee"
@@ -267,18 +271,10 @@
                     android:textColor="#000" />
 
                 <RadioGroup
+                    android:id="@+id/rg_status_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_penjualan_dipesan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#B20838"
-                        android:text="@string/txt_ordered"
-                        tools:targetApi="lollipop" />
-
                     <RadioButton
                         android:id="@+id/rb_penjualan_menunggu"
                         android:layout_width="wrap_content"
@@ -286,8 +282,14 @@
                         android:buttonTint="#B20838"
                         android:text="@string/txt_status_pending"
                         tools:targetApi="lollipop" />
+                    <RadioButton
+                        android:id="@+id/rb_penjualan_dipesan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_ordered"
+                        tools:targetApi="lollipop" />
                 </RadioGroup>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -296,7 +298,7 @@
                     android:textColor="#000" />
 
                 <EditText
-                    android:id="@+id/et_jangka_waktu_pembayaran"
+                    android:id="@+id/et_payment_term_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_delivery_fee"
@@ -307,56 +309,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/txt_payment_status"
-                    android:textColor="#000" />
-
-                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_pembayaran_menunggu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#B20838"
-                        android:text="@string/txt_status_pending"
-                        tools:targetApi="lollipop" />
-
-                    <RadioButton
-                        android:id="@+id/rb_pembayaran_jatuh_tempo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#B20838"
-                        android:text="@string/txt_due_date"
-                        tools:targetApi="lollipop" />
-
-                    <RadioButton
-                        android:id="@+id/rb_pembayaran_sebagian"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#B20838"
-                        android:text="@string/txt_status_partial"
-                        tools:targetApi="lollipop" />
-
-                    <RadioButton
-                        android:id="@+id/rb_pembayaran_dibayar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#B20838"
-                        android:text="@string/txt_status_paid"
-                        tools:targetApi="lollipop" />
-                </RadioGroup>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:text="@string/txt_sale_note"
                     android:textColor="#000" />
 
                 <EditText
-                    android:id="@+id/et_catatan_penjualan"
+                    android:id="@+id/et_note_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_sale_note"
@@ -371,7 +328,7 @@
                     android:textColor="#000" />
 
                 <EditText
-                    android:id="@+id/et_catatan_pegawai"
+                    android:id="@+id/et_staff_note_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_delivery_fee"
@@ -380,10 +337,11 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_tambah_sale"
+                android:id="@+id/btn_confirmation_add_sale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#1CA865"
+                android:textColor="#fff"
                 android:text="@string/txt_add" />
         </LinearLayout>
 

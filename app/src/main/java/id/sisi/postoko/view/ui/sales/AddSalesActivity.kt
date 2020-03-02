@@ -4,18 +4,20 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tiper.MaterialSpinner
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.adapter.OnClickListenerInterface
-import id.sisi.postoko.model.Customer
-import id.sisi.postoko.model.Product
-import id.sisi.postoko.model.SaleItem
+import id.sisi.postoko.model.*
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.supplier.SupplierViewModel
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
@@ -28,10 +30,19 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
     var customer: Customer? = null
     private lateinit var viewModelSupplier: SupplierViewModel
     private lateinit var viewModelWarehouse: WarehouseViewModel
-    private var listSupplier = ArrayList<String>()
-    private var listWarehouse = ArrayList<String>()
+    private var listSupplierName = ArrayList<String>()
+    private var listSupplier:List<Supplier>  = ArrayList()
+    private var listWarehouseName = ArrayList<String>()
+    private var listWarehouse: List<Warehouse> = ArrayList()
     private var listSaleItems = ArrayList<SaleItem>()
     private lateinit var adapter: ListProductAddSalesAdapter
+    private lateinit var viewModel: AddSalesViewModel
+
+    var listener: () -> Unit = {}
+
+    private var idCustomer: String? = null
+    private var idWarehouse: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sales)
@@ -40,8 +51,19 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
         actionBar!!.title = ""
         actionBar.setDisplayHomeAsUpEnabled(true)
 
+        viewModel = ViewModelProvider(
+            this
+        ).get(AddSalesViewModel::class.java)
+        viewModel.getIsExecute().observe(this, Observer {
+//            viewLifecycleOwner
+            if (it) {
+                logE("progress")
+            } else {
+                logE("done")
+            }
+        })
 
-        et_tanggal.setOnClickListener {
+        et_date_add_sale.setOnClickListener {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
@@ -50,8 +72,10 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
             val dpd = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
-                    val selectedDate = """$dayOfMonth - ${monthOfYear + 1} - $year"""
-                    et_tanggal.setText(selectedDate)
+//                    val selectedDate = """$dayOfMonth - ${monthOfYear + 1} - $year"""
+                    val selectedDate = """$year-${monthOfYear + 1}-$dayOfMonth"""
+                    et_date_add_sale.setText(selectedDate)
+                    et_date_add_sale?.tag = selectedDate
                 },
                 year,
                 month,
@@ -62,27 +86,39 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
 
         viewModelSupplier = ViewModelProvider(this).get(SupplierViewModel::class.java)
         viewModelSupplier.getListSuppliers().observe(this, Observer {
-            if (it != null) for (x in it.indices)
-                listSupplier.add(it[x].name)
+            if (it != null){
+                for (x in it.indices) {
+                    listSupplierName.add(it[x].name)
+                }
+                listSupplier = it
+            }
         })
-        val adapterSupplier = ArrayAdapter(this, android.R.layout.simple_spinner_item, listSupplier)
+        val adapterSupplier = ArrayAdapter(this, android.R.layout.simple_spinner_item, listSupplierName)
         sp_supplier.adapter = adapterSupplier
 
         viewModelWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
         viewModelWarehouse.getListWarehouses().observe(this, Observer {
             it?.let {
                 for (x in it.indices)
-                    listWarehouse.add(it[x].name)
+                    listWarehouseName.add(it[x].name)
+                listWarehouse = it
             }
         })
-        val adapterGudang = ArrayAdapter(this, android.R.layout.simple_spinner_item, listWarehouse)
-        sp_gudang.adapter = adapterGudang
+        val adapterGudang = ArrayAdapter(this, android.R.layout.simple_spinner_item, listWarehouseName)
+        sp_warehouse_add_sale.adapter = adapterGudang
+        sp_warehouse_add_sale.onItemSelectedListener = object : MaterialSpinner.OnItemSelectedListener {
+            override fun onItemSelected(parent: MaterialSpinner,view: View?,position: Int,id: Long) {
+                idWarehouse = listWarehouse[position].id
+            }
+            override fun onNothingSelected(parent: MaterialSpinner): Unit = Unit
+        }
 
         et_customer.setOnClickListener { _ ->
             val dialogFragment = FragmentSearchCustomer()
             dialogFragment.listener = {
                 logE("cek $it")
                 customer = it
+                idCustomer = it.id
                 et_customer.setText(it.company)
             }
 
@@ -98,10 +134,38 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
             dialogFragment.show(ft, "dialog")
         }
 
-        btn_tambah_product.setOnClickListener {
+        btn_add_product.setOnClickListener {
             val intent = Intent(this, AddProductSalesActivity::class.java)
             startActivityForResult(intent, 1)
         }
+
+        btn_confirmation_add_sale.setOnClickListener {
+            actionAddSale()
+        }
+
+        for (i in 0 until (rg_status_add_sale?.childCount ?: 0)) {
+            (rg_status_add_sale?.get(i) as? RadioButton)?.tag =
+                SaleStatus.values()[i].name.toLowerCase(
+                    Locale.getDefault()
+                )
+        }
+        rg_status_add_sale?.setOnCheckedChangeListener { radioGroup, i ->
+            val radioButton = radioGroup.findViewById<RadioButton>(i)
+            rg_status_add_sale?.tag = radioButton.tag
+        }
+        rg_status_add_sale?.check(rg_status_add_sale?.get(0)?.id ?: 0)
+
+        for (i in 0 until (rg_status_add_sale?.childCount ?: 0)) {
+            (rg_status_add_sale?.get(i) as? RadioButton)?.tag =
+                SaleStatus.values()[i].name.toLowerCase(
+                    Locale.getDefault()
+                )
+        }
+        rg_status_add_sale?.setOnCheckedChangeListener { radioGroup, i ->
+            val radioButton = radioGroup.findViewById<RadioButton>(i)
+            rg_status_add_sale?.tag = radioButton.tag
+        }
+        rg_status_add_sale?.check(rg_status_add_sale?.get(0)?.id ?: 0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -171,5 +235,33 @@ class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
         val intent = Intent(this, EditProductSalesActivity::class.java)
         intent.putExtra("sale_item", saleItem)
         startActivityForResult(intent, 2)
+    }
+
+    private fun actionAddSale(){
+//        val sale = arguments?.getParcelable<Sales>("sale_booking")
+        val saleItems = listSaleItems.map {
+            return@map mutableMapOf(
+                "product_id" to it.product_id.toString(),
+                "price" to it.unit_price.toString(),
+                "quantity" to it.quantity
+            )
+        }
+
+        val body: MutableMap<String, Any> = mutableMapOf(
+            "date" to (et_date_add_sale?.tag?.toString() ?: ""),
+            "warehouse" to (idWarehouse ?: ""),
+            "customer" to (idCustomer ?: ""),
+            "order_discount" to (et_discount_add_sale?.text?.toString() ?: ""),
+            "shipping" to (et_shipping_add_sale?.text?.toString() ?: ""),
+            "sale_status" to (rg_status_add_sale?.tag?.toString() ?: ""),
+            "payment_term" to (et_payment_term_add_sale?.text?.toString() ?: ""),
+            "staff_note" to (et_staff_note_add_sale?.text?.toString() ?: ""),
+            "note" to (et_note_add_sale?.text?.toString() ?: ""),
+            "products" to saleItems
+        )
+        viewModel.postAddSales(body){
+            listener()
+            finish()
+        }
     }
 }
