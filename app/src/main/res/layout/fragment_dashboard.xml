@@ -27,7 +27,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="0"
                 android:src="@drawable/ic_account_black_24dp"
-                android:tint="@android:color/white" />
+                android:tint="@android:color/white"
+                android:contentDescription="@string/txt_image_person" />
 
             <LinearLayout
                 android:layout_width="0dp"

@@ -122,7 +122,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:inputType="numberSigned"
-                    tools:text="45.000" />
+                    tools:text="45.000"
+                    android:importantForAutofill="no" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

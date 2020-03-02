@@ -22,7 +22,8 @@
                 android:layout_height="66dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
-                android:src="@drawable/dynamix" />
+                android:src="@drawable/dynamix"
+                android:contentDescription="@string/txt_image_cement" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,6 +60,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_90"
                         android:layout_marginLeft="@dimen/margin_90"
                         android:layout_weight="0.3"
                         android:gravity="center"
