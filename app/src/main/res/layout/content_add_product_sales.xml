@@ -62,7 +62,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@drawable/my_button_bg"
-                    android:src="@drawable/plus_icon_foreground" />
+                    android:src="@drawable/plus_icon_foreground"
+                    android:contentDescription="@string/txt_image_search_product" />
             </LinearLayout>
         </LinearLayout>
 

@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.custom
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.BlendMode
@@ -18,6 +19,7 @@ class CustomProgressBar {
 
     lateinit var dialog: Dialog
 
+    @SuppressLint("InflateParams")
     fun show(context: Context, title:CharSequence?): Dialog {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.progress_bar, null)

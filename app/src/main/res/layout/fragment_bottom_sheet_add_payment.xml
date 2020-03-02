@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Menambah Pembayaran"
+        android:text="@string/txt_add_payment"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="Tunai"
+            android:text="@string/txt_payment_cash"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tanggal"
+            android:text="@string/txt_date"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/colorNotSelect"
             android:textStyle="bold" />
@@ -79,7 +79,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jumlah (Rp)"
+            android:text="@string/txt_total_idr"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/colorNotSelect"
             android:textStyle="bold" />
@@ -105,7 +105,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Catatan"
+            android:text="@string/txt_note"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/colorNotSelect"
             android:textStyle="bold" />
@@ -115,10 +115,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
+            android:inputType="text"
             android:maxLines="5"
             android:minLines="3"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            tools:text="Tunai" />
+            tools:text="@string/txt_payment_cash" />
 
     </LinearLayout>
 
@@ -127,7 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:background="@color/main_green"
-        android:text="Tambah Pembayaran"
+        android:text="@string/txt_action_add_payment"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white" />

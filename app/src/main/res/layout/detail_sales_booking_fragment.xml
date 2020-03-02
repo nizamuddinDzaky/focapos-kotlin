@@ -49,7 +49,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="From"
+                        android:text="@string/txt_from"
                         android:textColor="@color/colorBlack" />
 
                     <TextView
@@ -124,7 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Distributor"
+                        android:text="@string/txt_distributor"
                         android:textColor="@color/colorBlack" />
 
                     <TextView
@@ -199,7 +199,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Gudang"
+                        android:text="@string/txt_warehouse"
                         android:textColor="@color/colorBlack" />
 
                     <TextView
@@ -275,7 +275,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Referensi" />
+                            android:text="@string/txt_reference_number" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -323,7 +323,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_10"
-                            android:text="Status Penjualan" />
+                            android:text="@string/txt_sale_status" />
 
                         <TextView
                             android:id="@+id/tv_sale_detail_sbo_sale_status"
@@ -346,7 +346,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tanggal" />
+                            android:text="@string/txt_date" />
 
                         <TextView
                             android:id="@+id/tv_sale_detail_sbo_date"
@@ -360,7 +360,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_10"
-                            android:text="Status Pengiriman" />
+                            android:text="@string/txt_delivery_status" />
 
                         <TextView
                             android:id="@+id/tv_sale_detail_sbo_delivery_status"
@@ -414,7 +414,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Produk"
+                    android:text="@string/txt_product"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -445,7 +445,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Diskon Pesanan (IDR)"
+                android:text="@string/txt_order_discounts"
                 android:textStyle="bold" />
 
             <TextView
@@ -468,7 +468,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Jumlah (IDR)"
+                android:text="@string/txt_total_idr"
                 android:textStyle="bold" />
 
             <TextView
@@ -491,7 +491,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Dibayar (IDR)"
+                android:text="@string/txt_get_paid_idr"
                 android:textStyle="bold" />
 
             <TextView
@@ -514,7 +514,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Jumlah Akhir(IDR)"
+                android:text="@string/txt_final_amount_idr"
                 android:textStyle="bold" />
 
             <TextView

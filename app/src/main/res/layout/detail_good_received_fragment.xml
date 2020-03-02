@@ -55,7 +55,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_5"
                             android:layout_marginLeft="@dimen/margin_5"
-                            android:text="From"
+                            android:text="@string/txt_from"
                             android:textColor="@color/colorBlack" />
 
                         <TextView
@@ -136,7 +136,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="To"
+                            android:text="@string/txt_to"
                             android:textColor="@color/colorBlack" />
 
                         <TextView
@@ -184,7 +184,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Do"
+                        android:text="@string/txt_do_number"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -220,7 +220,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Salin"
+                        android:text="@string/txt_copy"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -309,7 +309,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Detail"
+                        android:text="@string/txt_detail"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -344,32 +344,32 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No. PP" />
+                            android:text="@string/txt_pp_number" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tanggal PP" />
+                            android:text="@string/txt_pp_date" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No. SO" />
+                            android:text="@string/txt_so_number" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tanggal SO" />
+                            android:text="@string/txt_so_date" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No Transaksi" />
+                            android:text="@string/txt_trx_number" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tipe Order" />
+                            android:text="@string/txt_order_type" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -495,32 +495,32 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No SPJ" />
+                            android:text="@string/txt_spj_number" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tanggal SPJ" />
+                            android:text="@string/txt_spj_date" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No Polisi" />
+                            android:text="@string/txt_police_number" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nama Driver" />
+                            android:text="@string/txt_driver_name" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pabrik" />
+                            android:text="@string/txt_plant_code" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nama Pabrik" />
+                            android:text="@string/txt_plant_name" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -617,7 +617,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorButtonScroll"
-        android:text="TERIMA"
+        android:text="@string/txt_receive"
         android:textAllCaps="true"
         android:textColor="@android:color/white" />
 

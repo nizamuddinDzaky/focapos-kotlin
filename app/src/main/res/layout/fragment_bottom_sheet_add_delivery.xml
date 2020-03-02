@@ -7,29 +7,30 @@
     android:paddingTop="8dp">
 
     <TextView
-        android:layout_weight="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Menambah Pengiriman"
-        android:textAlignment="center"
+        android:layout_weight="0"
         android:gravity="center"
+        android:text="@string/txt_add_delivery"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <View
-        android:layout_weight="0"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/et_top_margin"
+        android:layout_weight="0"
         android:background="@color/colorBlack" />
 
     <androidx.core.widget.NestedScrollView
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,18 +41,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tanggal"
+                    android:text="@string/txt_date"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorNotSelect"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_date"
-                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
-                    android:hint="24 Feb 2020"
-                    android:drawablePadding="@dimen/et_top_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_date_range_black_24dp"
+                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:inputType="none" />
 
             </LinearLayout>
 
@@ -64,32 +66,60 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Status"
+                    android:text="@string/txt_status"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorNotSelect"
                     android:textStyle="bold" />
 
                 <RadioGroup
                     android:id="@+id/rg_add_delivery_status"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
                     <RadioButton
-                        android:text="Sedang Dikemas"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_being_packed" />
+
                     <RadioButton
-                        android:text="Dalam Pengiriman"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_in_shipping" />
+
                     <RadioButton
-                        android:text="Sudah Diterima"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_already_received" />
                 </RadioGroup>
             </LinearLayout>
 
-<!--
+            <!--
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/et_top_margin">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Referensi Nomor Pengiriman"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/colorNotSelect"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/et_add_delivery_reference_no"
+                                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                                android:hint="SALE/2020/02/0001"
+                                android:drawablePadding="@dimen/et_top_margin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+            -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,43 +129,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Referensi Nomor Pengiriman"
+                    android:text="@string/txt_sales_reference_numbers"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorNotSelect"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_reference_no"
-                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
-                    android:hint="SALE/2020/02/0001"
-                    android:drawablePadding="@dimen/et_top_margin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
--->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Referensi Nomor Penjualan"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorNotSelect"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/et_add_delivery_reference_no"
+                    android:drawableStart="@drawable/ic_date_range_black_24dp"
                     android:drawableLeft="@drawable/ic_date_range_black_24dp"
-                    android:hint="SALE/2020/02/0001"
                     android:drawablePadding="@dimen/et_top_margin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:hint="@string/txt_hint_example_sales_number"
+                    android:inputType="none" />
 
             </LinearLayout>
 
@@ -148,17 +155,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dikirim oleh"
+                    android:text="@string/txt_posted_by"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorNotSelect"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_delivered_by"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_account_black_24dp"
                     android:drawableLeft="@drawable/ic_account_black_24dp"
                     android:drawablePadding="@dimen/et_top_margin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:inputType="text" />
 
             </LinearLayout>
 
@@ -171,17 +180,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Diterima oleh"
+                    android:text="@string/txt_received_by"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorNotSelect"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_received_by"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_account_black_24dp"
                     android:drawableLeft="@drawable/ic_account_black_24dp"
                     android:drawablePadding="@dimen/et_top_margin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:inputType="text" />
 
             </LinearLayout>
 
@@ -194,20 +205,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nama Pelanggan"
+                    android:text="@string/txt_customer_name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorNotSelect"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_customer_name"
-                    android:inputType="none"
-                    android:focusableInTouchMode="false"
-                    android:drawableLeft="@drawable/ic_account_black_24dp"
-                    android:drawableStart="@drawable/ic_account_black_24dp"
-                    android:drawablePadding="@dimen/et_top_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_account_black_24dp"
+                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusableInTouchMode="false"
+                    android:inputType="none" />
 
             </LinearLayout>
 
@@ -220,41 +231,41 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Alamat Pelanggan"
+                    android:text="@string/txt_customer_address"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorNotSelect"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_customer_address"
-                    android:inputType="none"
-                    android:focusableInTouchMode="false"
-                    android:drawableLeft="@drawable/ic_account_black_24dp"
-                    android:drawableStart="@drawable/ic_account_black_24dp"
-                    android:drawablePadding="@dimen/et_top_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_account_black_24dp"
+                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusableInTouchMode="false"
+                    android:inputType="none" />
 
             </LinearLayout>
 
             <View
-                android:background="@color/colorNotSelect"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/et_top_margin" />
+                android:layout_height="@dimen/et_top_margin"
+                android:background="@color/colorNotSelect" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#E5E5E5"
                 android:clipToPadding="false"
                 tools:itemCount="2"
-                android:background="#E5E5E5"
                 tools:listitem="@layout/list_item_add_delivery" />
 
             <View
-                android:background="@color/colorNotSelect"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/et_top_margin" />
+                android:layout_height="@dimen/et_top_margin"
+                android:background="@color/colorNotSelect" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -265,7 +276,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Catatan"
+                    android:text="@string/txt_note"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorNotSelect"
                     android:textStyle="bold" />
@@ -275,6 +286,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
+                    android:inputType="text"
                     android:maxLines="5"
                     android:minLines="3"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -287,10 +299,10 @@
     <Button
         android:id="@+id/btn_confirmation_add_delivery"
         android:layout_width="match_parent"
-        android:layout_weight="0"
         android:layout_height="@dimen/button_height"
+        android:layout_weight="0"
         android:background="@color/main_green"
-        android:text="Kirim"
+        android:text="@string/txt_action_send_it"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white" />
