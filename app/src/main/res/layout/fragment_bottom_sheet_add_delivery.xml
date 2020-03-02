@@ -57,7 +57,7 @@
                     android:focusable="false"
                     android:importantForAutofill="no"
                     android:inputType="date"
-                    tools:ignore="KeyboardInaccessibleWidget" />
+                    tools:ignore="KeyboardInaccessibleWidget,LabelFor" />
 
             </LinearLayout>
 
@@ -173,7 +173,8 @@
                     android:drawableLeft="@drawable/ic_account_black_24dp"
                     android:drawablePadding="@dimen/et_top_margin"
                     android:importantForAutofill="no"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    tools:ignore="LabelFor" />
 
             </LinearLayout>
 
@@ -199,7 +200,8 @@
                     android:drawableLeft="@drawable/ic_account_black_24dp"
                     android:drawablePadding="@dimen/et_top_margin"
                     android:importantForAutofill="no"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    tools:ignore="LabelFor" />
 
             </LinearLayout>
 
@@ -226,7 +228,8 @@
                     android:drawablePadding="@dimen/et_top_margin"
                     android:focusableInTouchMode="false"
                     android:importantForAutofill="no"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
 
             </LinearLayout>
 
@@ -253,7 +256,8 @@
                     android:drawablePadding="@dimen/et_top_margin"
                     android:focusableInTouchMode="false"
                     android:importantForAutofill="no"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
 
             </LinearLayout>
 
@@ -300,7 +304,8 @@
                     android:maxLines="5"
                     android:minLines="3"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    tools:text="Tunai" />
+                    tools:text="Tunai"
+                    tools:ignore="LabelFor" />
 
             </LinearLayout>
         </LinearLayout>

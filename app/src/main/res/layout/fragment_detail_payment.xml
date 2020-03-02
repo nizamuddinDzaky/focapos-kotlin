@@ -29,7 +29,8 @@
         android:paddingTop="@dimen/et_top_margin"
         android:paddingEnd="@dimen/margin_10"
         android:paddingRight="@dimen/margin_10"
-        android:paddingBottom="@dimen/et_top_margin">
+        android:paddingBottom="@dimen/et_top_margin"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,7 +93,8 @@
         android:paddingTop="@dimen/et_top_margin"
         android:paddingEnd="@dimen/margin_10"
         android:paddingRight="@dimen/margin_10"
-        android:paddingBottom="@dimen/et_top_margin">
+        android:paddingBottom="@dimen/et_top_margin"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="match_parent"

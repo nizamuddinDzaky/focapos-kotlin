@@ -93,7 +93,8 @@
             android:inputType="numberSigned"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
-            tools:text="Rp 100.000" />
+            tools:text="Rp 100.000"
+            tools:ignore="LabelFor" />
 
     </LinearLayout>
 
@@ -121,7 +122,8 @@
             android:maxLines="5"
             android:minLines="3"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            tools:text="@string/txt_payment_cash" />
+            tools:text="@string/txt_payment_cash"
+            tools:ignore="LabelFor" />
 
     </LinearLayout>
 

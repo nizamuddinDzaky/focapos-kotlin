@@ -60,7 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/et_top_margin">
+        android:paddingTop="@dimen/et_top_margin"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,7 +75,6 @@
                 android:text="@string/txt_quantity" />
 
             <TextView
-                android:id="@+id/tv_delivery_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -93,7 +93,6 @@
                 android:text="@string/txt_nominal" />
 
             <TextView
-                android:id="@+id/tv_delivery_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"

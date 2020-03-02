@@ -69,7 +69,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standard_margin"
@@ -92,7 +91,6 @@
                 android:text="@string/txt_remember_me" />
 
             <TextView
-                android:id="@+id/tv_forget_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -111,7 +109,6 @@
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/btn_sign_up"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
             android:layout_marginTop="@dimen/standard_margin"
@@ -123,7 +120,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standard_margin"
