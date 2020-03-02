@@ -8,10 +8,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import id.sisi.postoko.adapter.toCurrencyID
-import id.sisi.postoko.adapter.toNumberID
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.utils.extensions.format
+import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toNumberID
 import id.sisi.postoko.utils.extensions.tryMe
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_good_received.*
 

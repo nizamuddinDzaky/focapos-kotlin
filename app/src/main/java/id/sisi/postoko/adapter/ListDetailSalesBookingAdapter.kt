@@ -8,6 +8,8 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.utils.extensions.goneIfEmptyOrNull
 import id.sisi.postoko.utils.extensions.strikeText
+import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toNumberID
 import kotlinx.android.synthetic.main.list_product_sales_booking.view.*
 
 class ListDetailSalesBookingAdapter(private var saleItems: List<SaleItem>? = arrayListOf()) :

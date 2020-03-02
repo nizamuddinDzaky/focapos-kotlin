@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
-import id.sisi.postoko.adapter.OnClickListenerInterface
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.model.SaleItem
@@ -24,7 +23,7 @@ import kotlinx.android.synthetic.main.content_add_sales.*
 import java.text.NumberFormat
 import java.util.*
 
-class AddSalesActivity : AppCompatActivity(), OnClickListenerInterface {
+class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClickListenerInterface {
     var customer: Customer? = null
     private lateinit var viewModelSupplier: SupplierViewModel
     private lateinit var viewModelWarehouse: WarehouseViewModel

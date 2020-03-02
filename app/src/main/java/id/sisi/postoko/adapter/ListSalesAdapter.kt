@@ -9,11 +9,11 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.utils.extensions.toDisplayStatus
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.list_item_sales_booking.view.*
-import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : RecyclerView.Adapter<ListSalesAdapter.SalesViewHolder>() {
 
@@ -60,82 +60,4 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
         sales = newMasterData
         notifyDataSetChanged()
     }
-}
-
-fun String.toDisplayStatus(): Int {
-    var idString = 0
-    when {
-        this == "pending" -> {
-            idString = R.string.txt_status_pending
-        }
-        this == "confirmed" -> {
-            idString = R.string.txt_status_confirmed
-        }
-        this == "reserved" -> {
-            idString = R.string.txt_status_reserved
-        }
-        this == "closed" -> {
-            idString = R.string.txt_status_closed
-        }
-        this == "canceled" -> {
-            idString = R.string.txt_status_canceled
-        }
-        this == "partial" -> {
-            idString = R.string.txt_status_partial
-        }
-        this == "due" -> {
-            idString = R.string.txt_status_due
-        }
-        this == "waiting" -> {
-            idString = R.string.txt_status_waiting
-        }
-        this == "paid" -> {
-            idString = R.string.txt_status_paid
-        }
-        this == "done" -> {
-            idString = R.string.txt_status_done
-        }
-        this == "packing" -> {
-            idString = R.string.txt_status_packing
-        }
-        this == "delivering" -> {
-            idString = R.string.txt_status_delivering
-        }
-        this == "delivered" -> {
-            idString = R.string.txt_status_delivered
-        }
-        this == "returned" -> {
-            idString = R.string.txt_status_returned
-        }
-        this == "sent" -> {
-            idString = R.string.txt_status_sent
-        }
-        this == "completed" -> {
-            idString = R.string.txt_status_completed
-        }
-        this == "received" -> {
-            idString = R.string.txt_status_received
-        }
-    }
-    return idString
-}
-
-fun String.toDisplayDate(): String {
-    try {
-        val dateInFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
-        val dateOutFormat = SimpleDateFormat("dd MMM yy", Locale("id", "ID"))
-        dateInFormat.parse(this)?.let {
-            return dateOutFormat.format(it)
-        }
-    } catch (e: Exception) { }
-
-    return this
-}
-
-fun Number.toCurrencyID(): String {
-    return NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(this)
-}
-
-fun Number.toNumberID(): String {
-    return NumberFormat.getNumberInstance(Locale("id", "ID")).format(this)
 }

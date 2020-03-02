@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListDetailProductGoodReceivedAdapter
-import id.sisi.postoko.adapter.toDisplayDateFromDO
 import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toDisplayDateFromDO
 import kotlinx.android.synthetic.main.detail_good_received_fragment.*
 
 class DetailGoodReceivedFragment : Fragment() {

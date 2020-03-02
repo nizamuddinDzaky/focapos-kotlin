@@ -9,12 +9,11 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.utils.extensions.checkVisibility
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toDisplayDateFromDO
 import id.sisi.postoko.view.ui.gr.DetailGoodReceivedActivity
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
 import kotlinx.android.synthetic.main.list_item_gr.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class ListGoodReceivedAdapter(
@@ -64,16 +63,4 @@ class ListGoodReceivedAdapter(
         goodsReceived = newTransactionsData
         notifyDataSetChanged()
     }
-}
-
-fun String.toDisplayDateFromDO(): String {
-    try {
-        val dateInFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val dateOutFormat = SimpleDateFormat("dd MMM yy", Locale("id", "ID"))
-        dateInFormat.parse(this)?.let {
-            return dateOutFormat.format(it)
-        }
-    } catch (e: Exception) { }
-
-    return this
 }

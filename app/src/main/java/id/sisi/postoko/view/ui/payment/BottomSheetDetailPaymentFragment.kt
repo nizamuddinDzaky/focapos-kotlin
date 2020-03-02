@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import id.sisi.postoko.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import id.sisi.postoko.adapter.toCurrencyID
-import id.sisi.postoko.adapter.toDisplayDate
 import id.sisi.postoko.model.Payment
+import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toDisplayDate
 import kotlinx.android.synthetic.main.fragment_detail_payment.*
 
 
