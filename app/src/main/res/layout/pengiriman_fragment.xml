@@ -28,7 +28,8 @@
                 <ImageView
                     android:layout_width="@dimen/margin_15"
                     android:layout_height="@dimen/margin_15"
-                    android:src="@drawable/truck_back" />
+                    android:src="@drawable/truck_back"
+                    android:contentDescription="@string/txt_image_truck" />
 
             </LinearLayout>
 

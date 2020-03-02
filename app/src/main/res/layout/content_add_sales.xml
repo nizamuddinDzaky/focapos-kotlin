@@ -44,6 +44,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:contentDescription="@string/txt_icon_calendar"
                         android:src="@drawable/calendar_icon_foreground" />
 
                     <EditText
@@ -51,10 +52,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="1dp"
-                        android:editable="false"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:hint="@string/txt_choose_date"
+                        android:importantForAutofill="no"
                         android:inputType="none"
-                        android:importantForAutofill="no" />
+                        tools:ignore="KeyboardInaccessibleWidget" />
                 </LinearLayout>
 
                 <TextView
@@ -68,6 +71,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
 
@@ -75,6 +79,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:contentDescription="@string/txt_icon_biller"
                         android:src="@drawable/building_icon_foreground" />
 
                     <com.tiper.MaterialSpinner
@@ -103,6 +108,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:contentDescription="@string/txt_icon_warehouse"
                         android:src="@drawable/warehouse_icon_foreground" />
 
                     <com.tiper.MaterialSpinner
@@ -131,6 +137,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:contentDescription="@string/txt_image_person"
                         android:src="@drawable/home_icon_foreground" />
 
                     <EditText
@@ -138,11 +145,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="1dp"
-                        android:editable="false"
                         android:focusableInTouchMode="false"
-                        android:hint="@string/txt_choose_date"
-                        android:inputType="none"
-                        android:importantForAutofill="no" />
+                        android:importantForAutofill="no"
+                        android:inputType="none" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -219,8 +224,10 @@
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 android:orientation="vertical"
+                android:paddingStart="15dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="5dp"
+                android:paddingEnd="5dp"
                 android:paddingRight="5dp">
 
                 <TextView
@@ -234,8 +241,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_discount"
-                    android:inputType="numberSigned"
-                    android:importantForAutofill="no" />
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -249,8 +256,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_delivery_fee"
-                    android:inputType="numberSigned"
-                    android:importantForAutofill="no" />
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -269,7 +276,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
-                        android:text="Dipesan"
+                        android:text="@string/txt_ordered"
                         tools:targetApi="lollipop" />
 
                     <RadioButton
@@ -285,7 +292,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Jangka Waktu Pembayaran"
+                    android:text="@string/txt_term_of_payment"
                     android:textColor="#000" />
 
                 <EditText
@@ -293,8 +300,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_delivery_fee"
-                    android:inputType="numberSigned"
-                    android:importantForAutofill="no" />
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -321,7 +328,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
-                        android:text="Jatuh Tempo"
+                        android:text="@string/txt_due_date"
                         tools:targetApi="lollipop" />
 
                     <RadioButton
@@ -353,14 +360,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_sale_note"
-                    android:inputType="text"
-                    android:importantForAutofill="no" />
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Catatan Pegawai"
+                    android:text="@string/txt_employee_records"
                     android:textColor="#000" />
 
                 <EditText
@@ -368,8 +375,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_delivery_fee"
-                    android:inputType="text"
-                    android:importantForAutofill="no" />
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
             </LinearLayout>
 
             <Button

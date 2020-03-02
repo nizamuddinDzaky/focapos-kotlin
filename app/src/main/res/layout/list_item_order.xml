@@ -122,7 +122,8 @@
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="0.3"
-                android:src="@drawable/dynamix" />
+                android:src="@drawable/dynamix"
+                android:contentDescription="@string/txt_image_cement" />
 
             <LinearLayout
                 android:layout_width="0dp"

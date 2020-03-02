@@ -127,4 +127,27 @@
     <string name="txt_so_date">Tanggal SO</string>
     <string name="txt_order_type">Tipe Order</string>
     <string name="txt_image_search_product">image search product</string>
+    <string name="txt_serial_number">Nomor Serial</string>
+    <string name="txt_unit">Satuan</string>
+    <string name="txt_net_unit_price">Harga Satuan Bersih</string>
+    <string name="txt_product_tax">Pajak Produk</string>
+    <string name="txt_ordered">Dipesan</string>
+    <string name="txt_term_of_payment">Jangka Waktu Pembayaran</string>
+    <string name="txt_due_date">Jatuh Tempo</string>
+    <string name="txt_employee_records">Catatan Pegawai</string>
+    <string name="txt_image_truck">image truck</string>
+    <string name="txt_image_document">image document</string>
+    <string name="txt_image_cement">image cement</string>
+    <string name="txt_image_plus">image plus</string>
+    <string name="txt_image_minus">image minus</string>
+    <string name="txt_image_arrow_right">image arrow right</string>
+    <string name="txt_image_store">image store</string>
+    <string name="txt_image_building">image building</string>
+    <string name="txt_image_person">image person</string>
+    <string name="txt_image_warehouse">image warehouse</string>
+    <string name="txt_icon_product">icon product</string>
+    <string name="txt_icon_mark">mark</string>
+    <string name="txt_icon_calendar">icon calendar</string>
+    <string name="txt_icon_biller">icon biller</string>
+    <string name="txt_icon_warehouse">icon warehouse</string>
 </resources>
