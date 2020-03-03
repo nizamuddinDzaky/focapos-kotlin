@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_add_sales.*
 import kotlinx.android.synthetic.main.content_add_sales.*
 import java.text.NumberFormat
 import java.util.*
+import kotlin.time.times
 
 class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClickListenerInterface {
     var customer: Customer? = null
@@ -173,6 +174,16 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             if (resultCode == Activity.RESULT_OK) {
                 setDataFromAddProduct(data as Intent)
             }
+        }else if(requestCode == 2){
+            val saleItem = data?.getParcelableExtra<SaleItem>("new_sale_item")
+            val position = data?.getIntExtra("position", 0)
+            if (position != null) {
+                listSaleItems.get(position).discount = saleItem?.discount
+                listSaleItems.get(position).quantity = saleItem?.quantity
+                listSaleItems.get(position).unit_price = saleItem?.unit_price
+                listSaleItems.get(position).subtotal = saleItem?.unit_price?.times(saleItem?.quantity!!)
+                setupRecycleView(listSaleItems)
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
@@ -234,6 +245,7 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     override fun onClickEdit(saleItem: SaleItem, position: Int) {
         val intent = Intent(this, EditProductSalesActivity::class.java)
         intent.putExtra("sale_item", saleItem)
+        intent.putExtra("position", position)
         startActivityForResult(intent, 2)
     }
 

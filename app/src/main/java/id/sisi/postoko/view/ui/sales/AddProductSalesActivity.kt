@@ -30,7 +30,6 @@ class AddProductSalesActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         viewModel.getListProducts().observe(this, Observer {
-//            adapter.updateMasterData(it)
             if (it != null) {
                 listProduct = it
                 setupUI(it)
