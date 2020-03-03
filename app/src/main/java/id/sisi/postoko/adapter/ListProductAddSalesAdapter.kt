@@ -56,7 +56,7 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
                 itemView.tv_subtoal_add_sale?.text =
                     formatRupiah.format(subTotal).toString()
                 value?.subtotal = subTotal
-                listener?.onClickMinus()
+                listener?.onClickMinus(value?.quantity!!, position)
             }
             itemView.iv_add_product_add_sale.setOnClickListener {
                 qty += 1
@@ -87,7 +87,7 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
 
     interface OnClickListenerInterface {
         fun onClickPlus()
-        fun onClickMinus()
+        fun onClickMinus(qty: Double, position: Int)
         fun onClickEdit(saleItem: SaleItem, position: Int)
     }
 }

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.model.SaleItem
@@ -21,6 +20,7 @@ class EditProductSalesActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val saleItem = intent?.getParcelableExtra<SaleItem>("sale_item")
         val position : Int? = intent?.getIntExtra("position", 0)
+
         toolbar_title.text = saleItem?.product_name?.toUpperCase(Locale.getDefault())
         et_qty_produk_edit_produk_sale.setText(saleItem?.quantity?.toInt().toString())
         et_unit_price_edit_produk_add_sale.setText(saleItem?.unit_price?.toInt().toString())

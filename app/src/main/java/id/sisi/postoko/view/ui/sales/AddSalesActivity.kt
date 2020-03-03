@@ -1,6 +1,7 @@
 package id.sisi.postoko.view.ui.sales
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tiper.MaterialSpinner
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
-//import id.sisi.postoko.adapter.OnClickListenerInterface
 import id.sisi.postoko.model.*
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.supplier.SupplierViewModel
@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.activity_add_sales.*
 import kotlinx.android.synthetic.main.content_add_sales.*
 import java.text.NumberFormat
 import java.util.*
-import kotlin.time.times
 
 class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClickListenerInterface {
     var customer: Customer? = null
@@ -73,7 +72,6 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             val dpd = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
-//                    val selectedDate = """$dayOfMonth - ${monthOfYear + 1} - $year"""
                     val selectedDate = """$year-${monthOfYear + 1}-$dayOfMonth"""
                     et_date_add_sale.setText(selectedDate)
                     et_date_add_sale?.tag = selectedDate
@@ -181,7 +179,7 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 listSaleItems.get(position).discount = saleItem?.discount
                 listSaleItems.get(position).quantity = saleItem?.quantity
                 listSaleItems.get(position).unit_price = saleItem?.unit_price
-                listSaleItems.get(position).subtotal = saleItem?.unit_price?.times(saleItem?.quantity!!)
+                listSaleItems.get(position).subtotal = saleItem?.unit_price?.times(saleItem.quantity!!)
                 setupRecycleView(listSaleItems)
             }
         } else {
@@ -238,7 +236,21 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         sumTotal()
     }
 
-    override fun onClickMinus() {
+    override fun onClickMinus(qty: Double, position: Int) {
+        if (qty < 1){
+            AlertDialog.Builder(this@AddSalesActivity)
+                .setTitle("Konfirmasi")
+                .setMessage("Apakah yakin ?")
+                .setPositiveButton(android.R.string.ok) { dialog, whichButton ->
+                    listSaleItems.removeAt(position)
+                    setupRecycleView(listSaleItems)
+                }
+                .setNegativeButton(android.R.string.cancel) { dialog, whichButton ->
+
+                }
+                .show()
+        }
+
         sumTotal()
     }
 
@@ -250,30 +262,79 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     }
 
     private fun actionAddSale(){
-//        val sale = arguments?.getParcelable<Sales>("sale_booking")
-        val saleItems = listSaleItems.map {
-            return@map mutableMapOf(
-                "product_id" to it.product_id.toString(),
-                "price" to it.unit_price.toString(),
-                "quantity" to it.quantity
+        val numbersMap =  validationFormAddSale()
+        if (numbersMap["type"] as Boolean){
+            val saleItems = listSaleItems.map {
+                return@map mutableMapOf(
+                    "product_id" to it.product_id.toString(),
+                    "price" to it.unit_price.toString(),
+                    "quantity" to it.quantity
+                )
+            }
+
+            val body: MutableMap<String, Any> = mutableMapOf(
+                "date" to (et_date_add_sale?.tag?.toString() ?: ""),
+                "warehouse" to (idWarehouse ?: ""),
+                "customer" to (idCustomer ?: ""),
+                "order_discount" to (et_discount_add_sale?.text?.toString() ?: ""),
+                "shipping" to (et_shipping_add_sale?.text?.toString() ?: ""),
+                "sale_status" to (rg_status_add_sale?.tag?.toString() ?: ""),
+                "payment_term" to (et_payment_term_add_sale?.text?.toString() ?: ""),
+                "staff_note" to (et_staff_note_add_sale?.text?.toString() ?: ""),
+                "note" to (et_note_add_sale?.text?.toString() ?: ""),
+                "products" to saleItems
             )
+//            viewModel.postAddSales(body){
+//                listener()
+//                finish()
+//            }
+        }else{
+            AlertDialog.Builder(this@AddSalesActivity)
+                .setTitle("Konfirmasi")
+                .setMessage(numbersMap["message"] as String)
+                .setPositiveButton(android.R.string.ok) { dialog, whichButton ->
+                }
+                .show()
+        }
+    }
+
+    private fun validationFormAddSale(): Map<String, Any?> {
+//        var result: Map<String, Any>
+
+        if (listSaleItems.size < 1){
+            return mapOf("message" to "Product Item Tidak Boleh Kosong", "type" to false)
         }
 
-        val body: MutableMap<String, Any> = mutableMapOf(
-            "date" to (et_date_add_sale?.tag?.toString() ?: ""),
-            "warehouse" to (idWarehouse ?: ""),
-            "customer" to (idCustomer ?: ""),
-            "order_discount" to (et_discount_add_sale?.text?.toString() ?: ""),
-            "shipping" to (et_shipping_add_sale?.text?.toString() ?: ""),
-            "sale_status" to (rg_status_add_sale?.tag?.toString() ?: ""),
-            "payment_term" to (et_payment_term_add_sale?.text?.toString() ?: ""),
-            "staff_note" to (et_staff_note_add_sale?.text?.toString() ?: ""),
-            "note" to (et_note_add_sale?.text?.toString() ?: ""),
-            "products" to saleItems
-        )
-        viewModel.postAddSales(body){
-            listener()
-            finish()
+        if (idCustomer == null ){
+            return mapOf("message" to "Customer Tidak Boleh Kosong", "type" to false)
         }
+
+        if (idWarehouse == null ){
+            return mapOf("message" to "Warehouse Tidak Boleh Kosong", "type" to false)
+        }
+
+        if (rg_status_add_sale?.tag?.toString() == ""){
+            return mapOf("message" to "Sale Status Tidak Boleh Kosong", "type" to false)
+        }
+
+        if (et_date_add_sale?.text?.toString() == ""){
+            return mapOf("message" to "Date Tidak Boleh Kosong", "type" to false)
+        }
+
+        return mapOf("message" to "", "type" to true)
+    }
+
+    override fun onBackPressed()
+    {
+        AlertDialog.Builder(this@AddSalesActivity)
+            .setTitle("Konfirmasi")
+            .setMessage("Apakah yakin ?")
+            .setPositiveButton(android.R.string.ok) { dialog, whichButton ->
+                super.onBackPressed()
+            }
+            .setNegativeButton(android.R.string.cancel) { dialog, whichButton ->
+
+            }
+            .show()
     }
 }
