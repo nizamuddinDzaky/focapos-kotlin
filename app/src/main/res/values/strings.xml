@@ -150,4 +150,9 @@
     <string name="txt_icon_calendar">icon calendar</string>
     <string name="txt_icon_biller">icon biller</string>
     <string name="txt_icon_warehouse">icon warehouse</string>
+    <string name="txt_image_avatar">image avatar</string>
+    <string name="conDes">image</string>
+    <string name="txt_sales">Penjualan</string>
+    <string name="txt_delivery">Pengiriman</string>
+    <string name="txt_master_data">Master</string>
 </resources>

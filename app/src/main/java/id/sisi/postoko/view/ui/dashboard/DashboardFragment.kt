@@ -6,17 +6,12 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.gson.Gson
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
-import id.sisi.postoko.model.BaseResponse
-import id.sisi.postoko.model.DataWarehouse
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.helper.fromJson
 import id.sisi.postoko.view.AccountViewModel
+import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.MainActivity
-import kotlinx.android.synthetic.main.fragment_account.tv_user_company
-import kotlinx.android.synthetic.main.fragment_account.tv_user_company_code
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 
@@ -65,14 +60,26 @@ class DashboardFragment : Fragment() {
             }
         })
         viewModel.getUser().observe(viewLifecycleOwner, Observer {
-            tv_user_company?.text = it?.company ?: "~"
-            tv_user_company_code?.text = it?.address ?: "~"
+            tv_user_company_name?.text = it?.company ?: "~"
+            tv_user_company_address?.text = it?.address ?: "~"
         })
-        btn_dummy?.setOnClickListener {
-            val jsonHelper =
-                Gson().fromJson<BaseResponse<DataWarehouse>>(it.context, "DummyListWarehouses.json")
-            logE("result json ${jsonHelper.data?.total_warehouses}")
+        view_01?.setOnClickListener {
+            (activity as? HomeActivity)?.changeView(R.id.menu_sales_booking)
         }
+        view_02?.setOnClickListener {
+            (activity as? HomeActivity)?.changeView(R.id.menu_sales_booking)
+        }
+        view_03?.setOnClickListener {
+            (activity as? HomeActivity)?.changeView(R.id.menu_good_receive)
+        }
+        view_04?.setOnClickListener {
+            (activity as? HomeActivity)?.changeView(R.id.menu_master_data)
+        }
+//        btn_dummy?.setOnClickListener {
+//            val jsonHelper =
+//                Gson().fromJson<BaseResponse<DataWarehouse>>(it.context, "DummyListWarehouses.json")
+//            logE("result json ${jsonHelper.data?.total_warehouses}")
+//        }
     }
 
     companion object {

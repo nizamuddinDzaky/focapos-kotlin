@@ -36,6 +36,12 @@ class HomeActivity : AppCompatActivity() {
         initFragment(savedInstanceState)
     }
 
+    fun changeView(itemId: Int) {
+        navPosition = findNavigationPositionById(itemId)
+        bottom_navigation?.active(navPosition.position)
+        switchFragment(navPosition)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(mKeyPosition, navPosition.id)
         super.onSaveInstanceState(outState)
