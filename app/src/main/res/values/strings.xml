@@ -53,7 +53,7 @@
     <string name="txt_choose_date">Pilih tanggal</string>
     <string name="txt_biler">Penagih</string>
     <string name="txt_total">Jumlah</string>
-    <string name="txt_discount">Diskon</string>
+    <string name="txt_discount">Diskon (Rupiah)</string>
     <string name="txt_delivery_fee">Biaya Pengiriman</string>
     <string name="txt_sale_status">Status Penjualan</string>
     <string name="txt_payment_status">Status Pembayaran</string>

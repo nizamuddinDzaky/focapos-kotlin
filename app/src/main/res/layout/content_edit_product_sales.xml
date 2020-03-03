@@ -61,7 +61,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -71,11 +72,11 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/et_unit_edit_product_sale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
-                android:inputType="numberSigned"
-                tools:ignore="LabelFor" />
+                android:enabled="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -196,8 +197,10 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/txt_edit"
-            android:textColor="#fff"
             android:background="#1CA865"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"/>
     </RelativeLayout>
 </LinearLayout>
