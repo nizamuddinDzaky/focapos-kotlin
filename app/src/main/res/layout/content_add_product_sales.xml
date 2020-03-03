@@ -26,11 +26,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="NestedWeights">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    tools:ignore="UselessParent">
 
                     <TextView
                         android:id="@+id/tv_search_product_add_sales"
@@ -38,9 +40,10 @@
                         android:layout_height="48dp"
                         android:background="@drawable/my_button_bg"
                         android:gravity="center_vertical"
-                        android:layout_marginStart="@dimen/margin_20"
-                        android:layout_marginLeft="@dimen/margin_20"
-                        android:text="@string/txt_search_product" />
+                        android:paddingLeft="@dimen/margin_20"
+                        android:text="@string/txt_search_product"
+                        android:paddingStart="@dimen/margin_20"
+                        tools:ignore="RtlSymmetry" />
 
                     <androidx.appcompat.widget.SearchView
                         android:id="@+id/sv_search_product_add_sales"
@@ -79,7 +82,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="NestedWeights,UselessParent">
 
                 <ImageButton
                     android:layout_width="match_parent"

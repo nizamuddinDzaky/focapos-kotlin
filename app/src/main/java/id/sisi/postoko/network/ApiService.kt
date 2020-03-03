@@ -31,6 +31,12 @@ interface ApiServices {
         @Body body: Map<String, String>
     ): Call<BaseResponse<DataLogin>>
 
+    @POST("sales_booking/add_sales_booking")
+    fun postAddSales(
+        @HeaderMap headerMap: Map<String, String>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
     @POST("purchases/add_gr_to_po")
     fun postAddGoodReceived(
         @HeaderMap headerMap: Map<String, String>,

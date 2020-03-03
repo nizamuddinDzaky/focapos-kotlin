@@ -49,6 +49,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/et_qty_produk_edit_produk_sale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
@@ -91,6 +92,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/et_discount_edit_produk_add_sale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
@@ -112,6 +114,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/et_unit_price_edit_produk_add_sale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
@@ -185,12 +188,16 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_20"
-        android:background="#1CA865"
-        android:text="@string/txt_edit"
-        android:textColor="#fff" />
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btn_edit_product_add_sale"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/txt_edit"
+            android:textColor="#fff"
+            android:background="#1CA865"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
 </LinearLayout>

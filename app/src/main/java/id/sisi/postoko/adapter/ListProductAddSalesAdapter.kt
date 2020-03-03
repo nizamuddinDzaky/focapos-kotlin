@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.SaleItem
-import kotlinx.android.synthetic.main.list_item_product_add_sales.view.tv_product_name
-import kotlinx.android.synthetic.main.list_item_product_add_sales.view.tv_product_price
 import kotlinx.android.synthetic.main.list_product_sales.view.*
 import java.text.NumberFormat
 import java.util.*
@@ -38,34 +36,34 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
             val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
             val price = value?.unit_price.toString().toDouble()
 
-            itemView.tv_product_name?.text = value?.product_name
-            itemView.tv_product_price?.text = formatRupiah.format(price).toString()
+            itemView.tv_product_name_add_sale?.text = value?.product_name
+            itemView.tv_product_price_add_sale?.text = formatRupiah.format(price).toString()
 
             if (value?.quantity == 0.0)
-                itemView.et_qty_produk_sale_booking.setText("1")
+                itemView.et_qty_produk_add_sale.setText("1")
             else
-                itemView.et_qty_produk_sale_booking.setText(value?.quantity?.toInt().toString())
+                itemView.et_qty_produk_add_sale.setText(value?.quantity?.toInt().toString())
 
-            var qty = itemView.et_qty_produk_sale_booking.text.toString().toDouble()
+            var qty = itemView.et_qty_produk_add_sale.text.toString().toDouble()
             val subtotal = getSubTotal(qty, price)
-            itemView.tv_subtoal_add_sales_booking?.text = formatRupiah.format(subtotal).toString()
+            itemView.tv_subtoal_add_sale?.text = formatRupiah.format(subtotal).toString()
 
-            itemView.iv_minus_product.setOnClickListener {
+            itemView.iv_remove_product_add_sale.setOnClickListener {
                 qty -= 1
                 value?.quantity = qty
-                itemView.et_qty_produk_sale_booking.setText(qty.toInt().toString())
+                itemView.et_qty_produk_add_sale.setText(qty.toInt().toString())
                 val subTotal = getSubTotal(qty, price)
-                itemView.tv_subtoal_add_sales_booking?.text =
+                itemView.tv_subtoal_add_sale?.text =
                     formatRupiah.format(subTotal).toString()
                 value?.subtotal = subTotal
                 listener?.onClickMinus()
             }
-            itemView.iv_add_product.setOnClickListener {
+            itemView.iv_add_product_add_sale.setOnClickListener {
                 qty += 1
                 value?.quantity = qty
-                itemView.et_qty_produk_sale_booking.setText(qty.toInt().toString())
+                itemView.et_qty_produk_add_sale.setText(qty.toInt().toString())
                 val subTotal = getSubTotal(qty, price)
-                itemView.tv_subtoal_add_sales_booking?.text =
+                itemView.tv_subtoal_add_sale?.text =
                     formatRupiah.format(subTotal).toString()
                 value?.subtotal = subTotal
                 listener?.onClickPlus()

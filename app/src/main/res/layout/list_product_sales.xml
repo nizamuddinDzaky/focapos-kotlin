@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/margin_10">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,6 +18,7 @@
             android:padding="@dimen/et_top_margin">
 
             <ImageView
+                android:id="@+id/iv_image_product_add_sale"
                 android:layout_width="70dp"
                 android:layout_height="66dp"
                 android:contentDescription="@string/txt_image_cement"
@@ -28,7 +30,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_product_name"
+                    android:id="@+id/tv_product_name_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_6"
@@ -61,7 +63,7 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/tv_product_price"
+                            android:id="@+id/tv_product_price_add_sale"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
@@ -80,14 +82,14 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/iv_add_product"
+                            android:id="@+id/iv_add_product_add_sale"
                             android:layout_width="@dimen/margin_15"
                             android:layout_height="@dimen/margin_15"
                             android:contentDescription="@string/txt_image_plus"
                             android:src="@drawable/plus" />
 
                         <EditText
-                            android:id="@+id/et_qty_produk_sale_booking"
+                            android:id="@+id/et_qty_produk_add_sale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/et_top_margin"
@@ -103,7 +105,7 @@
                             android:inputType="numberSigned" />
 
                         <ImageView
-                            android:id="@+id/iv_minus_product"
+                            android:id="@+id/iv_remove_product_add_sale"
                             android:layout_width="@dimen/margin_15"
                             android:layout_height="@dimen/margin_15"
                             android:contentDescription="@string/txt_image_minus"
@@ -139,7 +141,7 @@
                     android:text="@string/txt_sub_total" />
 
                 <TextView
-                    android:id="@+id/tv_subtoal_add_sales_booking"
+                    android:id="@+id/tv_subtoal_add_sale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
