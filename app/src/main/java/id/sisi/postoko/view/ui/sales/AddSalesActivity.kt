@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.sales
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -19,11 +20,13 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.model.*
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.ui.supplier.SupplierViewModel
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_add_sales.*
 import kotlinx.android.synthetic.main.content_add_sales.*
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClickListenerInterface {
@@ -43,6 +46,7 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     private var idCustomer: String? = null
     private var idWarehouse: String? = null
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sales)
@@ -64,17 +68,33 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         })
 
         et_date_add_sale.setOnClickListener {
-            val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+            val date = if (et_date_add_sale.tag == null){
+                inputDateFormat.format(Date())
+            }else{
+                et_date_add_sale.tag.toString() + " 00:00:00"
+            }
+            val resultDate = inputDateFormat.parse(date)
+            val calendar: Calendar = GregorianCalendar()
+            resultDate?.let {
+                calendar.time = resultDate
+            }
+            val year = calendar[Calendar.YEAR]
+            val month = calendar[Calendar.MONTH]
+            val day = calendar[Calendar.DAY_OF_MONTH]
 
             val dpd = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
-                    val selectedDate = """$year-${monthOfYear + 1}-$dayOfMonth"""
-                    et_date_add_sale.setText(selectedDate)
-                    et_date_add_sale?.tag = selectedDate
+                    val parseDate = inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
+                    parseDate?.let {
+                        val selectedDate = inputDateFormat.format(parseDate)
+                        et_date_add_sale.setText(selectedDate.toDisplayDate())
+                        et_date_add_sale?.tag = selectedDate
+
+                    }
                 },
                 year,
                 month,
@@ -184,10 +204,12 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
 
     private fun setDataFromUpdateProduct(data: Intent, position: Int) {
         val saleItem = data.getParcelableExtra<SaleItem>("new_sale_item")
-        listSaleItems.get(position).discount = saleItem?.discount
-        listSaleItems.get(position).quantity = saleItem?.quantity
-        listSaleItems.get(position).unit_price = saleItem?.unit_price
-        listSaleItems.get(position).subtotal = saleItem?.unit_price?.times(saleItem.quantity!!)
+        saleItem?.let {
+            listSaleItems[position].quantity = saleItem.quantity
+            listSaleItems[position].discount = saleItem.discount
+            listSaleItems[position].unit_price = saleItem.unit_price
+            listSaleItems[position].subtotal = saleItem.unit_price?.times(saleItem.quantity!!)
+        }
         setupRecycleView(listSaleItems)
     }
 
@@ -245,12 +267,12 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             AlertDialog.Builder(this@AddSalesActivity)
                 .setTitle("Konfirmasi")
                 .setMessage("Apakah yakin ?")
-                .setPositiveButton(android.R.string.ok) { dialog, whichButton ->
+                .setPositiveButton(android.R.string.ok) { _, _ ->
                     listSaleItems.removeAt(position)
                     setupRecycleView(listSaleItems)
                 }
-                .setNegativeButton(android.R.string.cancel) { dialog, whichButton ->
-                    listSaleItems.get(position).quantity = qty+1
+                .setNegativeButton(android.R.string.cancel) { _, _ ->
+                    listSaleItems[position].quantity = qty+1
                     setupRecycleView(listSaleItems)
                 }
                 .show()
@@ -297,7 +319,7 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             AlertDialog.Builder(this@AddSalesActivity)
                 .setTitle("Konfirmasi")
                 .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { dialog, whichButton ->
+                .setPositiveButton(android.R.string.ok) { _, _ ->
                 }
                 .show()
         }
@@ -307,23 +329,18 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         if (listSaleItems.size < 1){
             return mapOf("message" to "Product Item Tidak Boleh Kosong", "type" to false)
         }
-
         if (idCustomer == null ){
             return mapOf("message" to "Customer Tidak Boleh Kosong", "type" to false)
         }
-
         if (idWarehouse == null ){
             return mapOf("message" to "Warehouse Tidak Boleh Kosong", "type" to false)
         }
-
         if (rg_status_add_sale?.tag?.toString() == ""){
             return mapOf("message" to "Sale Status Tidak Boleh Kosong", "type" to false)
         }
-
         if (et_date_add_sale?.text?.toString() == ""){
             return mapOf("message" to "Date Tidak Boleh Kosong", "type" to false)
         }
-
         return mapOf("message" to "", "type" to true)
     }
 
@@ -332,10 +349,10 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         AlertDialog.Builder(this@AddSalesActivity)
             .setTitle("Konfirmasi")
             .setMessage("Apakah yakin ?")
-            .setPositiveButton(android.R.string.ok) { dialog, whichButton ->
+            .setPositiveButton(android.R.string.ok) { _, _ ->
                 super.onBackPressed()
             }
-            .setNegativeButton(android.R.string.cancel) { dialog, whichButton ->
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
 
             }
             .show()
