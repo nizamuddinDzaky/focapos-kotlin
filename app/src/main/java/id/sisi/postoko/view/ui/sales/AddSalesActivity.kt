@@ -335,22 +335,30 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     }
 
     private fun validationFormAddSale(): Map<String, Any?> {
+        var message = ""
+        var cek = true
         if (listSaleItems.size < 1){
-            return mapOf("message" to "Product Item Tidak Boleh Kosong", "type" to false)
+            message = message + "- Product Item Tidak Boleh Kosong\n"
+            cek = false
         }
         if (idCustomer == null ){
-            return mapOf("message" to "Customer Tidak Boleh Kosong", "type" to false)
+            message = message + "- Customer Tidak Boleh Kosong\n"
+            cek = false
         }
         if (idWarehouse == null ){
-            return mapOf("message" to "Warehouse Tidak Boleh Kosong", "type" to false)
+            message = message + "- Warehouse Tidak Boleh Kosong\n"
+            cek = false
         }
         if (rg_status_add_sale?.tag?.toString() == ""){
-            return mapOf("message" to "Sale Status Tidak Boleh Kosong", "type" to false)
+            message = message + "- Sale Status Tidak Boleh Kosong\n"
+            cek = false
         }
         if (et_date_add_sale?.text?.toString() == ""){
-            return mapOf("message" to "Date Tidak Boleh Kosong", "type" to false)
+            message = message + "- Date Tidak Boleh Kosong"
+            cek = false
         }
-        return mapOf("message" to "", "type" to true)
+
+        return mapOf("message" to message, "type" to cek)
     }
 
     override fun onBackPressed()
