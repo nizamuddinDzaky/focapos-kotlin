@@ -44,39 +44,19 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
             else
                 itemView.et_qty_produk_add_sale.setText(value?.quantity?.toInt().toString())
 
-            var qty = itemView.et_qty_produk_add_sale.text.toString().toDouble()
-            val subtotal = getSubTotal(qty, price)
-            itemView.tv_subtoal_add_sale?.text = formatRupiah.format(subtotal).toString()
+            itemView.tv_subtoal_add_sale?.text = formatRupiah.format(value?.subtotal).toString()
 
             itemView.iv_remove_product_add_sale.setOnClickListener {
-                qty -= 1
-                value?.quantity = qty
-                itemView.et_qty_produk_add_sale.setText(qty.toInt().toString())
-                val subTotal = getSubTotal(qty, price)
-                itemView.tv_subtoal_add_sale?.text =
-                    formatRupiah.format(subTotal).toString()
-                value?.subtotal = subTotal
-                listener?.onClickMinus(value?.quantity!!, position)
+                value?.quantity?.let { it1 -> listener?.onClickMinus(it1, position) }
             }
             itemView.iv_add_product_add_sale.setOnClickListener {
-                qty += 1
-                value?.quantity = qty
-                itemView.et_qty_produk_add_sale.setText(qty.toInt().toString())
-                val subTotal = getSubTotal(qty, price)
-                itemView.tv_subtoal_add_sale?.text =
-                    formatRupiah.format(subTotal).toString()
-                value?.subtotal = subTotal
-                listener?.onClickPlus()
+                value?.quantity?.let { it1 -> listener?.onClickPlus(it1, position) }
             }
             itemView.tv_edit_product_add_sale.setOnClickListener {
                 if (value != null) {
                     listener?.onClickEdit(value, position)
                 }
             }
-        }
-
-        private fun getSubTotal(qty: Double, price: Double): Double {
-            return qty * price
         }
     }
 
@@ -86,7 +66,7 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
     }
 
     interface OnClickListenerInterface {
-        fun onClickPlus()
+        fun onClickPlus(qty: Double, position: Int)
         fun onClickMinus(qty: Double, position: Int)
         fun onClickEdit(saleItem: SaleItem, position: Int)
     }

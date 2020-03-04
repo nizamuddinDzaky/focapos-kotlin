@@ -258,24 +258,33 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         setupRecycleView(listSaleItems)
     }
 
-    override fun onClickPlus() {
+    override fun onClickPlus(qty: Double, position: Int) {
+        listSaleItems[position].quantity = listSaleItems[position].quantity?.plus(1.0)
+        Toast.makeText(this, "Produk sama bro "+ listSaleItems[position].quantity, Toast.LENGTH_SHORT).show()
+        listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
+        adapter.notifyDataSetChanged()
         sumTotal()
     }
 
     override fun onClickMinus(qty: Double, position: Int) {
-        if (qty < 1){
+        listSaleItems[position].quantity = listSaleItems[position].quantity?.minus(1.0)
+        if (listSaleItems[position].quantity!! < 1){
             AlertDialog.Builder(this@AddSalesActivity)
                 .setTitle("Konfirmasi")
                 .setMessage("Apakah yakin ?")
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     listSaleItems.removeAt(position)
-                    setupRecycleView(listSaleItems)
+                    adapter.notifyDataSetChanged()
+                    sumTotal()
                 }
                 .setNegativeButton(android.R.string.cancel) { _, _ ->
-                    listSaleItems[position].quantity = qty+1
-                    setupRecycleView(listSaleItems)
+                    adapter.notifyDataSetChanged()
+                    sumTotal()
                 }
                 .show()
+        }else{
+            listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
+            adapter.notifyDataSetChanged()
         }
 
         sumTotal()
