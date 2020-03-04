@@ -173,18 +173,22 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 setDataFromAddProduct(data as Intent)
             }
         }else if(requestCode == 2){
-            val saleItem = data?.getParcelableExtra<SaleItem>("new_sale_item")
             val position = data?.getIntExtra("position", 0)
             if (position != null) {
-                listSaleItems.get(position).discount = saleItem?.discount
-                listSaleItems.get(position).quantity = saleItem?.quantity
-                listSaleItems.get(position).unit_price = saleItem?.unit_price
-                listSaleItems.get(position).subtotal = saleItem?.unit_price?.times(saleItem.quantity!!)
-                setupRecycleView(listSaleItems)
+                setDataFromUpdateProduct(data, position)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    private fun setDataFromUpdateProduct(data: Intent, position: Int) {
+        val saleItem = data.getParcelableExtra<SaleItem>("new_sale_item")
+        listSaleItems.get(position).discount = saleItem?.discount
+        listSaleItems.get(position).quantity = saleItem?.quantity
+        listSaleItems.get(position).unit_price = saleItem?.unit_price
+        listSaleItems.get(position).subtotal = saleItem?.unit_price?.times(saleItem.quantity!!)
+        setupRecycleView(listSaleItems)
     }
 
     private fun setupRecycleView(it: List<SaleItem>) {
@@ -246,7 +250,8 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                     setupRecycleView(listSaleItems)
                 }
                 .setNegativeButton(android.R.string.cancel) { dialog, whichButton ->
-
+                    listSaleItems.get(position).quantity = qty+1
+                    setupRecycleView(listSaleItems)
                 }
                 .show()
         }
@@ -284,10 +289,10 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 "note" to (et_note_add_sale?.text?.toString() ?: ""),
                 "products" to saleItems
             )
-//            viewModel.postAddSales(body){
-//                listener()
-//                finish()
-//            }
+            viewModel.postAddSales(body){
+                listener()
+                finish()
+            }
         }else{
             AlertDialog.Builder(this@AddSalesActivity)
                 .setTitle("Konfirmasi")
@@ -299,8 +304,6 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     }
 
     private fun validationFormAddSale(): Map<String, Any?> {
-//        var result: Map<String, Any>
-
         if (listSaleItems.size < 1){
             return mapOf("message" to "Product Item Tidak Boleh Kosong", "type" to false)
         }
