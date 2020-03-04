@@ -155,4 +155,5 @@
     <string name="txt_sales">Penjualan</string>
     <string name="txt_delivery">Pengiriman</string>
     <string name="txt_master_data">Master</string>
+    <string name="txt_nol_total_rupiah">Rp0</string>
 </resources>

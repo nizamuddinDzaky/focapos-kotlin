@@ -67,6 +67,11 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             }
         })
 
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val currentDate = sdf.format(Date())
+        et_date_add_sale?.setText(currentDate.toDisplayDate())
+        et_date_add_sale?.hint = currentDate.toDisplayDate()
+        et_date_add_sale?.tag = currentDate
         et_date_add_sale.setOnClickListener {
 
             val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
