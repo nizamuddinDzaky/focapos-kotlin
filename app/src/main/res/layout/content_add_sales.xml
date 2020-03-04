@@ -127,7 +127,7 @@
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@string/txt_image_person"
-                        android:src="@drawable/home_icon_foreground" />
+                        android:src="@drawable/home_foreground" />
 
                     <EditText
                         android:id="@+id/et_customer"
@@ -197,7 +197,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="@string/txt_total"
+                        android:text="@string/txt_nol_total_rupiah"
                         android:textAlignment="textEnd"
                         android:textColor="#000" />
                 </LinearLayout>
@@ -303,12 +303,14 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/txt_payment_status"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <RadioButton
                         android:layout_width="wrap_content"

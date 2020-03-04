@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.sales
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -19,11 +20,13 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.model.*
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.ui.supplier.SupplierViewModel
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_add_sales.*
 import kotlinx.android.synthetic.main.content_add_sales.*
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClickListenerInterface {
@@ -43,6 +46,7 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     private var idCustomer: String? = null
     private var idWarehouse: String? = null
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sales)
@@ -63,18 +67,39 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             }
         })
 
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val currentDate = sdf.format(Date())
+        et_date_add_sale?.setText(currentDate.toDisplayDate())
+        et_date_add_sale?.hint = currentDate.toDisplayDate()
+        et_date_add_sale?.tag = currentDate
         et_date_add_sale.setOnClickListener {
-            val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+            val date = if (et_date_add_sale.tag == null){
+                inputDateFormat.format(Date())
+            }else{
+                et_date_add_sale.tag.toString() + " 00:00:00"
+            }
+            val resultDate = inputDateFormat.parse(date)
+            val calendar: Calendar = GregorianCalendar()
+            resultDate?.let {
+                calendar.time = resultDate
+            }
+            val year = calendar[Calendar.YEAR]
+            val month = calendar[Calendar.MONTH]
+            val day = calendar[Calendar.DAY_OF_MONTH]
 
             val dpd = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
-                    val selectedDate = """$year-${monthOfYear + 1}-$dayOfMonth"""
-                    et_date_add_sale.setText(selectedDate)
-                    et_date_add_sale?.tag = selectedDate
+                    val parseDate = inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
+                    parseDate?.let {
+                        val selectedDate = inputDateFormat.format(parseDate)
+                        et_date_add_sale.setText(selectedDate.toDisplayDate())
+                        et_date_add_sale?.tag = selectedDate
+
+                    }
                 },
                 year,
                 month,
@@ -173,18 +198,24 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 setDataFromAddProduct(data as Intent)
             }
         }else if(requestCode == 2){
-            val saleItem = data?.getParcelableExtra<SaleItem>("new_sale_item")
             val position = data?.getIntExtra("position", 0)
             if (position != null) {
-                listSaleItems.get(position).discount = saleItem?.discount
-                listSaleItems.get(position).quantity = saleItem?.quantity
-                listSaleItems.get(position).unit_price = saleItem?.unit_price
-                listSaleItems.get(position).subtotal = saleItem?.unit_price?.times(saleItem.quantity!!)
-                setupRecycleView(listSaleItems)
+                setDataFromUpdateProduct(data, position)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    private fun setDataFromUpdateProduct(data: Intent, position: Int) {
+        val saleItem = data.getParcelableExtra<SaleItem>("new_sale_item")
+        saleItem?.let {
+            listSaleItems[position].quantity = saleItem.quantity
+            listSaleItems[position].discount = saleItem.discount
+            listSaleItems[position].unit_price = saleItem.unit_price
+            listSaleItems[position].subtotal = saleItem.unit_price?.times(saleItem.quantity!!)
+        }
+        setupRecycleView(listSaleItems)
     }
 
     private fun setupRecycleView(it: List<SaleItem>) {
@@ -232,23 +263,33 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         setupRecycleView(listSaleItems)
     }
 
-    override fun onClickPlus() {
+    override fun onClickPlus(qty: Double, position: Int) {
+        listSaleItems[position].quantity = listSaleItems[position].quantity?.plus(1.0)
+        Toast.makeText(this, "Produk sama bro "+ listSaleItems[position].quantity, Toast.LENGTH_SHORT).show()
+        listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
+        adapter.notifyDataSetChanged()
         sumTotal()
     }
 
     override fun onClickMinus(qty: Double, position: Int) {
-        if (qty < 1){
+        listSaleItems[position].quantity = listSaleItems[position].quantity?.minus(1.0)
+        if (listSaleItems[position].quantity!! < 1){
             AlertDialog.Builder(this@AddSalesActivity)
                 .setTitle("Konfirmasi")
                 .setMessage("Apakah yakin ?")
-                .setPositiveButton(android.R.string.ok) { dialog, whichButton ->
+                .setPositiveButton(android.R.string.ok) { _, _ ->
                     listSaleItems.removeAt(position)
-                    setupRecycleView(listSaleItems)
+                    adapter.notifyDataSetChanged()
+                    sumTotal()
                 }
-                .setNegativeButton(android.R.string.cancel) { dialog, whichButton ->
-
+                .setNegativeButton(android.R.string.cancel) { _, _ ->
+                    adapter.notifyDataSetChanged()
+                    sumTotal()
                 }
                 .show()
+        }else{
+            listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
+            adapter.notifyDataSetChanged()
         }
 
         sumTotal()
@@ -284,44 +325,45 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 "note" to (et_note_add_sale?.text?.toString() ?: ""),
                 "products" to saleItems
             )
-//            viewModel.postAddSales(body){
-//                listener()
-//                finish()
-//            }
+            viewModel.postAddSales(body){
+                listener()
+                finish()
+            }
         }else{
             AlertDialog.Builder(this@AddSalesActivity)
                 .setTitle("Konfirmasi")
                 .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { dialog, whichButton ->
+                .setPositiveButton(android.R.string.ok) { _, _ ->
                 }
                 .show()
         }
     }
 
     private fun validationFormAddSale(): Map<String, Any?> {
-//        var result: Map<String, Any>
-
+        var message = ""
+        var cek = true
         if (listSaleItems.size < 1){
-            return mapOf("message" to "Product Item Tidak Boleh Kosong", "type" to false)
+            message += "- Product Item Tidak Boleh Kosong\n"
+            cek = false
         }
-
         if (idCustomer == null ){
-            return mapOf("message" to "Customer Tidak Boleh Kosong", "type" to false)
+            message += "- Customer Tidak Boleh Kosong\n"
+            cek = false
         }
-
         if (idWarehouse == null ){
-            return mapOf("message" to "Warehouse Tidak Boleh Kosong", "type" to false)
+            message += "- Warehouse Tidak Boleh Kosong\n"
+            cek = false
         }
-
         if (rg_status_add_sale?.tag?.toString() == ""){
-            return mapOf("message" to "Sale Status Tidak Boleh Kosong", "type" to false)
+            message += "- Sale Status Tidak Boleh Kosong\n"
+            cek = false
         }
-
         if (et_date_add_sale?.text?.toString() == ""){
-            return mapOf("message" to "Date Tidak Boleh Kosong", "type" to false)
+            message += "- Date Tidak Boleh Kosong"
+            cek = false
         }
 
-        return mapOf("message" to "", "type" to true)
+        return mapOf("message" to message, "type" to cek)
     }
 
     override fun onBackPressed()
@@ -329,10 +371,10 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         AlertDialog.Builder(this@AddSalesActivity)
             .setTitle("Konfirmasi")
             .setMessage("Apakah yakin ?")
-            .setPositiveButton(android.R.string.ok) { dialog, whichButton ->
+            .setPositiveButton(android.R.string.ok) { _, _ ->
                 super.onBackPressed()
             }
-            .setNegativeButton(android.R.string.cancel) { dialog, whichButton ->
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
 
             }
             .show()
