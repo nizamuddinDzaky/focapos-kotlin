@@ -338,23 +338,23 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         var message = ""
         var cek = true
         if (listSaleItems.size < 1){
-            message = message + "- Product Item Tidak Boleh Kosong\n"
+            message += "- Product Item Tidak Boleh Kosong\n"
             cek = false
         }
         if (idCustomer == null ){
-            message = message + "- Customer Tidak Boleh Kosong\n"
+            message += "- Customer Tidak Boleh Kosong\n"
             cek = false
         }
         if (idWarehouse == null ){
-            message = message + "- Warehouse Tidak Boleh Kosong\n"
+            message += "- Warehouse Tidak Boleh Kosong\n"
             cek = false
         }
         if (rg_status_add_sale?.tag?.toString() == ""){
-            message = message + "- Sale Status Tidak Boleh Kosong\n"
+            message += "- Sale Status Tidak Boleh Kosong\n"
             cek = false
         }
         if (et_date_add_sale?.text?.toString() == ""){
-            message = message + "- Date Tidak Boleh Kosong"
+            message += "- Date Tidak Boleh Kosong"
             cek = false
         }
 
