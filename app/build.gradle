@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -31,6 +30,9 @@ android {
     androidExtensions {
         experimental = true
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -45,6 +47,7 @@ dependencies {
 
     //android support
     implementation 'com.android.support:design:29.0.0'
+    kapt "com.android.databinding:compiler:$gradle_version"
 
     //third party
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
