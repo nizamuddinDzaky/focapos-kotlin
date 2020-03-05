@@ -249,13 +249,11 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         saleItem.quantity = 1.0
         saleItem.subtotal = saleItem.quantity!! * saleItem.unit_price!!
         var cek = true
-
         for (x in 0 until listSaleItems.size) {
             if (product.code == listSaleItems[x].product_code) {
                 cek = false
             }
         }
-
         if (cek)
             listSaleItems.add(saleItem)
         else
@@ -265,31 +263,34 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
 
     override fun onClickPlus(qty: Double, position: Int) {
         listSaleItems[position].quantity = listSaleItems[position].quantity?.plus(1.0)
-        Toast.makeText(this, "Produk sama bro "+ listSaleItems[position].quantity, Toast.LENGTH_SHORT).show()
         listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
         adapter.notifyDataSetChanged()
         sumTotal()
     }
 
     override fun onClickMinus(qty: Double, position: Int) {
-        listSaleItems[position].quantity = listSaleItems[position].quantity?.minus(1.0)
-        if (listSaleItems[position].quantity!! < 1){
-            AlertDialog.Builder(this@AddSalesActivity)
-                .setTitle("Konfirmasi")
-                .setMessage("Apakah yakin ?")
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    listSaleItems.removeAt(position)
-                    adapter.notifyDataSetChanged()
-                    sumTotal()
-                }
-                .setNegativeButton(android.R.string.cancel) { _, _ ->
-                    adapter.notifyDataSetChanged()
-                    sumTotal()
-                }
-                .show()
-        }else{
-            listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
-            adapter.notifyDataSetChanged()
+        val quantity = listSaleItems[position].quantity?.minus(1.0)
+        if (quantity != null) {
+            if (quantity < 1){
+                AlertDialog.Builder(this@AddSalesActivity)
+                    .setTitle("Konfirmasi")
+                    .setMessage("Apakah yakin ?")
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        listSaleItems[position].quantity = quantity
+                        listSaleItems.removeAt(position)
+                        adapter.notifyDataSetChanged()
+                        sumTotal()
+                    }
+                    .setNegativeButton(android.R.string.cancel) { _, _ ->
+                        adapter.notifyDataSetChanged()
+                        sumTotal()
+                    }
+                    .show()
+            }else{
+                listSaleItems[position].quantity = quantity
+                listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
+                adapter.notifyDataSetChanged()
+            }
         }
 
         sumTotal()
