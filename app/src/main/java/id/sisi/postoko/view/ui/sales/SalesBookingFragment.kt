@@ -11,6 +11,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListSalesAdapter
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.ui.sales.SaleStatus.PENDING
+import kotlinx.android.synthetic.main.fragment_gr.*
 import kotlinx.android.synthetic.main.fragment_sales_booking.*
 
 class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
@@ -39,6 +40,9 @@ class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
         setupUI()
 
         viewModel = ViewModelProvider(this, SalesBookingFactory(status.name)).get(SalesBookingViewModel::class.java)
+        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            swipeRefreshLayoutSalesBooking?.isRefreshing = it
+        })
         viewModel.getListSales().observe(viewLifecycleOwner, Observer {
             adapter.updateSalesData(it)
         })
@@ -46,6 +50,9 @@ class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
 
     private fun setupUI() {
         setupRecycleView()
+        swipeRefreshLayoutSalesBooking?.setOnRefreshListener {
+            viewModel.getListSale()
+        }
     }
 
     private fun setupRecycleView() {

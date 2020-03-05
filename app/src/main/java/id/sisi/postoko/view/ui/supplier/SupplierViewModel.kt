@@ -18,12 +18,12 @@ class SupplierViewModel : ViewModel() {
         getListSupplier()
     }
 
-    private fun getListSupplier() {
+    fun getListSupplier() {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getListSupplier(headers)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 suppliers.postValue(null)
             },
             onResponse = { _, response ->
@@ -33,14 +33,14 @@ class SupplierViewModel : ViewModel() {
                         suppliers.postValue(response.body()?.data?.list_suppliers)
                     }
                 } else {
-                    isExecute.postValue(true)
+                    suppliers.postValue(listOf())
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
+//        isExecute.postValue(true)
         return isExecute
     }
 

@@ -19,13 +19,13 @@ class SalesBookingViewModel(var status: String) : ViewModel() {
         getListSale()
     }
 
-    private fun getListSale() {
+    fun getListSale() {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_SALE_STATUS to status)
         ApiServices.getInstance()?.getListSale(headers, params)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 sales.postValue(null)
             },
             onResponse = { _, response ->
@@ -35,14 +35,13 @@ class SalesBookingViewModel(var status: String) : ViewModel() {
                         sales.postValue(response.body()?.data?.list_sales_booking)
                     }
                 } else {
-                    isExecute.postValue(true)
+                    sales.postValue(listOf())
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
         return isExecute
     }
 

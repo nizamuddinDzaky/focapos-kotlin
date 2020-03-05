@@ -18,12 +18,12 @@ class CustomerViewModel : ViewModel() {
         getListCustomer()
     }
 
-    private fun getListCustomer() {
+    fun getListCustomer() {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getListCustomer(headers)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 customers.postValue(null)
             },
             onResponse = { _, response ->
@@ -33,14 +33,14 @@ class CustomerViewModel : ViewModel() {
                         customers.postValue(response.body()?.data?.list_customers)
                     }
                 } else {
-                    isExecute.postValue(true)
+                    customers.postValue(listOf())
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
+//        isExecute.postValue(true)
         return isExecute
     }
 

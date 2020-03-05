@@ -12,8 +12,11 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListPaymentAdapter
 import id.sisi.postoko.model.Payment
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
+import kotlinx.android.synthetic.main.failed_load_data.*
 import kotlinx.android.synthetic.main.pembayaran_fragment.*
 import kotlinx.android.synthetic.main.pembayaran_fragment.fb_add_transaction
 
@@ -40,13 +43,31 @@ class PaymentFragment : Fragment(){
         setupUI()
 
         viewModel = ViewModelProvider(this, PaymentFactory(idSalesBooking)).get(PaymentViewModel::class.java)
+        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            swipeRefreshLayoutPaymentSale?.isRefreshing = it
+        })
         viewModel.getListPayments().observe(viewLifecycleOwner, Observer {
             adapter.updateData(it)
+            if (it?.size ?: 0 == 0) {
+                layout_status_progress?.visible()
+                rv_list_item_pembayaran?.gone()
+                val status = when(it?.size) {
+                    0 -> "Belum ada pembayaran"
+                    else -> "Gagal Memuat Data"
+                }
+                tv_status_progress?.text = status
+            } else {
+                layout_status_progress?.gone()
+                rv_list_item_pembayaran?.visible()
+            }
         })
     }
 
     private fun setupUI() {
         setupRecycleView()
+        swipeRefreshLayoutPaymentSale?.setOnRefreshListener {
+            viewModel.getListPayment()
+        }
     }
 
     private fun setupRecycleView() {

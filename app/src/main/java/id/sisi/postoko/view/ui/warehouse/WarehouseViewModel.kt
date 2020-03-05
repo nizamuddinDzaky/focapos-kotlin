@@ -19,12 +19,12 @@ class WarehouseViewModel : ViewModel() {
         getListWarehouse()
     }
 
-    private fun getListWarehouse() {
+    fun getListWarehouse() {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getListWarehouse(headers)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 warehouses.postValue(null)
             },
             onResponse = { _, response ->
@@ -35,14 +35,14 @@ class WarehouseViewModel : ViewModel() {
                         warehouses.postValue(response.body()?.data?.list_warehouses)
                     }
                 } else {
-                    isExecute.postValue(true)
+                    warehouses.postValue(listOf())
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
+//        isExecute.postValue(true)
         return isExecute
     }
 

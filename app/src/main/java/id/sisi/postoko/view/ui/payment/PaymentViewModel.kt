@@ -25,7 +25,7 @@ class PaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
         val params = mutableMapOf(KEY_ID_SALES_BOOKING to idSalesBooking.toString())
         ApiServices.getInstance()?.getListSalePayment(headers, params)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 payments.postValue(null)
             },
             onResponse = { _, response ->
@@ -35,14 +35,14 @@ class PaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
                         payments.postValue(response.body()?.data?.list_payments)
                     }
                 } else {
-                    isExecute.postValue(true)
+                    payments.postValue(listOf())
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
+//        isExecute.postValue(true)
         return isExecute
     }
 

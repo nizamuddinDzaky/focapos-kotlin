@@ -10,40 +10,40 @@ import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.tryMe
 
 class ProductViewModel : ViewModel() {
-    private val suppliers = MutableLiveData<List<Product>?>()
+    private val products = MutableLiveData<List<Product>?>()
     private var isExecute = MutableLiveData<Boolean>()
 
     init {
         getListProduct()
     }
 
-    private fun getListProduct() {
+    fun getListProduct() {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getListProduct(headers)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
-                suppliers.postValue(null)
+                isExecute.postValue(false)
+                products.postValue(null)
             },
             onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        suppliers.postValue(response.body()?.data?.list_products)
+                        products.postValue(response.body()?.data?.list_products)
                     }
                 } else {
-                    isExecute.postValue(true)
+                    products.postValue(listOf())
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
+//        isExecute.postValue(true)
         return isExecute
     }
 
     internal fun getListProducts(): LiveData<List<Product>?> {
-        return suppliers
+        return products
     }
 }

@@ -4,12 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.warehouse.WarehouseFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_sales"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutSalesBooking"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:itemCount="10"
-        tools:listitem="@layout/list_item_master" />
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_sales"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="10"
+            tools:listitem="@layout/list_item_master" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </FrameLayout>
