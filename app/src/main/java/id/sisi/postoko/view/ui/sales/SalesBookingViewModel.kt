@@ -19,7 +19,7 @@ class SalesBookingViewModel(var status: String) : ViewModel() {
         getListSale()
     }
 
-    private fun getListSale() {
+    fun getListSale() {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_SALE_STATUS to status)

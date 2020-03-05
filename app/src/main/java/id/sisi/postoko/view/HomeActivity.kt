@@ -1,5 +1,6 @@
 package id.sisi.postoko.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -72,5 +73,10 @@ class HomeActivity : AppCompatActivity() {
 
     private fun findFragment(position: BottomNavigationPosition): Fragment {
         return supportFragmentManager.findFragmentByTag(position.getTag()) ?: position.createFragment()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        findFragment(navPosition).onActivityResult(requestCode, resultCode, data)
     }
 }

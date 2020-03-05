@@ -25,13 +25,28 @@ class SalesRootFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         fb_add_transaction?.setOnClickListener {
-            startActivity(Intent(this.context, AddSalesActivity::class.java))
+            startActivityForResult(Intent(this.context, AddSalesActivity::class.java), 2020)
         }
         main_container?.gone()
         main_view_pager?.let {
             it.adapter = SalesPagerAdapter(childFragmentManager, context)
             tabs_main_pagers?.setupWithViewPager(it)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+/*
+        TODO check condition sales status
+        change viewpager and tab
+        then
+        send activity result
+        if (status) {
+            fragment.onActivityResult
+        }
+*/
+        (main_view_pager?.adapter as? SalesPagerAdapter)?.getCurrentFragment()
+            ?.onActivityResult(requestCode, resultCode, data)
     }
 
     companion object {

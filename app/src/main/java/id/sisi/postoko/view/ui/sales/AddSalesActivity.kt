@@ -327,7 +327,7 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 "products" to saleItems
             )
             viewModel.postAddSales(body){
-                listener()
+                setResult(Activity.RESULT_OK)
                 finish()
             }
         }else{
