@@ -23,7 +23,7 @@ class GoodReceivedViewModel(var status: String) : ViewModel() {
         val params = mutableMapOf("goods_received_status" to status)
         ApiServices.getInstance()?.getListGoodReceived(headers, params)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 goodsReceived.postValue(null)
             },
             onResponse = { _, response ->
@@ -33,14 +33,13 @@ class GoodReceivedViewModel(var status: String) : ViewModel() {
                         goodsReceived.postValue(response.body()?.data?.list_goods_received)
                     }
                 } else {
-                    isExecute.postValue(true)
+                    goodsReceived.postValue(listOf())
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
         return isExecute
     }
 

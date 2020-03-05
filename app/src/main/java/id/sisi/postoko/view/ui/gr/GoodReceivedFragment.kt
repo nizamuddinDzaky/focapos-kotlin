@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListGoodReceivedAdapter
 import id.sisi.postoko.model.GoodReceived
+import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
 import kotlinx.android.synthetic.main.fragment_gr.*
@@ -35,10 +37,29 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
         super.onActivityCreated(savedInstanceState)
 
         setupUI()
+        setupViewModel()
+    }
 
+    private fun setupViewModel() {
         viewModel = ViewModelProvider(this, GoodReceivedFactory(status.name)).get(GoodReceivedViewModel::class.java)
+        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            swipeRefreshLayout?.isRefreshing = it
+        })
         viewModel.getListGoodsReceived().observe(viewLifecycleOwner, Observer {
             adapter.updateGoodsReceivedData(it)
+            logE("progress $it")
+            if (it?.size ?: 0 == 0) {
+                layout_status_progress?.visible()
+                rv_list_good_received?.gone()
+                val status = when(it?.size) {
+                    0 -> "Belum ada transaksi"
+                    else -> "Gagal Memuat Data"
+                }
+                tv_status_progress?.text = status
+            } else {
+                layout_status_progress?.gone()
+                rv_list_good_received?.visible()
+            }
         })
     }
 
@@ -55,6 +76,10 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
 
     private fun setupUI() {
         setupRecycleView()
+
+        swipeRefreshLayout?.setOnRefreshListener {
+            viewModel.getListGoodReceived()
+        }
     }
 
     private fun setupRecycleView() {
