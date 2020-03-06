@@ -36,15 +36,14 @@ class SalesRootFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-/*
-        TODO check condition sales status
-        change viewpager and tab
-        then
-        send activity result
-        if (status) {
-            fragment.onActivityResult
+        if (requestCode == 2020) {
+            val sale_status = data?.getStringExtra("sale_status")
+            if(sale_status == "pending"){
+                main_view_pager.setCurrentItem(0)
+            }else if(sale_status == "reserved"){
+                main_view_pager.setCurrentItem(1)
+            }
         }
-*/
         (main_view_pager?.adapter as? SalesPagerAdapter)?.getCurrentFragment()
             ?.onActivityResult(requestCode, resultCode, data)
     }

@@ -11,10 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListSalesAdapter
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.ui.sales.SaleStatus.PENDING
-import kotlinx.android.synthetic.main.fragment_gr.*
 import kotlinx.android.synthetic.main.fragment_sales_booking.*
 
 class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
@@ -67,7 +65,6 @@ class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        logE("tarik data dari view model $resultCode")
         if (resultCode == Activity.RESULT_OK) {
             if (::viewModel.isInitialized) {
                 viewModel.getListSale()

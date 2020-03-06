@@ -265,19 +265,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:buttonTint="#B20838"
-                        android:text="@string/txt_ordered"
-                        tools:targetApi="lollipop" />
-
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:buttonTint="#B20838"
                         android:text="@string/txt_status_pending"
+                        tools:targetApi="lollipop" />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_ordered"
                         tools:targetApi="lollipop" />
                 </RadioGroup>
 
