@@ -262,6 +262,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vm.gr.no_pp}"
                         tools:text="1000092928" />
 
                     <TextView
@@ -300,6 +301,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        app:displayDateOnly="@{vm.gr.tanggal_pp}"
                         tools:text="19/09/2020" />
 
                     <TextView
@@ -339,6 +341,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vm.gr.no_so}"
                         tools:text="889920229283" />
 
                     <TextView
@@ -377,6 +380,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        displayDateOnly="@{vm.gr.tanggal_so}"
                         tools:text="19/09/2020" />
 
                     <TextView
