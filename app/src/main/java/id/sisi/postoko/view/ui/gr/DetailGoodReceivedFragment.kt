@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListDetailProductGoodReceivedAdapter
+import id.sisi.postoko.databinding.DetailGoodReceivedFragmentBinding
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toDisplayDateFromDO
 import kotlinx.android.synthetic.main.detail_good_received_fragment.*
@@ -21,6 +22,7 @@ class DetailGoodReceivedFragment : Fragment() {
     }
 
     lateinit var viewModel: AddGoodReceivedViewModel
+    lateinit var viewBinding: DetailGoodReceivedFragmentBinding
     private lateinit var adapter: ListDetailProductGoodReceivedAdapter
 
     override fun onCreateView(
@@ -28,51 +30,23 @@ class DetailGoodReceivedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         activity?.title = getString(R.string.txt_title_detail_good_receive)
-        return inflater.inflate(R.layout.detail_good_received_fragment, container, false)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val idGoodReceived = (activity as? DetailGoodReceivedActivity)?.mGoodReceived?.id ?: "0"
+        viewModel = ViewModelProvider(this, AddGoodReceivedFactory(idGoodReceived.toInt())).get(
+            AddGoodReceivedViewModel::class.java
+        )
+        viewBinding = DetailGoodReceivedFragmentBinding.inflate(inflater, container, false).apply {
+            vm = viewModel
 
-        val idGoodReceived = (activity as? DetailGoodReceivedActivity)?.mGoodReceived?.id
-
-        setupUI()
-
-        idGoodReceived?.let {
-            viewModel = ViewModelProvider(this, AddGoodReceivedFactory(it.toInt())).get(
-                AddGoodReceivedViewModel::class.java
-            )
-            viewModel.getDetailGoodReceived().observe(viewLifecycleOwner, Observer { gr ->
-                tv_good_received_detail_from_name?.text = gr?.company_name
-                tv_good_received_detail_from_address_1?.text = gr?.company_name
-                tv_good_received_detail_to_name?.text = gr?.distributor
-                tv_good_received_detail_to_address_1?.text = gr?.alamat_shipto
-                val distributorName = "${gr?.nama_kecamatan} (${gr?.nama_shipto})"
-                tv_good_received_detail_to_address_2?.text = distributorName
-                tv_good_received_detail_to_name?.text = gr?.distributor
-                tv_good_received_detail_do_number?.text = gr?.no_do
-                tv_good_received_detail_grand_total?.text = gr?.grand_total?.toCurrencyID()
-                tv_good_received_pp_number?.text = gr?.no_pp
-                tv_good_received_pp_date?.text = gr?.tanggal_pp?.toDisplayDateFromDO()
-                tv_good_received_so_number?.text = gr?.no_so
-                tv_good_received_so_date?.text = gr?.tanggal_so?.toDisplayDateFromDO()
-                tv_good_received_transaction_number?.text = gr?.no_transaksi
-                tv_good_received_order_type?.text = gr?.tipe_order
-                tv_good_received_spj_number?.text = gr?.no_spj
-                tv_good_received_spj_date?.text = gr?.tanggal_spj?.toDisplayDateFromDO()
-                tv_good_received_police_number?.text = gr?.no_polisi
-                tv_good_received_driver_name?.text = gr?.nama_sopir
-                tv_good_received_plant_name?.text = gr?.nama_plant
-                tv_good_received_plant_number?.text = gr?.kode_plant
-
-                adapter.updatePurchasesItem(gr?.goodReceivedItems)
-            })
-            viewModel.requestDetailGoodReceived()
+            lifecycleOwner = viewLifecycleOwner
         }
+
+        return viewBinding.root
     }
 
-    private fun setupUI() {
-        setupRecycleView()
+    override fun onResume() {
+        super.onResume()
+        viewBinding.vm?.requestDetailGoodReceived()
     }
 
     private fun setupRecycleView() {

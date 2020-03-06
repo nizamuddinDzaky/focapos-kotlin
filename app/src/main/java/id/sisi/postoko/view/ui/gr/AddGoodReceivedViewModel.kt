@@ -11,56 +11,58 @@ import id.sisi.postoko.utils.KEY_ID_GOODS_RECEIVED
 import id.sisi.postoko.utils.extensions.exe
 
 class AddGoodReceivedViewModel(private var idGoodsReceived: Int) : ViewModel() {
-    private var isExecute = MutableLiveData<Boolean>()
-    private var goodReceived = MutableLiveData<GoodReceived?>()
+    private var _isExecute = MutableLiveData<Boolean>()
+    private var _goodReceived = MutableLiveData<GoodReceived?>()
+
+    val gr: LiveData<GoodReceived> = _goodReceived as LiveData<GoodReceived>
 
     fun postAddGoodReceived(body: Map<String, String> = mapOf(), listener: () -> Unit) {
-        isExecute.postValue(true)
+        _isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_GOODS_RECEIVED to idGoodsReceived.toString())
         ApiServices.getInstance()?.postAddGoodReceived(headers, params, body)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                _isExecute.postValue(true)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
+                _isExecute.postValue(false)
                 if (response.isSuccessful) {
                     listener()
                 } else {
-                    isExecute.postValue(true)
+                    _isExecute.postValue(true)
                 }
             }
         )
     }
 
     fun requestDetailGoodReceived(listener: () -> Unit = {}) {
-        isExecute.postValue(true)
+        _isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_GOODS_RECEIVED to idGoodsReceived.toString())
         ApiServices.getInstance()?.getDetailGoodReceived(headers, params)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
-                goodReceived.postValue(null)
+                _isExecute.postValue(true)
+                _goodReceived.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
+                _isExecute.postValue(false)
                 if (response.isSuccessful) {
                     listener()
                     val newGoodReceived = response.body()?.data?.good_received
                     newGoodReceived?.goodReceivedItems =
                         response.body()?.data?.good_received_items
-                    goodReceived.postValue(newGoodReceived)
+                    _goodReceived.postValue(newGoodReceived)
                 } else {
-                    isExecute.postValue(true)
+                    _isExecute.postValue(true)
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
-        return isExecute
+        _isExecute.postValue(true)
+        return _isExecute
     }
 
-    internal fun getDetailGoodReceived() = goodReceived
+    fun getDetailGoodReceived(): LiveData<GoodReceived?> = _goodReceived
 }

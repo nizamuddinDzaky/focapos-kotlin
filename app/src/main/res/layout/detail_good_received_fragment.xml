@@ -1,710 +1,725 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    tools:ignore="Overdraw">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.core.widget.NestedScrollView
+    <data>
+        <variable
+            name="vm"
+            type="id.sisi.postoko.view.ui.gr.AddGoodReceivedViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_action_good_received">
+        android:background="@color/colorBackground"
+        tools:ignore="Overdraw">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_action_good_received">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/et_top_margin">
+
+                    <ImageView
+                        android:layout_width="@dimen/margin_15"
+                        android:layout_height="@dimen/margin_15"
+                        android:layout_margin="@dimen/margin_10"
+                        android:contentDescription="@string/txt_icon_mark"
+                        android:src="@drawable/mark" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.4"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_from"
+                            android:textColor="@color/colorBlack" />
+
+                        <TextView
+                            android:id="@+id/tv_good_received_detail_from_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:text="@{vm.gr.company_name}"
+                            tools:text="Semen Gresik" />
+
+                        <TextView
+                            android:id="@+id/tv_good_received_detail_from_address_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Jawa Timur" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/et_top_margin">
+
+                    <ImageView
+                        android:layout_width="@dimen/margin_15"
+                        android:layout_height="@dimen/margin_15"
+                        android:layout_margin="@dimen/margin_10"
+                        android:contentDescription="@string/txt_icon_mark"
+                        android:src="@drawable/mark" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.4"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_to"
+                            android:textColor="@color/colorBlack" />
+
+                        <TextView
+                            android:id="@+id/tv_good_received_detail_to_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:text="@{vm.gr.distributor}"
+                            tools:text="Helios Crop" />
+
+                        <TextView
+                            android:id="@+id/tv_good_received_detail_to_address_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{vm.gr.alamat_shipto}"
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
+
+                        <TextView
+                            android:id="@+id/tv_good_received_detail_to_address_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Jawa Timur" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/et_top_margin"
+                    android:paddingBottom="@dimen/et_top_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_20"
+                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_weight="0"
+                        android:text="@string/txt_do_number"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_detail_do_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_6"
+                        android:layout_marginLeft="@dimen/margin_6"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
+                        android:text="@{vm.getDetailGoodReceived().no_do}"
+                        tools:text="088887627862" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/colorLine" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_product_detail_good_received"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#E5E5E5"
+                    android:clipToPadding="false"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/list_product_good_received" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/et_top_margin"
+                    android:paddingBottom="@dimen/et_top_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_20"
+                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_weight="0"
+                        android:text="@string/txt_total_idr"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_detail_grand_total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textStyle="bold"
+                        app:currencyID="@{vm.gr.grand_total}"
+                        tools:text="Rp 96.000.000" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingTop="@dimen/et_top_margin"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10"
+                    android:paddingBottom="@dimen/et_top_margin"
+                    android:text="@string/txt_detail"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingTop="@dimen/et_top_margin"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_pp_number" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_pp_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="1000092928" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_pp_date" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_pp_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="19/09/2020" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_so_number" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_so_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="889920229283" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_so_date" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_so_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="19/09/2020" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_trx_number" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_transaction_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="889920229283" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10"
+                    android:paddingBottom="@dimen/et_top_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_order_type" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_order_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="ZOR" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingTop="@dimen/et_top_margin"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_spj_number" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_spj_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="1000092928" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_spj_date" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_spj_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="19/09/2020" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_police_number" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_police_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="W 008 AB" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_driver_name" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_driver_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="SAIKUN" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_plant_code" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_plant_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="5401" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10"
+                    android:paddingBottom="@dimen/et_top_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_plant_name" />
+
+                    <TextView
+                        android:id="@+id/tv_good_received_plant_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="CP REMBANG" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/txt_copy"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/btn_action_good_received"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:padding="@dimen/et_top_margin">
-
-                <ImageView
-                    android:layout_width="@dimen/margin_15"
-                    android:layout_height="@dimen/margin_15"
-                    android:layout_margin="@dimen/margin_10"
-                    android:contentDescription="@string/txt_icon_mark"
-                    android:src="@drawable/mark" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2.4"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_from"
-                        android:textColor="@color/colorBlack" />
-
-                    <TextView
-                        android:id="@+id/tv_good_received_detail_from_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        tools:text="Semen Gresik" />
-
-                    <TextView
-                        android:id="@+id/tv_good_received_detail_from_address_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Jawa Timur" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line"
-                android:background="@color/colorLine" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:padding="@dimen/et_top_margin">
-
-                <ImageView
-                    android:layout_width="@dimen/margin_15"
-                    android:layout_height="@dimen/margin_15"
-                    android:layout_margin="@dimen/margin_10"
-                    android:contentDescription="@string/txt_icon_mark"
-                    android:src="@drawable/mark" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2.4"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_to"
-                        android:textColor="@color/colorBlack" />
-
-                    <TextView
-                        android:id="@+id/tv_good_received_detail_to_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        tools:text="Helios Crop" />
-
-                    <TextView
-                        android:id="@+id/tv_good_received_detail_to_address_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
-
-                    <TextView
-                        android:id="@+id/tv_good_received_detail_to_address_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Jawa Timur" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="#FFFFFF"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/et_top_margin"
-                android:paddingBottom="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:layout_marginLeft="@dimen/margin_20"
-                    android:layout_weight="0"
-                    android:text="@string/txt_do_number"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_detail_do_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_6"
-                    android:layout_marginLeft="@dimen/margin_6"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
-                    tools:text="088887627862" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line"
-                android:background="@color/colorLine" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_product_detail_good_received"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#E5E5E5"
-                android:clipToPadding="false"
-                tools:itemCount="2"
-                tools:listitem="@layout/list_product_good_received" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_10"
-                android:background="#FFFFFF"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/et_top_margin"
-                android:paddingBottom="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:layout_marginLeft="@dimen/margin_20"
-                    android:layout_weight="0"
-                    android:text="@string/txt_total_idr"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_detail_grand_total"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:textStyle="bold"
-                    tools:text="Rp 96.000.000" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingTop="@dimen/et_top_margin"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10"
-                android:paddingBottom="@dimen/et_top_margin"
-                android:text="@string/txt_detail"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line"
-                android:background="@color/colorLine" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingTop="@dimen/et_top_margin"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_pp_number" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_pp_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="1000092928" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_pp_date" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_pp_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="19/09/2020" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_so_number" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_so_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="889920229283" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_so_date" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_so_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="19/09/2020" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_trx_number" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_transaction_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="889920229283" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10"
-                android:paddingBottom="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_order_type" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_order_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="ZOR" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line"
-                android:background="@color/colorLine" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingTop="@dimen/et_top_margin"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_spj_number" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_spj_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="1000092928" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_spj_date" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_spj_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="19/09/2020" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_police_number" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_police_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="W 008 AB" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_driver_name" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_driver_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="SAIKUN" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_plant_code" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_plant_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="5401" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/margin_20"
-                android:paddingLeft="@dimen/margin_20"
-                android:paddingEnd="@dimen/margin_10"
-                android:paddingRight="@dimen/margin_10"
-                android:paddingBottom="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_plant_name" />
-
-                <TextView
-                    android:id="@+id/tv_good_received_plant_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    tools:text="CP REMBANG" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="@string/txt_copy"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-    <Button
-        android:id="@+id/btn_action_good_received"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorButtonScroll"
-        android:text="@string/txt_receive"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white" />
-
-</RelativeLayout>
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorButtonScroll"
+            android:text="@string/txt_receive"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
+</layout>

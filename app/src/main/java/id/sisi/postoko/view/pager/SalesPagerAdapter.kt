@@ -15,8 +15,12 @@ class SalesPagerAdapter(fm: FragmentManager, private var ctx: Context?) :
         SalesBookingFragment(RESERVED),
         SalesBookingFragment(CLOSED)
     )
+    private var currentPosition: Int = 0
+
+    fun getCurrentFragment() = pages[currentPosition]
 
     override fun getItem(position: Int): Fragment {
+        currentPosition = position
         return pages[position]
     }
 
