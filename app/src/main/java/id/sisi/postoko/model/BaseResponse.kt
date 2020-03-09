@@ -10,6 +10,7 @@ data class BaseResponse<T>(
 data class DataLogin(
     var user_id: String?,
     var company_id: String?,
+    var roleId: Int?,
     var token: String?
 )
 
