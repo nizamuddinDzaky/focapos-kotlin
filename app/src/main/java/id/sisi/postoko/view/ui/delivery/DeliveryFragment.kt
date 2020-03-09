@@ -13,8 +13,11 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListPengirimanAdapter
 import id.sisi.postoko.model.Delivery
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
+import kotlinx.android.synthetic.main.failed_load_data.*
 import kotlinx.android.synthetic.main.pengiriman_fragment.*
 
 class DeliveryFragment : Fragment() {
@@ -43,13 +46,31 @@ class DeliveryFragment : Fragment() {
             this,
             DeliveryFactory(idSalesBooking)
         ).get(DeliveryViewModel::class.java)
+        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            swipeRefreshLayoutDeliverySale?.isRefreshing = it
+        })
         viewModel.getListDeliveries().observe(viewLifecycleOwner, Observer {
             adapter.updateData(it)
+            if (it?.size ?: 0 == 0) {
+                layout_status_progress?.visible()
+                rv_list_item_pengiriman?.gone()
+                val status = when(it?.size) {
+                    0 -> "Belum ada pengiriman"
+                    else -> "Gagal Memuat Data"
+                }
+                tv_status_progress?.text = status
+            } else {
+                layout_status_progress?.gone()
+                rv_list_item_pengiriman?.visible()
+            }
         })
     }
 
     private fun setupUI() {
         setupRecycleView()
+        swipeRefreshLayoutDeliverySale?.setOnRefreshListener {
+            viewModel.getListDelivery()
+        }
     }
 
     private fun setupRecycleView() {

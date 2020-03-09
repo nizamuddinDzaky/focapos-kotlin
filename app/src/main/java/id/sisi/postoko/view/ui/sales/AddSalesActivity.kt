@@ -327,7 +327,9 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 "products" to saleItems
             )
             viewModel.postAddSales(body){
-                setResult(Activity.RESULT_OK)
+                val returnIntent = Intent()
+                returnIntent.putExtra("sale_status", rg_status_add_sale.tag.toString())
+                setResult(Activity.RESULT_OK, returnIntent)
                 finish()
             }
         }else{

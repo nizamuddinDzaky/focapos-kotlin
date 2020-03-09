@@ -25,7 +25,7 @@ class DeliveryViewModel(private var idSalesBooking: Int) : ViewModel() {
         val params = mutableMapOf(KEY_ID_SALES_BOOKING to idSalesBooking.toString())
         ApiServices.getInstance()?.getListSaleDelivery(headers, params)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 deliveries.postValue(null)
             },
             onResponse = { _, response ->
@@ -35,14 +35,14 @@ class DeliveryViewModel(private var idSalesBooking: Int) : ViewModel() {
                         deliveries.postValue(response.body()?.data?.list_deliveries_booking)
                     }
                 } else {
-                    isExecute.postValue(true)
+                    deliveries.postValue(listOf())
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
+//        isExecute.postValue(true)
         return isExecute
     }
 

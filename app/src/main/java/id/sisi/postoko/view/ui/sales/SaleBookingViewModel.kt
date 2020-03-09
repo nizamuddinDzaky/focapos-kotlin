@@ -28,7 +28,7 @@ class SaleBookingViewModel(var id: Int) : ViewModel() {
         val params = mutableMapOf("id_customers" to idCustomer.toString())
         ApiServices.getInstance()?.getDetailCustomer(headers, params)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 customer.postValue(null)
             },
             onResponse = { _, response ->
@@ -60,7 +60,7 @@ class SaleBookingViewModel(var id: Int) : ViewModel() {
         val params = mutableMapOf(KEY_ID_SALES_BOOKING to id.toString())
         ApiServices.getInstance()?.getDetailSale(headers, params)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 sale.postValue(null)
             },
             onResponse = { _, response ->

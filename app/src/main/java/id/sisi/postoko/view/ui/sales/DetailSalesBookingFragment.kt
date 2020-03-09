@@ -13,6 +13,7 @@ import id.sisi.postoko.adapter.ListDetailSalesBookingAdapter
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.detail_sales_booking_fragment.*
+import kotlinx.android.synthetic.main.fragment_sales_booking.*
 
 class DetailSalesBookingFragment : Fragment() {
 
@@ -39,6 +40,11 @@ class DetailSalesBookingFragment : Fragment() {
             this,
             SaleBookingFactory(idSalesBooking)
         ).get(SaleBookingViewModel::class.java)
+
+        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            swipeRefreshLayoutDetailSales?.isRefreshing = it
+        })
+
         viewModel.getDetailSale().observe(viewLifecycleOwner, Observer {
             setupDetailSale(it)
             it?.let {
@@ -77,6 +83,17 @@ class DetailSalesBookingFragment : Fragment() {
 
     private fun setupUI() {
         setupRecycleView()
+        swipeRefreshLayoutDetailSales?.setOnRefreshListener {
+            viewModel.getDetailSale().observe(viewLifecycleOwner, Observer {
+                setupDetailSale(it)
+                it?.let {
+                    viewModel.requestDetailCustomer(it.customer_id)
+                    viewModel.requestDetailWarehouse(it.warehouse_id)
+                    viewModel.requestDetailSupplier(it.biller_id)
+                }
+            })
+//            viewModel.requestDetailCustomer()
+        }
     }
 
     private fun setupDetailSale(sale: Sales?) {

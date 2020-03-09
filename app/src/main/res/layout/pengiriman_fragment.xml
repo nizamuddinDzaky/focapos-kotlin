@@ -59,16 +59,26 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/line"
             android:background="@color/colorLine" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_list_item_pengiriman"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayoutDeliverySale"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:clipToPadding="false"
-            tools:itemCount="2"
-            tools:listitem="@layout/list_item_pengiriman" />
-
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_item_pengiriman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:clipToPadding="false"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/list_item_pengiriman"
+                    android:visibility="gone"/>
+                <include layout="@layout/failed_load_data" />
+            </LinearLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

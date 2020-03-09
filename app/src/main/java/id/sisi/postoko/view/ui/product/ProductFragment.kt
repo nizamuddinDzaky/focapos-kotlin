@@ -39,6 +39,9 @@ class ProductFragment : BaseFragment() {
         setupUI()
 
         viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            swipeRefreshLayoutMaster?.isRefreshing = it
+        })
         viewModel.getListProducts().observe(viewLifecycleOwner, Observer {
             adapter.updateMasterData(it)
         })
@@ -46,6 +49,9 @@ class ProductFragment : BaseFragment() {
 
     private fun setupUI() {
         setupRecycleView()
+        swipeRefreshLayoutMaster?.setOnRefreshListener {
+            viewModel.getListProduct()
+        }
     }
 
     private fun setupRecycleView() {
