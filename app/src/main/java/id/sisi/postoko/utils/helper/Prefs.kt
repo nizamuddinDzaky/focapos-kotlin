@@ -12,6 +12,7 @@ class Prefs(context: Context) {
         private const val KEY_USERNAME_LOGIN = "username_login"
         private const val KEY_PASSWORD_LOGIN = "password_login"
         private const val KEY_ISLOGIN = "islogin"
+        private const val KEY_ROLE_ID = "roleIdAccess"
     }
 
     private val sharedPrefs: SharedPreferences =
@@ -22,6 +23,11 @@ class Prefs(context: Context) {
         sharedPrefs.edit { putString(key, value) }
     }
 
+    private fun String.putIntPref(value: Int) {
+        val key = this
+        sharedPrefs.edit { putInt(key, value) }
+    }
+
     private fun String.putBooleanPref(value: Boolean) {
         val key = this
         sharedPrefs.edit { putBoolean(key, value) }
@@ -30,6 +36,11 @@ class Prefs(context: Context) {
     var posToken: String?
         get() = sharedPrefs.getString(KEY_TOKEN_LOGIN, null)
         set(value) = KEY_TOKEN_LOGIN.putStringPref(value)
+
+    //SuperAdmin (2), Admin Gudang (8), Kasir (5)
+    var posRoleId: Int?
+        get() = sharedPrefs.getInt(KEY_ROLE_ID, 0)
+        set(value) = KEY_ROLE_ID.putIntPref(value ?: 0)
 
     var usernameLogin: String?
         get() = sharedPrefs.getString(KEY_USERNAME_LOGIN, null)
