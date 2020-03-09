@@ -4,19 +4,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
-import id.sisi.postoko.utils.extensions.active
-import id.sisi.postoko.utils.extensions.attach
-import id.sisi.postoko.utils.extensions.detach
-import id.sisi.postoko.utils.helper.BottomNavigationPosition
-import id.sisi.postoko.utils.helper.createFragment
-import id.sisi.postoko.utils.helper.findNavigationPositionById
-import id.sisi.postoko.utils.helper.getTag
+import id.sisi.postoko.utils.extensions.*
+import id.sisi.postoko.utils.helper.*
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
     private val mKeyPosition = "keyPosition"
-
+    private val prefs: Prefs by lazy {
+        Prefs(MyApp.instance)
+    }
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +33,11 @@ class HomeActivity : AppCompatActivity() {
         }
 
         initFragment(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hideBottomNavigation()
     }
 
     fun changeView(itemId: Int) {
@@ -72,11 +75,23 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun findFragment(position: BottomNavigationPosition): Fragment {
-        return supportFragmentManager.findFragmentByTag(position.getTag()) ?: position.createFragment()
+        return supportFragmentManager.findFragmentByTag(position.getTag())
+            ?: position.createFragment()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         findFragment(navPosition).onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun hideBottomNavigation() {
+        if (id.sisi.postoko.BuildConfig.DEBUG) {
+            val roleId = arrayOf(2, 8, 5)[kotlin.random.Random.nextInt(0, 3)]
+            prefs.posRoleId = roleId
+            bottom_navigation?.menu?.findItem(R.id.menu_master_data)?.isVisible =
+                roleId.isSuperAdmin()
+            bottom_navigation?.menu?.findItem(R.id.menu_good_receive)?.isVisible =
+                roleId.isNotCashier()
+        }
     }
 }

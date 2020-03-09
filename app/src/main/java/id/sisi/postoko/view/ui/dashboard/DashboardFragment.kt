@@ -8,7 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
-import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.*
+import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.AccountViewModel
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.MainActivity
@@ -17,6 +18,9 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : Fragment() {
     private lateinit var viewModel: AccountViewModel
+    private val prefs: Prefs by lazy {
+        Prefs(MyApp.instance)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,10 +74,18 @@ class DashboardFragment : Fragment() {
             (activity as? HomeActivity)?.changeView(R.id.menu_sales_booking)
         }
         view_03?.setOnClickListener {
-            (activity as? HomeActivity)?.changeView(R.id.menu_good_receive)
+            if (prefs.posRoleId?.isNotCashier() == true) {
+                (activity as? HomeActivity)?.changeView(R.id.menu_good_receive)
+            } else {
+                context?.showToastAccessDenied()
+            }
         }
         view_04?.setOnClickListener {
-            (activity as? HomeActivity)?.changeView(R.id.menu_master_data)
+            if (prefs.posRoleId?.isSuperAdmin() == true) {
+                (activity as? HomeActivity)?.changeView(R.id.menu_master_data)
+            } else {
+                context?.showToastAccessDenied()
+            }
         }
 //        btn_dummy?.setOnClickListener {
 //            val jsonHelper =
