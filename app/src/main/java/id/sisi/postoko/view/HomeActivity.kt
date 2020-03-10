@@ -84,10 +84,9 @@ class HomeActivity : AppCompatActivity() {
         findFragment(navPosition).onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun hideBottomNavigation() {
+    fun hideBottomNavigation() {
         if (id.sisi.postoko.BuildConfig.DEBUG) {
-            val roleId = arrayOf(2, 8, 5)[kotlin.random.Random.nextInt(0, 3)]
-            prefs.posRoleId = roleId
+            val roleId = prefs.posRoleId ?: 0
             bottom_navigation?.menu?.findItem(R.id.menu_master_data)?.isVisible =
                 roleId.isSuperAdmin()
             bottom_navigation?.menu?.findItem(R.id.menu_good_receive)?.isVisible =

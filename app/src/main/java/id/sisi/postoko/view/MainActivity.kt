@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
                     tryMe {
                         if (response.body()?.code == 200 && !response.body()?.data?.token.isNullOrEmpty()) {
                             prefs.posToken = response.body()?.data?.token
-                            prefs.posRoleId = response.body()?.data?.roleId
                             if (checkbox_remember_me?.isChecked == true) {
                                 prefs.usernameLogin = username
                                 prefs.passwordLogin = password

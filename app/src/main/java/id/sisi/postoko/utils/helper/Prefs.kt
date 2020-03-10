@@ -33,6 +33,12 @@ class Prefs(context: Context) {
         sharedPrefs.edit { putBoolean(key, value) }
     }
 
+    fun deleteLogout() {
+        isLogin = false
+        posToken = ""
+        posRoleId = 0
+    }
+
     var posToken: String?
         get() = sharedPrefs.getString(KEY_TOKEN_LOGIN, null)
         set(value) = KEY_TOKEN_LOGIN.putStringPref(value)
