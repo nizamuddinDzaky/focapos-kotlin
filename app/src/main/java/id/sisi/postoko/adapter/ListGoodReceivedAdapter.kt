@@ -13,6 +13,7 @@ import id.sisi.postoko.utils.extensions.toDisplayDateFromDO
 import id.sisi.postoko.view.ui.gr.DetailGoodReceivedActivity
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.RECEIVED
 import kotlinx.android.synthetic.main.list_item_gr.view.*
 
 
@@ -23,28 +24,19 @@ class ListGoodReceivedAdapter(
 ) : RecyclerView.Adapter<ListGoodReceivedAdapter.ViewHolder>() {
 
     companion object {
-        val ITEM_VIEW_TYPE_CONTENT = 1
-        val ITEM_VIEW_TYPE_LOADING = 2
+        const val ITEM_VIEW_TYPE_CONTENT = 1
+        const val ITEM_VIEW_TYPE_LOADING = 2
     }
 
-    private var isLoading = false
-
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val layoutInflater = LayoutInflater.from(parent.context)
-//        return when (viewType) {
-//            ITEM_VIEW_TYPE_CONTENT -> DetailGoodReceivedViewHolder(
-//                layoutInflater.inflate(R.layout.list_item_gr, null)
-//            )
-//            else -> LoadingViewHolder(
-//                layoutInflater.inflate(R.layout.list_item_data_loading, null)
-//            )
-//        }
-//    }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailGoodReceivedViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_gr, parent, false)
-
-        return DetailGoodReceivedViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return when (viewType) {
+            ITEM_VIEW_TYPE_CONTENT -> DetailGoodReceivedViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_gr, parent, false)
+            )
+            else -> LoadingViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_data_loading, parent, false)
+            )
+        }
     }
 
     override fun getItemCount(): Int {
@@ -69,7 +61,7 @@ class ListGoodReceivedAdapter(
     }
 
     private fun isLastItem(position: Int): Boolean {
-        return goodsReceived?.size?.minus(1) == position
+        return (goodsReceived?.size ?: 0 > 10) && goodsReceived?.size?.minus(1) == position
     }
 
     open class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -87,10 +79,10 @@ class ListGoodReceivedAdapter(
                 itemView.tv_good_received_do_number?.text = it.no_do
                 itemView.tv_good_received_so_number?.text = it.no_so
                 itemView.tv_good_received_date?.text = it.tanggal_do?.toDisplayDateFromDO()
-                itemView.btn_action_receive_gr?.checkVisibility(status == DELIVERING)
+                itemView.btn_action_receive_gr?.checkVisibility(status != RECEIVED)
             }
             itemView.setOnClickListener {
-                logE("click action detail")
+                logE("click action detail $status")
                 val page = Intent(itemView.context, DetailGoodReceivedActivity::class.java)
                 page.putExtra("good_received", goodReceived)
                 itemView.context.startActivity(page)
@@ -105,7 +97,9 @@ class ListGoodReceivedAdapter(
     fun updateGoodsReceivedData(newTransactionsData: List<GoodReceived>?) {
         val tempList = newTransactionsData?.toMutableList()
         logE("isi sebelum ${tempList?.size}")
-        tempList?.add(GoodReceived())
+        if (tempList?.size ?: 0 > 10) {
+            tempList?.add(GoodReceived())
+        }
         goodsReceived = tempList
         logE("isi sesudah ${goodsReceived?.size}")
         notifyDataSetChanged()
