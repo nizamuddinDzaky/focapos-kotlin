@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
@@ -19,8 +20,10 @@ import com.tiper.MaterialSpinner
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.model.*
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.supplier.SupplierViewModel
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_add_sales.*
@@ -31,6 +34,8 @@ import java.util.*
 
 class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClickListenerInterface {
     var customer: Customer? = null
+
+    private val progressBar = CustomProgressBar()
     private lateinit var viewModelSupplier: SupplierViewModel
     private lateinit var viewModelWarehouse: WarehouseViewModel
     private var listSupplierName = ArrayList<String>()
@@ -59,7 +64,6 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             this
         ).get(AddSalesViewModel::class.java)
         viewModel.getIsExecute().observe(this, Observer {
-//            viewLifecycleOwner
             if (it) {
                 logE("progress")
             } else {
@@ -306,6 +310,7 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     private fun actionAddSale(){
         val numbersMap =  validationFormAddSale()
         if (numbersMap["type"] as Boolean){
+            progressBar.show(this, "Silakan tunggu...")
             val saleItems = listSaleItems.map {
                 return@map mutableMapOf(
                     "product_id" to it.product_id.toString(),
@@ -327,10 +332,14 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 "products" to saleItems
             )
             viewModel.postAddSales(body){
-                val returnIntent = Intent()
-                returnIntent.putExtra("sale_status", rg_status_add_sale.tag.toString())
-                setResult(Activity.RESULT_OK, returnIntent)
-                finish()
+                progressBar.dialog.dismiss()
+                Toast.makeText(this, ""+it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    val returnIntent = Intent()
+                    returnIntent.putExtra("sale_status", rg_status_add_sale.tag.toString())
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                }
             }
         }else{
             AlertDialog.Builder(this@AddSalesActivity)
@@ -381,5 +390,22 @@ class AddSalesActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
 
             }
             .show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+//            finish()
+            AlertDialog.Builder(this@AddSalesActivity)
+                .setTitle("Konfirmasi")
+                .setMessage("Apakah yakin ?")
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    super.onBackPressed()
+                }
+                .setNegativeButton(android.R.string.cancel) { _, _ ->
+
+                }
+                .show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

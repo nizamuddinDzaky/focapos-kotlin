@@ -1,9 +1,8 @@
 package id.sisi.postoko.view.ui.sales
 
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import id.sisi.postoko.R

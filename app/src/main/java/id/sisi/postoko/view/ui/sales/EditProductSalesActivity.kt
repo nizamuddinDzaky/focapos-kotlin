@@ -24,7 +24,7 @@ class EditProductSalesActivity : AppCompatActivity() {
         toolbar_title.text = saleItem?.product_name?.toUpperCase(Locale.getDefault())
         et_qty_produk_edit_produk_sale.setText(saleItem?.quantity?.toInt().toString())
         et_unit_price_edit_produk_add_sale.setText(saleItem?.unit_price?.toInt().toString())
-        et_discount_edit_produk_add_sale.setText(saleItem?.discount.toString())
+        et_discount_edit_produk_add_sale.setText(saleItem?.discount?.toString())
 
         btn_edit_product_add_sale.setOnClickListener {
             val newSaleItems = setNewSaleItems()
@@ -39,7 +39,9 @@ class EditProductSalesActivity : AppCompatActivity() {
 
     private fun setNewSaleItems(): SaleItem {
         val newSaleItems = SaleItem()
-        newSaleItems.discount = et_discount_edit_produk_add_sale?.text?.toString()?.toInt()
+        if(et_discount_edit_produk_add_sale?.text?.toString() != "") {
+            newSaleItems.discount = et_discount_edit_produk_add_sale?.text?.toString()?.toInt()
+        }
         newSaleItems.unit_price = et_unit_price_edit_produk_add_sale?.text?.toString()?.toDouble()
         newSaleItems.quantity = et_qty_produk_edit_produk_sale?.text?.toString()?.toDouble()
         return newSaleItems

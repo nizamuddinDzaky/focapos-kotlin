@@ -40,7 +40,7 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
                 val date = " ${it.date.toDisplayDate()}"
                 itemView.tv_sales_date?.text = date
                 itemView.tv_sales_delevery_status?.text =
-                    itemView.context.getText(it.delivery_status.toDisplayStatus())
+                    it.delivery_status?.toDisplayStatus()?.let { it1 -> itemView.context.getText(it1) }
                 itemView.tv_sales_payment_status?.text =
                     itemView.context.getText(it.payment_status.toDisplayStatus())
                 itemView.tv_sales_total_price?.text = it.grand_total.toCurrencyID()

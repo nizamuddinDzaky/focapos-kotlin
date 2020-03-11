@@ -145,6 +145,8 @@
                     android:drawableStart="@drawable/ic_date_range_black_24dp"
                     android:drawableLeft="@drawable/ic_date_range_black_24dp"
                     android:drawablePadding="@dimen/et_top_margin"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/txt_hint_example_sales_number"
                     android:importantForAutofill="no"
                     android:inputType="none" />

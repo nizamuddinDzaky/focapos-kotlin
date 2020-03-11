@@ -1,9 +1,7 @@
 package id.sisi.postoko.view.ui.sales
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +17,11 @@ class DetailSalesBookingFragment : Fragment() {
 
     private lateinit var viewModel: SaleBookingViewModel
     private lateinit var adapter: ListDetailSalesBookingAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true);
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,6 +82,11 @@ class DetailSalesBookingFragment : Fragment() {
             tv_detail_sbo_supplier_address_2?.goneIfEmptyOrNull()
         })
         viewModel.requestDetailSale()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_edit_sale, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun setupUI() {

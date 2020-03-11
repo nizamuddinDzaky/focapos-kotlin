@@ -1,10 +1,14 @@
 package id.sisi.postoko.view.ui.delivery
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,22 +18,27 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemDeliveryAdapter
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Sales
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.MasterDetailViewModel
+import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
+class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeliveryAdapter.OnClickListenerInterface {
 
+    private val progressBar = CustomProgressBar()
     private lateinit var viewModel: AddDeliveryViewModel
     private lateinit var viewModelCustomer: MasterDetailViewModel
     var listener: () -> Unit = {}
     private lateinit var adapter: ListItemDeliveryAdapter
     private var customer: Customer? = null
-
+    private var sale: Sales? = null
+//    private var saleTmp: Sales? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,13 +46,14 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.fragment_bottom_sheet_add_delivery, container, false)
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.format(Date())
 
-        val sale = arguments?.getParcelable<Sales>("sale_booking")
+        this.sale = arguments?.getParcelable("sale_booking")
 
         viewModel = ViewModelProvider(
             this,
@@ -69,8 +79,48 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
         et_add_delivery_date?.setText(currentDate.toDisplayDate())
         et_add_delivery_date?.hint = currentDate.toDisplayDate()
         et_add_delivery_date?.tag = currentDate
+        et_add_delivery_date.setOnClickListener {
+
+            val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+            val date = if (et_add_delivery_date.tag == null){
+                inputDateFormat.format(Date())
+            }else{
+                et_add_delivery_date.tag.toString() + " 00:00:00"
+            }
+            val resultDate = inputDateFormat.parse(date)
+            val calendar: Calendar = GregorianCalendar()
+            resultDate?.let {
+                calendar.time = resultDate
+            }
+            val year = calendar[Calendar.YEAR]
+            val month = calendar[Calendar.MONTH]
+            val day = calendar[Calendar.DAY_OF_MONTH]
+
+            val dpd = context?.let { it1 ->
+                DatePickerDialog(
+                    it1,
+                    DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
+                        val parseDate =
+                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
+                        parseDate?.let {
+                            val selectedDate = inputDateFormat.format(parseDate)
+                            et_add_delivery_date.setText(selectedDate.toDisplayDate())
+                            et_add_delivery_date?.tag = selectedDate
+
+                        }
+                    },
+                    year,
+                    month,
+                    day
+                )
+            }
+            dpd?.show()
+        }
+
         et_add_delivery_reference_no?.setText(sale?.reference_no)
         adapter = ListItemDeliveryAdapter(sale?.saleItems)
+        adapter.listenerProduct = this
         rv_list_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_data?.setHasFixedSize(false)
         rv_list_data?.adapter = adapter
@@ -109,7 +159,8 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
 */
 
     private fun actionAddDelivery() {
-        val sale = arguments?.getParcelable<Sales>("sale_booking")
+        context?.let { progressBar.show(it, "Silakan tunggu...") }
+//        val sale = arguments?.getParcelable<Sales>("sale_booking")
 
         val saleItems = sale?.saleItems?.map {
             return@map mutableMapOf(
@@ -130,8 +181,37 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment() {
             "note" to (et_add_delivery_note?.text?.toString() ?: "")
         )
         viewModel.postAddDelivery(body) {
-            listener()
-            this.dismiss()
+            if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                this.dismiss()
+            }
+            Toast.makeText(context, ""+it["message"], Toast.LENGTH_SHORT).show()
+            progressBar.dialog.dismiss()
         }
+    }
+
+    override fun onClickPlus(qty: Double, position: Int) {
+        val saleTmp = (activity as? DetailSalesBookingActivity)?.tempSale
+
+        val quantity = sale?.saleItems?.get(position)?.quantity?.plus(1)
+        logE("nizamuddin :" + saleTmp?.saleItems?.toString())
+        if (quantity != null) {
+            if (quantity > saleTmp?.saleItems?.get(position)?.quantity!!){
+                AlertDialog.Builder(context)
+                    .setTitle("Konfirmasi")
+                    .setMessage("Quantity Melebihi yang di Pesan")
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                    }
+                    .show()
+            }else{
+                sale?.saleItems?.get(position)?.quantity = sale?.saleItems?.get(position)?.quantity?.plus(1)
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    override fun onClickMinus(qty: Double, position: Int) {
+//        val sale = arguments?.getParcelable<Sales>("sale_booking")
+        sale?.saleItems?.get(position)?.quantity = sale?.saleItems?.get(position)?.quantity?.minus(1)
+        adapter.notifyDataSetChanged()
     }
 }

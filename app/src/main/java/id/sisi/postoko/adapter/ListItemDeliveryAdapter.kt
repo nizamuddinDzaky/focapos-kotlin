@@ -11,10 +11,10 @@ import kotlinx.android.synthetic.main.list_item_add_delivery.view.*
 
 
 class ListItemDeliveryAdapter(
-    private var payments: List<SaleItem>? = listOf(),
-    var listener: (SaleItem?) -> Unit = {}
+    private var saleItem: List<SaleItem>? = listOf()
 ) : RecyclerView.Adapter<ListItemDeliveryAdapter.ProductViewHolder>(){
 
+    var listenerProduct: OnClickListenerInterface? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.list_item_add_delivery, parent, false)
@@ -23,26 +23,36 @@ class ListItemDeliveryAdapter(
     }
 
     override fun getItemCount(): Int {
-        return payments?.size ?: 0
+        return saleItem?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(payments?.get(position), listener)
+        holder.bind(saleItem?.get(position), listenerProduct, position)
     }
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(saleItem: SaleItem?, listener: (SaleItem?) -> Unit) {
+        fun bind(saleItem: SaleItem?, listenerProduct:OnClickListenerInterface?, position:Int) {
             saleItem?.let {
                 itemView.tv_sale_item_name?.text = it.product_name
                 itemView.tv_sale_item_qty?.text = it.quantity?.toNumberID()
                 val quantity = "${it.quantity?.toNumberID()} SAK"
                 itemView.tv_sale_item_qty_unit_name?.text = quantity
             }
-            itemView.setOnClickListener {
-                listener(saleItem)
+            itemView.iv_remove_product_delivery.setOnClickListener {
+                    saleItem?.quantity?.let { it1 -> listenerProduct?.onClickMinus(it1, position) }
+//                saleItem?.quantity?.let { it1 -> listenerProduct?.onClickMinus(it1, position) }
             }
+            itemView.iv_add_product_delivery.setOnClickListener {
+                saleItem?.quantity?.let { it1 -> listenerProduct?.onClickPlus(it1, position) }
+            }
+//            itemView.setOnClickListener {
+//                listener(saleItem)
+//            }
         }
     }
-
+    interface OnClickListenerInterface {
+        fun onClickPlus(qty: Double, position: Int)
+        fun onClickMinus(qty: Double, position: Int)
+    }
 }
