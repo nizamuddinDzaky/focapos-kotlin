@@ -114,6 +114,12 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataGoodsReceived>>
 
+    @GET("purchases/list_goods_received_paging")
+    fun getListGoodReceivedPaging(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataGoodsReceived>>
+
     @GET("purchases/detail_goods_received")
     fun getDetailGoodReceived(
         @HeaderMap headerMap: Map<String, String>,

@@ -5,6 +5,7 @@ import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListGoodReceivedAdapter
 import id.sisi.postoko.model.GoodReceived
@@ -20,6 +21,10 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
 
     private lateinit var viewModel: GoodReceivedViewModel
     private lateinit var adapter: ListGoodReceivedAdapter
+    private lateinit var layoutManager: LinearLayoutManager
+    private var isLoading = false
+    private var isLastPage = false
+    private var mPageSize = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,9 +92,28 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
 //            showBottomSheetDialog()
             showBottomSheetDialogFragment(it)
         }
-        rv_list_good_received?.layoutManager = LinearLayoutManager(this.context)
+        layoutManager = LinearLayoutManager(this.context)
+        rv_list_good_received?.layoutManager = layoutManager
         rv_list_good_received?.setHasFixedSize(false)
         rv_list_good_received?.adapter = adapter
+
+        //val listenerRecyclerView =
+        rv_list_good_received?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount: Int = layoutManager.getChildCount()
+                val totalItemCount: Int = layoutManager.getItemCount()
+                val firstVisibleItemPosition: Int = layoutManager.findFirstVisibleItemPosition()
+
+                if (!isLoading && !isLastPage) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount >= mPageSize) {
+
+                    }
+                }
+            }
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,6 +135,15 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
             else ->
                 super.onOptionsItemSelected(item)
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        removeListeners()
+    }
+
+    private fun removeListeners() {
+        rv_list_good_received?.clearOnScrollListeners()
     }
 
     companion object {
