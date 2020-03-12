@@ -358,5 +358,14 @@
                     tools:ignore="LabelFor" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/btn_confirmation_edit_sale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1CA865"
+            android:text="@string/txt_add"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 </ScrollView>

@@ -11,6 +11,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
@@ -18,9 +19,11 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_edit_sale.*
+import kotlinx.android.synthetic.main.content_add_sales.*
 import kotlinx.android.synthetic.main.content_edit_sale.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -35,6 +38,8 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     private lateinit var adapter: ListProductAddSalesAdapter
     private var sale: Sales? =null
     private var saleItem: ArrayList<SaleItem>? = null
+    private lateinit var viewModel: AddSalesViewModel
+    private val progressBar = CustomProgressBar()
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +50,11 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         supportActionBar?.title=null
         val bundle = intent.extras
         sale = bundle?.getParcelable("sale")!!
-        logE("nizamuddin : $sale")
         saleItem = bundle.getParcelableArrayList("sale_items")
+
+        viewModel = ViewModelProvider(
+            this
+        ).get(AddSalesViewModel::class.java)
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.parse(sale?.date)
@@ -144,7 +152,13 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         }
         rg_status_edit_sale?.check(rg_status_edit_sale?.get(idRadioGroupStatusSale)?.id ?: 0)
         saleItem?.let { setupRecycleView(it) }
+
+        btn_confirmation_edit_sale.setOnClickListener {
+            actionEditSale()
+        }
     }
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
@@ -214,12 +228,10 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
 
             }
             .show()
-        super.onBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home){
-//            finish()
             AlertDialog.Builder(this@EditSaleActivity)
                 .setTitle("Konfirmasi")
                 .setMessage("Apakah yakin ?")
@@ -286,5 +298,73 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             saleItem?.get(position)?.subtotal = si.unit_price?.times(si.quantity!!)
         }
         saleItem?.let { setupRecycleView(it) }
+    }
+
+    private fun actionEditSale() {
+        val numbersMap =  validationFormAddSale()
+        if (numbersMap["type"] as Boolean){
+            progressBar.show(this, "Silakan tunggu...")
+            val saleItems = saleItem?.map {
+                return@map mutableMapOf(
+                    "product_id" to it.product_id.toString(),
+                    "price" to it.unit_price.toString(),
+                    "quantity" to it.quantity
+                )
+            }
+
+            val body: MutableMap<String, Any?> = mutableMapOf(
+                "date" to (et_date_edit_sale?.tag?.toString() ?: ""),
+                "customer" to (idCustomer ?: ""),
+                "order_discount" to (et_discount_edit_sale?.text?.toString() ?: ""),
+                "shipping" to (et_shipping_edit_sale?.text?.toString() ?: ""),
+                "sale_status" to (rg_status_edit_sale?.tag?.toString() ?: ""),
+                "payment_term" to (et_payment_term_edit_sale?.text?.toString() ?: ""),
+                "staff_note" to (et_staff_note_edit_sale?.text?.toString() ?: ""),
+                "note" to (et_note_edit_sale?.text?.toString() ?: ""),
+                "products" to saleItems
+            )
+            sale?.id?.let { viewModel.setIdSalesBooking(it) }
+            viewModel.postEditSale(body){
+                progressBar.dialog.dismiss()
+                Toast.makeText(this, ""+it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    val returnIntent = Intent()
+                    returnIntent.putExtra("sale_status", rg_status_add_sale.tag.toString())
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                }
+            }
+        }else{
+            AlertDialog.Builder(this@EditSaleActivity)
+                .setTitle("Konfirmasi")
+                .setMessage(numbersMap["message"] as String)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                }
+                .show()
+        }
+    }
+
+    private fun validationFormAddSale(): Map<String, Any?> {
+        var message = ""
+        var cek = true
+        if (saleItem?.size!! < 1){
+            message += "- Product Item Tidak Boleh Kosong\n"
+            cek = false
+        }
+        if (idCustomer == null ){
+            message += "- Customer Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (rg_status_edit_sale?.tag?.toString() == ""){
+            message += "- Sale Status Tidak Boleh Kosong\n"
+            cek = false
+        }
+        if (et_date_edit_sale?.text?.toString() == ""){
+            message += "- Date Tidak Boleh Kosong"
+            cek = false
+        }
+
+        return mapOf("message" to message, "type" to cek)
     }
 }
