@@ -22,9 +22,6 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     private lateinit var viewModel: GRViewModel
     private lateinit var adapter: GRAdapter
     private lateinit var layoutManager: LinearLayoutManager
-    private var isLoading = false
-    private var isLastPage = false
-    private var mPageSize = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,12 +43,15 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        //viewModel = ViewModelProvider(this).get(GRViewModel::class.java)
         viewModel = ViewModelProvider(this, GRFactory(status.name)).get(GRViewModel::class.java)
     }
 
     private fun setupUI() {
         setupRecycleView()
+
+        swipeRefreshLayout?.setOnRefreshListener {
+            viewModel.requestRefreshListGR()
+        }
     }
 
     private fun setupRecycleView() {
@@ -68,7 +68,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
             adapter.submitList(it)
             actionCheckEmpty(it.size)
         })
-        viewModel.networkState.observe(viewLifecycleOwner, Observer {
+        viewModel.networkState?.observe(viewLifecycleOwner, Observer {
             logE("isi data state ${it}")
             if (it == NetworkState.FAILED && adapter.itemCount == 0) {
                 actionCheckEmpty(null)
@@ -90,6 +90,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
             layout_status_progress?.gone()
             rv_list_good_received?.visible()
         }
+        swipeRefreshLayout?.isRefreshing = false
     }
 
     private fun showBottomSheetDialogFragment(goodReceived: GoodReceived?) {
@@ -98,7 +99,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
         bundle.putParcelable("good_received", goodReceived)
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.listener = {
-//            viewModel.getListGoodReceived()
+            viewModel.requestRefreshListGR()
         }
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }

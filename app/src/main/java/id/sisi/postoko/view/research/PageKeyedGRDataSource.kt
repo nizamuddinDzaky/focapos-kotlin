@@ -14,13 +14,9 @@ class PageKeyedGRDataSource(private val api: ApiServices, private val status: St
     val networkState = MutableLiveData<NetworkState>()
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, GoodReceived>) {
-        // 今回は使ってない
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, GoodReceived>) {
-//        callAPI(params.key, params.requestedLoadSize) { repos, next ->
-//            callback.onResult(repos, next)
-//        }
         val page = params.key
         val numberOfItems = params.requestedLoadSize
         callAPI(page, page + 1, numberOfItems) { repos, next ->
@@ -32,9 +28,6 @@ class PageKeyedGRDataSource(private val api: ApiServices, private val status: St
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, GoodReceived>
     ) {
-//        callAPI(1, params.requestedLoadSize) { repos, next ->
-//            callback.onResult(repos, null, next)
-//        }
         val numberOfItems = params.requestedLoadSize
         callAPI(0, 1, numberOfItems) { repos, next ->
             callback.onResult(repos, null, next)
@@ -49,8 +42,6 @@ class PageKeyedGRDataSource(private val api: ApiServices, private val status: St
     ) {
         networkState.postValue(NetworkState.RUNNING)
 
-//        var state = NetworkState.RUNNING
-
         try {
             val countOffset = requestedPage * requestedLoadSize
 
@@ -64,15 +55,13 @@ class PageKeyedGRDataSource(private val api: ApiServices, private val status: St
 
             response.body()?.let {
                 callback(it.data?.list_goods_received ?: arrayListOf(), adjacentPage)
-//                state = NetworkState.SUCCESS
                 networkState.postValue(NetworkState.SUCCESS)
             }
         } catch (e: IOException) {
             logE("error broh ${e.message}")
-//            state = NetworkState.FAILED
             networkState.postValue(NetworkState.FAILED)
         }
 
-//        networkState.postValue(state)
+        networkState.postValue(NetworkState.FAILED)
     }
 }

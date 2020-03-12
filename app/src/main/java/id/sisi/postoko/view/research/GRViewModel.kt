@@ -18,12 +18,13 @@ class GRViewModel(var status: String) : ViewModel() {
         private const val PAGE_SIZE = 10
     }
 
-    val repos: LiveData<PagedList<GoodReceived>>
+    var repos: LiveData<PagedList<GoodReceived>>
 
-    val networkState: LiveData<NetworkState>
+    var networkState: LiveData<NetworkState>?
+
+    private val factory = GRSourceFactory(ApiServices.getInstance()!!, status)
 
     init {
-        val factory = GRSourceFactory(ApiServices.getInstance()!!, status)
         val config = PagedList.Config.Builder()
             .setPageSize(PAGE_SIZE)
             .setInitialLoadSizeHint(PAGE_SIZE * 2)
@@ -32,6 +33,10 @@ class GRViewModel(var status: String) : ViewModel() {
             .build()
 
         repos = LivePagedListBuilder(factory, config).build()
-        networkState = factory.source.networkState
+        networkState = factory.getListGoodReceived().value?.networkState
+    }
+
+    fun requestRefreshListGR() {
+        factory.listGoodReceived.value?.invalidate()
     }
 }
