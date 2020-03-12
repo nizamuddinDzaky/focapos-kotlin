@@ -1,5 +1,7 @@
 package id.sisi.postoko.model
 
+import com.google.gson.annotations.SerializedName
+
 data class BaseResponse<T>(
     var status: String?,
     var message: String?,
@@ -25,6 +27,8 @@ data class DataCustomer(
 
 data class DataWarehouse(
     var total_warehouses: Int?,
+    @SerializedName("detail_warehouses", alternate = ["detail_warehouse", "warehouse"])
+    var warehouse: Warehouse?,
     var list_warehouses: List<Warehouse>?
 )
 
