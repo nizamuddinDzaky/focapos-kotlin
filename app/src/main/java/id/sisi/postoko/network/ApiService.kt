@@ -66,6 +66,12 @@ interface ApiServices {
     @GET("suppliers/list_suppliers")
     fun getListSupplier(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataSupplier>>
 
+    @GET("suppliers/detail_suppliers")
+    fun getDetailSupplier(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any> = mapOf()
+    ): Call<BaseResponse<DataSupplier>>
+
     @GET("customers/list_customers")
     fun getListCustomer(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataCustomer>>
 

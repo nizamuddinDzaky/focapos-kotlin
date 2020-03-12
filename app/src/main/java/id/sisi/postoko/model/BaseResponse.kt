@@ -34,6 +34,8 @@ data class DataWarehouse(
 
 data class DataSupplier(
     var total_suppliers: Int?,
+    @SerializedName("detail_supplier", alternate = ["supplier"])
+    var supplier: Supplier?,
     var list_suppliers: List<Supplier>?
 )
 

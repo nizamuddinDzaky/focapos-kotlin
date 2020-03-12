@@ -66,8 +66,24 @@ class SaleBookingViewModel(var id: Int) : ViewModel() {
     }
 
     fun requestDetailSupplier(idSupplier: Int) {
-        mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        mutableMapOf(KEY_ID_SUPPLIERS to idSupplier.toString())
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_SUPPLIER to idSupplier.toString())
+        ApiServices.getInstance()?.getDetailSupplier(headers, params)?.exe(
+            onFailure = { _, _ ->
+                isExecute.postValue(false)
+                supplier.postValue(null)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    tryMe {
+                        supplier.postValue(response.body()?.data?.supplier)
+                    }
+                } else {
+                    isExecute.postValue(true)
+                }
+            }
+        )
     }
 
     fun requestDetailSale() {
