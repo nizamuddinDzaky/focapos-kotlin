@@ -16,6 +16,10 @@ inline fun <reified T> Gson.fromJson(context: Context, fileName: String): T {
     return fromJson<T>(json, object: TypeToken<T>() {}.type)
 }
 
+inline fun <reified T> String.json2obj(): T {
+    return Gson().fromJson<T>(this, object: TypeToken<T>() {}.type)
+}
+
 class JsonHelper(private val context: Context) {
 
     fun parsingFileToString(fileName: String): String? {

@@ -19,6 +19,14 @@ class CustomProgressBar {
 
     lateinit var dialog: Dialog
 
+    fun isShowing() = ::dialog.isInitialized && dialog.isShowing
+
+    fun dismiss() {
+        if (::dialog.isInitialized) {
+            dialog.dismiss()
+        }
+    }
+
     @SuppressLint("InflateParams")
     fun show(context: Context, title:CharSequence?): Dialog {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
