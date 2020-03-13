@@ -35,6 +35,8 @@ import java.util.*
 class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClickListenerInterface {
     var customer: Customer? = null
     private var idCustomer: String? = null
+    private var idWarehouse: String? = null
+
     private lateinit var adapter: ListProductAddSalesAdapter
     private var sale: Sales? =null
     private var saleItem: ArrayList<SaleItem>? = null
@@ -67,6 +69,7 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             et_shipping_edit_sale.setText(sale?.shipping.toString())
         if(sale?.payment_term != 0 )
             et_payment_term_edit_sale.setText(sale?.payment_term.toString())
+        idWarehouse = sale?.warehouse_id.toString()
 
         et_note_edit_sale.setText(sale?.note.toString())
         et_staff_note_edit_sale.setText(sale?.staff_note.toString())
@@ -315,6 +318,7 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             val body: MutableMap<String, Any?> = mutableMapOf(
                 "date" to (et_date_edit_sale?.tag?.toString() ?: ""),
                 "customer" to (idCustomer ?: ""),
+                "warehouse" to (idWarehouse ?: ""),
                 "order_discount" to (et_discount_edit_sale?.text?.toString() ?: ""),
                 "shipping" to (et_shipping_edit_sale?.text?.toString() ?: ""),
                 "sale_status" to (rg_status_edit_sale?.tag?.toString() ?: ""),
@@ -329,7 +333,7 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 Toast.makeText(this, ""+it["message"], Toast.LENGTH_SHORT).show()
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
                     val returnIntent = Intent()
-                    returnIntent.putExtra("sale_status", rg_status_add_sale.tag.toString())
+                    returnIntent.putExtra("sale_status", rg_status_edit_sale.tag.toString())
                     setResult(Activity.RESULT_OK, returnIntent)
                     finish()
                 }

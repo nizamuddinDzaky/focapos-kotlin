@@ -1,5 +1,7 @@
 package id.sisi.postoko.view.ui.sales
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -11,7 +13,6 @@ import id.sisi.postoko.adapter.ListDetailSalesBookingAdapter
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.detail_sales_booking_fragment.*
-import kotlinx.android.synthetic.main.fragment_sales_booking.*
 
 class DetailSalesBookingFragment : Fragment() {
 
@@ -20,7 +21,7 @@ class DetailSalesBookingFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -35,7 +36,6 @@ class DetailSalesBookingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
-        logE("detail sales booking id $idSalesBooking")
 
         setupUI()
 
@@ -92,15 +92,7 @@ class DetailSalesBookingFragment : Fragment() {
     private fun setupUI() {
         setupRecycleView()
         swipeRefreshLayoutDetailSales?.setOnRefreshListener {
-            viewModel.getDetailSale().observe(viewLifecycleOwner, Observer {
-                setupDetailSale(it)
-                it?.let {
-                    viewModel.requestDetailCustomer(it.customer_id)
-                    viewModel.requestDetailWarehouse(it.warehouse_id)
-                    viewModel.requestDetailSupplier(it.biller_id)
-                }
-            })
-//            viewModel.requestDetailCustomer()
+            viewModel.requestDetailSale()
         }
     }
 
@@ -125,5 +117,20 @@ class DetailSalesBookingFragment : Fragment() {
         rv_list_product_sales_booking?.layoutManager = LinearLayoutManager(this.context)
         rv_list_product_sales_booking?.setHasFixedSize(false)
         rv_list_product_sales_booking?.adapter = adapter
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        logE("nizam : masuk 3 $resultCode")
+        if (resultCode == Activity.RESULT_OK) {
+            if (::viewModel.isInitialized) {
+                viewModel.requestDetailSale()
+            }
+        }
+    }
+    companion object {
+        val TAG: String = ""
+        fun newInstance() =
+            DetailSalesBookingRootFragment()
     }
 }

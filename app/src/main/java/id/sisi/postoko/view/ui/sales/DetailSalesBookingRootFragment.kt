@@ -1,12 +1,15 @@
 package id.sisi.postoko.view.ui.sales
 
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.pager.DetailSalesBookingPagerAdapter
 import kotlinx.android.synthetic.main.fragment_root_detail_sales_booking.*
 
@@ -47,6 +50,15 @@ class DetailSalesBookingRootFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+//        val fragmen =(main_view_pager?.adapter as? DetailSalesBookingPagerAdapter)?.getpPosisition()
+//        logE("nizam : masuk 2 $fragmen")
+        main_view_pager.setCurrentItem(0)
+        (main_view_pager?.adapter as? DetailSalesBookingPagerAdapter)?.getCurrentFragment()
+            ?.onActivityResult(requestCode, resultCode, data)
     }
 
     companion object {

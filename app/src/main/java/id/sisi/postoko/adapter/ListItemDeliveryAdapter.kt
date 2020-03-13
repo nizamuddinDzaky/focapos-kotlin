@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.list_item_add_delivery.view.*
 
 
 class ListItemDeliveryAdapter(
-    private var saleItem: List<SaleItem>? = listOf()
+    private var saleItem: List<SaleItem>? = arrayListOf()
 ) : RecyclerView.Adapter<ListItemDeliveryAdapter.ProductViewHolder>(){
 
     var listenerProduct: OnClickListenerInterface? = null

@@ -204,6 +204,7 @@
                     android:layout_height="50dp"
                     android:importantForAutofill="no"
                     android:inputType="numberSigned"
+                    android:focusable="false"
                     tools:ignore="LabelFor" />
 
                 <TextView

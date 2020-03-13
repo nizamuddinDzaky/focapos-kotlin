@@ -17,13 +17,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemDeliveryAdapter
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.MasterDetailViewModel
-import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,7 +38,8 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     private lateinit var adapter: ListItemDeliveryAdapter
     private var customer: Customer? = null
     private var sale: Sales? = null
-//    private var saleTmp: Sales? = null
+    private var listSaleItems = ArrayList<SaleItem>()
+//    private var saleItemTemp: List<MutableMap<String, Double?>>? =  mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +54,10 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.format(Date())
 
-        this.sale = arguments?.getParcelable("sale_booking")
+        sale = arguments?.getParcelable("sale_booking")
+        for (x in 0 until sale?.saleItems?.size!!){
+            sale?.saleItems?.get(x)?.let { listSaleItems.add(it) }
+        }
 
         viewModel = ViewModelProvider(
             this,
@@ -119,18 +123,17 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         }
 
         et_add_delivery_reference_no?.setText(sale?.reference_no)
-        adapter = ListItemDeliveryAdapter(sale?.saleItems)
+
+        adapter = ListItemDeliveryAdapter(listSaleItems)
         adapter.listenerProduct = this
+
         rv_list_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_data?.setHasFixedSize(false)
         rv_list_data?.adapter = adapter
         btn_confirmation_add_delivery?.setOnClickListener {
             actionAddDelivery()
         }
-//        et_add_delivery_customer?.keyListener = null
-//        et_add_delivery_customer?.setOnClickListener {
-//            showSearchDialog()
-//        }
+
         for (i in 0 until (rg_add_delivery_status?.childCount ?: 0)) {
             (rg_add_delivery_status?.get(i) as? RadioButton)?.tag =
                 DeliveryStatus.values()[i].name.toLowerCase(
@@ -139,63 +142,65 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         }
         rg_add_delivery_status?.setOnCheckedChangeListener { radioGroup, i ->
             val radioButton = radioGroup.findViewById<RadioButton>(i)
-//            rg_add_delivery_status?.tag = radioButton.text
             rg_add_delivery_status?.tag = radioButton.tag
         }
         rg_add_delivery_status?.check(rg_add_delivery_status?.get(0)?.id ?: 0)
     }
 
-/*
-    private fun showSearchDialog() {
-        val dialogFragment = CustomerSearchDialogFragment()
-        val bundle = Bundle()
-        customers?.let {
-            bundle.putParcelableArrayList(KEY_CUSTOMER_DATA, ArrayList(it))
-        }
-        dialogFragment.arguments = bundle
-        dialogFragment.isCancelable = false
-        dialogFragment.show(childFragmentManager, dialogFragment.tag)
-    }
-*/
-
     private fun actionAddDelivery() {
-        context?.let { progressBar.show(it, "Silakan tunggu...") }
-//        val sale = arguments?.getParcelable<Sales>("sale_booking")
 
-        val saleItems = sale?.saleItems?.map {
-            return@map mutableMapOf(
-                "sale_items_id" to it.id.toString(),
-                "sent_quantity" to it.sent_quantity.toString()
-            )
-        }
-
-        val body = mutableMapOf(
-            "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
-            "sale_reference_no" to (et_add_delivery_reference_no?.text?.toString() ?: ""),
-            "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
-            "address" to (et_add_delivery_customer_address?.text?.toString() ?: ""),
-            "delivery_status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
-            "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
-            "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
-            "products" to saleItems,
-            "note" to (et_add_delivery_note?.text?.toString() ?: "")
-        )
-        viewModel.postAddDelivery(body) {
-            if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                this.dismiss()
+        val numbersMap =  validationFormAddDelivery()
+        if (numbersMap["type"] as Boolean) {
+            context?.let { progressBar.show(it, "Silakan tunggu...") }
+            val saleItems = listSaleItems.map {
+                return@map mutableMapOf(
+                    "sale_items_id" to it.id.toString(),
+                    "sent_quantity" to it.sent_quantity.toString()
+                )
             }
-            Toast.makeText(context, ""+it["message"], Toast.LENGTH_SHORT).show()
-            progressBar.dialog.dismiss()
+
+            val body = mutableMapOf(
+                "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
+                "sale_reference_no" to (et_add_delivery_reference_no?.text?.toString() ?: ""),
+                "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
+                "address" to (et_add_delivery_customer_address?.text?.toString() ?: ""),
+                "delivery_status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
+                "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
+                "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
+                "products" to saleItems,
+                "note" to (et_add_delivery_note?.text?.toString() ?: "")
+            )
+            viewModel.postAddDelivery(body) {
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    this.dismiss()
+                }
+                Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
+                progressBar.dialog.dismiss()
+            }
+        }else{
+            AlertDialog.Builder(context)
+                .setTitle("Konfirmasi")
+                .setMessage(numbersMap["message"] as String)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                }
+                .show()
         }
+    }
+
+    private fun validationFormAddDelivery(): Map<String, Any?> {
+        var message = ""
+        var cek = true
+        if (listSaleItems.size < 1){
+            message += "- Product Item Tidak Boleh Kosong\n"
+            cek = false
+        }
+        return mapOf("message" to message, "type" to cek)
     }
 
     override fun onClickPlus(qty: Double, position: Int) {
-        val saleTmp = (activity as? DetailSalesBookingActivity)?.tempSale
-
-        val quantity = sale?.saleItems?.get(position)?.quantity?.plus(1)
-        logE("nizamuddin :" + saleTmp?.saleItems?.toString())
+        val quantity = listSaleItems[position].quantity?.plus(1)
         if (quantity != null) {
-            if (quantity > saleTmp?.saleItems?.get(position)?.quantity!!){
+            if (quantity > sale?.saleItems?.get(position)?.quantity!!){
                 AlertDialog.Builder(context)
                     .setTitle("Konfirmasi")
                     .setMessage("Quantity Melebihi yang di Pesan")
@@ -203,15 +208,33 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                     }
                     .show()
             }else{
-                sale?.saleItems?.get(position)?.quantity = sale?.saleItems?.get(position)?.quantity?.plus(1)
+                listSaleItems[position].quantity = quantity
                 adapter.notifyDataSetChanged()
             }
         }
     }
 
     override fun onClickMinus(qty: Double, position: Int) {
-//        val sale = arguments?.getParcelable<Sales>("sale_booking")
-        sale?.saleItems?.get(position)?.quantity = sale?.saleItems?.get(position)?.quantity?.minus(1)
-        adapter.notifyDataSetChanged()
+        val quantity = listSaleItems[position].quantity?.minus(1.0)
+        if (quantity != null) {
+            if (quantity < 1){
+                AlertDialog.Builder(context)
+                    .setTitle("Konfirmasi")
+                    .setMessage("Apakah yakin ?")
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        listSaleItems[position].quantity = quantity
+                        listSaleItems.removeAt(position)
+                        adapter.notifyDataSetChanged()
+                    }
+                    .setNegativeButton(android.R.string.cancel) { _, _ ->
+                        adapter.notifyDataSetChanged()
+                    }
+                    .show()
+            }else{
+                listSaleItems[position].quantity = quantity
+                listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
 }

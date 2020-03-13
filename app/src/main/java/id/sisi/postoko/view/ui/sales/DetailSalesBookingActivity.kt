@@ -3,15 +3,14 @@ package id.sisi.postoko.view.ui.sales
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.extensions.logE
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class DetailSalesBookingActivity : AppCompatActivity(){
 
@@ -30,7 +29,8 @@ class DetailSalesBookingActivity : AppCompatActivity(){
             supportFragmentManager.beginTransaction()
                 .replace(
                     R.id.container,
-                    DetailSalesBookingRootFragment.newInstance()
+                    DetailSalesBookingRootFragment.newInstance(),
+                    "sales_root"
                 )
                 .commitNow()
         }
@@ -50,7 +50,7 @@ class DetailSalesBookingActivity : AppCompatActivity(){
                     intent.putExtra("sale", tempSale)
                     intent.putParcelableArrayListExtra("sale_items",
                         tempSale?.saleItems?.let { ArrayList(it) })
-                    startActivity(intent)
+                    startActivityForResult(intent, 1)
                 }
                 true
             }
@@ -58,4 +58,8 @@ class DetailSalesBookingActivity : AppCompatActivity(){
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        supportFragmentManager.findFragmentByTag("sales_root")?.onActivityResult(requestCode, resultCode, data)
+    }
 }

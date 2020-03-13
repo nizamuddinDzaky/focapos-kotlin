@@ -14,7 +14,14 @@ class DetailSalesBookingPagerAdapter (fm: FragmentManager):
         PaymentFragment(),
         DeliveryFragment()
     )
+    private var currentPosition: Int = 0
+
+    fun getCurrentFragment() = pages[currentPosition]
+
+    fun getpPosisition() :Int = currentPosition
+
     override fun getItem(position: Int): Fragment {
+        currentPosition = position
         return pages[position]
     }
 
