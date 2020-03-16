@@ -13,6 +13,8 @@
         android:gravity="center"
         android:text="@string/txt_add_delivery"
         android:textAlignment="center"
+        android:textColor="@color/colorTittleInput"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <View
@@ -43,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_date"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorNotSelect"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold" />
 
                 <EditText
@@ -72,14 +74,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_status"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorNotSelect"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold" />
 
                 <RadioGroup
                     android:id="@+id/rg_add_delivery_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -135,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_sales_reference_numbers"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorNotSelect"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold" />
 
                 <EditText
@@ -164,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_posted_by"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorNotSelect"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold" />
 
                 <EditText
@@ -191,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_received_by"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorNotSelect"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold" />
 
                 <EditText
@@ -218,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_customer_name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorNotSelect"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold" />
 
                 <EditText
@@ -246,7 +248,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_customer_address"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorNotSelect"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold" />
 
                 <EditText
@@ -293,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_note"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorNotSelect"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold" />
 
                 <EditText

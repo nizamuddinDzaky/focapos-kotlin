@@ -1,5 +1,7 @@
 package id.sisi.postoko.view.ui.payment
 
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +32,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.fragment_bottom_sheet_add_payment, container, false)
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,8 +52,49 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
                 logE("done")
             }
         })
-        tv_add_payment_date?.text = currentDate.toDisplayDate()
-        tv_add_payment_date?.tag = currentDate
+
+        et_add_payment_date?.setText(currentDate.toDisplayDate())
+        et_add_payment_date?.hint = currentDate.toDisplayDate()
+        et_add_payment_date?.tag = currentDate
+        et_add_payment_date.setOnClickListener {
+
+            val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+            val date = if (et_add_payment_date.tag == null){
+                inputDateFormat.format(Date())
+            }else{
+                et_add_payment_date.tag.toString() + " 00:00:00"
+            }
+            val resultDate = inputDateFormat.parse(date)
+            val calendar: Calendar = GregorianCalendar()
+            resultDate?.let {
+                calendar.time = resultDate
+            }
+            val year = calendar[Calendar.YEAR]
+            val month = calendar[Calendar.MONTH]
+            val day = calendar[Calendar.DAY_OF_MONTH]
+
+            val dpd = context?.let { it1 ->
+                DatePickerDialog(
+                    it1,
+                    DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
+                        val parseDate =
+                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
+                        parseDate?.let {
+                            val selectedDate = inputDateFormat.format(parseDate)
+                            et_add_payment_date.setText(selectedDate.toDisplayDate())
+                            et_add_payment_date?.tag = selectedDate
+
+                        }
+                    },
+                    year,
+                    month,
+                    day
+                )
+            }
+            dpd?.show()
+        }
+
         btn_confirmation_add_payment?.setOnClickListener {
             actionAddPayment()
         }
@@ -59,13 +103,13 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
     private fun actionAddPayment() {
         context?.let { progressBar.show(it, "Silakan tunggu...") }
         val body = mutableMapOf(
-            "date" to (tv_add_payment_date?.tag?.toString() ?: ""),
+            "date" to (et_add_payment_date?.tag?.toString() ?: ""),
             "amount_paid" to (et_add_payment_total?.text?.toString() ?: "0"),
             "note" to (et_add_payment_note?.text?.toString() ?: "")
         )
         viewModel.postAddPayment(body) {
-            logE("nizamuddin : "+it["networkRespone"])
             if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                listener()
                 this.dismiss()
             }
             Toast.makeText(context, ""+it["message"], Toast.LENGTH_SHORT).show()

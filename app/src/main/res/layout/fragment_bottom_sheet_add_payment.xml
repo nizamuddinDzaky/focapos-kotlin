@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="#676767"
+        android:textStyle="bold"
         android:text="@string/txt_add_payment"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -31,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_payment_type"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/colorNotSelect"
+            android:textColor="@color/colorTittleInput"
             android:textStyle="bold" />
 
         <TextView
@@ -56,17 +58,28 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_date"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/colorNotSelect"
+            android:textColor="@color/colorTittleInput"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_add_payment_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textStyle="bold"
-            tools:text="21 Feb 2020" />
+        <EditText
+            android:id="@+id/et_add_payment_date"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            tools:ignore="KeyboardInaccessibleWidget,LabelFor,TextFields" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_add_payment_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+<!--            android:textStyle="bold"-->
+<!--            tools:text="21 Feb 2020" />-->
 
     </LinearLayout>
 
@@ -81,7 +94,7 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_total_idr"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/colorNotSelect"
+            android:textColor="@color/colorTittleInput"
             android:textStyle="bold" />
 
         <EditText
@@ -109,7 +122,7 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_note"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/colorNotSelect"
+            android:textColor="@color/colorTittleInput"
             android:textStyle="bold" />
 
         <EditText
