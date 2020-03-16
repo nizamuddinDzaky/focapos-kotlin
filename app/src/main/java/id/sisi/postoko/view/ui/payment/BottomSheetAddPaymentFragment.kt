@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_payment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
-
+    private val progressBar = CustomProgressBar()
     lateinit var viewModel: AddPaymentViewModel
     var listener: () -> Unit = {}
 
@@ -54,14 +57,19 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
     }
 
     private fun actionAddPayment() {
+        context?.let { progressBar.show(it, "Silakan tunggu...") }
         val body = mutableMapOf(
             "date" to (tv_add_payment_date?.tag?.toString() ?: ""),
             "amount_paid" to (et_add_payment_total?.text?.toString() ?: "0"),
             "note" to (et_add_payment_note?.text?.toString() ?: "")
         )
         viewModel.postAddPayment(body) {
-            listener()
-            this.dismiss()
+            logE("nizamuddin : "+it["networkRespone"])
+            if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                this.dismiss()
+            }
+            Toast.makeText(context, ""+it["message"], Toast.LENGTH_SHORT).show()
+            progressBar.dialog.dismiss()
         }
     }
 }

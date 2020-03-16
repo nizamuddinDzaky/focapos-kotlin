@@ -126,6 +126,13 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataGoodsReceived>>
 
+    @PUT("sales_booking/edit_sales_booking")
+    fun putEditSales(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf(),
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
     companion object {
         private var retrofit: Retrofit? = null
 

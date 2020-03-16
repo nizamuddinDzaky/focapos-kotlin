@@ -85,15 +85,16 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/margin_15"
-                            android:layout_height="@dimen/margin_15"
+                            android:id="@+id/iv_add_product_delivery"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:contentDescription="@string/txt_image_plus"
                             android:src="@drawable/plus" />
 
                         <TextView
                             android:id="@+id/tv_sale_item_qty"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="24dp"
                             android:layout_marginStart="@dimen/et_top_margin"
                             android:layout_marginLeft="@dimen/et_top_margin"
                             android:layout_marginEnd="@dimen/et_top_margin"
@@ -104,8 +105,9 @@
                             tools:text="200" />
 
                         <ImageView
-                            android:layout_width="@dimen/margin_15"
-                            android:layout_height="@dimen/margin_15"
+                            android:id="@+id/iv_remove_product_delivery"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:contentDescription="@string/txt_image_minus"
                             android:src="@drawable/minus" />
                     </LinearLayout>

@@ -158,4 +158,7 @@
     <string name="txt_action_swipe_layout">Tarik ke bawah untuk memuat ulang</string>
     <string name="txt_nol_total_rupiah">Rp0</string>
     <string name="txt_warning_access_denied">Tidak diizinkan akses menu ini.</string>
+    <string name="title_activity_edit_sale">EditSaleActivity</string>
+    <string name="txt_edit_penjualan">Edit Penjualan</string>
+    <string name="txt_reason_edit_sale">Alasan edit/cancel Order</string>
 </resources>
