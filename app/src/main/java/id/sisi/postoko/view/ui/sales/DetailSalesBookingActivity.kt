@@ -7,13 +7,18 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
+import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.KEY_TAG_SALES_ROOT_FRAGMENT
+import id.sisi.postoko.view.ui.delivery.DeliveryStatus
 import java.util.*
 import kotlin.collections.ArrayList
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DetailSalesBookingActivity : AppCompatActivity(){
 
+    private var deliverStatusSale: String = ""
     var idSalesBooking: Int = 0
     var tempSale: Sales? = null
 
@@ -22,7 +27,7 @@ class DetailSalesBookingActivity : AppCompatActivity(){
         setContentView(R.layout.detail_sales_booking_activity)
 
         idSalesBooking = intent.getIntExtra(KEY_ID_SALES_BOOKING, 0)
-
+        deliverStatusSale = intent.getStringExtra(KEY_DELIVERY_STATUS_SALE)
         supportActionBar?.elevation = 0.0F
 
         if (savedInstanceState == null) {
@@ -30,7 +35,7 @@ class DetailSalesBookingActivity : AppCompatActivity(){
                 .replace(
                     R.id.container,
                     DetailSalesBookingRootFragment.newInstance(),
-                    "sales_root"
+                    KEY_TAG_SALES_ROOT_FRAGMENT
                 )
                 .commitNow()
         }
@@ -38,10 +43,11 @@ class DetailSalesBookingActivity : AppCompatActivity(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_edit_sale -> {
-                if (tempSale?.sale_status == SaleStatus.values()[1].name.toLowerCase(Locale.getDefault())){
+                val result =  validationActionEditSale()
+                if (!(result["type"] as Boolean)){
                     AlertDialog.Builder(this@DetailSalesBookingActivity)
                         .setTitle("Alert")
-                        .setMessage("Status sale reseved")
+                        .setMessage(result["message"] as String)
                         .setPositiveButton(android.R.string.ok) { _, _ ->
                         }
                         .show()
@@ -60,6 +66,21 @@ class DetailSalesBookingActivity : AppCompatActivity(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        supportFragmentManager.findFragmentByTag("sales_root")?.onActivityResult(requestCode, resultCode, data)
+        supportFragmentManager.findFragmentByTag(KEY_TAG_SALES_ROOT_FRAGMENT)?.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun validationActionEditSale(): Map<String, Any> {
+        var message = ""
+        var cek = true
+        if(tempSale?.sale_status == SaleStatus.values()[1].name.toLowerCase(Locale.getDefault())){
+            message += "- Status sale reseved\n"
+            cek = false
+        }
+        if(deliverStatusSale.toLowerCase(Locale.ROOT) != DeliveryStatus.PENDING.toString().toLowerCase(
+                Locale.ROOT)) {
+            message += "- Terdapat Delivery\n"
+            cek = false
+        }
+        return mapOf("message" to message, "type" to cek)
     }
 }

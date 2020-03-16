@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
+import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toCurrencyID
@@ -50,6 +51,7 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
                     logE("click action detail sales ${sale.id}")
                     val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
                     page.putExtra(KEY_ID_SALES_BOOKING, sale.id)
+                    page.putExtra(KEY_DELIVERY_STATUS_SALE, sale.delivery_status)
                     itemView.context.startActivity(page)
                 }
             }
