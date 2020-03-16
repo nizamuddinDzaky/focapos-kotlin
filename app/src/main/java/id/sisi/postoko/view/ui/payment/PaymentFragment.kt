@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.payment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ class PaymentFragment : Fragment(){
     private lateinit var viewModel: PaymentViewModel
     private lateinit var adapter: ListPaymentAdapter
     private var idSalesBooking = 0
+    private var totalPaid: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +40,6 @@ class PaymentFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
-        logE("payment sales booking id $idSalesBooking")
 
         setupUI()
 
@@ -48,6 +49,7 @@ class PaymentFragment : Fragment(){
         })
         viewModel.getListPayments().observe(viewLifecycleOwner, Observer {
             adapter.updateData(it)
+            totalPaid = sumTotalPaid(it)
             if (it?.size ?: 0 == 0) {
                 layout_status_progress?.visible()
                 rv_list_item_pembayaran?.gone()
@@ -61,6 +63,14 @@ class PaymentFragment : Fragment(){
                 rv_list_item_pembayaran?.visible()
             }
         })
+    }
+
+    private fun sumTotalPaid(it: List<Payment>?): Double {
+        var paid = 0.0
+        for (x in 0 until it?.size!!){
+            paid += it.get(x).amount
+        }
+        return paid
     }
 
     private fun setupUI() {
@@ -88,14 +98,24 @@ class PaymentFragment : Fragment(){
     }
 
     private fun showBottomSheetAddPayment(id_sales_booking: Int) {
-        val bottomSheetFragment = BottomSheetAddPaymentFragment()
-        val bundle = Bundle()
-        bundle.putInt(KEY_ID_SALES_BOOKING, id_sales_booking)
-        bottomSheetFragment.arguments = bundle
-        bottomSheetFragment.listener = {
-            viewModel.getListPayment()
+        val sale = (activity as? DetailSalesBookingActivity)?.tempSale
+        if(sale?.paid!! >= sale.grand_total){
+            AlertDialog.Builder(context)
+                .setTitle("Konfirmasi")
+                .setMessage("Jumlah Pembayaran Telah Mencukupi")
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                }
+                .show()
+        }else{
+            val bottomSheetFragment = BottomSheetAddPaymentFragment()
+            val bundle = Bundle()
+            bundle.putInt(KEY_ID_SALES_BOOKING, id_sales_booking)
+            bottomSheetFragment.arguments = bundle
+            bottomSheetFragment.listener = {
+                viewModel.getListPayment()
+            }
+            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
-        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
