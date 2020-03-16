@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
-import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
@@ -56,7 +55,9 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
 
     private fun setupRecycleView() {
         adapter = GRAdapter {
-            showBottomSheetDialogFragment(it)
+            BottomSheetAddGoodReceivedFragment.showBottomSheet(childFragmentManager, it) {
+                viewModel.requestRefreshListGR()
+            }
         }
         layoutManager = LinearLayoutManager(this.context)
         rv_list_good_received?.layoutManager = layoutManager
@@ -64,12 +65,10 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
         rv_list_good_received?.adapter = adapter
 
         viewModel.repos.observe(viewLifecycleOwner, Observer {
-            logE("isi data size ${it.size}")
             adapter.submitList(it)
             actionCheckEmpty(it.size)
         })
         viewModel.networkState?.observe(viewLifecycleOwner, Observer {
-            logE("isi data state ${it}")
             if (it == NetworkState.FAILED && adapter.itemCount == 0) {
                 actionCheckEmpty(null)
             }
@@ -91,17 +90,6 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
             rv_list_good_received?.visible()
         }
         swipeRefreshLayout?.isRefreshing = false
-    }
-
-    private fun showBottomSheetDialogFragment(goodReceived: GoodReceived?) {
-        val bottomSheetFragment = BottomSheetAddGoodReceivedFragment()
-        val bundle = Bundle()
-        bundle.putParcelable("good_received", goodReceived)
-        bottomSheetFragment.arguments = bundle
-        bottomSheetFragment.listener = {
-            viewModel.requestRefreshListGR()
-        }
-        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

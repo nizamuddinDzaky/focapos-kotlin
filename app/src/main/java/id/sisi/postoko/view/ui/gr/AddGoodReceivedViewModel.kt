@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.gr
 
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +15,7 @@ class AddGoodReceivedViewModel(private var idGoodsReceived: Int) : ViewModel() {
     private var _isExecute = MutableLiveData<Boolean>()
     private var _goodReceived = MutableLiveData<GoodReceived?>()
 
-    val gr: LiveData<GoodReceived> = _goodReceived as LiveData<GoodReceived>
+    val gr: LiveData<GoodReceived?> = _goodReceived
 
     fun postAddGoodReceived(body: Map<String, String> = mapOf(), listener: () -> Unit) {
         _isExecute.postValue(true)
@@ -57,6 +58,12 @@ class AddGoodReceivedViewModel(private var idGoodsReceived: Int) : ViewModel() {
                 }
             }
         )
+    }
+
+    fun startReceived(fragmentManager: FragmentManager) {
+        BottomSheetAddGoodReceivedFragment.showBottomSheet(fragmentManager, _goodReceived.value) {
+            requestDetailGoodReceived()
+        }
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {

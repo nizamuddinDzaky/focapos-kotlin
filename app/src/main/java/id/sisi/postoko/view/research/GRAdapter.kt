@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.GoodReceived
+import id.sisi.postoko.utils.KEY_GOOD_RECEIVED
 import id.sisi.postoko.utils.extensions.checkVisibility
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toDisplayDateFromDO
 import id.sisi.postoko.view.ui.gr.DetailGoodReceivedActivity
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import kotlinx.android.synthetic.main.list_item_gr.view.*
-import java.util.*
 
 class GRAdapter(private var listener: (GoodReceived?) -> Unit = {}) :
     PagedListAdapter<GoodReceived, GRAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -43,7 +43,7 @@ class GRAdapter(private var listener: (GoodReceived?) -> Unit = {}) :
             }
             itemView.setOnClickListener {
                 val page = Intent(itemView.context, DetailGoodReceivedActivity::class.java)
-                page.putExtra("good_received", goodReceived)
+                page.putExtra(KEY_GOOD_RECEIVED, goodReceived)
                 itemView.context.startActivity(page)
             }
             itemView.btn_action_receive_gr?.setOnClickListener {

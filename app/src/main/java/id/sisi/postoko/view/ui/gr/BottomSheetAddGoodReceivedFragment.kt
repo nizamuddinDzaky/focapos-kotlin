@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.model.GoodReceived
+import id.sisi.postoko.utils.KEY_GOOD_RECEIVED
 import id.sisi.postoko.utils.extensions.format
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toNumberID
@@ -31,7 +33,7 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val goodReceived = arguments?.getParcelable<GoodReceived>("good_received")
+        val goodReceived = arguments?.getParcelable<GoodReceived>(KEY_GOOD_RECEIVED)
 
         goodReceived?.let {
             viewModel = ViewModelProvider(this, AddGoodReceivedFactory(it.id?.toInt() ?: 0)).get(
@@ -41,7 +43,8 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
                 gr?.let {
                     tv_detail_good_received_name?.text = gr.nama_produk
                     tryMe {
-                        val price = (gr.grand_total?.toDouble() ?: 0.0).div(gr.qty_do?.toDouble() ?: 1.0)
+                        val price =
+                            (gr.grand_total?.toDouble() ?: 0.0).div(gr.qty_do?.toDouble() ?: 1.0)
                         tv_detail_good_received_price.text = price.toCurrencyID()
                         et_detail_good_received_new_price?.setText(price.format(0))
                     }
@@ -53,28 +56,34 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
             viewModel.requestDetailGoodReceived()
         }
 
-/*
-        goodReceived?.let {
-//            tv_detail_good_received_name?.text = it.
-//            tv_detail_good_received_price.text = it.pri
-            tv_detail_good_received_quantity?.text = it.qty_do
-            tv_detail_good_received_spj_no?.text = it.no_spj
-        }
-*/
-
         btn_confirmation_good_recieved?.setOnClickListener {
             actionAddGoodReceived()
         }
     }
 
     private fun actionAddGoodReceived() {
-//        val body = mutableMapOf(
-//            "price" to (et_detail_good_received_new_price?.text?.toString() ?: "0")
-//        )
-//        viewModel.postAddGoodReceived(body) {
-        viewModel.postAddGoodReceived {
+        val body = mutableMapOf<String, String>()
+        et_detail_good_received_new_price?.text?.let {
+            body["price"] = it.toString()
+        }
+        viewModel.postAddGoodReceived(body) {
             listener()
             this.dismiss()
+        }
+    }
+
+    companion object {
+        fun showBottomSheet(
+            fragmentManager: FragmentManager,
+            goodReceived: GoodReceived?,
+            listener: () -> Unit
+        ) {
+            val bottomSheetFragment = BottomSheetAddGoodReceivedFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(KEY_GOOD_RECEIVED, goodReceived)
+            bottomSheetFragment.arguments = bundle
+            bottomSheetFragment.listener = listener
+            bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
         }
     }
 }

@@ -6,6 +6,7 @@ const val KEY_ID_GOODS_RECEIVED = "id_goods_received"
 const val KEY_ID_WAREHOUSE = "id_warehouse"
 const val KEY_ID_SUPPLIER = "id_supplier"
 const val KEY_SALE_STATUS = "sale_status"
+const val KEY_GOOD_RECEIVED = "good_received"
 
 const val ROLE_SUPER_ADMIN = 2
 const val ROLE_WAREHOUSE_ADMIN = 8
