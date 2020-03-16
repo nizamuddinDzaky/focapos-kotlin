@@ -13,6 +13,7 @@ import id.sisi.postoko.utils.extensions.toDisplayDateFromDO
 import id.sisi.postoko.view.ui.gr.DetailGoodReceivedActivity
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.RECEIVED
 import kotlinx.android.synthetic.main.list_item_gr.view.*
 
 
@@ -20,34 +21,68 @@ class ListGoodReceivedAdapter(
     private var goodsReceived: List<GoodReceived>? = arrayListOf(),
     private var status: GoodReceiveStatus = DELIVERING,
     private var listener: (GoodReceived?) -> Unit = {}
-) : RecyclerView.Adapter<ListGoodReceivedAdapter.DetailGoodReceivedViewHolder>() {
+) : RecyclerView.Adapter<ListGoodReceivedAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailGoodReceivedViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_gr, parent, false)
+    companion object {
+        const val ITEM_VIEW_TYPE_CONTENT = 1
+        const val ITEM_VIEW_TYPE_LOADING = 2
+    }
 
-        return DetailGoodReceivedViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return when (viewType) {
+            ITEM_VIEW_TYPE_CONTENT -> DetailGoodReceivedViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_gr, parent, false)
+            )
+            else -> LoadingViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.list_item_data_loading, parent, false)
+            )
+        }
     }
 
     override fun getItemCount(): Int {
         return goodsReceived?.size ?: 0
     }
 
-    override fun onBindViewHolder(holder: DetailGoodReceivedViewHolder, position: Int) {
-        holder.bind(goodsReceived?.get(position), status, listener)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if (!isLastItem(position)) {
+            (holder as? DetailGoodReceivedViewHolder)?.bind(
+                goodsReceived?.get(position),
+                status,
+                listener
+            )
+        }
     }
 
-    class DetailGoodReceivedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    override fun getItemViewType(position: Int): Int {
+        if (goodsReceived?.size ?: 0 < 10) {
+            return ITEM_VIEW_TYPE_CONTENT
+        }
+        return if (isLastItem(position)) ITEM_VIEW_TYPE_LOADING else ITEM_VIEW_TYPE_CONTENT
+    }
 
-        fun bind(goodReceived: GoodReceived?, status: GoodReceiveStatus, listener: (GoodReceived?) -> Unit) {
+    private fun isLastItem(position: Int): Boolean {
+        return (goodsReceived?.size ?: 0 > 10) && goodsReceived?.size?.minus(1) == position
+    }
+
+    open class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    class LoadingViewHolder(itemView: View) : ViewHolder(itemView)
+
+    class DetailGoodReceivedViewHolder(itemView: View) : ViewHolder(itemView) {
+
+        fun bind(
+            goodReceived: GoodReceived?,
+            status: GoodReceiveStatus,
+            listener: (GoodReceived?) -> Unit
+        ) {
             goodReceived?.let {
                 itemView.tv_good_received_do_number?.text = it.no_do
                 itemView.tv_good_received_so_number?.text = it.no_so
                 itemView.tv_good_received_date?.text = it.tanggal_do?.toDisplayDateFromDO()
-                itemView.btn_action_receive_gr?.checkVisibility(status == DELIVERING)
+                itemView.btn_action_receive_gr?.checkVisibility(status != RECEIVED)
             }
             itemView.setOnClickListener {
-                logE("click action detail")
+                logE("click action detail $status")
                 val page = Intent(itemView.context, DetailGoodReceivedActivity::class.java)
                 page.putExtra("good_received", goodReceived)
                 itemView.context.startActivity(page)
@@ -60,7 +95,13 @@ class ListGoodReceivedAdapter(
     }
 
     fun updateGoodsReceivedData(newTransactionsData: List<GoodReceived>?) {
-        goodsReceived = newTransactionsData
+        val tempList = newTransactionsData?.toMutableList()
+        logE("isi sebelum ${tempList?.size}")
+        if (tempList?.size ?: 0 > 10) {
+            tempList?.add(GoodReceived())
+        }
+        goodsReceived = tempList
+        logE("isi sesudah ${goodsReceived?.size}")
         notifyDataSetChanged()
     }
 }

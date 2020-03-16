@@ -1,14 +1,10 @@
 package id.sisi.postoko.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import id.sisi.postoko.R
+import id.sisi.postoko.databinding.ListProductGoodReceivedBinding
 import id.sisi.postoko.model.PurchaseItem
-import id.sisi.postoko.utils.extensions.toCurrencyID
-import id.sisi.postoko.utils.extensions.toNumberID
-import kotlinx.android.synthetic.main.list_product_good_received.view.*
 
 class ListDetailProductGoodReceivedAdapter(private var purchasesItem: List<PurchaseItem>? = arrayListOf()) :
     RecyclerView.Adapter<ListDetailProductGoodReceivedAdapter.DetailProductGoodReceivedViewHolder>() {
@@ -17,11 +13,9 @@ class ListDetailProductGoodReceivedAdapter(private var purchasesItem: List<Purch
         parent: ViewGroup,
         viewType: Int
     ): DetailProductGoodReceivedViewHolder {
-        val view =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.list_product_good_received, parent, false)
-
-        return DetailProductGoodReceivedViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ListProductGoodReceivedBinding.inflate(layoutInflater)
+        return DetailProductGoodReceivedViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -29,20 +23,12 @@ class ListDetailProductGoodReceivedAdapter(private var purchasesItem: List<Purch
     }
 
     override fun onBindViewHolder(holder: DetailProductGoodReceivedViewHolder, position: Int) {
-        holder.bind(purchasesItem?.get(position))
+        holder.binding.purchaseItem = purchasesItem?.get(position)
+        holder.binding.executePendingBindings()
     }
 
-    class DetailProductGoodReceivedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(purchaseItem: PurchaseItem?) {
-            purchaseItem?.let {
-                itemView.tv_good_received_detail_item_product_name?.text = it.product_name
-                val quantity = "${it.quantity.toNumberID()} SAK"
-                itemView.tv_good_received_detail_item_quantity?.text = quantity
-                itemView.tv_good_received_detail_item_price?.text = it.unit_price.toCurrencyID()
-            }
-        }
-    }
+    class DetailProductGoodReceivedViewHolder(val binding: ListProductGoodReceivedBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     fun updatePurchasesItem(newPurchasesItem: List<PurchaseItem>?) {
         purchasesItem = newPurchasesItem

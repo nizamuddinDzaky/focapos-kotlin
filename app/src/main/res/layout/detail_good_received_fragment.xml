@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="vm"
+            name="adapter"
+            type="id.sisi.postoko.adapter.ListDetailProductGoodReceivedAdapter" />
+
+        <variable
+            name="fragmentManager"
+            type="androidx.fragment.app.FragmentManager" />
+
+        <variable
+            name="vModel"
             type="id.sisi.postoko.view.ui.gr.AddGoodReceivedViewModel" />
     </data>
 
@@ -55,9 +65,9 @@
                             android:id="@+id/tv_good_received_detail_from_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{vModel.gr.company_name}"
                             android:textColor="@color/colorBlack"
                             android:textStyle="bold"
-                            android:text="@{vm.gr.company_name}"
                             tools:text="Semen Gresik" />
 
                         <TextView
@@ -109,16 +119,16 @@
                             android:id="@+id/tv_good_received_detail_to_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{vModel.gr.distributor}"
                             android:textColor="@color/colorBlack"
                             android:textStyle="bold"
-                            android:text="@{vm.gr.distributor}"
                             tools:text="Helios Crop" />
 
                         <TextView
                             android:id="@+id/tv_good_received_detail_to_address_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{vm.gr.alamat_shipto}"
+                            android:text="@{vModel.gr.alamat_shipto}"
                             tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
                         <TextView
@@ -155,9 +165,9 @@
                         android:layout_marginStart="@dimen/margin_6"
                         android:layout_marginLeft="@dimen/margin_6"
                         android:layout_weight="1"
+                        android:text="@{vModel.getDetailGoodReceived().no_do}"
                         android:textColor="@color/colorBlack"
                         android:textStyle="bold"
-                        android:text="@{vm.getDetailGoodReceived().no_do}"
                         tools:text="088887627862" />
 
                     <TextView
@@ -182,6 +192,8 @@
                     android:layout_height="wrap_content"
                     android:background="#E5E5E5"
                     android:clipToPadding="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    bind:setAdapter="@{adapter}"
                     tools:itemCount="2"
                     tools:listitem="@layout/list_product_good_received" />
 
@@ -213,7 +225,7 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:textStyle="bold"
-                        app:currencyID="@{vm.gr.grand_total}"
+                        bind:currencyID="@{vModel.gr.grand_total}"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
 
@@ -262,6 +274,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vModel.gr.no_pp}"
                         tools:text="1000092928" />
 
                     <TextView
@@ -300,6 +313,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        bind:displayDateOnly="@{vModel.gr.tanggal_pp}"
                         tools:text="19/09/2020" />
 
                     <TextView
@@ -339,6 +353,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vModel.gr.no_so}"
                         tools:text="889920229283" />
 
                     <TextView
@@ -369,6 +384,7 @@
 
                     <TextView
                         android:id="@+id/tv_good_received_so_date"
+                        displayDateOnly="@{vModel.gr.tanggal_so}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10"
@@ -416,6 +432,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vModel.gr.no_transaksi}"
                         tools:text="889920229283" />
 
                     <TextView
@@ -455,6 +472,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vModel.gr.tipe_order}"
                         tools:text="ZOR" />
 
                     <TextView
@@ -500,6 +518,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vModel.gr.no_spj}"
                         tools:text="1000092928" />
 
                     <TextView
@@ -530,6 +549,7 @@
 
                     <TextView
                         android:id="@+id/tv_good_received_spj_date"
+                        displayDateOnly="@{vModel.gr.tanggal_spj}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10"
@@ -577,6 +597,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vModel.gr.no_polisi}"
                         tools:text="W 008 AB" />
 
                     <TextView
@@ -615,6 +636,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vModel.gr.nama_sopir}"
                         tools:text="SAIKUN" />
 
                     <TextView
@@ -654,6 +676,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vModel.gr.kode_plant}"
                         tools:text="5401" />
 
                     <TextView
@@ -694,6 +717,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:text="@{vModel.gr.nama_plant}"
                         tools:text="CP REMBANG" />
 
                     <TextView
@@ -717,9 +741,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/colorButtonScroll"
+            android:onClick="@{() -> vModel.startReceived(fragmentManager)}"
             android:text="@string/txt_receive"
             android:textAllCaps="true"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="gone"
+            bind:isReceived="@{vModel.gr.status_penerimaan}"
+            tools:visibility="visible" />
 
     </RelativeLayout>
 </layout>

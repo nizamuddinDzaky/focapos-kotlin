@@ -7,13 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListDetailProductGoodReceivedAdapter
 import id.sisi.postoko.databinding.DetailGoodReceivedFragmentBinding
-import id.sisi.postoko.utils.extensions.toCurrencyID
-import id.sisi.postoko.utils.extensions.toDisplayDateFromDO
-import kotlinx.android.synthetic.main.detail_good_received_fragment.*
 
 class DetailGoodReceivedFragment : Fragment() {
     companion object {
@@ -22,8 +18,8 @@ class DetailGoodReceivedFragment : Fragment() {
     }
 
     lateinit var viewModel: AddGoodReceivedViewModel
-    lateinit var viewBinding: DetailGoodReceivedFragmentBinding
-    private lateinit var adapter: ListDetailProductGoodReceivedAdapter
+    private lateinit var viewBinding: DetailGoodReceivedFragmentBinding
+    private var mAdapter = ListDetailProductGoodReceivedAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,23 +32,21 @@ class DetailGoodReceivedFragment : Fragment() {
             AddGoodReceivedViewModel::class.java
         )
         viewBinding = DetailGoodReceivedFragmentBinding.inflate(inflater, container, false).apply {
-            vm = viewModel
+            vModel = viewModel
+            adapter = mAdapter
+            fragmentManager = childFragmentManager
 
             lifecycleOwner = viewLifecycleOwner
         }
+        viewModel.getDetailGoodReceived().observe(viewLifecycleOwner, Observer {
+            mAdapter.updatePurchasesItem(it?.goodReceivedItems)
+        })
 
         return viewBinding.root
     }
 
     override fun onResume() {
         super.onResume()
-        viewBinding.vm?.requestDetailGoodReceived()
-    }
-
-    private fun setupRecycleView() {
-        adapter = ListDetailProductGoodReceivedAdapter()
-        rv_list_product_detail_good_received?.layoutManager = LinearLayoutManager(this.context)
-        rv_list_product_detail_good_received?.setHasFixedSize(false)
-        rv_list_product_detail_good_received?.adapter = adapter
+        viewBinding.vModel?.requestDetailGoodReceived()
     }
 }

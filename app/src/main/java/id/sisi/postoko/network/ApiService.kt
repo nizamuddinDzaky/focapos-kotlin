@@ -57,8 +57,20 @@ interface ApiServices {
     @GET("warehouses/list_warehouses")
     fun getListWarehouse(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataWarehouse>>
 
+    @GET("warehouses/detail_warehouses")
+    fun getDetailWarehouse(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any> = mapOf()
+    ): Call<BaseResponse<DataWarehouse>>
+
     @GET("suppliers/list_suppliers")
     fun getListSupplier(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataSupplier>>
+
+    @GET("suppliers/detail_suppliers")
+    fun getDetailSupplier(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any> = mapOf()
+    ): Call<BaseResponse<DataSupplier>>
 
     @GET("customers/list_customers")
     fun getListCustomer(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataCustomer>>
@@ -102,6 +114,12 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataGoodsReceived>>
 
+    @GET("purchases/list_goods_received_paging")
+    fun getListGoodReceivedPaging(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataGoodsReceived>>
+
     @GET("purchases/detail_goods_received")
     fun getDetailGoodReceived(
         @HeaderMap headerMap: Map<String, String>,
@@ -118,9 +136,9 @@ interface ApiServices {
     companion object {
         private var retrofit: Retrofit? = null
 
-        private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
+//        private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-//        private const val BASE_URL: String = "http://10.15.4.102:9090/api/v1/distributor/"
+        private const val BASE_URL: String = "http://10.15.4.102:9090/api/v1/distributor/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {

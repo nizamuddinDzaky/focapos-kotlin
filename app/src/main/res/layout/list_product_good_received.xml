@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+        <variable
+            name="purchaseItem"
+            type="id.sisi.postoko.model.PurchaseItem" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -13,91 +17,100 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_6"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="66dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:src="@drawable/dynamix"
-                android:contentDescription="@string/txt_image_cement" />
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/et_top_margin"
-                android:layout_marginLeft="@dimen/et_top_margin"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/margin_6"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="66dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:src="@drawable/dynamix"
+                    android:contentDescription="@string/txt_image_cement" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:layout_marginStart="@dimen/et_top_margin"
+                    android:layout_marginLeft="@dimen/et_top_margin"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
 
-                        <TextView
-                            android:id="@+id/tv_good_received_detail_item_product_name"
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_6"
-                            android:gravity="center_vertical"
-                            android:textAllCaps="true"
-                            android:textColor="#B20838"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="Dynamix Serbaguna 40KG" />
+                            android:layout_weight="0.7"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_good_received_detail_item_product_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:gravity="center_vertical"
+                                android:textAllCaps="true"
+                                android:textColor="#B20838"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:text="@{purchaseItem.product_name}"
+                                tools:text="Dynamix Serbaguna 40KG" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_90"
+                            android:layout_marginLeft="@dimen/margin_90"
+                            android:layout_weight="0.3"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_good_received_detail_item_quantity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:textColor="#666666"
+                                android:textSize="12sp"
+                                bind:quantitySak="@{purchaseItem.quantity}"
+                                tools:text="200 SAK" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tv_good_received_detail_item_price"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_90"
-                        android:layout_marginLeft="@dimen/margin_90"
-                        android:layout_weight="0.3"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_good_received_detail_item_quantity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_6"
-                            android:textColor="#666666"
-                            android:textSize="12sp"
-                            tools:text="200 SAK" />
-
-                    </LinearLayout>
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:gravity="center_vertical"
+                        android:textColor="#666666"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        bind:currencyID="@{purchaseItem.unit_price}"
+                        tools:text="Rp 10.000" />
 
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_good_received_detail_item_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:gravity="center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    tools:text="Rp 10.000" />
-
             </LinearLayout>
-        </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/line"
-            android:layout_marginTop="@dimen/margin_10"
-            android:background="@color/colorLine" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/colorLine" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
