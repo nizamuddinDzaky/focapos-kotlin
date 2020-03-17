@@ -157,7 +157,6 @@
     <string name="txt_master_data">Master</string>
     <string name="txt_action_swipe_layout">Tarik ke bawah untuk memuat ulang</string>
     <string name="txt_nol_total_rupiah">Rp0</string>
-<<<<<<<<< Temporary merge branch 1
     <string name="title_activity_edit_sale">EditSaleActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -169,7 +168,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="txt_edit_penjualan">Edit Penjualan</string>
     <string name="txt_reason_edit_sale">Alasan edit/cancel Order</string>
-=========
     <string name="txt_warning_access_denied">Tidak diizinkan akses menu ini.</string>
->>>>>>>>> Temporary merge branch 2
 </resources>
