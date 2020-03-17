@@ -4,5 +4,6 @@ enum class DeliveryStatus {
     PACKING,
     DELIVERING,
     DELIVERED,
-    RETURNED
+    RETURNED,
+    PENDING
 }

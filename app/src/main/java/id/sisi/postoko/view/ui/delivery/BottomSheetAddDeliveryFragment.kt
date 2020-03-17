@@ -38,8 +38,8 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     private lateinit var adapter: ListItemDeliveryAdapter
     private var customer: Customer? = null
     private var sale: Sales? = null
-    private var listSaleItems = ArrayList<SaleItem>()
-//    private var saleItemTemp: List<MutableMap<String, Double?>>? =  mutableListOf()
+    private var listSaleItems  = ArrayList<SaleItem>()
+    private var saleItemTemp: List<MutableMap<String, Double?>>? =  mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,6 +57,13 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         sale = arguments?.getParcelable("sale_booking")
         for (x in 0 until sale?.saleItems?.size!!){
             sale?.saleItems?.get(x)?.let { listSaleItems.add(it) }
+        }
+
+        saleItemTemp = listSaleItems.map {
+            return@map mutableMapOf(
+                "sale_items_id" to it.id?.toDouble(),
+                "sent_quantity" to it.quantity
+            )
         }
 
         viewModel = ViewModelProvider(
@@ -200,7 +207,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     override fun onClickPlus(qty: Double, position: Int) {
         val quantity = listSaleItems[position].quantity?.plus(1)
         if (quantity != null) {
-            if (quantity > sale?.saleItems?.get(position)?.quantity!!){
+            if (quantity > saleItemTemp?.get(position)?.get("sent_quantity")!!){
                 AlertDialog.Builder(context)
                     .setTitle("Konfirmasi")
                     .setMessage("Quantity Melebihi yang di Pesan")

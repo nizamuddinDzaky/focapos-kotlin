@@ -54,9 +54,6 @@ class DetailSalesBookingRootFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-//        val fragmen =(main_view_pager?.adapter as? DetailSalesBookingPagerAdapter)?.getpPosisition()
-//        logE("nizam : masuk 2 $fragmen")
-        main_view_pager.setCurrentItem(0)
         (main_view_pager?.adapter as? DetailSalesBookingPagerAdapter)?.getCurrentFragment()
             ?.onActivityResult(requestCode, resultCode, data)
     }
