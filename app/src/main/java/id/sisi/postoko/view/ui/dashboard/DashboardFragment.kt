@@ -1,6 +1,5 @@
 package id.sisi.postoko.view.ui.dashboard
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -8,11 +7,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
-import id.sisi.postoko.utils.extensions.*
+import id.sisi.postoko.utils.MySession
+import id.sisi.postoko.utils.extensions.isNotCashier
+import id.sisi.postoko.utils.extensions.isSuperAdmin
+import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.showToastAccessDenied
 import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.AccountViewModel
 import id.sisi.postoko.view.HomeActivity
-import id.sisi.postoko.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 
@@ -34,11 +36,7 @@ class DashboardFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_account_logout) {
-            MyApp.prefs.deleteLogout()
-            val page = Intent(context, MainActivity::class.java)
-            page.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(page)
-            activity?.finish()
+            MySession.logOut(activity)
         }
         return super.onOptionsItemSelected(item)
     }

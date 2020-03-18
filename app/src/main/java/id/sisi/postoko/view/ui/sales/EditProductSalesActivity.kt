@@ -4,14 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.model.SaleItem
+import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_edit_product_sales.*
 import kotlinx.android.synthetic.main.content_edit_product_sales.*
 import java.util.*
 
-class EditProductSalesActivity : AppCompatActivity() {
+class EditProductSalesActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +19,7 @@ class EditProductSalesActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val saleItem = intent?.getParcelableExtra<SaleItem>("sale_item")
-        val position : Int? = intent?.getIntExtra("position", 0)
+        val position: Int? = intent?.getIntExtra("position", 0)
 
         toolbar_title.text = saleItem?.product_name?.toUpperCase(Locale.getDefault())
         et_qty_produk_edit_produk_sale.setText(saleItem?.quantity?.toInt().toString())
@@ -39,7 +39,7 @@ class EditProductSalesActivity : AppCompatActivity() {
 
     private fun setNewSaleItems(): SaleItem {
         val newSaleItems = SaleItem()
-        if(et_discount_edit_produk_add_sale?.text?.toString() != "") {
+        if (et_discount_edit_produk_add_sale?.text?.toString() != "") {
             newSaleItems.discount = et_discount_edit_produk_add_sale?.text?.toString()?.toInt()
         }
         newSaleItems.unit_price = et_unit_price_edit_produk_add_sale?.text?.toString()?.toDouble()
@@ -48,7 +48,7 @@ class EditProductSalesActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home){
+        if (item.itemId == android.R.id.home) {
             finish()
         }
         return super.onOptionsItemSelected(item)

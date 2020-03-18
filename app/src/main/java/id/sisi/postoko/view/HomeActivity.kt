@@ -1,7 +1,6 @@
 package id.sisi.postoko.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.MyApp
@@ -10,7 +9,7 @@ import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.*
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
     private val mKeyPosition = "keyPosition"
     private val prefs: Prefs by lazy {
         Prefs(MyApp.instance)

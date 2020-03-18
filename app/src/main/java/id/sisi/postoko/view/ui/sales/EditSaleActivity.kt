@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,24 +20,25 @@ import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_edit_sale.*
-import kotlinx.android.synthetic.main.content_add_sales.*
 import kotlinx.android.synthetic.main.content_edit_sale.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NAME_SHADOWING",
+@Suppress(
+    "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NAME_SHADOWING",
     "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS"
 )
-class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClickListenerInterface {
+class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListenerInterface {
     var customer: Customer? = null
     private var idCustomer: String? = null
     private var idWarehouse: String? = null
 
     private lateinit var adapter: ListProductAddSalesAdapter
-    private var sale: Sales? =null
+    private var sale: Sales? = null
     private var saleItem: ArrayList<SaleItem>? = null
     private lateinit var viewModel: AddSalesViewModel
     private val progressBar = CustomProgressBar()
@@ -49,7 +49,7 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         setContentView(R.layout.activity_edit_sale)
         setSupportActionBar(toolbar_edit_sales)
 
-        supportActionBar?.title=null
+        supportActionBar?.title = null
         val bundle = intent.extras
         sale = bundle?.getParcelable("sale")!!
         saleItem = bundle.getParcelableArrayList("sale_items")
@@ -61,13 +61,13 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.parse(sale?.date)
         val strCurentDate = sdf.format(currentDate)
-        var idRadioGroupStatusSale =0
+        var idRadioGroupStatusSale = 0
 
-        if(sale?.order_discount != 0.0 )
+        if (sale?.order_discount != 0.0)
             et_discount_edit_sale.setText(sale?.order_discount.toString())
-        if(sale?.shipping != 0.0)
+        if (sale?.shipping != 0.0)
             et_shipping_edit_sale.setText(sale?.shipping.toString())
-        if(sale?.payment_term != 0 )
+        if (sale?.payment_term != 0)
             et_payment_term_edit_sale.setText(sale?.payment_term.toString())
         idWarehouse = sale?.warehouse_id.toString()
 
@@ -81,9 +81,9 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
 
             val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
-            val date = if (et_date_edit_sale.tag == null){
+            val date = if (et_date_edit_sale.tag == null) {
                 inputDateFormat.format(Date())
-            }else{
+            } else {
                 et_date_edit_sale.tag.toString() + " 00:00:00"
             }
             val resultDate = inputDateFormat.parse(date)
@@ -98,7 +98,8 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
             val dpd = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
-                    val parseDate = inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
+                    val parseDate =
+                        inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
                     parseDate?.let {
                         val selectedDate = inputDateFormat.format(parseDate)
                         et_date_edit_sale.setText(selectedDate.toDisplayDate())
@@ -113,7 +114,7 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
         }
 
         et_customer_edit_sale.setText(sale?.customer)
-        idCustomer= sale?.customer_id.toString()
+        idCustomer = sale?.customer_id.toString()
 
         et_customer_edit_sale.setOnClickListener { _ ->
             val dialogFragment = FragmentSearchCustomer()
@@ -145,7 +146,7 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 SaleStatus.values()[i].name.toLowerCase(
                     Locale.getDefault()
                 )
-            if (SaleStatus.values()[i].name.toLowerCase(Locale.getDefault()) == sale?.sale_status){
+            if (SaleStatus.values()[i].name.toLowerCase(Locale.getDefault()) == sale?.sale_status) {
                 idRadioGroupStatusSale = i
             }
         }
@@ -162,25 +163,25 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     }
 
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 setDataFromAddProduct(data as Intent)
             }
-        }else if(requestCode == 2){
+        } else if (requestCode == 2) {
             val position = data?.getIntExtra("position", 0)
             if (position != null) {
                 setDataFromUpdateProduct(data, position)
             }
-        }else {
+        } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
     override fun onClickPlus(qty: Double, position: Int) {
         saleItem?.get(position)?.quantity = saleItem?.get(position)?.quantity?.plus(1.0)
-        saleItem?.get(position)?.subtotal = saleItem?.get(position)?.quantity?.times(saleItem?.get(position)?.unit_price!!)
+        saleItem?.get(position)?.subtotal =
+            saleItem?.get(position)?.quantity?.times(saleItem?.get(position)?.unit_price!!)
         adapter.notifyDataSetChanged()
         sumTotal()
     }
@@ -188,7 +189,7 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     override fun onClickMinus(qty: Double, position: Int) {
         val quantity = saleItem?.get(position)?.quantity?.minus(1.0)
         if (quantity != null) {
-            if (quantity < 1){
+            if (quantity < 1) {
                 AlertDialog.Builder(this@EditSaleActivity)
                     .setTitle("Konfirmasi")
                     .setMessage("Apakah yakin ?")
@@ -203,9 +204,10 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                         sumTotal()
                     }
                     .show()
-            }else{
+            } else {
                 saleItem?.get(position)?.quantity = quantity
-                saleItem?.get(position)?.subtotal = saleItem?.get(position)?.quantity?.times(saleItem?.get(position)?.unit_price!!)
+                saleItem?.get(position)?.subtotal =
+                    saleItem?.get(position)?.quantity?.times(saleItem?.get(position)?.unit_price!!)
 
                 adapter.notifyDataSetChanged()
                 sumTotal()
@@ -234,7 +236,7 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home){
+        if (item.itemId == android.R.id.home) {
             AlertDialog.Builder(this@EditSaleActivity)
                 .setTitle("Konfirmasi")
                 .setMessage("Apakah yakin ?")
@@ -304,8 +306,8 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     }
 
     private fun actionEditSale() {
-        val numbersMap =  validationFormAddSale()
-        if (numbersMap["type"] as Boolean){
+        val numbersMap = validationFormAddSale()
+        if (numbersMap["type"] as Boolean) {
             progressBar.show(this, "Silakan tunggu...")
             val saleItems = saleItem?.map {
                 return@map mutableMapOf(
@@ -328,9 +330,9 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                 "products" to saleItems
             )
             sale?.id?.let { viewModel.setIdSalesBooking(it) }
-            viewModel.postEditSale(body){
+            viewModel.postEditSale(body) {
                 progressBar.dialog.dismiss()
-                Toast.makeText(this, ""+it["message"], Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
                     val returnIntent = Intent()
                     returnIntent.putExtra("sale_status", rg_status_edit_sale.tag.toString())
@@ -338,7 +340,7 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
                     finish()
                 }
             }
-        }else{
+        } else {
             AlertDialog.Builder(this@EditSaleActivity)
                 .setTitle("Konfirmasi")
                 .setMessage(numbersMap["message"] as String)
@@ -351,20 +353,20 @@ class EditSaleActivity : AppCompatActivity(), ListProductAddSalesAdapter.OnClick
     private fun validationFormAddSale(): Map<String, Any?> {
         var message = ""
         var cek = true
-        if (saleItem?.size!! < 1){
+        if (saleItem?.size!! < 1) {
             message += "- Product Item Tidak Boleh Kosong\n"
             cek = false
         }
-        if (idCustomer == null ){
+        if (idCustomer == null) {
             message += "- Customer Tidak Boleh Kosong\n"
             cek = false
         }
 
-        if (rg_status_edit_sale?.tag?.toString() == ""){
+        if (rg_status_edit_sale?.tag?.toString() == "") {
             message += "- Sale Status Tidak Boleh Kosong\n"
             cek = false
         }
-        if (et_date_edit_sale?.text?.toString() == ""){
+        if (et_date_edit_sale?.text?.toString() == "") {
             message += "- Date Tidak Boleh Kosong"
             cek = false
         }
