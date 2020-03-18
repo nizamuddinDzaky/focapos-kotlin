@@ -1,12 +1,12 @@
 package id.sisi.postoko.view.ui.gr
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.utils.KEY_GOOD_RECEIVED
+import id.sisi.postoko.view.BaseActivity
 
-class DetailGoodReceivedActivity : AppCompatActivity(){
+class DetailGoodReceivedActivity : BaseActivity() {
     var mGoodReceived: GoodReceived? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,8 @@ class DetailGoodReceivedActivity : AppCompatActivity(){
         if (savedInstanceState == null) {
             mGoodReceived = intent.getParcelableExtra(KEY_GOOD_RECEIVED)
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container,
+                .replace(
+                    R.id.container,
                     DetailGoodReceivedFragment.newInstance()
                 )
                 .commitNow()
