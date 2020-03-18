@@ -2,14 +2,39 @@ package id.sisi.postoko.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home3.*
 
 class HomeActivity : BaseActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home3)
+
+        setSupportActionBar(toolbar)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search_good, menu)
+
+        val item = menu?.findItem(R.id.menu_action_search)
+        search_view?.setMenuItem(item)
+
+        return true
+    }
+
+    fun hideBottomNavigation() {
+    }
+
+    fun changeView(menuSalesBooking: Int) {
+    }
+}
+class HomeActivity2 : BaseActivity() {
     private val mKeyPosition = "keyPosition"
     private val prefs: Prefs by lazy {
         Prefs(MyApp.instance)

@@ -22,7 +22,7 @@
         <activity
             android:name=".view.ui.sales.EditSaleActivity"
             android:label="@string/title_activity_edit_sale"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.sales.EditProductSalesActivity"
             android:label=""
@@ -47,7 +47,9 @@
         <activity
             android:name=".view.ui.delivery.DeliveryActivity"
             android:parentActivityName=".view.MainActivity" />
-        <activity android:name=".view.HomeActivity" />
+        <activity
+            android:name=".view.HomeActivity"
+            android:theme="@style/AppTheme.NoTitleBar" />
         <activity
             android:name=".view.MainActivity"
             android:noHistory="true"
