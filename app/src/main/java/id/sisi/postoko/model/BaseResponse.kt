@@ -73,3 +73,8 @@ data class DataDelivery(
     var total_deliveries_booking: Int?,
     var list_deliveries_booking: List<Delivery>?
 )
+
+data class DataDeliveryDetail(
+    var delivery: Delivery?,
+    var deliveryItem: List<DeliveryItem>
+)

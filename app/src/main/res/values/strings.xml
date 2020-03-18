@@ -157,7 +157,7 @@
     <string name="txt_master_data">Master</string>
     <string name="txt_action_swipe_layout">Tarik ke bawah untuk memuat ulang</string>
     <string name="txt_nol_total_rupiah">Rp0</string>
-
+    <string name="title_activity_edit_sale">EditSaleActivity</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>

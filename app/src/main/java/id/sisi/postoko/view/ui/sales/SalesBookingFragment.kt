@@ -11,8 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListSalesAdapter
+import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.ui.sales.SaleStatus.PENDING
+import kotlinx.android.synthetic.main.failed_load_data.*
 import kotlinx.android.synthetic.main.fragment_sales_booking.*
 
 class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
@@ -46,6 +49,18 @@ class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
         })
         viewModel.getListSales().observe(viewLifecycleOwner, Observer {
             adapter.updateSalesData(it)
+            if (it?.size ?: 0 == 0) {
+                layout_status_progress?.visible()
+                rv_list_sales?.gone()
+                val status = when(it?.size) {
+                    0 -> "Belum ada pembayaran"
+                    else -> "Gagal Memuat Data"
+                }
+                tv_status_progress?.text = status
+            } else {
+                layout_status_progress?.gone()
+                rv_list_sales?.visible()
+            }
         })
     }
 

@@ -133,6 +133,12 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
+    @GET("sales_booking/detail_deliveries")
+    fun getDetailDeliveries(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any> = mapOf()
+    ): Call<BaseResponse<DataDeliveryDetail>>
+
     companion object {
         private var retrofit: Retrofit? = null
 

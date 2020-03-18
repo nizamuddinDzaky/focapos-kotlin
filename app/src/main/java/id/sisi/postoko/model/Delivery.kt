@@ -1,6 +1,7 @@
 package id.sisi.postoko.model
 
 import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -34,4 +35,7 @@ data class Delivery(
     val updated_by: String
 //    val uuid: Any,
 //    val uuid_app: Any
-) : Parcelable
+) : Parcelable {
+    @IgnoredOnParcel
+    var deliveryItems: List<DeliveryItem>? = arrayListOf()
+}

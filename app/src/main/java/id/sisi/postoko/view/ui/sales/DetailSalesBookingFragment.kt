@@ -121,7 +121,6 @@ class DetailSalesBookingFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        logE("nizam : masuk 3 $resultCode")
         if (resultCode == Activity.RESULT_OK) {
             if (::viewModel.isInitialized) {
                 viewModel.requestDetailSale()
@@ -129,7 +128,7 @@ class DetailSalesBookingFragment : Fragment() {
         }
     }
     companion object {
-        val TAG: String = ""
+        const val TAG: String = ""
         fun newInstance() =
             DetailSalesBookingRootFragment()
     }

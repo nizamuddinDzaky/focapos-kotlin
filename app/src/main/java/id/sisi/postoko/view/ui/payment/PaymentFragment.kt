@@ -1,6 +1,5 @@
 package id.sisi.postoko.view.ui.payment
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import id.sisi.postoko.adapter.ListPaymentAdapter
 import id.sisi.postoko.model.Payment
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.failed_load_data.*
@@ -63,12 +61,23 @@ class PaymentFragment : Fragment(){
                 rv_list_item_pembayaran?.visible()
             }
         })
+
+    }
+
+    override fun onResume() {
+        val sale = (activity as? DetailSalesBookingActivity)?.tempSale
+        if(sale?.paid!! >= sale.grand_total){
+            fb_add_transaction.gone()
+        }else{
+            fb_add_transaction.visible()
+        }
+        super.onResume()
     }
 
     private fun sumTotalPaid(it: List<Payment>?): Double {
         var paid = 0.0
         for (x in 0 until it?.size!!){
-            paid += it.get(x).amount
+            paid += it[x].amount
         }
         return paid
     }
@@ -98,22 +107,21 @@ class PaymentFragment : Fragment(){
     }
 
     private fun showBottomSheetAddPayment(id_sales_booking: Int) {
-        val sale = (activity as? DetailSalesBookingActivity)?.tempSale
-        if(sale?.paid!! >= sale.grand_total){
-            AlertDialog.Builder(context)
-                .setTitle("Konfirmasi")
-                .setMessage("Jumlah Pembayaran Telah Mencukupi")
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
-        }else{
+//        if(totalPaid >= sale?.grand_total!!){
+//            AlertDialog.Builder(context)
+//                .setTitle("Konfirmasi")
+//                .setMessage("Jumlah Pembayaran Telah Mencukupi")
+//                .setPositiveButton(android.R.string.ok) { _, _ ->
+//                }
+//                .show()
+//        }else{
             val bottomSheetFragment = BottomSheetAddPaymentFragment()
             val bundle = Bundle()
             bundle.putInt(KEY_ID_SALES_BOOKING, id_sales_booking)
             bottomSheetFragment.arguments = bundle
             bottomSheetFragment.listener = {
                 viewModel.getListPayment()
-            }
+//            }
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
     }
