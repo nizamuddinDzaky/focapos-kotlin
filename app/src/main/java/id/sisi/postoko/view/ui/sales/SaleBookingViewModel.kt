@@ -11,8 +11,8 @@ import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.KEY_ID_SUPPLIER
-import id.sisi.postoko.utils.KEY_ID_WAREHOUSE
+import id.sisi.postoko.utils.KEY_ID_SUPPLIERS
+import id.sisi.postoko.utils.KEY_ID_WAREHOUSES
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.tryMe
 
@@ -46,7 +46,7 @@ class SaleBookingViewModel(var id: Int) : ViewModel() {
 
     fun requestDetailWarehouse(idWarehouse: Int) {
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf(KEY_ID_WAREHOUSE to idWarehouse.toString())
+        val params = mutableMapOf(KEY_ID_WAREHOUSES to idWarehouse.toString())
         ApiServices.getInstance()?.getDetailWarehouse(headers, params)?.exe(
             onFailure = { _, _ ->
                 isExecute.postValue(false)
@@ -67,7 +67,7 @@ class SaleBookingViewModel(var id: Int) : ViewModel() {
 
     fun requestDetailSupplier(idSupplier: Int) {
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf(KEY_ID_SUPPLIER to idSupplier.toString())
+        val params = mutableMapOf(KEY_ID_SUPPLIERS to idSupplier.toString())
         ApiServices.getInstance()?.getDetailSupplier(headers, params)?.exe(
             onFailure = { _, _ ->
                 isExecute.postValue(false)
