@@ -10,8 +10,10 @@ import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
+import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.ui.gr.BottomSheetAddGoodReceivedFragment
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.ALL
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.DELIVERING
 import kotlinx.android.synthetic.main.fragment_gr.*
 
@@ -93,12 +95,16 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
+        setHasOptionsMenu(status != ALL)
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_search_good, menu)
+
+        val item = menu.findItem(R.id.menu_action_search)
+        (activity as? HomeActivity)?.startSearch(item)
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 

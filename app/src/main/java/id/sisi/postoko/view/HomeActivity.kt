@@ -3,15 +3,19 @@ package id.sisi.postoko.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
+import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.*
+import id.sisi.postoko.view.research.GRFragment
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home3.*
 
-class HomeActivity : BaseActivity() {
+class HomeActivity2 : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home3)
@@ -34,19 +38,20 @@ class HomeActivity : BaseActivity() {
     fun changeView(menuSalesBooking: Int) {
     }
 }
-class HomeActivity2 : BaseActivity() {
+class HomeActivity : BaseActivity() {
     private val mKeyPosition = "keyPosition"
     private val prefs: Prefs by lazy {
         Prefs(MyApp.instance)
     }
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
+    private val grFragment = GRFragment(GoodReceiveStatus.ALL)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreSaveInstanceState(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_home3)
 
-        supportActionBar?.elevation = 0.0F
+        setSupportActionBar(toolbar)
 
         bottom_navigation?.apply {
             active(navPosition.position) // Extension function
@@ -57,11 +62,52 @@ class HomeActivity2 : BaseActivity() {
         }
 
         initFragment(savedInstanceState)
+        initSearch()
     }
 
     override fun onResume() {
         super.onResume()
         hideBottomNavigation()
+    }
+
+    fun startSearch(item: MenuItem) {
+        search_view?.setMenuItem(item)
+    }
+
+    private fun initSearch() {
+        search_view?.setOnQueryTextListener(object : MySearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+        })
+        search_view?.setOnSearchViewListener(object : MySearchView.SearchViewListener {
+            override fun onSearchViewShown() {
+                main_content_container?.gone()
+                search_container?.visible()
+                showSearch(true)
+            }
+
+            override fun onSearchViewClosed() {
+                search_container?.gone()
+                main_content_container?.visible()
+                showSearch(false)
+            }
+        })
+    }
+
+    fun showSearch(isShown: Boolean) {
+        if (isShown) {
+            if (grFragment.isAdded) return
+            supportFragmentManager.detachSearch()
+            supportFragmentManager.attachSearch(grFragment, "search")
+            supportFragmentManager.executePendingTransactions()
+        } else {
+            switchFragment(navPosition)
+        }
     }
 
     fun changeView(itemId: Int) {
