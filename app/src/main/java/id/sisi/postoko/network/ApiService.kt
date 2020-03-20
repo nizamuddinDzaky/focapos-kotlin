@@ -75,6 +75,12 @@ interface ApiServices {
     @GET("customers/list_customers")
     fun getListCustomer(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataCustomer>>
 
+    @GET("customers/customers_groups")
+    fun getListCustomerGroup(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataCustomerGroup>>
+
+    @GET("customers/price_groups")
+    fun getListPriceGroup(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataPriceGroup>>
+
     @GET("customers/detail_customers")
     fun getDetailCustomer(
         @HeaderMap headerMap: Map<String, Any>,

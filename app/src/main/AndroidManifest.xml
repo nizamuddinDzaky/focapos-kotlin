@@ -20,9 +20,17 @@
         android:theme="@style/AppTheme"
         tools:targetApi="n">
         <activity
+            android:name=".view.ui.customer.AddCustomerActivity"
+            android:label="@string/title_activity_add_customer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.ui.customer.DetailCustomerActivity"
+            android:label="@string/title_activity_customer_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".view.ui.sales.EditSaleActivity"
             android:label="@string/title_activity_edit_sale"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.sales.EditProductSalesActivity"
             android:label=""

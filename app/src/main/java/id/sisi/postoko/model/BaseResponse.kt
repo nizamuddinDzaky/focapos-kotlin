@@ -25,6 +25,16 @@ data class DataCustomer(
     var list_customers: List<Customer>?
 )
 
+data class DataCustomerGroup(
+    var total_supplier: Int?,
+    var customer_groups: List<CustomerGroup>?
+)
+
+data class DataPriceGroup(
+    var total_price_groups: Int?,
+    var price_groups: List<PriceGroup>?
+)
+
 data class DataWarehouse(
     var total_warehouses: Int?,
     @SerializedName("detail_warehouses", alternate = ["detail_warehouse", "warehouse"])

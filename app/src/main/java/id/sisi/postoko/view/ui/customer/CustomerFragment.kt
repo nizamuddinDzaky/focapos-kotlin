@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.customer
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +46,11 @@ class CustomerFragment : BaseFragment() {
         viewModel.getListCustomers().observe(viewLifecycleOwner, Observer {
             adapter.updateMasterData(it)
         })
+
+        viewModel.getListCustomer()
+        fb_add_master.setOnClickListener {
+            startActivityForResult(Intent(this.context, AddCustomerActivity::class.java), 2020)
+        }
     }
 
     private fun setupUI() {

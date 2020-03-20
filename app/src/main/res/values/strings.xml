@@ -168,4 +168,43 @@
     <string name="txt_edit_penjualan">Edit Penjualan</string>
     <string name="txt_reason_edit_sale">Alasan edit/cancel Order</string>
     <string name="txt_warning_access_denied">Tidak diizinkan akses menu ini.</string>
+    <string name="title_activity_customer_detail">CustomerDetailActivity</string>
+    <string name="txt_detail_customer">Detail Pelanggan</string>
+    <string name="txt_store_name">Nama Toko</string>
+    <string name="txt_customer_group">Kelompok Pelanggan</string>
+    <string name="txt_npwp">NPWP</string>
+    <string name="txt_deposit">Deposit</string>
+    <string name="txt_point_customer">Point Pelanggan</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_telp">Telp</string>
+    <string name="txt_district">Kabupaten/Kota</string>
+    <string name="txt_province">Provinsi</string>
+    <string name="txt_country">Negara</string>
+    <string name="txt_indonesia">Indonesia</string>
+    <string name="txt_customer_cf1">Palanggan Kustom Field 1</string>
+    <string name="txt_customer_cf2">Palanggan Kustom Field 2</string>
+    <string name="txt_customer_cf3">Palanggan Kustom Field 3</string>
+    <string name="txt_customer_cf4">Palanggan Kustom Field 4</string>
+    <string name="txt_customer_cf5">Palanggan Kustom Field 5</string>
+    <string name="title_activity_add_customer">AddCustomerActivity</string>
+    <string name="txt_add_customer">Tambah Pelanggan</string>
+    <string name="txt_company_name">Nama Perusahaan</string>
+    <string name="txt_price_group">Kelompok Harga / Price Group</string>
+    <string name="txt_kecamatan">Kecamatan</string>
+    <string name="txt_postal_code">Kode Pos</string>
+    <string name="txt_active">Aktif</string>
+    <string name="txt_inactive">Tidak Aktif</string>
+    <string name="txt_owner_customer">Nama Pemilik</string>
+    <string-array name="array_provinsi">
+        <item>NANGGROE ACEH DARUSSALAM</item>
+        <item>SUMATERA UTARA</item>
+    </string-array>
+    <string-array name="array_kabupaten">
+        <item>ACEH SINGKIL</item>
+        <item>PIDIE</item>
+    </string-array>
+    <string-array name="array_kecamatan">
+        <item>SINGKOHOR</item>
+        <item>LAWE ALAS</item>
+    </string-array>
 </resources>
