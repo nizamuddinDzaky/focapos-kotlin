@@ -232,7 +232,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
         val query: CharSequence? = mSearchSrcTextView!!.text
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener!!.onQueryTextSubmit(query.toString())) {
-                closeSearch()
+                closeSearch(false)
                 mSearchSrcTextView?.setText(null)
             }
         }
@@ -515,7 +515,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
     /**
      * Close search view.
      */
-    fun closeSearch() {
+    fun closeSearch(closeWindow: Boolean = true) {
         if (!isSearchOpen) {
             return
         }
@@ -523,7 +523,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
         dismissSuggestions()
         clearFocus()
         mSearchLayout!!.visibility = View.GONE
-        mSearchViewListener?.onSearchViewClosed()
+        if (closeWindow) mSearchViewListener?.onSearchViewClosed()
         isSearchOpen = false
     }
 

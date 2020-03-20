@@ -21,8 +21,8 @@ class GRViewModel(var filter: Map<String, String>) : ViewModel() {
     }
 
     var repos: LiveData<PagedList<GoodReceived>>
-
     var networkState: LiveData<NetworkState>?
+    private var tempFilter = MutableLiveData<Map<String, String>>()
 
     private val factory = GRSourceFactory(ApiServices.getInstance()!!, filter)
 
@@ -44,6 +44,11 @@ class GRViewModel(var filter: Map<String, String>) : ViewModel() {
 
     fun requestRefreshNewFilter(newFilter: Map<String, String>) {
         factory.filter = newFilter
+        val curFilter = tempFilter.value?.toMutableMap()
+        curFilter?.putAll(newFilter)
+        tempFilter.postValue(curFilter)
         factory.listGoodReceived.value?.invalidate()
     }
+
+    internal fun getFilter() = tempFilter
 }

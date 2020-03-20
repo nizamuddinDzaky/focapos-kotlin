@@ -25,6 +25,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     private lateinit var viewModel: GRViewModel
     private lateinit var adapter: GRAdapter
     private lateinit var layoutManager: LinearLayoutManager
+    private val mFilter = hashMapOf<String, String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +51,9 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
             ViewModelProvider(this, GRFactory(mutableMapOf(KEY_GR_STATUS to status.name))).get(
                 GRViewModel::class.java
             )
+        viewModel.getFilter().observe(viewLifecycleOwner, Observer {
+            //mFilter = it.toMutableMap()
+        })
     }
 
     private fun setupUI() {
@@ -62,7 +66,9 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
 
     fun testSearch(query: String) {
         adapter.submitList(null)
-        viewModel.requestRefreshNewFilter(mutableMapOf(KEY_SEARCH to query))
+
+        mFilter.put(KEY_SEARCH, query)
+        viewModel.requestRefreshNewFilter(mFilter)
     }
 
     private fun setupRecycleView() {
@@ -113,10 +119,28 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_search_good, menu)
 
+        //menu.findItem(R.id.menu_action_filter)?.isVisible = status == ALL
         val item = menu.findItem(R.id.menu_action_search)
         (activity as? HomeActivity)?.startSearch(item)
 
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    var i = 0
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return (when (item.itemId) {
+            R.id.menu_action_filter -> {
+//                viewModel.getFilter().value
+                mFilter[i++.toString()] = "tes$i"
+                viewModel.requestRefreshNewFilter(mFilter)
+                BottomSheetFilterFragment.show(childFragmentManager, mFilter) {
+                    viewModel.requestRefreshNewFilter(it.toMutableMap())
+                }
+                true
+            }
+            else ->
+                super.onOptionsItemSelected(item)
+        })
     }
 
     companion object {
