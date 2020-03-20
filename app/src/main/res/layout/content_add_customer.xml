@@ -173,7 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:importantForAutofill="no"
-                android:inputType="text"
+                android:inputType="number"
                 tools:ignore="LabelFor" />
 
             <TextView
@@ -275,13 +275,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:buttonTint="#B20838"
-                    android:text="@string/txt_active"
+                    android:text="@string/txt_inactive"
                     tools:targetApi="lollipop" />
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:buttonTint="#B20838"
-                    android:text="@string/txt_inactive"
+                    android:text="@string/txt_active"
                     tools:targetApi="lollipop" />
             </RadioGroup>
         </LinearLayout>

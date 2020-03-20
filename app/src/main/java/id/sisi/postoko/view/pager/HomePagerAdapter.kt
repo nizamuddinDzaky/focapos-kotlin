@@ -16,6 +16,9 @@ class HomePagerAdapter(fm: FragmentManager) :
         SupplierFragment(),
         WarehouseFragment()
     )
+    private var currentPosition: Int = 0
+
+    fun getCurrentFragment() = pages[currentPosition]
 
     override fun getItem(position: Int): Fragment {
         return pages[position]

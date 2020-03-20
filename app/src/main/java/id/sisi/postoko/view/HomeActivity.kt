@@ -81,6 +81,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        logE("fragment : ${findFragment(navPosition)}")
         findFragment(navPosition).onActivityResult(requestCode, resultCode, data)
     }
 

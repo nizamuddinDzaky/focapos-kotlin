@@ -1,22 +1,28 @@
 package id.sisi.postoko.view.ui.customer
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.tiper.MaterialSpinner
 import id.sisi.postoko.R
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.PriceGroup
-import id.sisi.postoko.model.Warehouse
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.logE
-
+import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.content_add_customer.*
-import java.util.ArrayList
+import java.util.*
 
 class AddCustomerActivity : AppCompatActivity() {
     private lateinit var viewModelCustomer: CustomerViewModel
@@ -26,6 +32,7 @@ class AddCustomerActivity : AppCompatActivity() {
     private var listPriceGroup: List<PriceGroup> = ArrayList()
     private var idCustomerGroup: String? = null
     private var idPriceGroup: String? = null
+    private val progressBar = CustomProgressBar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,15 +108,122 @@ class AddCustomerActivity : AppCompatActivity() {
         btn_confirmation_add_customer.setOnClickListener {
             actionAddCustomer()
         }
+
+        for (i in 0 until (rg_status_add_customer?.childCount ?: 0)) {
+            (rg_status_add_customer?.get(i) as? RadioButton)?.tag = i
+        }
+
+        rg_status_add_customer?.setOnCheckedChangeListener { radioGroup, i ->
+            val radioButton = radioGroup.findViewById<RadioButton>(i)
+            rg_status_add_customer?.tag = radioButton.tag
+        }
+        rg_status_add_customer?.check(rg_status_add_customer?.get(1)?.id ?: 0)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+            android.app.AlertDialog.Builder(this@AddCustomerActivity)
+                .setTitle("Konfirmasi")
+                .setMessage("Apakah yakin ?")
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    super.onBackPressed()
+                }
+                .setNegativeButton(android.R.string.cancel) { _, _ ->
+
+                }
+                .show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun actionAddCustomer() {
         val numbersMap =  validationFormAddCustomer()
+
+        if (numbersMap["type"] as Boolean){
+            progressBar.show(this, "Silakan tunggu...")
+
+            val body: MutableMap<String, Any> = mutableMapOf(
+                "name" to (et_name_add_customer?.text?.toString() ?: ""),
+                "email" to (et_email_add_customer?.text?.toString() ?: ""),
+                "customer_group_id" to (idCustomerGroup ?: ""),
+                "price_group_id" to (idPriceGroup ?: ""),
+                "company" to (et_company_name_add_customer?.text?.toString() ?: ""),
+                "address" to (et_address_add_customer?.text?.toString() ?: ""),
+                "vat_no" to (et_npwp_add_customer?.text?.toString() ?: ""),
+                "postal_code" to (et_postal_code_add_customer?.text?.toString() ?: ""),
+                "phone" to (et_phone_add_customer?.text?.toString() ?: ""),
+                "cf1" to (et_cf1_add_customer?.text?.toString() ?: ""),
+                "cf2" to (et_cf2_add_customer?.text?.toString() ?: ""),
+                "cf3" to (et_cf3_add_customer?.text?.toString() ?: ""),
+                "cf4" to (et_cf4_add_customer?.text?.toString() ?: ""),
+                "cf5" to (et_cf5_add_customer?.text?.toString() ?: ""),
+                "provinsi" to (sp_provinsi_group_add_customer?.selectedItem?.toString() ?: ""),
+                "kabupaten" to (sp_district_group_add_customer?.selectedItem?.toString() ?: ""),
+                "kecamatan" to (sp_city_group_add_customer?.selectedItem?.toString() ?: "")
+
+            )
+            viewModelCustomer.postAddCustomer(body){
+                progressBar.dialog.dismiss()
+                Toast.makeText(this, ""+it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    val returnIntent = Intent()
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                }
+            }
+        }else{
+            AlertDialog.Builder(this@AddCustomerActivity)
+                .setTitle("Konfirmasi")
+                .setMessage(numbersMap["message"] as String)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                }
+                .show()
+        }
     }
 
     private fun validationFormAddCustomer(): Map<String, Any?> {
         var message = ""
         var cek = true
+
+        if (et_company_name_add_customer?.text.toString() == ""){
+            message += "- Nama Perusahaan/Toko Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (et_name_add_customer?.text.toString() == ""){
+            message += "- Nama Pemilik Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (idCustomerGroup == null){
+            message += "- Customer Group Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (et_phone_add_customer?.text.toString() == ""){
+            message += "- No Telp Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (et_address_add_customer?.text.toString() == ""){
+            message += "- Alamat Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (sp_provinsi_group_add_customer?.selectedItem.toString() == ""){
+            message += "- Provinsi Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (sp_district_group_add_customer?.selectedItem.toString() == ""){
+            message += "- Kabupaten/Kota Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (sp_city_group_add_customer?.selectedItem.toString() == ""){
+            message += "- Kecamatan Tidak Boleh Kosong\n"
+            cek = false
+        }
 
         return mapOf("message" to message, "type" to cek)
     }

@@ -8,9 +8,9 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class CustomerViewModel : ViewModel() {
@@ -77,6 +77,26 @@ class CustomerViewModel : ViewModel() {
                     }
                 } else {
                     priceGroup.postValue(listOf())
+                }
+            }
+        )
+    }
+
+    fun postAddCustomer(body: Map<String, Any?>, listener: (Map<String, Any?>) -> Unit) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        ApiServices.getInstance()?.postCustomers(headers, body)?.exe(
+            onFailure = { _, _ ->
+                listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal"))
+                isExecute.postValue(true)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.body()?.message))
+                } else {
+                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.body()?.message))
+                    isExecute.postValue(true)
                 }
             }
         )
