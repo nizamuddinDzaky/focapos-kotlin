@@ -38,13 +38,14 @@ class HomeActivity2 : BaseActivity() {
     fun changeView(menuSalesBooking: Int) {
     }
 }
+
 class HomeActivity : BaseActivity() {
     private val mKeyPosition = "keyPosition"
     private val prefs: Prefs by lazy {
         Prefs(MyApp.instance)
     }
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
-    private val grFragment = GRFragment(GoodReceiveStatus.ALL)
+    private val grFragment: GRFragment? = GRFragment(GoodReceiveStatus.ALL)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +82,9 @@ class HomeActivity : BaseActivity() {
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
+                if (!p0.isNullOrEmpty() && p0.length > 2) {
+                    grFragment?.testSearch(p0)
+                }
                 return false
             }
         })
@@ -101,10 +105,12 @@ class HomeActivity : BaseActivity() {
 
     fun showSearch(isShown: Boolean) {
         if (isShown) {
-            if (grFragment.isAdded) return
-            supportFragmentManager.detachSearch()
-            supportFragmentManager.attachSearch(grFragment, "search")
-            supportFragmentManager.executePendingTransactions()
+            grFragment?.let {
+                if (it.isAdded) return
+                supportFragmentManager.detachSearch()
+                supportFragmentManager.attachSearch(it, "search")
+                supportFragmentManager.executePendingTransactions()
+            }
         } else {
             switchFragment(navPosition)
         }

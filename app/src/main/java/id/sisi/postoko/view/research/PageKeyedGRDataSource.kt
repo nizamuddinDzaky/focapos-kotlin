@@ -5,10 +5,12 @@ import androidx.paging.PageKeyedDataSource
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.utils.KEY_GR_STATUS
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import java.io.IOException
 
-class PageKeyedGRDataSource(private val api: ApiServices, private val status: String) :
+class PageKeyedGRDataSource(private val api: ApiServices, var filter: Map<String, String>) :
     PageKeyedDataSource<Int, GoodReceived>() {
 
     val networkState = MutableLiveData<NetworkState>()
@@ -40,6 +42,7 @@ class PageKeyedGRDataSource(private val api: ApiServices, private val status: St
         requestedLoadSize: Int,
         callback: (repos: List<GoodReceived>, next: Int?) -> Unit
     ) {
+        logE("networkState start")
         networkState.postValue(NetworkState.RUNNING)
 
         try {
@@ -50,8 +53,15 @@ class PageKeyedGRDataSource(private val api: ApiServices, private val status: St
                 "offset" to countOffset.toString(),
                 "limit" to requestedLoadSize.toString()
             )
-            params["goods_received_status"] = status
-            val response = api.getListGoodReceivedPaging(headers, params).execute()
+            if (filter.containsKey(KEY_GR_STATUS) && filter[KEY_GR_STATUS] != GoodReceiveStatus.ALL.name) {
+                params[KEY_GR_STATUS] = filter.getValue(KEY_GR_STATUS)
+            }
+            filter.entries.forEach {
+                if (it.key != KEY_GR_STATUS) {
+                    params[it.key] = it.value
+                }
+            }
+            val response = api.getListGoodReceived(headers, params).execute()
 
             response.body()?.let {
                 callback(it.data?.list_goods_received ?: arrayListOf(), adjacentPage)
@@ -62,6 +72,6 @@ class PageKeyedGRDataSource(private val api: ApiServices, private val status: St
             networkState.postValue(NetworkState.FAILED)
         }
 
-        networkState.postValue(NetworkState.FAILED)
+        //networkState.postValue(NetworkState.FAILED)
     }
 }

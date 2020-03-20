@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
+import id.sisi.postoko.utils.KEY_GR_STATUS
+import id.sisi.postoko.utils.KEY_SEARCH
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
@@ -44,21 +46,29 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this, GRFactory(status.name)).get(GRViewModel::class.java)
+        viewModel =
+            ViewModelProvider(this, GRFactory(mutableMapOf(KEY_GR_STATUS to status.name))).get(
+                GRViewModel::class.java
+            )
     }
 
     private fun setupUI() {
         setupRecycleView()
 
         swipeRefreshLayout?.setOnRefreshListener {
-            viewModel.requestRefreshListGR()
+            viewModel.requestRefreshNoFilter()
         }
+    }
+
+    fun testSearch(query: String) {
+        adapter.submitList(null)
+        viewModel.requestRefreshNewFilter(mutableMapOf(KEY_SEARCH to query))
     }
 
     private fun setupRecycleView() {
         adapter = GRAdapter {
             BottomSheetAddGoodReceivedFragment.showBottomSheet(childFragmentManager, it) {
-                viewModel.requestRefreshListGR()
+                viewModel.requestRefreshNoFilter()
             }
         }
         layoutManager = LinearLayoutManager(this.context)
@@ -71,6 +81,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
             actionCheckEmpty(it.size)
         })
         viewModel.networkState?.observe(viewLifecycleOwner, Observer {
+            logE("networkState $it")
             if (it == NetworkState.FAILED && adapter.itemCount == 0) {
                 actionCheckEmpty(null)
             }
@@ -79,7 +90,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     }
 
     private fun actionCheckEmpty(size: Int?) {
-        val status = when(size) {
+        val status = when (size) {
             0 -> "Belum ada transaksi"
             else -> "Gagal Memuat Data"
         }
@@ -106,17 +117,6 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
         (activity as? HomeActivity)?.startSearch(item)
 
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return (when (item.itemId) {
-            R.id.menu_action_search -> {
-                logE("tes")
-                true
-            }
-            else ->
-                super.onOptionsItemSelected(item)
-        })
     }
 
     companion object {
