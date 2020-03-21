@@ -1,15 +1,20 @@
 package id.sisi.postoko.view.ui.customer
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
+import id.sisi.postoko.model.Customer
 import id.sisi.postoko.utils.KEY_ID_CUSTOMER
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.MasterDetailViewModel
+import id.sisi.postoko.view.ui.sales.EditSaleActivity
 import kotlinx.android.synthetic.main.activity_customer_detail.*
 import kotlinx.android.synthetic.main.content_detail_customer.*
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
@@ -18,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 @Suppress("UNREACHABLE_CODE")
 class DetailCustomerActivity : AppCompatActivity() {
     var idCustomer: Int? = 0
+    var customer: Customer? = null
     private lateinit var viewModelCustomer: MasterDetailViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +34,9 @@ class DetailCustomerActivity : AppCompatActivity() {
         idCustomer = intent.getIntExtra(KEY_ID_CUSTOMER, 0)
         viewModelCustomer = ViewModelProvider(this).get(MasterDetailViewModel::class.java)
         viewModelCustomer.getDetailCustomer().observe(this, Observer {
+            if (it != null) {
+                customer = it
+            }
             tv_customer_name_header.text = it?.company
             tv_customer_name.text = it?.company
             tv_customer_customer_group.text = it?.group_name
@@ -50,5 +59,19 @@ class DetailCustomerActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_edit_sale, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_edit_sale -> {
+
+                val intent = Intent(this, EditCustomerActivity::class.java)
+                intent.putExtra("customer", customer)
+
+                startActivityForResult(intent, 1)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

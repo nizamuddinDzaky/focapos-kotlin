@@ -207,4 +207,6 @@
         <item>SINGKOHOR</item>
         <item>LAWE ALAS</item>
     </string-array>
+    <string name="title_activity_edit_customer">EditCustomerActivity</string>
+    <string name="txt_edit_customer">Edit Pelanggan</string>
 </resources>

@@ -50,7 +50,7 @@ class ListMasterAdapter<T>(private var masterData: List<T>? = arrayListOf()) : R
                     itemView.tv_master_data_description?.text = value.address
                     itemView.setOnClickListener {
                         val page = Intent(itemView.context, DetailCustomerActivity::class.java)
-                        page.putExtra(KEY_ID_CUSTOMER, value.id.toInt())
+                        page.putExtra(KEY_ID_CUSTOMER, value.id?.toInt())
                         itemView.context.startActivity(page)
                     }
                 }

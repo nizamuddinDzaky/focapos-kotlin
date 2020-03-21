@@ -95,7 +95,7 @@ class FragmentSearchCustomer : DialogFragment() {
     private fun startSearchData(query: String) {
         listCustomer?.let {
             val listSearchResult = listCustomer!!.filter {
-                it.company.contains(query, true) or it.address.contains(query, true)
+                it.company?.contains(query, true)!! or it.address?.contains(query, true)!!
             }
             setupUI(listSearchResult)
         }

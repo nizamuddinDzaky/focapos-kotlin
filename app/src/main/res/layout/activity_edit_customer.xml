@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.customer.DetailCustomerActivity">
+    tools:context=".view.ui.customer.EditCustomerActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -12,9 +12,10 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_detail_customer"
+            android:id="@+id/toolbar_edit_customer"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="#fff"
             app:navigationIcon="@drawable/back_arrow_foreground"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
@@ -23,14 +24,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/txt_detail_customer"
+                android:text="@string/txt_edit_customer"
                 android:textColor="#000"
                 android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_detail_customer" />
-
+    <include layout="@layout/content_edit_customer" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
