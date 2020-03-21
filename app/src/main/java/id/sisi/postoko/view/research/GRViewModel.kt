@@ -7,7 +7,6 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.network.ApiServices
-import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 
 enum class NetworkState {
     RUNNING,
@@ -15,14 +14,14 @@ enum class NetworkState {
     FAILED
 }
 
-class GRViewModel(var filter: Map<String, String>) : ViewModel() {
+class GRViewModel(var filter: HashMap<String, String>) : ViewModel() {
     companion object {
         private const val PAGE_SIZE = 10
     }
 
     var repos: LiveData<PagedList<GoodReceived>>
     var networkState: LiveData<NetworkState>?
-    private var tempFilter = MutableLiveData<Map<String, String>>()
+    private var tempFilter = MutableLiveData<HashMap<String, String>>()
 
     private val factory = GRSourceFactory(ApiServices.getInstance()!!, filter)
 
@@ -34,6 +33,7 @@ class GRViewModel(var filter: Map<String, String>) : ViewModel() {
             .setEnablePlaceholders(false)
             .build()
 
+        tempFilter.postValue(filter)
         repos = LivePagedListBuilder(factory, config).build()
         networkState = factory.getListGoodReceived().value?.networkState
     }
@@ -42,11 +42,9 @@ class GRViewModel(var filter: Map<String, String>) : ViewModel() {
         factory.listGoodReceived.value?.invalidate()
     }
 
-    fun requestRefreshNewFilter(newFilter: Map<String, String>) {
+    fun requestRefreshNewFilter(newFilter: HashMap<String, String>) {
         factory.filter = newFilter
-        val curFilter = tempFilter.value?.toMutableMap()
-        curFilter?.putAll(newFilter)
-        tempFilter.postValue(curFilter)
+        tempFilter.postValue(newFilter)
         factory.listGoodReceived.value?.invalidate()
     }
 

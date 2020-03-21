@@ -27,6 +27,8 @@
                 android:id="@+id/searchTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/action_filter"
+                android:layout_toLeftOf="@+id/action_filter"
                 android:background="@null"
                 android:hint="@string/menu_search"
                 android:imeOptions="actionSearch"
@@ -47,17 +49,24 @@
             <ImageButton
                 android:id="@+id/action_voice_btn"
                 style="@style/MSV_ImageButton"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_toStartOf="@+id/action_filter"
+                android:layout_toLeftOf="@+id/action_filter"
                 android:src="@drawable/ic_keyboard_voice_black_24dp" />
 
             <ImageButton
                 android:id="@+id/action_empty_btn"
                 style="@style/MSV_ImageButton"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_toStartOf="@+id/action_filter"
+                android:layout_toLeftOf="@+id/action_filter"
                 android:src="@drawable/ic_close_black_24dp"
                 android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/action_filter"
+                style="@style/MSV_ImageButton"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_filter_list_black_24dp" />
 
             <View
                 android:layout_width="match_parent"

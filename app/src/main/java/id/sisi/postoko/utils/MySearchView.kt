@@ -26,6 +26,7 @@ import android.widget.*
 import id.sisi.postoko.R
 
 import id.sisi.postoko.utils.extensions.logE
+import kotlinx.android.synthetic.main.search_view.view.*
 
 import java.lang.reflect.Field;
 
@@ -115,6 +116,9 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
 
     private fun initiateView() {
         LayoutInflater.from(mContext).inflate(R.layout.search_view, this, true)
+        action_filter?.setOnClickListener {
+            mSearchViewListener?.onFilter()
+        }
         mSearchLayout = findViewById(R.id.search_layout)
         mSearchTopBar = mSearchLayout?.findViewById(R.id.search_top_bar) as RelativeLayout
         mSuggestionsListView = mSearchLayout?.findViewById(R.id.suggestion_list) as ListView?
@@ -232,8 +236,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
         val query: CharSequence? = mSearchSrcTextView!!.text
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener!!.onQueryTextSubmit(query.toString())) {
-                closeSearch(false)
-                mSearchSrcTextView?.setText(null)
+                actionOnSubmit()
             }
         }
     }
@@ -527,6 +530,11 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
         isSearchOpen = false
     }
 
+    fun actionOnSubmit() {
+        dismissSuggestions()
+        clearFocus()
+    }
+
     /**
      * Set this listener to listen to Query Change events.
      *
@@ -619,7 +627,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
 
         companion object {
             //required field that makes Parcelables from a Parcel
-            val CREATOR: Creator<SavedState> =
+            @JvmField val CREATOR: Creator<SavedState> =
                 object : Creator<SavedState> {
                     override fun createFromParcel(`in`: Parcel): SavedState? {
                         return SavedState(`in`)
@@ -659,6 +667,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
     interface SearchViewListener {
         fun onSearchViewShown()
         fun onSearchViewClosed()
+        fun onFilter()
     }
 
     companion object {

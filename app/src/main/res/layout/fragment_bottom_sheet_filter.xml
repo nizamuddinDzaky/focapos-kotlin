@@ -17,7 +17,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginLeft="@dimen/standard_margin"
-            android:text="Batal"
+            android:text="Tutup"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/main_blue" />
 
@@ -54,6 +54,7 @@
         android:background="@color/colorBlack" />
 
     <LinearLayout
+        android:id="@+id/layout_delivery_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -256,8 +257,7 @@
                 <Spinner
                     android:id="@+id/spinner_sort_type"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/sorting_type" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 

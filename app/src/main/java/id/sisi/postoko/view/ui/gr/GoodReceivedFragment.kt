@@ -122,7 +122,7 @@ class GoodReceivedFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFra
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_search_good, menu)
+        inflater.inflate(R.menu.menu_search, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

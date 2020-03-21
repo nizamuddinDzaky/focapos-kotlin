@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.KEY_GR_STATUS
+import id.sisi.postoko.utils.KEY_IS_SEARCH
 import id.sisi.postoko.utils.KEY_SEARCH
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
-import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.ui.gr.BottomSheetAddGoodReceivedFragment
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus.ALL
@@ -25,7 +25,6 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     private lateinit var viewModel: GRViewModel
     private lateinit var adapter: GRAdapter
     private lateinit var layoutManager: LinearLayoutManager
-    private val mFilter = hashMapOf<String, String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,12 +47,9 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
 
     private fun setupViewModel() {
         viewModel =
-            ViewModelProvider(this, GRFactory(mutableMapOf(KEY_GR_STATUS to status.name))).get(
+            ViewModelProvider(this, GRFactory(hashMapOf(KEY_GR_STATUS to status.name))).get(
                 GRViewModel::class.java
             )
-        viewModel.getFilter().observe(viewLifecycleOwner, Observer {
-            //mFilter = it.toMutableMap()
-        })
     }
 
     private fun setupUI() {
@@ -64,11 +60,12 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
         }
     }
 
-    fun testSearch(query: String) {
+    fun submitQuerySearch(query: String) {
         adapter.submitList(null)
 
-        mFilter.put(KEY_SEARCH, query)
-        viewModel.requestRefreshNewFilter(mFilter)
+        val filter = viewModel.getFilter().value ?: hashMapOf()
+        filter[KEY_SEARCH] = query
+        viewModel.requestRefreshNewFilter(filter)
     }
 
     private fun setupRecycleView() {
@@ -117,30 +114,31 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_search_good, menu)
-
-        //menu.findItem(R.id.menu_action_filter)?.isVisible = status == ALL
-        val item = menu.findItem(R.id.menu_action_search)
-        (activity as? HomeActivity)?.startSearch(item)
-
+        inflater.inflate(R.menu.menu_filter, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    var i = 0
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when (item.itemId) {
             R.id.menu_action_filter -> {
-//                viewModel.getFilter().value
-                mFilter[i++.toString()] = "tes$i"
-                viewModel.requestRefreshNewFilter(mFilter)
-                BottomSheetFilterFragment.show(childFragmentManager, mFilter) {
-                    viewModel.requestRefreshNewFilter(it.toMutableMap())
-                }
+                showBottomSheetFilter()
                 true
             }
             else ->
                 super.onOptionsItemSelected(item)
         })
+    }
+
+    fun showBottomSheetFilter(isSearch: Boolean = false) {
+        val filter = viewModel.getFilter().value ?: hashMapOf()
+        if (isSearch) {
+            filter[KEY_IS_SEARCH] = ""
+        } else {
+            filter.remove(KEY_IS_SEARCH)
+        }
+        BottomSheetFilterFragment.show(childFragmentManager, filter) {
+            viewModel.requestRefreshNewFilter(it)
+        }
     }
 
     companion object {

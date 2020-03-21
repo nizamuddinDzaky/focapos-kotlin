@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 
-class GRFactory(private val mParam: Map<String, String>) :
+class GRFactory(private val mParam: HashMap<String, String>) :
     ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
