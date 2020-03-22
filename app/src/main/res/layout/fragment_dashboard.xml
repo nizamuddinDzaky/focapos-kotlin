@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".view.ui.dashboard.AccountFragment">
 
     <LinearLayout
@@ -28,59 +29,55 @@
             <View
                 android:id="@+id/layout_header2"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/header_profile"
+                android:layout_height="0dp"
                 android:background="@drawable/header_white_style"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_header1" />
 
             <ImageView
                 android:id="@+id/iv_header_avatar"
-                android:layout_width="@dimen/header_profile"
-                android:layout_height="@dimen/header_profile"
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginLeft="@dimen/standard_margin"
                 android:contentDescription="@string/txt_image_avatar"
                 android:src="@drawable/avatar_account"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_user_company_name"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginLeft="@dimen/standard_margin"
+                android:drawableEnd="@drawable/icon_edit"
+                android:drawableRight="@drawable/icon_edit"
+                android:drawablePadding="@dimen/et_top_margin"
+                android:ellipsize="end"
                 android:maxLines="1"
+                android:paddingEnd="@dimen/et_top_margin"
+                android:paddingRight="@dimen/et_top_margin"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintEnd_toStartOf="@id/iv_user_action_edit"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="@id/layout_header2"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/iv_header_avatar"
                 app:layout_constraintTop_toTopOf="@id/layout_header2"
+                tools:ignore="RtlSymmetry"
                 tools:text="PT SISI" />
 
             <TextView
                 android:id="@+id/tv_user_company_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="@id/layout_header2"
                 app:layout_constraintStart_toStartOf="@id/tv_user_company_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_user_company_name"
                 tools:text="Jawa Timur" />
-
-            <ImageView
-                android:id="@+id/iv_user_action_edit"
-                android:layout_width="@dimen/standard_margin"
-                android:layout_height="@dimen/standard_margin"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
-                android:src="@drawable/icon_edit"
-                app:layout_constraintBottom_toBottomOf="@id/tv_user_company_name"
-                app:layout_constraintEnd_toEndOf="@id/layout_header2"
-                app:layout_constraintStart_toEndOf="@id/tv_user_company_name"
-                app:layout_constraintTop_toTopOf="@id/tv_user_company_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,7 +106,7 @@
                     android:id="@+id/tv_dashboard_total_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2" />
+                    android:text="@string/txt_user" />
             </LinearLayout>
 
             <LinearLayout
@@ -129,7 +126,7 @@
                     android:id="@+id/tv_dashboard_total_warehouse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3" />
+                    android:text="@string/txt_warehouse" />
             </LinearLayout>
 
         </LinearLayout>
@@ -138,13 +135,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/bt_buy_margin"
-            android:background="@android:color/white"
-            android:padding="@dimen/et_top_margin">
+            android:background="@android:color/white">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/view_01"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@drawable/button_white_no_radius_style"
                 app:layout_constraintBottom_toTopOf="@+id/view_03"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toStartOf="@+id/view_02"
@@ -182,6 +179,7 @@
                 android:id="@+id/view_02"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@drawable/button_white_no_radius_style"
                 app:layout_constraintBottom_toTopOf="@+id/view_04"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -220,6 +218,7 @@
                 android:id="@+id/view_03"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@drawable/button_white_no_radius_style"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -258,6 +257,7 @@
                 android:id="@+id/view_04"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@drawable/button_white_no_radius_style"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintHorizontal_chainStyle="packed"

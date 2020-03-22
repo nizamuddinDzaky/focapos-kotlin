@@ -22,14 +22,14 @@
         <activity
             android:name=".view.ui.customer.EditCustomerActivity"
             android:label="@string/title_activity_edit_customer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.customer.AddCustomerActivity"
             android:label="@string/title_activity_add_customer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.customer.DetailCustomerActivity"
-            android:label="@string/title_activity_customer_detail"
+            android:label=""
             android:parentActivityName=".view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
