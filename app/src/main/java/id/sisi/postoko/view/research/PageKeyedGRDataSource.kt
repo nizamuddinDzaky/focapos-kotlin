@@ -6,14 +6,17 @@ import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.KEY_GR_STATUS
+import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import java.io.IOException
 
-class PageKeyedGRDataSource(private val api: ApiServices, var filter: Map<String, String>) :
+class PageKeyedGRDataSource(
+    private val api: ApiServices,
+    var filter: Map<String, String>,
+    var networkState: MutableLiveData<NetworkState>
+) :
     PageKeyedDataSource<Int, GoodReceived>() {
-
-    val networkState = MutableLiveData<NetworkState>()
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, GoodReceived>) {
     }
@@ -42,7 +45,6 @@ class PageKeyedGRDataSource(private val api: ApiServices, var filter: Map<String
         requestedLoadSize: Int,
         callback: (repos: List<GoodReceived>, next: Int?) -> Unit
     ) {
-        logE("networkState start")
         networkState.postValue(NetworkState.RUNNING)
 
         try {
@@ -67,11 +69,25 @@ class PageKeyedGRDataSource(private val api: ApiServices, var filter: Map<String
                 callback(it.data?.list_goods_received ?: arrayListOf(), adjacentPage)
                 networkState.postValue(NetworkState.SUCCESS)
             }
+            response.errorBody()?.let {
+                networkState.postValue(NetworkState.FAILED)
+            }
+/*
+            api.getListGoodReceived(headers, params).exe(
+                onFailure = { call, throwable ->
+                    networkState.postValue(NetworkState.FAILED)
+                },
+                onResponse = { call, response ->
+                    networkState.postValue(NetworkState.SUCCESS)
+                    response.body()?.let {
+                        callback(it.data?.list_goods_received ?: arrayListOf(), adjacentPage)
+                    }
+                }
+            )
+*/
         } catch (e: IOException) {
             logE("error broh ${e.message}")
             networkState.postValue(NetworkState.FAILED)
         }
-
-        //networkState.postValue(NetworkState.FAILED)
     }
 }

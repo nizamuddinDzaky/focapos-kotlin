@@ -10,8 +10,8 @@ android {
         applicationId "id.sisi.postoko"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 3
-        versionName "2.0.20200317"
+        versionCode 4
+        versionName "2.0.20200320"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

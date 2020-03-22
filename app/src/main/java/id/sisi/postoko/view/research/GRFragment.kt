@@ -31,6 +31,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setupViewModel()
         return inflater.inflate(R.layout.fragment_gr, container, false)
     }
 
@@ -41,7 +42,6 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setupViewModel()
         setupUI()
     }
 
@@ -82,8 +82,9 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
         viewModel.repos.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             actionCheckEmpty(it.size)
+            swipeRefreshLayout?.isRefreshing = false
         })
-        viewModel.networkState?.observe(viewLifecycleOwner, Observer {
+        viewModel.networkState.observe(viewLifecycleOwner, Observer {
             logE("networkState $it")
             if (it == NetworkState.FAILED && adapter.itemCount == 0) {
                 actionCheckEmpty(null)

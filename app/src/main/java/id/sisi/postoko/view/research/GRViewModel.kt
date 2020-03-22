@@ -20,10 +20,10 @@ class GRViewModel(var filter: HashMap<String, String>) : ViewModel() {
     }
 
     var repos: LiveData<PagedList<GoodReceived>>
-    var networkState: LiveData<NetworkState>?
+    var networkState = MutableLiveData<NetworkState>()
     private var tempFilter = MutableLiveData<HashMap<String, String>>()
 
-    private val factory = GRSourceFactory(ApiServices.getInstance()!!, filter)
+    private val factory = GRSourceFactory(ApiServices.getInstance()!!, filter, networkState)
 
     init {
         val config = PagedList.Config.Builder()
@@ -35,17 +35,16 @@ class GRViewModel(var filter: HashMap<String, String>) : ViewModel() {
 
         tempFilter.postValue(filter)
         repos = LivePagedListBuilder(factory, config).build()
-        networkState = factory.getListGoodReceived().value?.networkState
     }
 
     fun requestRefreshNoFilter() {
-        factory.listGoodReceived.value?.invalidate()
+        factory.getListGoodReceived().value?.invalidate()
     }
 
     fun requestRefreshNewFilter(newFilter: HashMap<String, String>) {
         factory.filter = newFilter
         tempFilter.postValue(newFilter)
-        factory.listGoodReceived.value?.invalidate()
+        factory.getListGoodReceived().value?.invalidate()
     }
 
     internal fun getFilter() = tempFilter
