@@ -77,11 +77,23 @@ interface ApiServices {
     @GET("customers/list_customers")
     fun getListCustomer(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataCustomer>>
 
+    @GET("customers/customers_groups")
+    fun getListCustomerGroup(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataCustomerGroup>>
+
+    @GET("customers/price_groups")
+    fun getListPriceGroup(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataPriceGroup>>
+
     @GET("customers/detail_customers")
     fun getDetailCustomer(
         @HeaderMap headerMap: Map<String, Any>,
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataCustomer>>
+
+    @POST("customers/add_customers")
+    fun postCustomers(
+        @HeaderMap headerMap: Map<String, String>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
 
     @GET("products/list_products")
     fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
@@ -134,6 +146,12 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
+
+    @GET("sales_booking/detail_deliveries")
+    fun getDetailDeliveries(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any> = mapOf()
+    ): Call<BaseResponse<DataDeliveryDetail>>
 
     companion object {
         private var retrofit: Retrofit? = null

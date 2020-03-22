@@ -1,5 +1,7 @@
 package id.sisi.postoko.view.ui.customer
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,12 +47,26 @@ class CustomerFragment : BaseFragment() {
         viewModel.getListCustomers().observe(viewLifecycleOwner, Observer {
             adapter.updateMasterData(it)
         })
+
+        viewModel.getListCustomer()
+        fb_add_master.setOnClickListener {
+            startActivityForResult(Intent(this.context, AddCustomerActivity::class.java), 2000)
+        }
     }
 
     private fun setupUI() {
         setupRecycleView()
         swipeRefreshLayoutMaster?.setOnRefreshListener {
             viewModel.getListCustomer()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (::viewModel.isInitialized) {
+                viewModel.getListCustomer()
+            }
         }
     }
 

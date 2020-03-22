@@ -38,7 +38,6 @@ class DeliveryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
-        logE("delivery sales booking id $idSalesBooking")
 
         setupUI()
 
@@ -51,6 +50,7 @@ class DeliveryFragment : Fragment() {
         })
         viewModel.getListDeliveries().observe(viewLifecycleOwner, Observer {
             adapter.updateData(it)
+            logE("nizamuddin : $it")
             if (it?.size ?: 0 == 0) {
                 layout_status_progress?.visible()
                 rv_list_item_pengiriman?.gone()
@@ -76,7 +76,7 @@ class DeliveryFragment : Fragment() {
     private fun setupRecycleView() {
         adapter = ListPengirimanAdapter {
             //TODO detail delivery
-            logE("delivery $it")
+
             showBottomSheetDetailDelivery(it)
         }
         rv_list_item_pengiriman?.layoutManager = LinearLayoutManager(this.context)
