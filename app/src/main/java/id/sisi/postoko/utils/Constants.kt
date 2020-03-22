@@ -9,6 +9,14 @@ const val KEY_SALE_STATUS = "sale_status"
 const val KEY_GOOD_RECEIVED = "good_received"
 const val KEY_DELIVERY_STATUS_SALE = "delivery_status_sale"
 const val KEY_TAG_SALES_ROOT_FRAGMENT = "sales_root_fragment"
+const val KEY_GR_STATUS = "goods_received_status"
+const val KEY_IS_SEARCH = "isSearch"
+const val KEY_SEARCH = "search"
+const val KEY_FILTER = "filter"
+const val KEY_SORT_BY = "sortBy"
+const val KEY_SORT_TYPE = "sortType"
+const val KEY_START_DATE = "start_date"
+const val KEY_END_DATE = "end_date"
 
 const val ROLE_SUPER_ADMIN = 2
 const val ROLE_WAREHOUSE_ADMIN = 8
