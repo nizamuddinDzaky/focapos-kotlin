@@ -137,6 +137,9 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
             filter.remove(KEY_IS_SEARCH)
         }
         BottomSheetFilterFragment.show(childFragmentManager, filter) {
+            if (status != ALL) {
+                it[KEY_GR_STATUS] = status.name
+            }
             viewModel.requestRefreshNewFilter(it)
         }
     }

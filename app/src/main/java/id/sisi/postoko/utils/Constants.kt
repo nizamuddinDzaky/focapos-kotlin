@@ -15,6 +15,8 @@ const val KEY_SEARCH = "search"
 const val KEY_FILTER = "filter"
 const val KEY_SORT_BY = "sortBy"
 const val KEY_SORT_TYPE = "sortType"
+const val KEY_START_DATE = "start_date"
+const val KEY_END_DATE = "end_date"
 
 const val ROLE_SUPER_ADMIN = 2
 const val ROLE_WAREHOUSE_ADMIN = 8
