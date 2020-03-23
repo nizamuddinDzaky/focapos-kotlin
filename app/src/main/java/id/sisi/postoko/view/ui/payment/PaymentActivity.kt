@@ -1,10 +1,10 @@
 package id.sisi.postoko.view.ui.payment
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
+import id.sisi.postoko.view.BaseActivity
 
-class PaymentActivity : AppCompatActivity(){
+class PaymentActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pembayaran_activity)

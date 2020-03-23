@@ -1,11 +1,11 @@
 package id.sisi.postoko.view.ui.payment
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.view.BaseActivity
 
-class DetailPaymentActivity : AppCompatActivity(){
+class DetailPaymentActivity : BaseActivity() {
 
     private var idSalesBooking: Int = 0
 

@@ -1,28 +1,34 @@
 package id.sisi.postoko.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
+import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.*
+import id.sisi.postoko.view.research.GRFragment
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home3.*
 
-class HomeActivity : AppCompatActivity() {
+
+class HomeActivity : BaseActivity() {
     private val mKeyPosition = "keyPosition"
     private val prefs: Prefs by lazy {
         Prefs(MyApp.instance)
     }
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
+    val grFragment: GRFragment? = GRFragment(GoodReceiveStatus.ALL)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreSaveInstanceState(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_home3)
 
-        supportActionBar?.elevation = 0.0F
+        setSupportActionBar(toolbar)
 
         bottom_navigation?.apply {
             active(navPosition.position) // Extension function
@@ -33,11 +39,63 @@ class HomeActivity : AppCompatActivity() {
         }
 
         initFragment(savedInstanceState)
+        initSearch()
     }
 
     override fun onResume() {
         super.onResume()
         hideBottomNavigation()
+    }
+
+    fun assignActionSearch(item: MenuItem) {
+        search_view?.setMenuItem(item)
+    }
+
+    private fun isSearchViewActive() = search_container.visibility == android.view.View.VISIBLE
+
+    private fun initSearch() {
+        search_view?.setOnQueryTextListener(object : MySearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    grFragment?.submitQuerySearch(newText)
+                }
+                return false
+            }
+        })
+        search_view?.setOnSearchViewListener(object : MySearchView.SearchViewListener {
+            override fun onSearchViewShown() {
+                showSearch(true)
+            }
+
+            override fun onSearchViewClosed() {
+                showSearch(false)
+            }
+
+            override fun onFilter() {
+                grFragment?.showBottomSheetFilter(true)
+            }
+        })
+    }
+
+    fun showSearch(isShown: Boolean) {
+        if (isShown) {
+            main_content_container?.gone()
+            search_container?.visible()
+            grFragment?.let {
+                if (it.isAdded) return
+                supportFragmentManager.detachSearch()
+                supportFragmentManager.attachSearch(it, "search")
+                supportFragmentManager.executePendingTransactions()
+            }
+        } else {
+            search_container?.gone()
+            main_content_container?.visible()
+            switchFragment(navPosition)
+        }
     }
 
     fun changeView(itemId: Int) {
@@ -52,7 +110,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        moveTaskToBack(false)
+        if (isSearchViewActive()) {
+            search_view?.closeSearch()
+        } else {
+            moveTaskToBack(false)
+        }
     }
 
     private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
@@ -86,12 +148,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun hideBottomNavigation() {
-        if (id.sisi.postoko.BuildConfig.DEBUG) {
-            val roleId = prefs.posRoleId ?: 0
-            bottom_navigation?.menu?.findItem(R.id.menu_master_data)?.isVisible =
-                roleId.isSuperAdmin()
-            bottom_navigation?.menu?.findItem(R.id.menu_good_receive)?.isVisible =
-                roleId.isNotCashier()
-        }
+        val roleId = prefs.posRoleId ?: 0
+        bottom_navigation?.menu?.findItem(R.id.menu_master_data)?.isVisible =
+            roleId.isSuperAdmin()
+        bottom_navigation?.menu?.findItem(R.id.menu_good_receive)?.isVisible =
+            roleId.isNotCashier()
     }
 }

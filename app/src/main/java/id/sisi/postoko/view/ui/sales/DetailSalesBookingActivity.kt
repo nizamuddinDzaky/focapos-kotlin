@@ -4,19 +4,19 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.KEY_TAG_SALES_ROOT_FRAGMENT
+import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.ui.delivery.DeliveryStatus
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class DetailSalesBookingActivity : AppCompatActivity(){
+class DetailSalesBookingActivity : BaseActivity() {
 
     private var deliverStatusSale: String = ""
     var idSalesBooking: Int = 0
@@ -40,18 +40,19 @@ class DetailSalesBookingActivity : AppCompatActivity(){
                 .commitNow()
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_edit_sale -> {
-                val result =  validationActionEditSale()
-                if (!(result["type"] as Boolean)){
+                val result = validationActionEditSale()
+                if (!(result["type"] as Boolean)) {
                     AlertDialog.Builder(this@DetailSalesBookingActivity)
                         .setTitle("Alert")
                         .setMessage(result["message"] as String)
                         .setPositiveButton(android.R.string.ok) { _, _ ->
                         }
                         .show()
-                }else{
+                } else {
                     val intent = Intent(this, EditSaleActivity::class.java)
                     intent.putExtra("sale", tempSale)
                     intent.putParcelableArrayListExtra("sale_items",
@@ -66,18 +67,22 @@ class DetailSalesBookingActivity : AppCompatActivity(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        supportFragmentManager.findFragmentByTag(KEY_TAG_SALES_ROOT_FRAGMENT)?.onActivityResult(requestCode, resultCode, data)
+        supportFragmentManager.findFragmentByTag(KEY_TAG_SALES_ROOT_FRAGMENT)
+            ?.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun validationActionEditSale(): Map<String, Any> {
         var message = ""
         var cek = true
-        if(tempSale?.sale_status == SaleStatus.values()[1].name.toLowerCase(Locale.getDefault())){
+        if (tempSale?.sale_status == SaleStatus.values()[1].name.toLowerCase(Locale.getDefault())) {
             message += "- Status sale reseved\n"
             cek = false
         }
-        if(deliverStatusSale.toLowerCase(Locale.ROOT) != DeliveryStatus.PENDING.toString().toLowerCase(
-                Locale.ROOT)) {
+        if (deliverStatusSale.toLowerCase(Locale.ROOT) != DeliveryStatus.PENDING.toString()
+                .toLowerCase(
+                    Locale.ROOT
+                )
+        ) {
             message += "- Terdapat Delivery\n"
             cek = false
         }

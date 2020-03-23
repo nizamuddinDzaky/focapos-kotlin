@@ -24,7 +24,7 @@ class DetailCustomerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_detail)
         setSupportActionBar(toolbar_detail_customer)
-        supportActionBar?.title = null
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         idCustomer = intent.getIntExtra(KEY_ID_CUSTOMER, 0)
         viewModelCustomer = ViewModelProvider(this).get(MasterDetailViewModel::class.java)
@@ -63,6 +63,10 @@ class DetailCustomerActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home -> {
+                super.onBackPressed()
+                true
+            }
             R.id.menu_edit_sale -> {
                 val intent = Intent(this, EditCustomerActivity::class.java)
                 intent.putExtra("customer", customer)

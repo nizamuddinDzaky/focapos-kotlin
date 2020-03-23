@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/main_container"
@@ -20,7 +19,10 @@
             android:id="@+id/tabs_main_pagers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/main_blue"
+            app:tabBackground="?selectableItemBackground"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabIndicatorHeight="@dimen/tab_indicator_height"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextColor="@color/colorNotSelect" />
 

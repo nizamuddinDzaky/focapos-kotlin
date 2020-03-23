@@ -1,11 +1,10 @@
 package id.sisi.postoko.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import id.sisi.postoko.R
 import id.sisi.postoko.view.ui.addproduct.AddProductFragment
 
-class AddProductActivity : AppCompatActivity() {
+class AddProductActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

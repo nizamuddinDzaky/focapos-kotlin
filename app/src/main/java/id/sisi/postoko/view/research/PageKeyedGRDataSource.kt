@@ -5,13 +5,18 @@ import androidx.paging.PageKeyedDataSource
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.utils.KEY_GR_STATUS
+import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import java.io.IOException
 
-class PageKeyedGRDataSource(private val api: ApiServices, private val status: String) :
+class PageKeyedGRDataSource(
+    private val api: ApiServices,
+    var filter: Map<String, String>,
+    var networkState: MutableLiveData<NetworkState>
+) :
     PageKeyedDataSource<Int, GoodReceived>() {
-
-    val networkState = MutableLiveData<NetworkState>()
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, GoodReceived>) {
     }
@@ -50,18 +55,39 @@ class PageKeyedGRDataSource(private val api: ApiServices, private val status: St
                 "offset" to countOffset.toString(),
                 "limit" to requestedLoadSize.toString()
             )
-            params["goods_received_status"] = status
-            val response = api.getListGoodReceivedPaging(headers, params).execute()
+            if (filter.containsKey(KEY_GR_STATUS) && filter[KEY_GR_STATUS] != GoodReceiveStatus.ALL.name) {
+                params[KEY_GR_STATUS] = filter.getValue(KEY_GR_STATUS)
+            }
+            filter.entries.forEach {
+                if (it.key != KEY_GR_STATUS) {
+                    params[it.key] = it.value
+                }
+            }
+            val response = api.getListGoodReceived(headers, params).execute()
 
             response.body()?.let {
                 callback(it.data?.list_goods_received ?: arrayListOf(), adjacentPage)
                 networkState.postValue(NetworkState.SUCCESS)
             }
+            response.errorBody()?.let {
+                networkState.postValue(NetworkState.FAILED)
+            }
+/*
+            api.getListGoodReceived(headers, params).exe(
+                onFailure = { call, throwable ->
+                    networkState.postValue(NetworkState.FAILED)
+                },
+                onResponse = { call, response ->
+                    networkState.postValue(NetworkState.SUCCESS)
+                    response.body()?.let {
+                        callback(it.data?.list_goods_received ?: arrayListOf(), adjacentPage)
+                    }
+                }
+            )
+*/
         } catch (e: IOException) {
             logE("error broh ${e.message}")
             networkState.postValue(NetworkState.FAILED)
         }
-
-        networkState.postValue(NetworkState.FAILED)
     }
 }
