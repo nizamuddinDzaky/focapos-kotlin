@@ -652,7 +652,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
          * @return true if the query has been handled by the listener, false to let the
          * SearchView perform the default action.
          */
-        fun onQueryTextSubmit(query: String?): Boolean
+        fun onQueryTextSubmit(query: String): Boolean
 
         /**
          * Called when the query text is changed by the user.
@@ -661,7 +661,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
          * @return false if the SearchView should perform the default action of showing any
          * suggestions if available, true if the action was handled by the listener.
          */
-        fun onQueryTextChange(newText: String?): Boolean
+        fun onQueryTextChange(newText: String): Boolean
     }
 
     interface SearchViewListener {

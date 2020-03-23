@@ -55,13 +55,13 @@ class HomeActivity : BaseActivity() {
 
     private fun initSearch() {
         search_view?.setOnQueryTextListener(object : MySearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
+            override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
 
-            override fun onQueryTextChange(p0: String?): Boolean {
-                if (!p0.isNullOrEmpty() && p0.length > 2) {
-                    grFragment?.submitQuerySearch(p0)
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    grFragment?.submitQuerySearch(newText)
                 }
                 return false
             }
@@ -148,12 +148,10 @@ class HomeActivity : BaseActivity() {
     }
 
     fun hideBottomNavigation() {
-        if (id.sisi.postoko.BuildConfig.DEBUG) {
-            val roleId = prefs.posRoleId ?: 0
-            bottom_navigation?.menu?.findItem(R.id.menu_master_data)?.isVisible =
-                roleId.isSuperAdmin()
-            bottom_navigation?.menu?.findItem(R.id.menu_good_receive)?.isVisible =
-                roleId.isNotCashier()
-        }
+        val roleId = prefs.posRoleId ?: 0
+        bottom_navigation?.menu?.findItem(R.id.menu_master_data)?.isVisible =
+            roleId.isSuperAdmin()
+        bottom_navigation?.menu?.findItem(R.id.menu_good_receive)?.isVisible =
+            roleId.isNotCashier()
     }
 }

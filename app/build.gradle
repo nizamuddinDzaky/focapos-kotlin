@@ -4,15 +4,24 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/roufroufrouf/SISI/Poskoo/postoko.keystore')
+            keyAlias = "$myKeyAlias"
+            storePassword "$myStorePassword"
+            keyPassword "$myKeyPassword"
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "id.sisi.postoko"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 4
+        versionCode 5
         versionName "2.0.20200320"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
     buildTypes {
         release {
