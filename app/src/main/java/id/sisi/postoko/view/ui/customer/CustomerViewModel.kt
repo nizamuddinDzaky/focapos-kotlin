@@ -10,6 +10,7 @@ import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
+import id.sisi.postoko.utils.KEY_ID_CUSTOMER
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.tryMe
 
@@ -18,6 +19,7 @@ class CustomerViewModel : ViewModel() {
     private val customersGroup = MutableLiveData<List<CustomerGroup>?>()
     private val priceGroup = MutableLiveData<List<PriceGroup>?>()
     private var isExecute = MutableLiveData<Boolean>()
+    private var idCustomer: String? = null
 
     fun getListCustomer() {
         isExecute.postValue(true)
@@ -96,6 +98,27 @@ class CustomerViewModel : ViewModel() {
                     listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.body()?.message))
                 } else {
                     listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.body()?.message))
+                    isExecute.postValue(true)   
+                }
+            }
+        )
+    }
+
+    fun postEditSale(body: Map<String, Any?>, listener: (Map<String, Any>) -> Unit) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf("id_customer" to idCustomer.toString())
+        ApiServices.getInstance()?.putEditCustomers(headers, params, body)?.exe(
+            onFailure = { _, _ ->
+                listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal"))
+                isExecute.postValue(true)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.message()))
+                } else {
+                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.message()))
                     isExecute.postValue(true)
                 }
             }
@@ -117,5 +140,9 @@ class CustomerViewModel : ViewModel() {
 
     internal fun getListPriceGroups(): LiveData<List<PriceGroup>?> {
         return priceGroup
+    }
+
+    fun setIdCustomer(idCustomer : String){
+        this.idCustomer = idCustomer
     }
 }

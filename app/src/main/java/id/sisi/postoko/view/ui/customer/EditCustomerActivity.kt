@@ -1,9 +1,13 @@
 package id.sisi.postoko.view.ui.customer
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.lifecycle.Observer
@@ -13,6 +17,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_edit_customer.*
@@ -154,6 +159,101 @@ class EditCustomerActivity : AppCompatActivity() {
             rg_status_edit_customer?.tag = radioButton.tag
         }
         rg_status_edit_customer?.check(rg_status_edit_customer?.get(1)?.id ?: 0)
+
+        btn_confirmation_edit_customer.setOnClickListener { 
+            actionEditCustomer()
+        }
     }
 
+    private fun actionEditCustomer() {
+        val numbersMap =  validationFormEditCustomer()
+
+        if (numbersMap["type"] as Boolean){
+            progressBar.show(this, "Silakan tunggu...")
+
+            val body: MutableMap<String, Any> = mutableMapOf(
+                "name" to (et_name_edit_customer?.text?.toString() ?: ""),
+                "email" to (et_email_edit_customer?.text?.toString() ?: ""),
+                "customer_group_id" to (idCustomerGroup ?: ""),
+                "price_group_id" to (idPriceGroup ?: ""),
+                "company" to (et_company_name_edit_customer?.text?.toString() ?: ""),
+                "address" to (et_address_edit_customer?.text?.toString() ?: ""),
+                "vat_no" to (et_npwp_edit_customer?.text?.toString() ?: ""),
+                "postal_code" to (et_postal_code_edit_customer?.text?.toString() ?: ""),
+                "phone" to (et_phone_edit_customer?.text?.toString() ?: ""),
+                "cf1" to (et_cf1_edit_customer?.text?.toString() ?: ""),
+                "cf2" to (et_cf2_edit_customer?.text?.toString() ?: ""),
+                "cf3" to (et_cf3_edit_customer?.text?.toString() ?: ""),
+                "cf4" to (et_cf4_edit_customer?.text?.toString() ?: ""),
+                "cf5" to (et_cf5_edit_customer?.text?.toString() ?: ""),
+                "provinsi" to (sp_provinsi_group_edit_customer?.selectedItem?.toString() ?: ""),
+                "kabupaten" to (sp_district_group_edit_customer?.selectedItem?.toString() ?: ""),
+                "kecamatan" to (sp_city_group_edit_customer?.selectedItem?.toString() ?: "")
+            )
+            customer?.id?.let { viewModelCustomer.setIdCustomer(it) }
+            viewModelCustomer.postEditSale(body){
+                progressBar.dialog.dismiss()
+                Toast.makeText(this, ""+it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    val returnIntent = Intent()
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                }
+            }
+        }else{
+            AlertDialog.Builder(this@EditCustomerActivity)
+                .setTitle("Konfirmasi")
+                .setMessage(numbersMap["message"] as String)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                }
+                .show()
+        }
+    }
+
+    private fun validationFormEditCustomer(): Map<String, Any?> {
+        var message = ""
+        var cek = true
+
+        if (et_company_name_edit_customer?.text.toString() == ""){
+            message += "- Nama Perusahaan/Toko Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (et_name_edit_customer?.text.toString() == ""){
+            message += "- Nama Pemilik Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (idCustomerGroup == null){
+            message += "- Customer Group Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (et_phone_edit_customer?.text.toString() == ""){
+            message += "- No Telp Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (et_address_edit_customer?.text.toString() == ""){
+            message += "- Alamat Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (sp_provinsi_group_edit_customer?.selectedItem.toString() == ""){
+            message += "- Provinsi Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (sp_district_group_edit_customer?.selectedItem.toString() == ""){
+            message += "- Kabupaten/Kota Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (sp_city_group_edit_customer?.selectedItem.toString() == ""){
+            message += "- Kecamatan Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        return mapOf("message" to message, "type" to cek)
+    }
 }
