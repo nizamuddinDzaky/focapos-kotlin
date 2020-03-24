@@ -77,13 +77,12 @@ class EditCustomerActivity : AppCompatActivity() {
                 adapterCustomerGroup.udpateView(it.map {cg->
                     return@map DataSpinner(cg.name, cg.id)
                 }.toMutableList())
+                sp_customer_group_edit_customer.setIfExist(customer?.customer_group_id.toString())
                 listCustomerGroup = it
             }
         })
 
-
         sp_customer_group_edit_customer.adapter = adapterCustomerGroup
-        sp_customer_group_edit_customer.setIfExist(customer?.customer_group_id.toString())
         sp_customer_group_edit_customer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,

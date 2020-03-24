@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.view.get
@@ -14,14 +17,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
-import id.sisi.postoko.model.Customer
-import id.sisi.postoko.model.Product
-import id.sisi.postoko.model.SaleItem
-import id.sisi.postoko.model.Sales
+import id.sisi.postoko.model.*
 import id.sisi.postoko.network.NetworkResponse
+import id.sisi.postoko.utils.MySpinnerAdapter
+import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_edit_sale.*
 import kotlinx.android.synthetic.main.content_edit_sale.*
 import java.text.NumberFormat
@@ -36,10 +40,11 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     var customer: Customer? = null
     private var idCustomer: String? = null
     private var idWarehouse: String? = null
-
+    private lateinit var viewModelWarehouse: WarehouseViewModel
     private lateinit var adapter: ListProductAddSalesAdapter
     private var sale: Sales? = null
     private var saleItem: ArrayList<SaleItem>? = null
+    private var listWarehouse: List<Warehouse> = ArrayList()
     private lateinit var viewModel: AddSalesViewModel
     private val progressBar = CustomProgressBar()
 
@@ -111,6 +116,30 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 day
             )
             dpd.show()
+        }
+
+        val adapterWarehouse = MySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item)
+        viewModelWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
+        viewModelWarehouse.getListWarehouses().observe(this, Observer {
+            it?.let {
+                adapterWarehouse.udpateView(it.map {wh->
+                    return@map DataSpinner(wh.name, wh.id)
+                }.toMutableList())
+                sp_warehouse_edit_sale.setIfExist(idWarehouse.toString())
+                listWarehouse=it
+            }
+        })
+        sp_warehouse_edit_sale.adapter = adapterWarehouse
+        sp_warehouse_edit_sale.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                idWarehouse = listWarehouse[position].id
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
 
         et_customer_edit_sale.setText(sale?.customer)

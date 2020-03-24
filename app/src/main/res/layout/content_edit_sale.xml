@@ -53,27 +53,26 @@
                 </LinearLayout>
 
                 <TextView
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_biler"
+                    android:text="@string/txt_warehouse"
                     android:textColor="#000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
                         android:contentDescription="@string/txt_icon_biller"
-                        android:src="@drawable/building_icon_foreground" />
+                        android:src="@drawable/warehouse_icon_foreground" />
 
-                    <com.tiper.MaterialSpinner
-                        android:id="@+id/sp_supplier"
+                    <Spinner
+                        android:id="@+id/sp_warehouse_edit_sale"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:clickable="true"
