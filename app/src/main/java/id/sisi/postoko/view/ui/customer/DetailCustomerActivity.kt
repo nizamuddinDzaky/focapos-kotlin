@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.utils.KEY_ID_CUSTOMER
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.MasterDetailViewModel
 import kotlinx.android.synthetic.main.activity_customer_detail.*
 import kotlinx.android.synthetic.main.content_detail_customer.*
@@ -34,7 +35,7 @@ class DetailCustomerActivity : AppCompatActivity() {
             }
             tv_customer_name_header.text = it?.company
             tv_customer_name.text = it?.company
-            tv_customer_customer_group.text = it?.group_name
+            tv_customer_customer_group.text = it?.customer_group_name
             tv_customer_npwp.text = it?.vat_no
             tv_customer_point.text = it?.award_points
             tv_customer_email.text = it?.email

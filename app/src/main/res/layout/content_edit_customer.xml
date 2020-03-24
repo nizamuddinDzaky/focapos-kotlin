@@ -62,11 +62,12 @@
                 android:text="@string/txt_customer_group"
                 android:textColor="#676767"
                 android:textStyle="bold" />
-            <com.tiper.MaterialSpinner
+            <Spinner
                 android:id="@+id/sp_customer_group_edit_customer"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:clickable="true"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:focusable="false"/>
 
             <TextView
@@ -75,8 +76,9 @@
                 android:text="@string/txt_price_group"
                 android:textColor="#676767"
                 android:textStyle="bold" />
-            <com.tiper.MaterialSpinner
+            <Spinner
                 android:id="@+id/sp_price_group_edit_customer"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:clickable="true"
@@ -129,9 +131,10 @@
                 android:text="@string/txt_province"
                 android:textColor="#676767"
                 android:textStyle="bold" />
-            <com.tiper.MaterialSpinner
+            <Spinner
                 android:id="@+id/sp_provinsi_group_edit_customer"
                 android:layout_width="match_parent"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_height="50dp"
                 android:clickable="true"
                 android:focusable="false"/>
@@ -142,9 +145,10 @@
                 android:text="@string/txt_district"
                 android:textColor="#676767"
                 android:textStyle="bold" />
-            <com.tiper.MaterialSpinner
+            <Spinner
                 android:id="@+id/sp_district_group_edit_customer"
                 android:layout_width="match_parent"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_height="50dp"
                 android:clickable="true"
                 android:focusable="false"/>
@@ -155,8 +159,9 @@
                 android:text="@string/txt_kecamatan"
                 android:textColor="#676767"
                 android:textStyle="bold" />
-            <com.tiper.MaterialSpinner
+            <Spinner
                 android:id="@+id/sp_city_group_edit_customer"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:clickable="true"
