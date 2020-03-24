@@ -39,6 +39,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
      *
      * @return
      */
+    var typeView: Int? = null
     var isSearchOpen = false
         private set
     private var mAnimationDuration = 0
