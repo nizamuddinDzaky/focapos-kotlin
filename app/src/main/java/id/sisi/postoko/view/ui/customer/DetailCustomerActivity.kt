@@ -4,25 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.utils.KEY_ID_CUSTOMER
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.MasterDetailViewModel
-import id.sisi.postoko.view.ui.sales.EditSaleActivity
 import kotlinx.android.synthetic.main.activity_customer_detail.*
 import kotlinx.android.synthetic.main.content_detail_customer.*
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 
 
 @Suppress("UNREACHABLE_CODE")
 class DetailCustomerActivity : AppCompatActivity() {
-    var idCustomer: Int? = 0
+    private var idCustomer: Int? = 0
     var customer: Customer? = null
     private lateinit var viewModelCustomer: MasterDetailViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +35,7 @@ class DetailCustomerActivity : AppCompatActivity() {
             }
             tv_customer_name_header.text = it?.company
             tv_customer_name.text = it?.company
-            tv_customer_customer_group.text = it?.group_name
+            tv_customer_customer_group.text = it?.customer_group_name
             tv_customer_npwp.text = it?.vat_no
             tv_customer_point.text = it?.award_points
             tv_customer_email.text = it?.email
@@ -61,6 +57,11 @@ class DetailCustomerActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        viewModelCustomer.requestDetailCustomer(idCustomer ?: 1)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -68,10 +69,8 @@ class DetailCustomerActivity : AppCompatActivity() {
                 true
             }
             R.id.menu_edit_sale -> {
-
                 val intent = Intent(this, EditCustomerActivity::class.java)
                 intent.putExtra("customer", customer)
-
                 startActivityForResult(intent, 1)
                 true
             }

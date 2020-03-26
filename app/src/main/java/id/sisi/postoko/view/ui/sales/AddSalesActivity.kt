@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
+import android.widget.SpinnerAdapter
 import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.Observer

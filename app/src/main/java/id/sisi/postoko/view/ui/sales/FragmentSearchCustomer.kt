@@ -49,6 +49,7 @@ class FragmentSearchCustomer : DialogFragment() {
                 setupUI(it)
             }
         })
+        viewModel.getListCustomer()
         sv_search_customer_add_sales?.onActionViewExpanded()
         sv_search_customer_add_sales.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
