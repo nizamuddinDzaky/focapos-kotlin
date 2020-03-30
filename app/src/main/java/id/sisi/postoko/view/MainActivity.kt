@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputLayout
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.model.User
@@ -62,7 +63,10 @@ class MainActivity : AppCompatActivity() {
         prefs.usernameLogin?.let {
             et_username?.setText(it)
         }
+        layout_et_password?.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
         prefs.passwordLogin?.let {
+            layout_et_password?.endIconMode =
+                if (it.isEmpty()) TextInputLayout.END_ICON_PASSWORD_TOGGLE else TextInputLayout.END_ICON_NONE
             et_password?.setText(it)
         }
         checkbox_remember_me?.isChecked =

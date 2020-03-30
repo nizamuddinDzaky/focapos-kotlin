@@ -3,7 +3,7 @@
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="et_top_margin">8dp</dimen>
     <dimen name="logo_height">100dp</dimen>
-    <dimen name="edit_text_layout_height">56dp</dimen>
+    <dimen name="edit_text_layout_height">64dp</dimen>
     <dimen name="button_height">48dp</dimen>
     <dimen name="bt_buy_margin">25dp</dimen>
     <dimen name="margin_30">30dp</dimen>
