@@ -27,6 +27,8 @@ fun String.toDisplayDateFromDO(): String {
     return this
 }
 
+fun String.toLower() = this.toLowerCase(Locale.getDefault())
+
 fun String.toDisplayStatus(): Int {
     var idString = 0
     when {

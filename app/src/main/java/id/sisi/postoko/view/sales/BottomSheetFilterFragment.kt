@@ -11,9 +11,10 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.DataSpinner
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.*
+import id.sisi.postoko.view.ui.payment.PaymentStatus
 import id.sisi.postoko.view.ui.sales.SaleStatus
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_filter.*
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_filter.view.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_filter_sales.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_filter_sales.view.*
 
 
 class BottomSheetFilterFragment : BottomSheetDialogFragment() {
@@ -32,7 +33,7 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
         toast = MyToast.make(context)
         mFilter =
             (arguments?.getSerializable(KEY_FILTER) as? HashMap<String, String>) ?: hashMapOf()
-        return inflater.inflate(R.layout.fragment_bottom_sheet_filter, container, false).apply {
+        return inflater.inflate(R.layout.fragment_bottom_sheet_filter_sales, container, false).apply {
             layout_delivery_status?.checkVisibility(mFilter.containsKey(KEY_IS_SEARCH))
 
             btn_close?.setOnClickListener {
@@ -49,6 +50,10 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
             rbtn_reserved?.setOnClickListener(listenerRadioButton)
             rbtn_pending?.setOnClickListener(listenerRadioButton)
             rbtn_closed?.setOnClickListener(listenerRadioButton)
+            rbtn_partial?.setOnClickListener(listenerRBPaymentStatus)
+            rbtn_pay_due?.setOnClickListener(listenerRBPaymentStatus)
+            rbtn_paid?.setOnClickListener(listenerRBPaymentStatus)
+            rbtn_pay_pending?.setOnClickListener(listenerRBPaymentStatus)
 
             dataSortBy.add(DataSpinner("Tanggal", "date"))
             dataSortBy.add(DataSpinner("Jumlah", "amount"))
@@ -85,6 +90,14 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
             mFilter.containsKey(KEY_SALE_STATUS) && mFilter[KEY_SALE_STATUS] == SaleStatus.PENDING.name
         rbtn_closed?.isChecked =
             mFilter.containsKey(KEY_SALE_STATUS) && mFilter[KEY_SALE_STATUS] == SaleStatus.CLOSED.name
+        rbtn_partial?.isChecked =
+            mFilter.containsKey(KEY_PAYMENT_STATUS) && mFilter[KEY_PAYMENT_STATUS] == PaymentStatus.PARTIAL.name
+        rbtn_paid?.isChecked =
+            mFilter.containsKey(KEY_PAYMENT_STATUS) && mFilter[KEY_PAYMENT_STATUS] == PaymentStatus.PAID.name
+        rbtn_pay_pending?.isChecked =
+            mFilter.containsKey(KEY_PAYMENT_STATUS) && mFilter[KEY_PAYMENT_STATUS] == PaymentStatus.PENDING.name
+        rbtn_pay_due?.isChecked =
+            mFilter.containsKey(KEY_PAYMENT_STATUS) && mFilter[KEY_PAYMENT_STATUS] == PaymentStatus.DUE.name
 
         if (mFilter.containsKey(KEY_SORT_BY)) {
             spinner_sort_by?.setIfExist(mFilter[KEY_SORT_BY] as String)
@@ -96,11 +109,26 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
 
     private val listenerRadioButton = View.OnClickListener {
         checkRadio(it.id)
-        mFilter[KEY_SALE_STATUS] = when (it.id) {
+        val saleStatus = when (it.id) {
             R.id.rbtn_reserved -> SaleStatus.RESERVED.name
             R.id.rbtn_pending -> SaleStatus.PENDING.name
             R.id.rbtn_closed -> SaleStatus.CLOSED.name
             else -> SaleStatus.ALL.name
+        }
+        mFilter[KEY_SALE_STATUS] = saleStatus.toLower()
+    }
+
+    private val listenerRBPaymentStatus = View.OnClickListener {
+        checkRadioPayment(it.id)
+        val paymentStatus = when (it.id) {
+            R.id.rbtn_partial -> PaymentStatus.PARTIAL.name
+            R.id.rbtn_paid -> PaymentStatus.PAID.name
+            R.id.rbtn_pay_pending -> PaymentStatus.PENDING.name
+            R.id.rbtn_pay_due -> PaymentStatus.DUE.name
+            else -> null
+        }
+        paymentStatus?.let {
+            mFilter[KEY_PAYMENT_STATUS] = paymentStatus.toLower()
         }
     }
 
@@ -127,6 +155,7 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
     }
 
     private fun resetForm() {
+        mFilter.remove(KEY_PAYMENT_STATUS)
         mFilter.remove(KEY_SALE_STATUS)
         mFilter.remove(KEY_START_DATE)
         mFilter.remove(KEY_END_DATE)
@@ -143,6 +172,13 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
         rbtn_reserved?.isChecked = id == R.id.rbtn_reserved
         rbtn_pending?.isChecked = id == R.id.rbtn_pending
         rbtn_closed?.isChecked = id == R.id.rbtn_closed
+    }
+
+    private fun checkRadioPayment(id: Int) {
+        rbtn_pending?.isChecked = id == R.id.rbtn_pending
+        rbtn_paid?.isChecked = id == R.id.rbtn_paid
+        rbtn_pay_pending?.isChecked = id == R.id.rbtn_pay_pending
+        rbtn_pay_due?.isChecked = id == R.id.rbtn_pay_due
     }
 
     companion object {

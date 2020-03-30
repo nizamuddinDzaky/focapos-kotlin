@@ -218,4 +218,13 @@
     <string name="title_activity_edit_customer">EditCustomerActivity</string>
     <string name="txt_edit_customer">Edit Pelanggan</string>
     <string name="txt_user">Pengguna</string>
+    <string name="txt_action_cancel">Batal</string>
+    <string name="txt_action_reset">Reset</string>
+    <string name="txt_date_range">Rentang Tanggal</string>
+    <string name="txt_start_date">Mulai Tanggal</string>
+    <string name="txt_end_date">Sampai Tanggal</string>
+    <string name="txt_sort">Urutkan</string>
+    <string name="txt_by_data">Berdasarkan Data</string>
+    <string name="txt_from_value">Dari Nilai</string>
+    <string name="txt_action_apply">Terapkan</string>
 </resources>

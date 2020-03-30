@@ -11,6 +11,7 @@ import id.sisi.postoko.utils.KEY_SALE_STATUS
 import id.sisi.postoko.utils.KEY_SEARCH
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toLower
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.ui.sales.SaleStatus
@@ -134,7 +135,7 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
         }
         BottomSheetFilterFragment.show(childFragmentManager, filter) {
             if (status != SaleStatus.ALL) {
-                it[KEY_SALE_STATUS] = status.name
+                it[KEY_SALE_STATUS] = status.name.toLower()
             }
             viewModel.requestRefreshNewFilter(it)
         }

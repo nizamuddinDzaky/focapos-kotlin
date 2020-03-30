@@ -100,6 +100,8 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
             R.id.rbtn_reserved -> GoodReceiveStatus.DELIVERING.name
             R.id.rbtn_confirmed -> GoodReceiveStatus.RECEIVED.name
             else -> GoodReceiveStatus.ALL.name
+        }.also { grStatus ->
+            grStatus.toLower()
         }
     }
 

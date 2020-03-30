@@ -11,6 +11,7 @@ import id.sisi.postoko.utils.KEY_IS_SEARCH
 import id.sisi.postoko.utils.KEY_SEARCH
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toLower
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.ui.gr.BottomSheetAddGoodReceivedFragment
@@ -139,7 +140,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
         }
         BottomSheetFilterFragment.show(childFragmentManager, filter) {
             if (status != ALL) {
-                it[KEY_GR_STATUS] = status.name
+                it[KEY_GR_STATUS] = status.name.toLower()
             }
             viewModel.requestRefreshNewFilter(it)
         }
