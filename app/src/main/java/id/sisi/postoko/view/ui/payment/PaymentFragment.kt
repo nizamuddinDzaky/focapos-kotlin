@@ -121,9 +121,9 @@ class PaymentFragment : Fragment(){
             bottomSheetFragment.arguments = bundle
             bottomSheetFragment.listener = {
                 viewModel.getListPayment()
-//            }
+            }
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-        }
+//        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
