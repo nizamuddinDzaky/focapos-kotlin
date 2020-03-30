@@ -25,3 +25,5 @@ const val KEY_GOOD_RECEIVED = "good_received"
 const val ROLE_SUPER_ADMIN = 2
 const val ROLE_WAREHOUSE_ADMIN = 8
 const val ROLE_CASHIER = 5
+
+const val RC_PROFILE = 2001

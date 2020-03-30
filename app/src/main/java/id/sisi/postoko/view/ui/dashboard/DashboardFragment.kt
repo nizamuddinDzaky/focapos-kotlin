@@ -15,6 +15,7 @@ import id.sisi.postoko.utils.extensions.showToastAccessDenied
 import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.AccountViewModel
 import id.sisi.postoko.view.HomeActivity
+import id.sisi.postoko.view.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 
@@ -86,6 +87,9 @@ class DashboardFragment : Fragment() {
             } else {
                 context?.showToastAccessDenied()
             }
+        }
+        layout_header?.setOnClickListener {
+            ProfileActivity.show(activity)
         }
 //        btn_dummy?.setOnClickListener {
 //            val jsonHelper =
