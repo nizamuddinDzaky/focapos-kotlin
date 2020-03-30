@@ -162,7 +162,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             val saleItems = listSaleItems.map {
                 return@map mutableMapOf(
                     "sale_items_id" to it.id.toString(),
-                    "sent_quantity" to it.sent_quantity.toString()
+                    "sent_quantity" to it.quantity.toString()
                 )
             }
 
@@ -171,7 +171,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 "sale_reference_no" to (et_add_delivery_reference_no?.text?.toString() ?: ""),
                 "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
                 "address" to (et_add_delivery_customer_address?.text?.toString() ?: ""),
-                "delivery_status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
+                "status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
                 "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
                 "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
                 "products" to saleItems,

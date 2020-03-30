@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import id.sisi.postoko.R
 import id.sisi.postoko.model.SaleItem
+import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_edit_product_sales.*
 import kotlinx.android.synthetic.main.content_edit_product_sales.*
 import java.util.*
 
 class EditProductSalesActivity : BaseActivity() {
+    private val numberSparator = NumberSeparator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +24,10 @@ class EditProductSalesActivity : BaseActivity() {
         val position: Int? = intent?.getIntExtra("position", 0)
 
         toolbar_title.text = saleItem?.product_name?.toUpperCase(Locale.getDefault())
+        et_qty_produk_edit_produk_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_qty_produk_edit_produk_sale))
+        et_unit_price_edit_produk_add_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_unit_price_edit_produk_add_sale))
+        et_discount_edit_produk_add_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_discount_edit_produk_add_sale))
+
         et_qty_produk_edit_produk_sale.setText(saleItem?.quantity?.toInt().toString())
         et_unit_price_edit_produk_add_sale.setText(saleItem?.unit_price?.toInt().toString())
         et_discount_edit_produk_add_sale.setText(saleItem?.discount?.toString())

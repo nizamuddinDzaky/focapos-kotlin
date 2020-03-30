@@ -21,6 +21,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.model.*
 import id.sisi.postoko.network.NetworkResponse
+import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.BaseActivity
@@ -46,6 +47,7 @@ class AddSalesActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private var listSaleItems = ArrayList<SaleItem>()
     private lateinit var adapter: ListProductAddSalesAdapter
     private lateinit var viewModel: AddSalesViewModel
+    private val numberSparator = NumberSeparator()
 
     var listener: () -> Unit = {}
 
@@ -71,6 +73,9 @@ class AddSalesActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 logE("done")
             }
         })
+
+        et_discount_add_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_discount_add_sale))
+        et_shipping_add_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_shipping_add_sale))
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.format(Date())
