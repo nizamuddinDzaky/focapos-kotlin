@@ -117,6 +117,8 @@ class PaymentFragment : Fragment(){
 //        }else{
             val bottomSheetFragment = BottomSheetAddPaymentFragment()
             val bundle = Bundle()
+            val sale = (activity as? DetailSalesBookingActivity)?.tempSale
+            bundle.putParcelable("sale",sale)
             bundle.putInt(KEY_ID_SALES_BOOKING, id_sales_booking)
             bottomSheetFragment.arguments = bundle
             bottomSheetFragment.listener = {

@@ -20,6 +20,7 @@ import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.model.*
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.MySpinnerAdapter
+import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.utils.extensions.toDisplayDate
@@ -47,6 +48,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private var listWarehouse: List<Warehouse> = ArrayList()
     private lateinit var viewModel: AddSalesViewModel
     private val progressBar = CustomProgressBar()
+    private val numberSparator = NumberSeparator()
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +69,9 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         val currentDate = sdf.parse(sale?.date)
         val strCurentDate = sdf.format(currentDate)
         var idRadioGroupStatusSale = 0
+
+        et_discount_edit_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_discount_edit_sale))
+        et_shipping_edit_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_shipping_edit_sale))
 
         if (sale?.order_discount != 0.0)
             et_discount_edit_sale.setText(sale?.order_discount.toString())
