@@ -33,19 +33,34 @@ class ProfileActivity : BaseActivity() {
 
     private fun setAction() {
         tv_profile_change_personal?.setOnClickListener {
-
+            BottomSheetEditProfileFragment.show(
+                supportFragmentManager,
+                BottomSheetEditProfileFragment.ProfileType.PERSONAL
+            )
         }
         tv_profile_change_address?.setOnClickListener {
-
+            BottomSheetEditProfileFragment.show(
+                supportFragmentManager,
+                BottomSheetEditProfileFragment.ProfileType.ADDRESS
+            )
         }
         tv_profile_change_company?.setOnClickListener {
-
+            BottomSheetEditProfileFragment.show(
+                supportFragmentManager,
+                BottomSheetEditProfileFragment.ProfileType.COMPANY
+            )
         }
         tv_profile_change_account?.setOnClickListener {
-
+            BottomSheetEditProfileFragment.show(
+                supportFragmentManager,
+                BottomSheetEditProfileFragment.ProfileType.ACCOUNT
+            )
         }
         btn_change_password?.setOnClickListener {
-
+            BottomSheetEditProfileFragment.show(
+                supportFragmentManager,
+                BottomSheetEditProfileFragment.ProfileType.PASSWORD
+            )
         }
     }
 

@@ -194,6 +194,7 @@
     <string name="txt_customer_cf3">Palanggan Kustom Field 3</string>
     <string name="txt_customer_cf4">Palanggan Kustom Field 4</string>
     <string name="txt_customer_cf5">Palanggan Kustom Field 5</string>
+    <string name="txt_customer_cf6">Palanggan Kustom Field 6</string>
     <string name="title_activity_add_customer">AddCustomerActivity</string>
     <string name="txt_add_customer">Tambah Pelanggan</string>
     <string name="txt_company_name">Nama Perusahaan</string>
@@ -227,4 +228,24 @@
     <string name="txt_by_data">Berdasarkan Data</string>
     <string name="txt_from_value">Dari Nilai</string>
     <string name="txt_action_apply">Terapkan</string>
+    <string name="txt_action_save">Simpan</string>
+    <string name="txt_first_name">Nama Depan</string>
+    <string name="txt_last_name">Nama Belakang</string>
+    <string name="txt_gender">Jenis Kelamin</string>
+    <string name="txt_personal">Pribadi</string>
+    <string name="txt_action_edit">Ubah</string>
+    <string name="txt_address">Alamat</string>
+    <string name="txt_company">Perusahaan</string>
+    <string name="txt_city">Kota</string>
+    <string name="txt_village">Desa</string>
+    <string name="txt_change_password">Ganti Kata Sandi</string>
+    <string name="txt_helper_max_text">Maksimal 30 Karakter</string>
+    <string name="txt_male">Laki-Laki</string>
+    <string name="txt_female">Perempuan</string>
+    <string name="txt_helper_cf1">Masukkan ID Bisnis Kokoh Anda</string>
+    <string name="txt_helper_cf6">Masukkan kode untuk LT</string>
+    <string name="txt_helper_telp">Pastikan No Telp Aktif</string>
+    <string name="txt_new_password">Kata Sandi Baru</string>
+    <string name="txt_confirm_password">Konfirmasi Kata Sandi</string>
+    <string name="txt_helper_retry_password">Ulangi kata sandi baru Anda</string>
 </resources>
