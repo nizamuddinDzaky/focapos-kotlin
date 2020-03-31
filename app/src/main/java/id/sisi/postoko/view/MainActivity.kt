@@ -14,6 +14,7 @@ import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.login.BottomSheetForgetPasswordFragment
 import id.sisi.postoko.view.ui.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -71,6 +72,9 @@ class MainActivity : AppCompatActivity() {
         }
         checkbox_remember_me?.isChecked =
             !(et_username.text.isNullOrEmpty() && et_password.text.isNullOrEmpty())
+        btn_login_forget_password?.setOnClickListener {
+            BottomSheetForgetPasswordFragment.show(supportFragmentManager)
+        }
 
         btn_login?.setOnClickListener {
             if (!mandatory.validation()) {

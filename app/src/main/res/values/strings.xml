@@ -248,4 +248,5 @@
     <string name="txt_new_password">Kata Sandi Baru</string>
     <string name="txt_confirm_password">Konfirmasi Kata Sandi</string>
     <string name="txt_helper_retry_password">Ulangi kata sandi baru Anda</string>
+    <string name="txt_helper_email">Pastikan alamat email Anda aktif</string>
 </resources>
