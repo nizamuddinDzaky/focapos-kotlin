@@ -44,7 +44,7 @@ class GoodReceivedRootFragment : Fragment() {
         inflater.inflate(R.menu.menu_search, menu)
 
         val item = menu.findItem(R.id.menu_action_search)
-        (activity as? HomeActivity)?.assignActionSearch(item)
+        (activity as? HomeActivity)?.assignActionSearch(item, 1)
 
         super.onCreateOptionsMenu(menu, inflater)
     }

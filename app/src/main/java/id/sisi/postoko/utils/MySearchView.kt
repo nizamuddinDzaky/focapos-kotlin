@@ -28,7 +28,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.logE
 import kotlinx.android.synthetic.main.search_view.view.*
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Field
 
 public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     FrameLayout(context, attrs), Filter.FilterListener {
@@ -39,6 +39,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
      *
      * @return
      */
+    var typeView: Int? = null
     var isSearchOpen = false
         private set
     private var mAnimationDuration = 0

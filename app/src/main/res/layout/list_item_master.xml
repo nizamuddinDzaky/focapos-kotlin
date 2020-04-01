@@ -5,24 +5,42 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
     android:minHeight="?attr/listPreferredItemHeight"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:paddingStart="?attr/listPreferredItemPaddingStart"
     android:paddingLeft="?attr/listPreferredItemPaddingStart"
     android:paddingEnd="?attr/listPreferredItemPaddingEnd"
     android:paddingRight="?attr/listPreferredItemPaddingEnd">
 
-    <TextView
-        android:id="@+id/tv_master_data_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/et_top_margin"
-        android:textAppearance="?attr/textAppearanceListItem"
-        tools:text="Title 1" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_master_data_description"
-        android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_master_data_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceListItem"
+            tools:text="Title 1" />
+
+        <TextView
+            android:id="@+id/tv_master_data_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            tools:text="Title 2" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btn_menu_more"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceListItemSecondary"
-        tools:text="Title 2" />
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0"
+        android:contentDescription="@string/conDes"
+        android:src="@drawable/ic_more_vert_black_24dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
 </LinearLayout>

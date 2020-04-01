@@ -7,12 +7,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputLayout
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.login.BottomSheetForgetPasswordFragment
 import id.sisi.postoko.view.ui.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -62,11 +64,17 @@ class MainActivity : AppCompatActivity() {
         prefs.usernameLogin?.let {
             et_username?.setText(it)
         }
+        layout_et_password?.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
         prefs.passwordLogin?.let {
+            layout_et_password?.endIconMode =
+                if (it.isEmpty()) TextInputLayout.END_ICON_PASSWORD_TOGGLE else TextInputLayout.END_ICON_NONE
             et_password?.setText(it)
         }
         checkbox_remember_me?.isChecked =
             !(et_username.text.isNullOrEmpty() && et_password.text.isNullOrEmpty())
+        btn_login_forget_password?.setOnClickListener {
+            BottomSheetForgetPasswordFragment.show(supportFragmentManager)
+        }
 
         btn_login?.setOnClickListener {
             if (!mandatory.validation()) {

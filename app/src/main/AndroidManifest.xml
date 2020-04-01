@@ -75,6 +75,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ui.payment.DetailPaymentActivity" />
+        <activity android:name=".view.ui.profile.ProfileActivity" />
+        <activity android:name=".view.ui.pricegroup.AddPriceGroupActivity" />
     </application>
 
 </manifest>

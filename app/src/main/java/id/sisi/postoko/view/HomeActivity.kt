@@ -10,7 +10,9 @@ import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.*
 import id.sisi.postoko.view.research.GRFragment
+import id.sisi.postoko.view.sales.SBFragment
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
+import id.sisi.postoko.view.ui.sales.SaleStatus
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home3.*
 
@@ -22,6 +24,7 @@ class HomeActivity : BaseActivity() {
     }
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
     val grFragment: GRFragment? = GRFragment(GoodReceiveStatus.ALL)
+    val sbFragment: SBFragment? = SBFragment(SaleStatus.ALL)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +50,9 @@ class HomeActivity : BaseActivity() {
         hideBottomNavigation()
     }
 
-    fun assignActionSearch(item: MenuItem) {
+    fun assignActionSearch(item: MenuItem, typeView: Int) {
         search_view?.setMenuItem(item)
+        search_view?.typeView = typeView
     }
 
     private fun isSearchViewActive() = search_container.visibility == android.view.View.VISIBLE
@@ -61,7 +65,11 @@ class HomeActivity : BaseActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isNotEmpty() && newText.length > 2) {
-                    grFragment?.submitQuerySearch(newText)
+                    if (search_view.typeView == 1) {
+                        grFragment?.submitQuerySearch(newText)
+                    } else if (search_view.typeView == 2) {
+                        sbFragment?.submitQuerySearch(newText)
+                    }
                 }
                 return false
             }
@@ -76,7 +84,11 @@ class HomeActivity : BaseActivity() {
             }
 
             override fun onFilter() {
-                grFragment?.showBottomSheetFilter(true)
+                if (search_view.typeView == 1) {
+                    grFragment?.showBottomSheetFilter(true)
+                } else if (search_view.typeView == 2) {
+                    sbFragment?.showBottomSheetFilter(true)
+                }
             }
         })
     }
@@ -85,11 +97,20 @@ class HomeActivity : BaseActivity() {
         if (isShown) {
             main_content_container?.gone()
             search_container?.visible()
-            grFragment?.let {
-                if (it.isAdded) return
-                supportFragmentManager.detachSearch()
-                supportFragmentManager.attachSearch(it, "search")
-                supportFragmentManager.executePendingTransactions()
+            if (search_view.typeView == 1) {
+                grFragment?.let {
+                    if (it.isAdded) return
+                    supportFragmentManager.detachSearch()
+                    supportFragmentManager.attachSearch(it, "search")
+                    supportFragmentManager.executePendingTransactions()
+                }
+            } else if (search_view.typeView == 2) {
+                sbFragment?.let {
+                    if (it.isAdded) return
+                    supportFragmentManager.detachSearch()
+                    supportFragmentManager.attachSearch(it, "search")
+                    supportFragmentManager.executePendingTransactions()
+                }
             }
         } else {
             search_container?.gone()

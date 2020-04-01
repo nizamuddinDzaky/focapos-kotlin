@@ -16,6 +16,7 @@ import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.AccountViewModel
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.DashboardPagerAdapter
+import id.sisi.postoko.view.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 
@@ -60,11 +61,11 @@ class DashboardFragment : Fragment() {
         }
 
         btn_next_dashboard.setOnClickListener {
-            view_pager_dashboard.setCurrentItem(adapter.getCurrentPosition()+1)
+            view_pager_dashboard.currentItem = adapter.getCurrentPosition()+1
         }
 
         btn_prev_dashboard.setOnClickListener {
-            view_pager_dashboard.setCurrentItem(adapter.getCurrentPosition()-1)
+            view_pager_dashboard.currentItem = adapter.getCurrentPosition()-1
         }
 
         viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
@@ -101,8 +102,9 @@ class DashboardFragment : Fragment() {
                 context?.showToastAccessDenied()
             }
         }
-
-
+        layout_header?.setOnClickListener {
+            ProfileActivity.show(activity)
+        }
 //        btn_dummy?.setOnClickListener {
 //            val jsonHelper =
 //                Gson().fromJson<BaseResponse<DataWarehouse>>(it.context, "DummyListWarehouses.json")

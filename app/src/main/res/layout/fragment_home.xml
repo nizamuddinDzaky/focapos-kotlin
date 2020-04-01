@@ -23,6 +23,7 @@
             app:tabBackground="?selectableItemBackground"
             app:tabIndicatorColor="@android:color/white"
             app:tabIndicatorHeight="@dimen/tab_indicator_height"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextColor="@color/colorNotSelect" />
 

@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg01"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg01"
     tools:context=".view.MainActivity">
 
     <ImageView
@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standard_margin"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_logo_aksestoko">
@@ -35,11 +36,13 @@
             android:layout_height="@dimen/edit_text_layout_height"
             android:background="@drawable/edit_text_style"
             android:hint="@string/txt_username"
+            android:inputType="textEmailAddress"
             android:paddingStart="@dimen/et_top_margin"
             android:paddingLeft="@dimen/et_top_margin"
             android:paddingTop="@dimen/et_top_margin"
             android:paddingEnd="@dimen/et_top_margin"
-            android:paddingRight="@dimen/et_top_margin" />
+            android:paddingRight="@dimen/et_top_margin"
+            android:paddingBottom="@dimen/et_top_margin" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -48,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/et_top_margin"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,12 +63,14 @@
             android:layout_height="@dimen/edit_text_layout_height"
             android:background="@drawable/edit_text_style"
             android:hint="@string/txt_password"
+            android:imeOptions="actionSend"
             android:inputType="textPassword"
             android:paddingStart="@dimen/et_top_margin"
             android:paddingLeft="@dimen/et_top_margin"
             android:paddingTop="@dimen/et_top_margin"
             android:paddingEnd="@dimen/et_top_margin"
-            android:paddingRight="@dimen/et_top_margin" />
+            android:paddingRight="@dimen/et_top_margin"
+            android:paddingBottom="@dimen/et_top_margin" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -89,6 +93,7 @@
                 android:text="@string/txt_remember_me" />
 
             <TextView
+                android:id="@+id/btn_login_forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
