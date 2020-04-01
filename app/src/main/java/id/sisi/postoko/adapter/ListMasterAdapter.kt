@@ -17,6 +17,7 @@ import id.sisi.postoko.utils.extensions.MyToast
 import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.customer.DetailCustomerActivity
+import id.sisi.postoko.view.ui.pricegroup.AddCustomerPriceGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.AddPriceGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.BottomSheetEditPriceGroupFragment
 import kotlinx.android.synthetic.main.list_item_master.view.*
@@ -92,7 +93,7 @@ class ListMasterAdapter<T>(
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item?.itemId) {
                     R.id.menu_more_price_group_add_customer -> {
-                        AddPriceGroupActivity.show(fragmentActivity as FragmentActivity)
+                        AddCustomerPriceGroupActivity.show(fragmentActivity as FragmentActivity)
                     }
                     R.id.menu_more_price_group_edit -> {
                         fragmentActivity?.let {
