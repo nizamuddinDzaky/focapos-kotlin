@@ -10,7 +10,7 @@ fun Spinner.setDefault() {
     setSelection(0, true)
 }
 
-fun Spinner.setIfExist(value: String) {
+fun Spinner.setIfExist(value: String?) {
     var found: Int? = null
     (this.adapter as MySpinnerAdapter).objects.forEachIndexed { index, dataSpinner ->
         if (dataSpinner.value == value) {

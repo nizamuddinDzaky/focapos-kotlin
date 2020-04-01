@@ -11,11 +11,14 @@ class MySpinnerAdapter(
 ) :
     ArrayAdapter<String>(context, resource, objects.map {
         it.name
-    }){
-    fun udpateView(newObject: MutableList<DataSpinner>){
+    }) {
+    fun udpateView(newObject: MutableList<DataSpinner>, hasHeader: String? = null) {
         objects = newObject
         clear()
-        addAll(objects.map{
+        if (!hasHeader.isNullOrEmpty()) {
+            objects.add(0, DataSpinner(hasHeader, ""))
+        }
+        addAll(objects.map {
             it.name
         })
     }
