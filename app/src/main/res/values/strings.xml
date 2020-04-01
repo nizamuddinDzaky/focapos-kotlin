@@ -218,4 +218,7 @@
     <string name="title_activity_edit_customer">EditCustomerActivity</string>
     <string name="txt_edit_customer">Edit Pelanggan</string>
     <string name="txt_user">Pengguna</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

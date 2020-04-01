@@ -39,7 +39,6 @@ class NumberSeparator {
                         NumberFormat.getInstance(Locale.US) as DecimalFormat
                     formatter.applyPattern("#,###,###,###")
                     val formattedString: String = formatter.format(longval)
-                    //setting text after format to EditText
                     editText.setText(formattedString)
                     editText.setSelection(editText.text.length)
                 } catch (nfe: NumberFormatException) {

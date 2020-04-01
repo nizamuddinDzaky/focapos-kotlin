@@ -10,7 +10,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
@@ -73,7 +72,6 @@
                 android:id="@+id/tv_user_company_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="@id/layout_header2"
                 app:layout_constraintStart_toStartOf="@id/tv_user_company_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_user_company_name"
@@ -84,49 +82,133 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/et_top_margin"
-            android:layout_marginBottom="@dimen/et_top_margin"
-            android:background="@android:color/white"
-            android:orientation="horizontal">
+            android:layout_margin="@dimen/standard_margin"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:background="@drawable/header_white_style">
 
             <LinearLayout
+                android:id="@+id/view_01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/et_top_margin">
+                android:padding="@dimen/et_top_margin"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_user" />
+                    android:id="@+id/iv_view_01"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:contentDescription="@string/conDes"
+                    app:layout_constraintBottom_toTopOf="@id/tv_view_01"
+                    app:srcCompat="@drawable/icon_sales" />
 
                 <TextView
-                    android:id="@+id/tv_dashboard_total_user"
+                    android:id="@+id/tv_view_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_user" />
+                    android:text="@string/txt_sales"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#858484"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/margin_5"
+                    app:layout_constraintTop_toBottomOf="@id/iv_view_01" />
+
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/view_02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/et_top_margin">
+                android:padding="@dimen/et_top_margin"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_warehouse" />
+                    android:id="@+id/iv_view_02"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:contentDescription="@string/conDes"
+                    app:layout_constraintBottom_toTopOf="@id/tv_view_02"
+                    app:srcCompat="@drawable/icon_delivery" />
 
                 <TextView
-                    android:id="@+id/tv_dashboard_total_warehouse"
+                    android:id="@+id/tv_view_02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_warehouse" />
+                    android:text="@string/txt_delivery"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#858484"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/margin_5"
+                    app:layout_constraintTop_toBottomOf="@id/iv_view_02" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/iv_view_03"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:contentDescription="@string/conDes"
+                    app:layout_constraintBottom_toTopOf="@id/tv_view_03"
+                    app:srcCompat="@drawable/icon_purchase" />
+
+                <TextView
+                    android:id="@+id/tv_view_03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_purchase"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#858484"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/margin_5"
+                    app:layout_constraintTop_toBottomOf="@id/iv_view_03" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/view_04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/iv_view_04"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:contentDescription="@string/conDes"
+                    app:layout_constraintBottom_toTopOf="@id/tv_view_04"
+                    app:srcCompat="@drawable/icon_master" />
+
+                <TextView
+                    android:id="@+id/tv_view_04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_master_data"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#858484"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/margin_5"
+                    app:layout_constraintTop_toBottomOf="@id/iv_view_04" />
             </LinearLayout>
 
         </LinearLayout>
@@ -136,180 +218,66 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/bt_buy_margin"
             android:background="@android:color/white">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/view_01"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/button_white_no_radius_style"
-                app:layout_constraintBottom_toTopOf="@+id/view_03"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/view_02"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed">
-
-                <ImageView
-                    android:id="@+id/iv_view_01"
-                    android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/conDes"
-                    app:layout_constraintBottom_toTopOf="@id/tv_view_01"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/icon_sales" />
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.3"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|start"
+                        tools:ignore="RtlHardcoded">
+                        <Button
+                            android:id="@+id/btn_prev_dashboard"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/back_foreground"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        tools:ignore="UseCompoundDrawables">
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/calendar_icon_foreground"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:textStyle="bold"
+                            android:textColor="#858484"
+                            android:gravity="center_vertical"/>
 
-                <TextView
-                    android:id="@+id/tv_view_01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_sales"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_view_01" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.3"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|end"
+                        tools:ignore="RtlHardcoded">
+                        <Button
+                            android:id="@+id/btn_next_dashboard"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/next_foreground" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/view_02"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/button_white_no_radius_style"
-                app:layout_constraintBottom_toTopOf="@+id/view_04"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@+id/view_01"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed">
-
-                <ImageView
-                    android:id="@+id/iv_view_02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/conDes"
-                    app:layout_constraintBottom_toTopOf="@id/tv_view_02"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/icon_delivery" />
-
-                <TextView
-                    android:id="@+id/tv_view_02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_delivery"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_view_02" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/view_03"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/button_white_no_radius_style"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/view_04"
-                app:layout_constraintTop_toBottomOf="@+id/view_01"
-                app:layout_constraintVertical_chainStyle="packed">
-
-                <ImageView
-                    android:id="@+id/iv_view_03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/conDes"
-                    app:layout_constraintBottom_toTopOf="@id/tv_view_03"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/icon_purchase" />
-
-                <TextView
-                    android:id="@+id/tv_view_03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_purchase"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_view_03" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/view_04"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/button_white_no_radius_style"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintLeft_toRightOf="@+id/view_03"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_02"
-                app:layout_constraintVertical_chainStyle="packed">
-
-                <ImageView
-                    android:id="@+id/iv_view_04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/conDes"
-                    app:layout_constraintBottom_toTopOf="@id/tv_view_04"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/icon_master" />
-
-                <TextView
-                    android:id="@+id/tv_view_04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_master_data"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_view_04" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@color/colorLine"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:background="@color/colorLine"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                    </LinearLayout>
+                </LinearLayout>
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager_dashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="550dp"/>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>

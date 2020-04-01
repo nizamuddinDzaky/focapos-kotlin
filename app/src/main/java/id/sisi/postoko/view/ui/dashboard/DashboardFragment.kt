@@ -15,6 +15,7 @@ import id.sisi.postoko.utils.extensions.showToastAccessDenied
 import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.AccountViewModel
 import id.sisi.postoko.view.HomeActivity
+import id.sisi.postoko.view.pager.DashboardPagerAdapter
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 
@@ -53,6 +54,19 @@ class DashboardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val adapter = DashboardPagerAdapter(childFragmentManager)
+        view_pager_dashboard?.let {
+            it.adapter = adapter
+        }
+
+        btn_next_dashboard.setOnClickListener {
+            view_pager_dashboard.setCurrentItem(adapter.getCurrentPosition()+1)
+        }
+
+        btn_prev_dashboard.setOnClickListener {
+            view_pager_dashboard.setCurrentItem(adapter.getCurrentPosition()-1)
+        }
+
         viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -87,6 +101,8 @@ class DashboardFragment : Fragment() {
                 context?.showToastAccessDenied()
             }
         }
+
+
 //        btn_dummy?.setOnClickListener {
 //            val jsonHelper =
 //                Gson().fromJson<BaseResponse<DataWarehouse>>(it.context, "DummyListWarehouses.json")

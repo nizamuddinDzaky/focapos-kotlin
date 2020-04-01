@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ui.dashboard.DashboardPagerFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_15"
+        tools:ignore="UselessParent">
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|end"
+            android:paddingRight="@dimen/margin_15"
+            android:orientation="horizontal"
+            tools:ignore="RtlHardcoded,RtlSymmetry,UseCompoundDrawables">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/building_icon_foreground"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textStyle="bold"
+                android:text="@string/txt_warehouse"
+                android:textColor="#858484"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_legend_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+</FrameLayout>
