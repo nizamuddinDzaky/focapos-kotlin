@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PriceGroup (
+data class PriceGroup(
     var id: Int,
     var name: String,
     var client_id: String,
@@ -14,5 +14,6 @@ data class PriceGroup (
     var uuid: String,
     var uui_app: String,
     var company_id: Int,
-    var warehouse_id: Int
+    var warehouse_id: Int,
+    var warehouse_name: String?
 ) : Parcelable

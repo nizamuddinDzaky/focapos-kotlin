@@ -80,7 +80,7 @@
     <string name="txt_booking_id">ID Pemesanan</string>
     <string name="txt_booking_status">Status Pemesanan</string>
     <string name="txt_booking_date">Tanggal Pemesanan</string>
-    <string name="txt_see_detail">Lihat Detail</string>
+    <string name="txt_see_detail">Lihat Rincian</string>
     <string name="txt_action_arrow"><![CDATA[>>>]]></string>
     <string name="txt_receive">Terima</string>
     <string name="txt_delivery_total_qty">Jumlah Kirim</string>
@@ -197,6 +197,7 @@
     <string name="txt_customer_cf6">Palanggan Kustom Field 6</string>
     <string name="title_activity_add_customer">AddCustomerActivity</string>
     <string name="txt_add_customer">Tambah Pelanggan</string>
+    <string name="txt_insert_customer_to_price_group">Tambah Pelanggan ke Kelompok Harga</string>
     <string name="txt_company_name">Nama Perusahaan</string>
     <string name="txt_price_group">Kelompok Harga / Price Group</string>
     <string name="txt_kecamatan">Kecamatan</string>
@@ -249,4 +250,7 @@
     <string name="txt_confirm_password">Konfirmasi Kata Sandi</string>
     <string name="txt_helper_retry_password">Ulangi kata sandi baru Anda</string>
     <string name="txt_helper_email">Pastikan alamat email Anda aktif</string>
+    <string name="txt_group_name">Nama Kelompok</string>
+    <string name="txt_no_data">Belum ada data</string>
+    <string name="txt_edit_price_group">Ubah Kelompok Harga</string>
 </resources>
