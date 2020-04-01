@@ -36,6 +36,7 @@
             android:layout_height="@dimen/edit_text_layout_height"
             android:background="@drawable/edit_text_style"
             android:hint="@string/txt_username"
+            android:inputType="textEmailAddress"
             android:paddingStart="@dimen/et_top_margin"
             android:paddingLeft="@dimen/et_top_margin"
             android:paddingTop="@dimen/et_top_margin"

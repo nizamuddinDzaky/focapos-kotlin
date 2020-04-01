@@ -7,6 +7,7 @@ import id.sisi.postoko.model.DataLogin
 import id.sisi.postoko.model.User
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
+import id.sisi.postoko.utils.TXT_CONNECTION_FAILED
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.tryMe
 import id.sisi.postoko.utils.helper.json2obj
@@ -41,6 +42,7 @@ class LoginViewModel : ViewModel() {
         ApiServices.getInstance()?.postLogin(body)?.exe(
             onFailure = { _, _ ->
                 isExecute.postValue(false)
+                message.postValue(TXT_CONNECTION_FAILED)
             },
             onResponse = { _, response ->
                 if (response.isSuccessful) {

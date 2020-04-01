@@ -11,13 +11,7 @@ import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.AddProductActivity
 import id.sisi.postoko.view.pager.HomePagerAdapter
-import id.sisi.postoko.view.pager.SalesPagerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.fb_add_transaction
-import kotlinx.android.synthetic.main.fragment_home.main_container
-import kotlinx.android.synthetic.main.fragment_home.main_view_pager
-import kotlinx.android.synthetic.main.fragment_home.tabs_main_pagers
-import kotlinx.android.synthetic.main.fragment_root_sales.*
 
 
 class MasterDataFragment : Fragment() {

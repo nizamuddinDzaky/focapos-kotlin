@@ -32,7 +32,7 @@ class CustomerFragment : BaseFragment() {
     }
 
     override var tagName: String
-        get() = "Customer"
+        get() = "Pelanggan"
         set(_) {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
