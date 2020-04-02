@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import id.sisi.postoko.R
 import id.sisi.postoko.model.BaseResponse
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.DataCustomer
+import id.sisi.postoko.utils.extensions.addVerticalDivider
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.helper.fromJson
 import id.sisi.postoko.view.BaseFragment
@@ -25,7 +24,7 @@ class CustomerPriceGroupFragment : BaseFragment() {
     }
 
     //    private lateinit var viewModel: PriceGroupViewModel
-    private lateinit var adapter: ListCustToCartAdapter<Customer>
+    private lateinit var adapter: ListCustomerToCartAdapter<Customer>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,9 +79,10 @@ class CustomerPriceGroupFragment : BaseFragment() {
     }
 
     private fun setupRecycleView() {
-        adapter = ListCustToCartAdapter(fragmentActivity = activity)
+        adapter = ListCustomerToCartAdapter(fragmentActivity = activity)
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
+        rv_list_master_data?.addVerticalDivider()
         rv_list_master_data?.adapter = adapter
     }
 }
