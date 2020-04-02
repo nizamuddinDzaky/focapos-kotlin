@@ -77,8 +77,8 @@ class DashboardFragment : Fragment() {
             }
         })
         viewModel.getUser().observe(viewLifecycleOwner, Observer {
-            tv_user_company_name?.text = it?.company ?: "~"
-            tv_user_company_address?.text = it?.address ?: "~"
+//            tv_user_company_name?.text = it?.company ?: "~"
+//            tv_user_company_address?.text = it?.address ?: "~"
             prefs.posRoleId = it?.group_id
             (activity as? HomeActivity)?.hideBottomNavigation()
         })
@@ -102,9 +102,9 @@ class DashboardFragment : Fragment() {
                 context?.showToastAccessDenied()
             }
         }
-        layout_header?.setOnClickListener {
-            ProfileActivity.show(activity)
-        }
+//        layout_header?.setOnClickListener {
+//            ProfileActivity.show(activity)
+//        }
 //        btn_dummy?.setOnClickListener {
 //            val jsonHelper =
 //                Gson().fromJson<BaseResponse<DataWarehouse>>(it.context, "DummyListWarehouses.json")
