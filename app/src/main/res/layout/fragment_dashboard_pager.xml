@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.dashboard.DashboardPagerFragment">
+    tools:context=".view.ui.dashboard.DashboardPisechartFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,6 +16,13 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/tv_month_name_chart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+        </TextView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
