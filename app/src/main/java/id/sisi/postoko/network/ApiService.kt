@@ -56,6 +56,13 @@ interface ApiServices {
     @GET("auth/profile")
     fun getProfile(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProfile>>
 
+    @PUT("auth/update_profile")
+    fun putProfile(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataProfile>>
+
     @GET("warehouses/list_warehouses")
     fun getListWarehouse(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataWarehouse>>
 

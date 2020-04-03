@@ -48,4 +48,6 @@ data class User (
     val phone_otp : Int?,
     val activated_at : String?,
     val registered_by : String?
-)
+) {
+    var companyData: Customer? = null
+}

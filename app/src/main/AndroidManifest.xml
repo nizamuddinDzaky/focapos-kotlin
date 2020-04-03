@@ -76,8 +76,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ui.payment.DetailPaymentActivity" />
-        <activity android:name=".view.ui.profile.ProfileActivity" />
+        <activity android:name=".view.ui.profile.ProfileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.ui.pricegroup.AddPriceGroupActivity" />
+        <activity android:name=".view.ui.pricegroup.AddCustomerPriceGroupActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

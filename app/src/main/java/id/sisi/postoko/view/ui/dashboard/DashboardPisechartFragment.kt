@@ -143,8 +143,8 @@ class DashboardPisechartFragment(private var month: Int) : BaseFragment() {
     }
 
     override fun onResume() {
-        val selectedYear = (parentFragment as DashboardFragment).selectedYear
-        Toast.makeText(context, "coba $selectedYear", Toast.LENGTH_SHORT).show()
+        //val selectedYear = (parentFragment as DashboardFragment).selectedYear
+        //Toast.makeText(context, "coba $selectedYear", Toast.LENGTH_SHORT).show()
         super.onResume()
     }
 }
