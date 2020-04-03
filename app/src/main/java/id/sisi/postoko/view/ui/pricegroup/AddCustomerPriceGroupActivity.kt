@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_customer_price_group.*
@@ -13,14 +14,15 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     private val mCustomer = CustomerPriceGroupFragment.newInstance()
     private val mCartCustomer = CartCustomerToPGFragment.newInstance()
     var firstListCustomer = listOf(Customer(), Customer(), Customer(), Customer())
+    var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_price_group)
         displayHomeEnable()
-        supportActionBar?.title = "Kelompok Harga"
-        supportActionBar?.subtitle = "Tambah/Hapus Daftar Pelanggan"
-        supportActionBar?.elevation = 0F
+        disableElevation()
+        supportActionBar?.title = getString(R.string.txt_title_price_group)
+        supportActionBar?.subtitle = getString(R.string.txt_add_remove_customer)
 
         main_container?.gone()
         main_view_pager?.let {

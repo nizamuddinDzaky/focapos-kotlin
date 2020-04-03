@@ -10,7 +10,9 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.utils.extensions.addVerticalDivider
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.view.BaseFragment
+import kotlinx.android.synthetic.main.fragment_cart_customer_to_price_group.*
 import kotlinx.android.synthetic.main.master_data_fragment.*
+import kotlinx.android.synthetic.main.master_data_fragment.rv_list_master_data
 
 class CartCustomerToPGFragment : BaseFragment() {
     companion object {
@@ -28,7 +30,7 @@ class CartCustomerToPGFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.master_data_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_cart_customer_to_price_group, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -49,6 +51,11 @@ class CartCustomerToPGFragment : BaseFragment() {
 
     private fun setupUI() {
         fb_add_master?.gone()
+        var txtSubmit = "Tambahkan"
+        (activity as? AddCustomerPriceGroupActivity)?.priceGroup?.let {
+            txtSubmit = txtSubmit.plus(" ke ${it.name}")
+        }
+        btn_action_submit?.text = txtSubmit
         setupRecycleView()
     }
 

@@ -100,7 +100,7 @@ class EditCustomerActivity : AppCompatActivity() {
         viewModelCustomer.getListPriceGroups().observe(this, Observer {
             it?.let {
                 adapterPriceGroup.udpateView(it.map {pg->
-                    return@map DataSpinner(pg.name, pg.id.toString())
+                    return@map DataSpinner(pg.name ?: "~", pg.id.toString())
                 }.toMutableList())
                 listPriceGroup = it
             }
