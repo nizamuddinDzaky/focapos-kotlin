@@ -76,7 +76,6 @@ class DashboardFragment : Fragment() {
         view_pager_dashboard?.let {
             it.adapter = adapter
         }
-
         view_pager_dashboard.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {}
 

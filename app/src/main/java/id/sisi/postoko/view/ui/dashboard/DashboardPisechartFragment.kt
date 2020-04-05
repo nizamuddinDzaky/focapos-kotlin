@@ -22,7 +22,10 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.MPPointF
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListLegendDashboardAdapter
+import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
+import id.sisi.postoko.view.ui.warehouse.WarehouseDialogFragment
 import kotlinx.android.synthetic.main.fragment_dashboard_pager.*
 import java.text.SimpleDateFormat
 
@@ -37,6 +40,7 @@ class DashboardPisechartFragment(private var month: Int) : BaseFragment() {
     private var listStatus: ArrayList<String> = arrayListOf("Cancel", "Sukses", " Pending")
     private var listImage: ArrayList<Int> = arrayListOf(R.drawable.circle_cancel, R.drawable.circle_sukses, R.drawable.circle_pending)
     private var listJumlah: ArrayList<String> = arrayListOf()
+    private var idWarehouse: String? = null
     override lateinit var tagName: String
 
     override fun onCreateView(
@@ -56,7 +60,20 @@ class DashboardPisechartFragment(private var month: Int) : BaseFragment() {
 
         val inputDateFormat = SimpleDateFormat("MM")
         val outputDateFormat = SimpleDateFormat("MMMM")
+        l_filter_warehouse.setOnClickListener{
+            val dialogFragment = WarehouseDialogFragment()
+            dialogFragment.listener = {
+                idWarehouse =it.id
+                tv_warehouse_name_piechart.text = it.name
+                iv_delete_warehouse_piechart.visible()
+            }
+            dialogFragment.show(childFragmentManager, "dialog")
+        }
 
+        iv_delete_warehouse_piechart.setOnClickListener {
+            tv_warehouse_name_piechart.text = R.string.txt_warehouse.toString()
+            iv_delete_warehouse_piechart.gone()
+        }
         tv_month_name_chart.text = month.toString() +"=>"+ outputDateFormat.format(inputDateFormat.parse((month+1).toString()))
         setUpPieChart()
     }
