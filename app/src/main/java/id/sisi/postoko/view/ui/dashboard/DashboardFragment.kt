@@ -33,7 +33,6 @@ class DashboardFragment : Fragment() {
     private val today: Calendar = getInstance()
     private val calendar: Calendar = GregorianCalendar()
     val inputDateFormat = SimpleDateFormat("yyyy MM")
-
     val outputDateFormat = SimpleDateFormat("MMMM yyyy")
     var selectedMonth = calendar[MONTH]
     var selectedYear = calendar[YEAR]
@@ -119,7 +118,8 @@ class DashboardFragment : Fragment() {
                     selectedMonth = month
                     selectedYear = year
                     view_pager_dashboard.currentItem = selectedMonth
-                    (view_pager_dashboard.adapter as DashboardPieChartAdapter).getCurrentFragment().onResume()
+                    val page = childFragmentManager.findFragmentByTag("android:switcher:${R.id.view_pager_dashboard}:${selectedMonth}") as DashboardPiechartFragment
+                    page.refresh(selectedYear)
                     tv_date_filter.text = outputDateFormat.format(inputDateFormat.parse("$selectedYear ${selectedMonth+1}"))
                 }, selectedYear, selectedMonth)
 

@@ -105,6 +105,12 @@ interface ApiServices {
     @GET("products/list_products")
     fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
 
+    @GET("Sales_booking/list_transaction_sales_booking")
+    fun getPieChartData(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any?> = mapOf()
+    ): Call<BaseResponse<DataPieChart>>
+
     @GET("sales_booking/list_sales_booking")
     fun getListSale(
         @HeaderMap headerMap: Map<String, String>,
@@ -163,9 +169,9 @@ interface ApiServices {
     companion object {
         private var retrofit: Retrofit? = null
 
-        private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
+//        private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-        //private const val BASE_URL: String = "http://10.15.4.102:9090/api/v1/distributor/"
+        private const val BASE_URL: String = "http://10.15.4.102:9090/api/v1/distributor/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {

@@ -21,7 +21,7 @@ const val KEY_START_DATE = "start_date"
 const val KEY_END_DATE = "end_date"
 const val KEY_PRICE_GROUP = "price_group"
 const val KEY_GOOD_RECEIVED = "good_received"
-
+const val KEY_PIECHART_DATE = "year_month"
 const val TXT_CONNECTION_FAILED = "Gagal tersambung, cek koneksi."
 
 const val ROLE_SUPER_ADMIN = 2

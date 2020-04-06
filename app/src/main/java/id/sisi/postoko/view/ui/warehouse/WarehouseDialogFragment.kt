@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListSearchDialogFragmentAdapter
 import id.sisi.postoko.model.Warehouse
+import id.sisi.postoko.view.ui.dashboard.DashboardPiechartFragment
 import kotlinx.android.synthetic.main.dialog_fragment_search.*
 
 class WarehouseDialogFragment: DialogFragment() {
