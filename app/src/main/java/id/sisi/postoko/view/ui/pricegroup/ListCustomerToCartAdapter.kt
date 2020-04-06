@@ -7,7 +7,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
-import kotlinx.android.synthetic.main.list_item_master.view.*
+import id.sisi.postoko.utils.extensions.toUpper
+import id.sisi.postoko.utils.extensions.visibleOrGone
+import kotlinx.android.synthetic.main.list_customer_price_group.view.*
 
 class ListCustomerToCartAdapter<T>(
     private var masterData: MutableList<T>? = mutableListOf(),
@@ -18,7 +20,7 @@ class ListCustomerToCartAdapter<T>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MasterViewHolder<T> {
         val view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.list_item_master, parent, false)
+                .inflate(R.layout.list_customer_price_group, parent, false)
 
         return MasterViewHolder(view)
     }
@@ -33,19 +35,32 @@ class ListCustomerToCartAdapter<T>(
         fun bind(value: T?, adapter: ListCustomerToCartAdapter<T>) {
             when (value) {
                 is Customer -> {
-                    itemView.tv_master_data_name?.text = value.name
-                    itemView.tv_master_data_description?.text = value.address
+                    value.isSelected.visibleOrGone(itemView.view_mark_selected)
+                    itemView.tv_customer_price_group_item_1?.text = value.name
+                    itemView.tv_customer_price_group_item_2?.text = value.address
+                    itemView.tv_alias_customer?.text = getAlias(value.name)
                     itemView.setOnClickListener {
                         adapter.addCustomerToCart(value)
                     }
                 }
             }
         }
+
+        private fun getAlias(name: String?): String {
+            if (name.isNullOrEmpty()) return "#"
+            if (name.length == 1) return name
+            return name.toUpper().substring(0, 2)
+        }
     }
 
     fun addCustomerToCart(value: T) {
-        masterData?.remove(value)
-        (fragmentActivity as? AddCustomerPriceGroupActivity)?.countInc(value as Customer)
+        val activity = (fragmentActivity as? AddCustomerPriceGroupActivity)
+        when (value) {
+            is Customer -> {
+                value.isSelected = !value.isSelected
+                activity?.validation(value as Customer)
+            }
+        }
         notifyDataSetChanged()
     }
 

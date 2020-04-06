@@ -30,6 +30,8 @@ fun String.toDisplayDateFromDO(): String {
 
 fun String.toLower() = this.toLowerCase(Locale.getDefault())
 
+fun String.toUpper() = this.toUpperCase(Locale.getDefault())
+
 fun String.toDisplayStatus(): Int {
     var idString = 0
     when {

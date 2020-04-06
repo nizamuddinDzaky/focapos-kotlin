@@ -50,4 +50,6 @@ data class Customer(
 //    var uuid_app: Any,
     var vat_no: String? = null
 //    var village: Any
-) : Parcelable
+) : Parcelable {
+    var isSelected = false
+}
