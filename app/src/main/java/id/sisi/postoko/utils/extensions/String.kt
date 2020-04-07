@@ -1,5 +1,6 @@
 package id.sisi.postoko.utils.extensions
 
+import android.content.Context
 import id.sisi.postoko.R
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -105,4 +106,9 @@ fun Number.toCurrencyID(): String {
 
 fun Number.toNumberID(): String {
     return NumberFormat.getNumberInstance(Locale("id", "ID")).format(this)
+}
+
+fun Context.getTryString(resId: Int?): String {
+    if (resId == null) return ""
+    return getString(resId)
 }

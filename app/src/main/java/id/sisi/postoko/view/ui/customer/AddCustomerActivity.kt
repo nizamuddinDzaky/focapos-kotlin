@@ -64,7 +64,7 @@ class AddCustomerActivity : AppCompatActivity() {
             it?.let {
                 logE("price goup $it")
                 for (x in it.indices)
-                    listPriceGroupName.add(it[x].name)
+                    listPriceGroupName.add(it[x].name ?: "~")
                 listPriceGroup = it
             }
         })

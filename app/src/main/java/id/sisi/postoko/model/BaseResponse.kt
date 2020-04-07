@@ -16,7 +16,8 @@ data class DataLogin(
 )
 
 data class DataProfile(
-    var user: User?
+    var user: User?,
+    var company: Customer?
 )
 
 data class DataCustomer(

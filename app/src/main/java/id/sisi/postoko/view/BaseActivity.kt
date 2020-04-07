@@ -35,6 +35,10 @@ abstract class BaseActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    fun disableElevation() {
+        supportActionBar?.elevation = 0F
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(messageEvent: MessageEvent) {
         MySession.eventLogOut(this, messageEvent)

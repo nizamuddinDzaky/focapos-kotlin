@@ -255,4 +255,7 @@
     <string name="txt_no_data">Belum ada data</string>
     <string name="txt_edit_price_group">Ubah Kelompok Harga</string>
     <string name="txt_select_month">Pilih Bulan</string>
+    <string name="txt_error_try_again_later">Ulangi beberapa saat lagi.</string>
+    <string name="txt_title_price_group">Kelompok Harga</string>
+    <string name="txt_add_remove_customer">Tambah/Hapus Daftar Pelanggan</string>
 </resources>

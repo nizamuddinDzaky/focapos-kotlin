@@ -16,6 +16,7 @@ import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.AccountViewModel
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.DashboardPieChartAdapter
+import id.sisi.postoko.view.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard_pager.*
 import java.text.SimpleDateFormat
@@ -176,6 +177,11 @@ class DashboardFragment : Fragment() {
                 context?.showToastAccessDenied()
             }
         }
+        iv_header_avatar?.setOnClickListener {
+            ProfileActivity.show(activity)
+        }
+        tv_user_company_name?.setOnClickListener { iv_header_avatar?.performClick() }
+        tv_user_company_address?.setOnClickListener { iv_header_avatar?.performClick() }
     }
 
     companion object {
