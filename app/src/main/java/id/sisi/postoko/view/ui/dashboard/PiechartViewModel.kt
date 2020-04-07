@@ -11,13 +11,13 @@ import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
-class PiechartViewModel(var date: String) : ViewModel()  {
+class PiechartViewModel() : ViewModel()  {
     private var isExecute = MutableLiveData<Boolean>()
     private var pieChartData = MutableLiveData<DataPieChart>()
 
-    fun requestPieChartData(dates: String) {
+    fun requestPieChartData(dates: String, warehouse_id: String) {
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf(KEY_PIECHART_DATE to dates)
+        val params = mutableMapOf(KEY_PIECHART_DATE to dates, "warehouse_id" to warehouse_id)
         ApiServices.getInstance()?.getPieChartData(headers, params)?.exe(
             onFailure = { _, _ ->
                 isExecute.postValue(false)

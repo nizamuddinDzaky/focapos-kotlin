@@ -23,7 +23,6 @@ class ListSearchDialogFragmentAdapter<T> (private var masterData: List<T>? = arr
     }
 
     override fun getItemCount(): Int {
-        logE("jumlahItem ${masterData?.size}")
         return masterData?.size ?: 0
     }
 
@@ -34,7 +33,6 @@ class ListSearchDialogFragmentAdapter<T> (private var masterData: List<T>? = arr
     class SearchMasterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(value: Any?, listener: (Customer) -> Unit, listenerWarehouse: (Warehouse)-> Unit) {
-            logE("nizamuddin321 : $value")
             when (value) {
                 is Customer -> {
                     itemView.tv_master_data_name?.text = value.company
@@ -46,6 +44,7 @@ class ListSearchDialogFragmentAdapter<T> (private var masterData: List<T>? = arr
                 is Warehouse -> {
 
                     itemView.tv_master_data_name?.text = value.name
+
                     itemView.tv_master_data_description?.text = value.address
                     itemView.setOnClickListener {
                         listenerWarehouse(value)

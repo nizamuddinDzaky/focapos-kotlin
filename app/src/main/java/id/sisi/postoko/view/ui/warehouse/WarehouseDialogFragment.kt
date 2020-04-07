@@ -11,15 +11,32 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListSearchDialogFragmentAdapter
 import id.sisi.postoko.model.Warehouse
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.dashboard.DashboardPiechartFragment
 import kotlinx.android.synthetic.main.dialog_fragment_search.*
 
 class WarehouseDialogFragment: DialogFragment() {
     private lateinit var viewModel: WarehouseViewModel
     private lateinit var adapter: ListSearchDialogFragmentAdapter<Warehouse>
-    private var listWarehouse: List<Warehouse>? = arrayListOf()
+    private var listWarehouse: ArrayList<Warehouse>? = arrayListOf()
     var listener: (Warehouse) -> Unit = {}
-
+    private var warehouse: Warehouse = Warehouse(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Semua Gudang",
+        "",
+        "",
+        "",
+        "",
+        "")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,8 +49,11 @@ class WarehouseDialogFragment: DialogFragment() {
         viewModel = ViewModelProvider(this).get(WarehouseViewModel::class.java)
         viewModel.getListWarehouses().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                listWarehouse = it
-                setupUI(it)
+                listWarehouse= arrayListOf()
+                listWarehouse!!.add(warehouse)
+//                listWarehouse = it
+                listWarehouse!!.addAll(it)
+                setupUI(listWarehouse?: arrayListOf())
             }
         })
         super.onViewCreated(view, savedInstanceState)

@@ -9,6 +9,6 @@ class PiechartFactory(private val mParam: String) :
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return PiechartViewModel(mParam) as T
+        return PiechartViewModel() as T
     }
 }

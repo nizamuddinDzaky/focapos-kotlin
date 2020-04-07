@@ -11,15 +11,13 @@ import com.whiteelephant.monthpicker.MonthPickerDialog
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.MySession
-import id.sisi.postoko.utils.extensions.isNotCashier
-import id.sisi.postoko.utils.extensions.isSuperAdmin
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.showToastAccessDenied
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.AccountViewModel
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.DashboardPieChartAdapter
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard_pager.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
@@ -36,6 +34,8 @@ class DashboardFragment : Fragment() {
     val outputDateFormat = SimpleDateFormat("MMMM yyyy")
     var selectedMonth = calendar[MONTH]
     var selectedYear = calendar[YEAR]
+    var idWarehouse: String = ""
+    var warehouseName: String? = null
 
     private val prefs: Prefs by lazy {
         Prefs(MyApp.instance)
@@ -85,6 +85,12 @@ class DashboardFragment : Fragment() {
             ) {}
             override fun onPageSelected(position: Int) {
                 selectedMonth = position
+                val mFragment: DashboardPiechartFragment = adapter.getItem(view_pager_dashboard.currentItem) as DashboardPiechartFragment
+                if(warehouseName != null){
+                    mFragment.tv_warehouse_name_piechart.text = warehouseName
+                    mFragment.iv_delete_warehouse_piechart.visible()
+                }
+                mFragment.refresh(selectedYear, idWarehouse)
                 tv_date_filter.text = outputDateFormat.format(inputDateFormat.parse("$selectedYear ${selectedMonth+1}"))
             }
         })
@@ -119,7 +125,7 @@ class DashboardFragment : Fragment() {
                     selectedYear = year
                     view_pager_dashboard.currentItem = selectedMonth
                     val page = childFragmentManager.findFragmentByTag("android:switcher:${R.id.view_pager_dashboard}:${selectedMonth}") as DashboardPiechartFragment
-                    page.refresh(selectedYear)
+                    page.refresh(selectedYear, idWarehouse)
                     tv_date_filter.text = outputDateFormat.format(inputDateFormat.parse("$selectedYear ${selectedMonth+1}"))
                 }, selectedYear, selectedMonth)
 

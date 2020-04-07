@@ -44,7 +44,7 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
     private var listStatus: ArrayList<String> = arrayListOf("Cancel", "Sukses", " Pending")
     private var listImage: ArrayList<Int> = arrayListOf(R.drawable.circle_cancel, R.drawable.circle_sukses, R.drawable.circle_pending)
     private var listJumlah: ArrayList<String> = arrayListOf()
-    private var idWarehouse: String? = null
+//    private var idWarehouse: String? = null
     private var totClosed: Double = 0.0
     private var totPending: Double = 0.0
     private var totReserved: Double = 0.0
@@ -64,15 +64,11 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val selectedYear = (parentFragment as DashboardFragment).selectedYear
+        (parentFragment as DashboardFragment).selectedYear
 
-        viewModel = ViewModelProvider(
-            this,
-            PiechartFactory("$selectedYear-${month+1}")
-        ).get(PiechartViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PiechartViewModel::class.java)
 
         viewModel.getPieChartData().observe(viewLifecycleOwner, Observer {
-//            logE("totalTransaksi : ${it}")
             totClosed = it.closed?.toDouble() ?: 0.0
             totPending = it.pending?.toDouble() ?: 0.0
             totReserved = it.reserved?.toDouble() ?: 0.0
@@ -91,15 +87,17 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val selectedYear = (parentFragment as DashboardFragment).selectedYear
+        val warehouse_id = (parentFragment as DashboardFragment).idWarehouse
         val inputDateFormat = SimpleDateFormat("MM")
         val outputDateFormat = SimpleDateFormat("MMMM")
         l_filter_warehouse.setOnClickListener{
             val dialogFragment = WarehouseDialogFragment()
             dialogFragment.listener = {
-                idWarehouse =it.id
-                tv_warehouse_name_piechart.text = it.name
+                (parentFragment as DashboardFragment).idWarehouse =it.id
+                (parentFragment as DashboardFragment).warehouseName =it.name
+                tv_warehouse_name_piechart.text = (parentFragment as DashboardFragment).warehouseName
                 iv_delete_warehouse_piechart.visible()
-                this.refresh(selectedYear)
+                this.refresh(selectedYear, it.id)
             }
             dialogFragment.show(childFragmentManager, "dialog")
         }
@@ -107,10 +105,11 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
         iv_delete_warehouse_piechart.setOnClickListener {
             tv_warehouse_name_piechart.text = R.string.txt_warehouse.toString()
             iv_delete_warehouse_piechart.gone()
-            idWarehouse = null
+            (parentFragment as DashboardFragment).idWarehouse = ""
+            (parentFragment as DashboardFragment).warehouseName = null
         }
         tv_month_name_chart.text = month.toString() +"=>"+ outputDateFormat.format(inputDateFormat.parse((month+1).toString()))
-        viewModel.requestPieChartData("$selectedYear-${month+1}")
+        viewModel.requestPieChartData("$selectedYear-${month+1}", warehouse_id)
     }
 
     private fun setUpPieChart() {
@@ -198,7 +197,9 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
         return s
     }
 
-    fun refresh(selectedYear: Int){
-        viewModel.requestPieChartData("$selectedYear-${month+1}")
+    fun refresh(selectedYear: Int, warehouse_id: String){
+        if (::viewModel.isInitialized) {
+            viewModel.requestPieChartData("$selectedYear-${month+1}", warehouse_id)
+        }
     }
 }
