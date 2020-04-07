@@ -12,7 +12,7 @@ import id.sisi.postoko.utils.extensions.visibleOrGone
 import kotlinx.android.synthetic.main.list_customer_price_group.view.*
 
 class ListCustomerToCartAdapter<T>(
-    private var masterData: MutableList<T>? = mutableListOf(),
+    private var masterData: List<T>? = listOf(),
     private var fragmentActivity: FragmentActivity? = null
 ) :
     RecyclerView.Adapter<ListCustomerToCartAdapter.MasterViewHolder<T>>() {
@@ -36,9 +36,10 @@ class ListCustomerToCartAdapter<T>(
             when (value) {
                 is Customer -> {
                     value.isSelected.visibleOrGone(itemView.view_mark_selected)
-                    itemView.tv_customer_price_group_item_1?.text = value.name
+                    val name = "${value.company} (${value.name})"
+                    itemView.tv_customer_price_group_item_1?.text = name
                     itemView.tv_customer_price_group_item_2?.text = value.address
-                    itemView.tv_alias_customer?.text = getAlias(value.name)
+                    itemView.tv_alias_customer?.text = getAlias(value.company)
                     itemView.setOnClickListener {
                         adapter.addCustomerToCart(value)
                     }
@@ -48,7 +49,7 @@ class ListCustomerToCartAdapter<T>(
 
         private fun getAlias(name: String?): String {
             if (name.isNullOrEmpty()) return "#"
-            if (name.length == 1) return name
+            if (name.length == 1) return name.toUpper()
             return name.toUpper().substring(0, 2)
         }
     }
@@ -64,13 +65,13 @@ class ListCustomerToCartAdapter<T>(
         notifyDataSetChanged()
     }
 
-    fun addData(value: T) {
+    /*fun addData(value: T) {
         masterData?.add(value)
         notifyDataSetChanged()
-    }
+    }*/
 
     fun updateMasterData(newMasterData: List<T>?) {
-        masterData = newMasterData?.toMutableList()
+        masterData = newMasterData
         notifyDataSetChanged()
     }
 }

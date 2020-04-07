@@ -66,7 +66,7 @@ class CustomerPriceGroupFragment : BaseFragment() {
     }
 
     fun addToAdapter(value: Customer) {
-        adapter.addData(value)
+        //adapter.addData(value)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

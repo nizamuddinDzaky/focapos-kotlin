@@ -27,8 +27,8 @@
                 android:id="@+id/searchTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toStartOf="@+id/action_filter"
-                android:layout_toLeftOf="@+id/action_filter"
+                android:layout_toStartOf="@+id/layout_action"
+                android:layout_toLeftOf="@+id/layout_action"
                 android:background="@null"
                 android:hint="@string/menu_search"
                 android:imeOptions="actionSearch"
@@ -46,27 +46,30 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/back_arrow_foreground" />
 
-            <ImageButton
-                android:id="@+id/action_voice_btn"
-                style="@style/MSV_ImageButton"
-                android:layout_toStartOf="@+id/action_filter"
-                android:layout_toLeftOf="@+id/action_filter"
-                android:src="@drawable/ic_keyboard_voice_black_24dp" />
-
-            <ImageButton
-                android:id="@+id/action_empty_btn"
-                style="@style/MSV_ImageButton"
-                android:layout_toStartOf="@+id/action_filter"
-                android:layout_toLeftOf="@+id/action_filter"
-                android:src="@drawable/ic_close_black_24dp"
-                android:visibility="gone" />
-
-            <ImageButton
-                android:id="@+id/action_filter"
-                style="@style/MSV_ImageButton"
+            <LinearLayout
+                android:id="@+id/layout_action"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_filter_list_black_24dp" />
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/action_voice_btn"
+                    style="@style/MSV_ImageButton"
+                    android:src="@drawable/ic_keyboard_voice_black_24dp" />
+
+                <ImageButton
+                    android:id="@+id/action_empty_btn"
+                    style="@style/MSV_ImageButton"
+                    android:src="@drawable/ic_close_black_24dp"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/action_filter"
+                    style="@style/MSV_ImageButton"
+                    android:src="@drawable/ic_filter_list_black_24dp" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

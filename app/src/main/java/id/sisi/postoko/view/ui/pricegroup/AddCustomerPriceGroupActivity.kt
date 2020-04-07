@@ -2,10 +2,7 @@ package id.sisi.postoko.view.ui.pricegroup
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.ScaleAnimation
+import android.view.Menu
 import androidx.fragment.app.FragmentActivity
 import com.google.gson.Gson
 import id.sisi.postoko.R
@@ -14,9 +11,9 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.DataCustomer
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
+import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.addVerticalDivider
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.utils.helper.fromJson
 import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_customer_price_group.*
@@ -37,6 +34,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_price_group)
+        setSupportActionBar(toolbar)
         displayHomeEnable()
         disableElevation()
         supportActionBar?.title = getString(R.string.txt_title_price_group)
@@ -45,12 +43,12 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
             priceGroup = it
         }
 
-        initData()
+        initView()
         setupData()
         setupAction()
     }
 
-    private fun initData() {
+    private fun initView() {
         adapterCustomer = ListCustomerToCartAdapter(fragmentActivity = this)
         adapterCart = ListCartToCustomerAdapter(fragmentActivity = this)
     }
@@ -60,29 +58,85 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         rv_list_customer_cart?.adapter = adapterCart
         rv_list_customer?.addVerticalDivider()
 
-        val jsonHelper =
-            Gson().fromJson<BaseResponse<DataCustomer>>(this, "DummyListCustomer.json")
-        firstListCustomer = (jsonHelper.data?.list_customers) ?: listOf()
+        setupDataCart()
+        setupDataCustomer(true)
+    }
+
+    private fun setupDataCustomer(loadNew: Boolean = false) {
+        if (loadNew) {
+            val jsonHelper =
+                Gson().fromJson<BaseResponse<DataCustomer>>(this, "DummyListCustomer.json")
+            firstListCustomer = (jsonHelper.data?.list_customers) ?: listOf()
+        }
         adapterCustomer.updateMasterData(firstListCustomer)
+    }
+
+    private fun setupDataCart() {
 //        adapterCart.updateMasterData(firstListCustomer)
         adapterCart.updateMasterData(listCustomerCart)
     }
 
     private fun setupAction() {
-        btn_action_submit?.setOnClickListener { }
+        btn_action_submit?.setOnClickListener { actionSave() }
+        setupSearch()
     }
 
-    private fun toggle(count: Int) {
-        if ((count > 1) or (count == 1 && rv_list_customer_cart.visibility == View.VISIBLE)) return
-//        val animate = ScaleAnimation(1F, 1F, if (count == 0) 1F else 0F, if (count == 0) 0F else 1F)
-//        animate.duration = 500
-//        animate.fillAfter = false
-//        rv_list_customer_cart?.startAnimation(animate)
-//        if (count == 0) rv_list_customer_cart?.gone() else rv_list_customer_cart?.visible()
-        val animation: Animation =
-            AnimationUtils.loadAnimation(this, R.anim.slide_up)
-        rv_list_customer_cart.startAnimation(animation)
+    private fun setupSearch() {
+        search_view?.setOnQueryTextListener(object : MySearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    submitQuerySearch(newText)
+                }
+                return false
+            }
+        })
+        search_view?.setOnSearchViewListener(object : MySearchView.SearchViewListener {
+            override fun onSearchViewShown() {
+                actoionShowSearch(true)
+            }
+
+            override fun onSearchViewClosed() {
+                actoionShowSearch(false)
+            }
+
+            override fun onFilter() {
+                submitOnFilter()
+            }
+        })
     }
+
+    private fun actoionShowSearch(isShow: Boolean) {
+        if (!isShow) {
+            setupDataCustomer()
+        }
+    }
+
+    private fun submitOnFilter() {
+
+    }
+
+    private fun submitQuerySearch(newText: String) {
+        val resultSearch = firstListCustomer.filter {
+            val name = "${it.company} (${it.name})"
+            return@filter name.contains(newText, true)
+        }
+        adapterCustomer.updateMasterData(resultSearch)
+    }
+
+    private fun actionSave() {
+
+    }
+
+//    private fun toggle(count: Int) {
+//        if ((count > 1) or (count == 1 && rv_list_customer_cart.visibility == View.VISIBLE)) return
+//        val animation: Animation =
+//            AnimationUtils.loadAnimation(this, R.anim.slide_up)
+//        rv_list_customer_cart.startAnimation(animation)
+//    }
 
     fun validation(customer: Customer) {
         if (customer.isSelected) {
@@ -92,7 +146,16 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
             adapterCart.removeCustomerFromCart(customer)
             adapterCustomer.notifyDataSetChanged()
         }
-        toggle(adapterCart.itemCount)
+        //toggle(adapterCart.itemCount)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+        menu?.findItem(R.id.menu_action_search)?.let {
+            search_view?.setMenuItem(it)
+            search_view?.typeView = 0
+        }
+        return super.onCreateOptionsMenu(menu)
     }
 
     fun updateTab() {}

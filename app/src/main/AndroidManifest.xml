@@ -82,7 +82,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ui.pricegroup.AddPriceGroupActivity" />
-        <activity android:name=".view.ui.pricegroup.AddCustomerPriceGroupActivity">
+        <activity
+            android:name=".view.ui.pricegroup.AddCustomerPriceGroupActivity"
+            android:theme="@style/AppTheme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

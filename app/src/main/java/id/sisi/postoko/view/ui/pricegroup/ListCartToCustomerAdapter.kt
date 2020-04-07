@@ -51,8 +51,8 @@ class ListCartToCustomerAdapter<T>(
         fun bind(value: T?, adapter: ListCartToCustomerAdapter<T>) {
             when (value) {
                 is Customer -> {
-                    itemView.tv_list_customer_cart_title?.text = value.name
-                    itemView.tv_alias_customer?.text = getAlias(value.name)
+                    itemView.tv_list_customer_cart_title?.text = value.company
+                    itemView.tv_alias_customer?.text = getAlias(value.company)
                     itemView.setOnClickListener {
                         adapter.unselected(value)
                     }
@@ -62,7 +62,7 @@ class ListCartToCustomerAdapter<T>(
 
         private fun getAlias(name: String?): String {
             if (name.isNullOrEmpty()) return "#"
-            if (name.length == 1) return name
+            if (name.length == 1) return name.toUpper()
             return name.toUpper().substring(0, 2)
         }
     }

@@ -60,7 +60,8 @@ class ListMasterAdapter<T>(
                     itemView.tv_master_data_description?.text = value.address
                 }
                 is Customer -> {
-                    itemView.tv_master_data_name?.text = value.name
+                    val name = "${value.company} (${value.name})"
+                    itemView.tv_master_data_name?.text = name
                     itemView.tv_master_data_description?.text = value.address
                     itemView.setOnClickListener {
                         val page = Intent(itemView.context, DetailCustomerActivity::class.java)
