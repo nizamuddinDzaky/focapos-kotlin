@@ -152,8 +152,8 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         menu?.findItem(R.id.menu_action_search)?.let {
-            search_view?.setMenuItem(it)
             search_view?.typeView = 0
+            search_view?.setMenuItem(it)
         }
         return super.onCreateOptionsMenu(menu)
     }

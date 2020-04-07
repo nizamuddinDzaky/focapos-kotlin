@@ -40,7 +40,7 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
      *
      * @return
      */
-    var typeView: Int? = null
+    public var typeView: Int? = null
     var isSearchOpen = false
         private set
     private var mAnimationDuration = 0
@@ -129,9 +129,6 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
         mVoiceBtn = mSearchLayout?.findViewById(R.id.action_voice_btn) as ImageButton
         mEmptyBtn = mSearchLayout?.findViewById(R.id.action_empty_btn) as ImageButton
         mTintView = mSearchLayout?.findViewById(R.id.transparent_view)
-        mSearchLayout?.findViewById<ImageButton>(R.id.action_filter)?.let {
-            (typeView == 0).visibleOrGone(it)
-        }
         mSearchSrcTextView!!.setOnClickListener(mOnClickListener)
         mBackBtn?.setOnClickListener(mOnClickListener)
         mVoiceBtn?.setOnClickListener(mOnClickListener)
@@ -447,6 +444,9 @@ public class MySearchView(context: Context, attrs: AttributeSet?, defStyleAttr: 
      * @param menuItem
      */
     fun setMenuItem(menuItem: MenuItem?) {
+        mSearchLayout?.findViewById<ImageButton>(R.id.action_filter)?.let {
+            (typeView != 0).visibleOrGone(it)
+        }
         mMenuItem = menuItem
         mMenuItem?.setOnMenuItemClickListener(object : MenuItem.OnMenuItemClickListener {
             override fun onMenuItemClick(item: MenuItem?): Boolean {
