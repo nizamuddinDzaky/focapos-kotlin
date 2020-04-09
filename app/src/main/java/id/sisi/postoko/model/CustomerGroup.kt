@@ -5,15 +5,15 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class CustomerGroup (
-    val id: String,
-    val name: String,
-    val percent: String,
-    val client_id: String,
-    val flag: String,
-    val is_deleted: String,
-    val device_id: String,
-    val uuid: String,
-    val uui_app: String,
-    val company_id: String,
-    val kredit_limit: String
+    var id: String,
+    var name: String,
+    var percent: String? = null,
+    var client_id: String? = null,
+    var flag: String? = null,
+    var is_deleted: String? = null,
+    var device_id: String? = null,
+    var uuid: String? = null,
+    var uui_app: String? = null,
+    var company_id: String? = null,
+    var kredit_limit: Double? = 0.0
 ) : Parcelable

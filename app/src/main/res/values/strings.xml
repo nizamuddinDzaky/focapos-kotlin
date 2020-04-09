@@ -198,6 +198,7 @@
     <string name="title_activity_add_customer">AddCustomerActivity</string>
     <string name="txt_add_customer">Tambah Pelanggan</string>
     <string name="txt_insert_customer_to_price_group">Tambah Pelanggan ke Kelompok Harga</string>
+    <string name="txt_insert_customer_to_customer_group">Tambah Pelanggan ke Kelompok Pelanggan</string>
     <string name="txt_company_name">Nama Perusahaan</string>
     <string name="txt_price_group">Kelompok Harga / Price Group</string>
     <string name="txt_kecamatan">Kecamatan</string>
@@ -254,8 +255,11 @@
     <string name="txt_group_name">Nama Kelompok</string>
     <string name="txt_no_data">Belum ada data</string>
     <string name="txt_edit_price_group">Ubah Kelompok Harga</string>
+    <string name="txt_edit_customer_group">Ubah Kelompok Pelanggan</string>
     <string name="txt_select_month">Pilih Bulan</string>
     <string name="txt_error_try_again_later">Ulangi beberapa saat lagi.</string>
     <string name="txt_title_price_group">Kelompok Harga</string>
     <string name="txt_add_remove_customer">Tambah/Hapus Daftar Pelanggan</string>
+    <string name="txt_group_percentage">Group Percentage</string>
+    <string name="txt_kredit_limit">Kredit Limit</string>
 </resources>

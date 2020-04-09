@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import id.sisi.postoko.view.ui.customer.CustomerFragment
+import id.sisi.postoko.view.ui.customergroup.CustomerGrouFragment
 import id.sisi.postoko.view.ui.pricegroup.PriceGroupFragment
 import id.sisi.postoko.view.ui.product.ProductFragment
 import id.sisi.postoko.view.ui.supplier.SupplierFragment
@@ -13,6 +14,7 @@ class HomePagerAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val pages = listOf(
         CustomerFragment(),
+        CustomerGrouFragment(),
         PriceGroupFragment(),
         ProductFragment(),
         SupplierFragment(),
