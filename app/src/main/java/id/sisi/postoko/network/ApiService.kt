@@ -173,6 +173,12 @@ interface ApiServices {
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataDeliveryDetail>>
 
+    @POST("customers/add_price_group")
+    fun postAddPriceGroup(
+        @HeaderMap headerMap: Map<String, String>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
     companion object {
         private var retrofit: Retrofit? = null
 

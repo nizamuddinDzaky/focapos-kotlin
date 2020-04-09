@@ -22,9 +22,10 @@ class HomePagerAdapter(fm: FragmentManager) :
     )
     private var currentPosition: Int = 0
 
-    fun getCurrentFragment() = pages[currentPosition]
+    fun getCurrentFragment() = pages[currentPosition-1]
 
     override fun getItem(position: Int): Fragment {
+        currentPosition = position
         return pages[position]
     }
 

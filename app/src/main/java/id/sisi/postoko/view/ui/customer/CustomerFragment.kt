@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.utils.RC_ADD_CUSTOMER
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
@@ -50,7 +51,7 @@ class CustomerFragment : BaseFragment() {
 
         viewModel.getListCustomer()
         fb_add_master.setOnClickListener {
-            startActivityForResult(Intent(this.context, AddCustomerActivity::class.java), 2000)
+            startActivityForResult(Intent(this.context, AddCustomerActivity::class.java), RC_ADD_CUSTOMER)
         }
     }
 

@@ -12,6 +12,7 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_CUSTOMER
 import id.sisi.postoko.utils.extensions.exe
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class PriceGroupViewModel : ViewModel() {
@@ -84,10 +85,10 @@ class PriceGroupViewModel : ViewModel() {
         )
     }
 
-    fun postAddCustomer(body: Map<String, Any?>, listener: (Map<String, Any?>) -> Unit) {
+    fun postAddPriceGroup(body: Map<String, Any?>, listener: (Map<String, Any?>) -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        ApiServices.getInstance()?.postCustomers(headers, body)?.exe(
+        ApiServices.getInstance()?.postAddPriceGroup(headers, body)?.exe(
             onFailure = { _, _ ->
                 listener(
                     mapOf(

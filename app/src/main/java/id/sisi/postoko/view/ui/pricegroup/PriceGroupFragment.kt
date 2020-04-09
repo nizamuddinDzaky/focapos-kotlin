@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
@@ -64,6 +65,7 @@ class PriceGroupFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        logE("masuk ke price group")
         if (resultCode == Activity.RESULT_OK) {
             if (::mViewModel.isInitialized) {
                 mViewModel.getListPriceGroup()
@@ -77,4 +79,6 @@ class PriceGroupFragment : BaseFragment() {
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = mAdapter
     }
+
+
 }

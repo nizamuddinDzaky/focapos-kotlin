@@ -157,9 +157,9 @@ class AddCustomerActivity : AppCompatActivity() {
                 "cf3" to (et_cf3_add_customer?.text?.toString() ?: ""),
                 "cf4" to (et_cf4_add_customer?.text?.toString() ?: ""),
                 "cf5" to (et_cf5_add_customer?.text?.toString() ?: ""),
-                "provinsi" to (sp_provinsi_group_add_customer?.selectedItem?.toString() ?: ""),
-                "kabupaten" to (sp_district_group_add_customer?.selectedItem?.toString() ?: ""),
-                "kecamatan" to (sp_city_group_add_customer?.selectedItem?.toString() ?: "")
+                "province" to (sp_provinsi_group_add_customer?.selectedItem?.toString() ?: ""),
+                "city" to (sp_district_group_add_customer?.selectedItem?.toString() ?: ""),
+                "state" to (sp_city_group_add_customer?.selectedItem?.toString() ?: "")
 
             )
             viewModelCustomer.postAddCustomer(body){
