@@ -1,8 +1,10 @@
 package id.sisi.postoko.view.ui.pricegroup
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -15,11 +17,10 @@ import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.MySpinnerAdapter
 import id.sisi.postoko.utils.RC_ADD_PRICE_GROUP
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_price_group_add.*
-import java.util.ArrayList
+import java.util.*
 
 class AddPriceGroupActivity : BaseActivity() {
     private lateinit var vmPriceGroup: PriceGroupViewModel
@@ -56,7 +57,7 @@ class AddPriceGroupActivity : BaseActivity() {
                 position: Int,
                 id: Long
             ) {
-                if (listWarehouse.size > 0){
+                if (listWarehouse.isNotEmpty()){
                     idWarehouse = listWarehouse[position].id
                 }
             }
@@ -69,19 +70,44 @@ class AddPriceGroupActivity : BaseActivity() {
     }
 
     private fun actionAddPriceGroup() {
-        val body: MutableMap<String, Any> = mutableMapOf(
-            "name" to (et_price_group_name?.text?.toString() ?: ""),
-            "warehouse_id" to (idWarehouse?: "")
-        )
+        val numbersMap = validationAddPriceGroup()
+        if (numbersMap["type"] as Boolean){
+            val body: MutableMap<String, Any> = mutableMapOf(
+                "name" to (et_price_group_name?.text?.toString() ?: ""),
+                "warehouse_id" to (idWarehouse?: "")
+            )
 
-        vmPriceGroup.postAddPriceGroup(body){
-            Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
-            if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                val returnIntent = Intent()
-                setResult(Activity.RESULT_OK, returnIntent)
-                finish()
+            vmPriceGroup.postAddPriceGroup(body){
+                Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    val returnIntent = Intent()
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                }
             }
+        }else{
+            AlertDialog.Builder(this)
+                .setTitle("Konfirmasi")
+                .setMessage(numbersMap["message"] as String)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                }
+                .show()
         }
+    }
+
+    private fun validationAddPriceGroup(): Map<String, Any?> {
+        var message = ""
+        var cek = true
+        if (TextUtils.isEmpty(et_price_group_name.text)){
+            message += "- Nama Price Group Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (idWarehouse == null || idWarehouse == ""){
+            message += "- Warehouse Tidak Boleh Kosong\n"
+            cek = false
+        }
+        return mapOf("message" to message, "type" to cek)
     }
 
     companion object {
