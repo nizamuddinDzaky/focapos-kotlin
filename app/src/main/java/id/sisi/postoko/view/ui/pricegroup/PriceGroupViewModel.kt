@@ -11,6 +11,7 @@ import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_CUSTOMER
+import id.sisi.postoko.utils.KEY_ID_PRICE_GROUP
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
@@ -20,7 +21,6 @@ class PriceGroupViewModel : ViewModel() {
     private val customersGroup = MutableLiveData<List<CustomerGroup>?>()
     private val priceGroup = MutableLiveData<List<PriceGroup>?>()
     private var isExecute = MutableLiveData<Boolean>()
-    private var idCustomer: String? = null
 
     fun getListCustomer() {
         isExecute.postValue(true)
@@ -120,11 +120,11 @@ class PriceGroupViewModel : ViewModel() {
         )
     }
 
-    fun postEditSale(body: Map<String, Any?>, listener: (Map<String, Any>) -> Unit) {
+    fun putEditPriceGroup(body: Map<String, Any?>, idPriceGroup: String, listener: (Map<String, Any>) -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("id_customer" to idCustomer.toString())
-        ApiServices.getInstance()?.putEditCustomers(headers, params, body)?.exe(
+        val params = mutableMapOf(KEY_ID_PRICE_GROUP to idPriceGroup.toString())
+        ApiServices.getInstance()?.putEditPriceGroup(headers, params, body)?.exe(
             onFailure = { _, _ ->
                 listener(
                     mapOf(
@@ -171,9 +171,5 @@ class PriceGroupViewModel : ViewModel() {
 
     internal fun getListPriceGroups(): LiveData<List<PriceGroup>?> {
         return priceGroup
-    }
-
-    fun setIdCustomer(idCustomer: String) {
-        this.idCustomer = idCustomer
     }
 }

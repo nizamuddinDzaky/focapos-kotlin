@@ -47,10 +47,18 @@ class PriceGroupFragment : BaseFragment() {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
         mViewModel.getListPriceGroups().observe(viewLifecycleOwner, Observer {
+            logE("masuk gak hayooo2")
             mAdapter.updateMasterData(it)
         })
 
         mViewModel.getListPriceGroup()
+
+//        val bottomSheetFragment = BottomSheetEditPriceGroupFragment()
+//        bottomSheetFragment.listener={
+//            logE("masuk gak hayooo1")
+//            mViewModel.getListPriceGroup()
+//        }
+
         fb_add_master.setOnClickListener {
             AddPriceGroupActivity.show(activity as FragmentActivity)
         }
@@ -75,9 +83,24 @@ class PriceGroupFragment : BaseFragment() {
 
     private fun setupRecycleView() {
         mAdapter = ListMasterAdapter(fragmentActivity = activity)
+        mAdapter.listenerPriceGroup={
+            showBottomEditSheetPriceGroup(it)
+        }
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = mAdapter
+    }
+
+    private fun showBottomEditSheetPriceGroup(priceGroup: PriceGroup) {
+        val bottomSheetFragment = BottomSheetEditPriceGroupFragment()
+        BottomSheetEditPriceGroupFragment.show(
+            childFragmentManager,
+            priceGroup
+        )
+        BottomSheetEditPriceGroupFragment.listener={
+            logE("masuk gak hayooo1")
+            mViewModel.getListPriceGroup()
+        }
     }
 
 
