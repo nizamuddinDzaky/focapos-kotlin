@@ -16,6 +16,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.DataSpinner
 import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.MySpinnerAdapter
@@ -33,14 +34,15 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 
 class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
-    private lateinit var mViewModel: PriceGroupViewModel
-    private lateinit var vmWarehouse: WarehouseViewModel
+    private lateinit var mViewModel: CustomerGroupViewModel
     private val numberSparator = NumberSeparator()
+    private var customerGroup: CustomerGroup? = null
+    var listener: () -> Unit = {}
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mViewModel = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
         return inflater.inflate(R.layout.fragment_bottom_sheet_edit_customer_group, container, false)
     }
 
@@ -51,7 +53,7 @@ class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
         }
 
         et_customer_group_kredit_limit.addTextChangedListener(numberSparator.onTextChangedListener(et_customer_group_kredit_limit))
-        val customerGroup = arguments?.getParcelable<CustomerGroup>(KEY_CUSTOMER_GROUP)?.also { customerGroup ->
+        customerGroup = arguments?.getParcelable<CustomerGroup>(KEY_CUSTOMER_GROUP)?.also { customerGroup ->
             et_customer_group_name?.setText(customerGroup.name)
             et_customer_group_percentage?.setText(customerGroup.percent)
             et_customer_group_kredit_limit?.setText(String.format("%.0f",customerGroup.kredit_limit))
@@ -68,8 +70,16 @@ class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_customer_group_name?.text.toString()),
                 "percentage" to (et_customer_group_percentage?.text.toString()),
-                "kredit_limit" to (et_customer_group_kredit_limit?.tag.toString())
+                "credit_limit" to (et_customer_group_kredit_limit?.tag.toString())
             )
+
+            mViewModel.putEditCustomerGroup(body,customerGroup?.id.toString()){
+                Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    this.dismiss()
+                    listener()
+                }
+            }
         }else{
             AlertDialog.Builder(context)
                 .setTitle("Konfirmasi")
@@ -97,6 +107,7 @@ class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
+        var listener: () -> Unit = {}
         fun show(
             fragmentManager: FragmentManager,
             customerGroup: CustomerGroup
@@ -106,6 +117,9 @@ class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
             bundle.putParcelable(KEY_CUSTOMER_GROUP, customerGroup)
             bottomSheetFragment.arguments = bundle
             bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
+            bottomSheetFragment.listener={
+                listener()
+            }
         }
     }
 }

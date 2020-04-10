@@ -73,8 +73,21 @@ class CustomerGroupFragment : BaseFragment() {
 
     private fun setupRecycleView() {
         mAdapter = ListMasterAdapter(fragmentActivity = activity)
+        mAdapter.listenerCustomerGroup={
+            showBottomEditSheetCustomerGroup(it)
+        }
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = mAdapter
+    }
+
+    private fun showBottomEditSheetCustomerGroup(it: CustomerGroup) {
+        BottomSheetEditCustomerGroupFragment.show(
+            childFragmentManager,
+            it
+        )
+        BottomSheetEditCustomerGroupFragment.listener={
+            mViewModel.getListCustomerGroup()
+        }
     }
 }

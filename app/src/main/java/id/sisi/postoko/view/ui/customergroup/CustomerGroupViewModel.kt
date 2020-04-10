@@ -8,6 +8,7 @@ import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
+import id.sisi.postoko.utils.KEY_ID_CUSTOMER_GROUP
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.tryMe
 
@@ -63,6 +64,42 @@ class CustomerGroupViewModel: ViewModel() {
                         mapOf(
                             "networkRespone" to NetworkResponse.ERROR,
                             "message" to response.body()?.message
+                        )
+                    )
+                    isExecute.postValue(true)
+                }
+            }
+        )
+    }
+
+    fun putEditCustomerGroup(body: Map<String, Any?>, idCustomerGroup: String, listener: (Map<String, Any>) -> Unit) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_CUSTOMER_GROUP to idCustomerGroup)
+        ApiServices.getInstance()?.putEditCustomerGroup(headers, params, body)?.exe(
+            onFailure = { _, _ ->
+                listener(
+                    mapOf(
+                        "networkRespone" to NetworkResponse.FAILURE,
+                        "message" to "koneksi gagal"
+                    )
+                )
+                isExecute.postValue(true)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    listener(
+                        mapOf(
+                            "networkRespone" to NetworkResponse.SUCCESS,
+                            "message" to response.message()
+                        )
+                    )
+                } else {
+                    listener(
+                        mapOf(
+                            "networkRespone" to NetworkResponse.ERROR,
+                            "message" to response.message()
                         )
                     )
                     isExecute.postValue(true)

@@ -92,13 +92,11 @@ class PriceGroupFragment : BaseFragment() {
     }
 
     private fun showBottomEditSheetPriceGroup(priceGroup: PriceGroup) {
-        val bottomSheetFragment = BottomSheetEditPriceGroupFragment()
         BottomSheetEditPriceGroupFragment.show(
             childFragmentManager,
             priceGroup
         )
         BottomSheetEditPriceGroupFragment.listener={
-            logE("masuk gak hayooo1")
             mViewModel.getListPriceGroup()
         }
     }
