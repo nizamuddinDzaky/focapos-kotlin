@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER
+import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.utils.RC_ADD_PRICE_GROUP
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
@@ -45,6 +46,8 @@ class MasterDataFragment : Fragment() {
             main_view_pager.setCurrentItem(0)
         }else if(requestCode == RC_ADD_PRICE_GROUP){
             main_view_pager.setCurrentItem(2)
+        }else if(requestCode == RC_ADD_CUSTOMER_GROUP){
+            main_view_pager.setCurrentItem(1)
         }
         logE("reqcode : ${(main_view_pager?.adapter as? HomePagerAdapter)?.getCurrentFragment()}")
 

@@ -64,8 +64,8 @@ class BottomSheetEditPriceGroupFragment : BottomSheetDialogFragment() {
                 adapterWarehouse.udpateView(it.map { pg ->
                     return@map DataSpinner(pg.name, pg.id)
                 }.toMutableList(), hasHeader = getString(R.string.txt_choose_warehouse))
-                sp_price_group_warehouse?.setIfExist(idWarehouse)
                 listWarehouse = it
+                sp_price_group_warehouse?.setIfExist(idWarehouse)
             }
         })
 
@@ -77,7 +77,7 @@ class BottomSheetEditPriceGroupFragment : BottomSheetDialogFragment() {
                 id: Long
             ) {
                 if(listWarehouse.size > 0){
-                    idWarehouse = listWarehouse[position].id
+                    idWarehouse = listWarehouse[(position-1)].id
                 }
 
             }

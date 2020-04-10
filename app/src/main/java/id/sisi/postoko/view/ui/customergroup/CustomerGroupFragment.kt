@@ -14,16 +14,15 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.view.BaseFragment
-import id.sisi.postoko.view.ui.pricegroup.AddPriceGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.PriceGroupViewModel
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
-class CustomerGrouFragment : BaseFragment() {
+class CustomerGroupFragment : BaseFragment() {
     companion object {
-        fun newInstance() = CustomerGrouFragment()
+        fun newInstance() = CustomerGroupFragment()
     }
 
-    private lateinit var mViewModel: PriceGroupViewModel
+    private lateinit var mViewModel: CustomerGroupViewModel
     private lateinit var mAdapter: ListMasterAdapter<CustomerGroup>
 
     override fun onCreateView(
@@ -42,7 +41,7 @@ class CustomerGrouFragment : BaseFragment() {
 
         setupUI()
 
-        mViewModel = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
         mViewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
@@ -59,7 +58,7 @@ class CustomerGrouFragment : BaseFragment() {
     private fun setupUI() {
         setupRecycleView()
         swipeRefreshLayoutMaster?.setOnRefreshListener {
-            mViewModel.getListPriceGroup()
+            mViewModel.getListCustomerGroup()
         }
     }
 
@@ -67,7 +66,7 @@ class CustomerGrouFragment : BaseFragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             if (::mViewModel.isInitialized) {
-                mViewModel.getListPriceGroup()
+                mViewModel.getListCustomerGroup()
             }
         }
     }

@@ -43,27 +43,6 @@ class PriceGroupViewModel : ViewModel() {
         )
     }
 
-    fun getListCustomerGroup() {
-        isExecute.postValue(true)
-        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        ApiServices.getInstance()?.getListCustomerGroup(headers)?.exe(
-            onFailure = { _, _ ->
-                isExecute.postValue(false)
-                customersGroup.postValue(null)
-            },
-            onResponse = { _, response ->
-                isExecute.postValue(false)
-                if (response.isSuccessful) {
-                    tryMe {
-                        customersGroup.postValue(response.body()?.data?.customer_groups)
-                    }
-                } else {
-                    customersGroup.postValue(listOf())
-                }
-            }
-        )
-    }
-
     fun getListPriceGroup() {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
@@ -163,10 +142,6 @@ class PriceGroupViewModel : ViewModel() {
 
     internal fun getListCustomers(): LiveData<List<Customer>?> {
         return customers
-    }
-
-    internal fun getListCustomerGroups(): LiveData<List<CustomerGroup>?> {
-        return customersGroup
     }
 
     internal fun getListPriceGroups(): LiveData<List<PriceGroup>?> {
