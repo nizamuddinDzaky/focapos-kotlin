@@ -89,3 +89,9 @@ data class DataDeliveryDetail(
     var delivery: Delivery?,
     var deliveryItem: List<DeliveryItem>
 )
+
+data class DataPieChart(
+    var reserved: String?,
+    var closed: String?,
+    var pending: String?
+)

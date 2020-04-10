@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
@@ -46,10 +47,18 @@ class PriceGroupFragment : BaseFragment() {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
         mViewModel.getListPriceGroups().observe(viewLifecycleOwner, Observer {
+            logE("masuk gak hayooo2")
             mAdapter.updateMasterData(it)
         })
 
         mViewModel.getListPriceGroup()
+
+//        val bottomSheetFragment = BottomSheetEditPriceGroupFragment()
+//        bottomSheetFragment.listener={
+//            logE("masuk gak hayooo1")
+//            mViewModel.getListPriceGroup()
+//        }
+
         fb_add_master.setOnClickListener {
             AddPriceGroupActivity.show(activity as FragmentActivity)
         }
@@ -64,6 +73,7 @@ class PriceGroupFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        logE("masuk ke price group")
         if (resultCode == Activity.RESULT_OK) {
             if (::mViewModel.isInitialized) {
                 mViewModel.getListPriceGroup()
@@ -73,8 +83,25 @@ class PriceGroupFragment : BaseFragment() {
 
     private fun setupRecycleView() {
         mAdapter = ListMasterAdapter(fragmentActivity = activity)
+        mAdapter.listenerPriceGroup={
+            showBottomEditSheetPriceGroup(it)
+        }
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = mAdapter
     }
+
+    private fun showBottomEditSheetPriceGroup(priceGroup: PriceGroup) {
+        val bottomSheetFragment = BottomSheetEditPriceGroupFragment()
+        BottomSheetEditPriceGroupFragment.show(
+            childFragmentManager,
+            priceGroup
+        )
+        BottomSheetEditPriceGroupFragment.listener={
+            logE("masuk gak hayooo1")
+            mViewModel.getListPriceGroup()
+        }
+    }
+
+
 }

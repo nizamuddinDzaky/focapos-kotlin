@@ -40,6 +40,7 @@ class NumberSeparator {
                     formatter.applyPattern("#,###,###,###")
                     val formattedString: String = formatter.format(longval)
                     editText.setText(formattedString)
+                    editText.tag = longval
                     editText.setSelection(editText.text.length)
                 } catch (nfe: NumberFormatException) {
                     nfe.printStackTrace()

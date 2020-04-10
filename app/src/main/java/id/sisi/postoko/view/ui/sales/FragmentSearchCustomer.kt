@@ -11,14 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
-import id.sisi.postoko.adapter.ListSearchCustomerAdapter
+import id.sisi.postoko.adapter.ListSearchDialogFragmentAdapter
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.view.ui.customer.CustomerViewModel
-import kotlinx.android.synthetic.main.fragment_search_customer.*
+import kotlinx.android.synthetic.main.dialog_fragment_search.*
 
 class FragmentSearchCustomer : DialogFragment() {
     private lateinit var viewModel: CustomerViewModel
-    private lateinit var adapter: ListSearchCustomerAdapter
+    private lateinit var adapter: ListSearchDialogFragmentAdapter<Customer>
     var listCustomer: List<Customer>? = arrayListOf()
     var listener: (Customer) -> Unit = {}
 
@@ -32,13 +32,12 @@ class FragmentSearchCustomer : DialogFragment() {
 
         return builder.create()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search_customer, container, false)
+        return inflater.inflate(R.layout.dialog_fragment_search, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,8 +49,8 @@ class FragmentSearchCustomer : DialogFragment() {
             }
         })
         viewModel.getListCustomer()
-        sv_search_customer_add_sales?.onActionViewExpanded()
-        sv_search_customer_add_sales.setOnQueryTextListener(object :
+        sv_search_master?.onActionViewExpanded()
+        sv_search_master.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
@@ -62,9 +61,7 @@ class FragmentSearchCustomer : DialogFragment() {
                 }
                 return true
             }
-
             override fun onQueryTextSubmit(query: String): Boolean {
-
                 return false
             }
 
@@ -103,14 +100,14 @@ class FragmentSearchCustomer : DialogFragment() {
     }
 
     private fun setupRecycleView(it: List<Customer>) {
-        adapter = ListSearchCustomerAdapter()
+        adapter = ListSearchDialogFragmentAdapter()
         adapter.updateMasterData(it)
         adapter.listener = {
             listener(it)
             dismissDialog()
         }
-        rv_list_search_customer?.layoutManager = LinearLayoutManager(this.context)
-        rv_list_search_customer?.setHasFixedSize(false)
-        rv_list_search_customer?.adapter = adapter
+        rv_list_search_master?.layoutManager = LinearLayoutManager(this.context)
+        rv_list_search_master?.setHasFixedSize(false)
+        rv_list_search_master?.adapter = adapter
     }
 }

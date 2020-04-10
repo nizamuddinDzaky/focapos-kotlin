@@ -112,6 +112,12 @@ interface ApiServices {
     @GET("products/list_products")
     fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
 
+    @GET("Sales_booking/list_transaction_sales_booking")
+    fun getPieChartData(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any?> = mapOf()
+    ): Call<BaseResponse<DataPieChart>>
+
     @GET("sales_booking/list_sales_booking")
     fun getListSale(
         @HeaderMap headerMap: Map<String, String>,
@@ -166,6 +172,19 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, Any>,
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataDeliveryDetail>>
+
+    @POST("customers/add_price_group")
+    fun postAddPriceGroup(
+        @HeaderMap headerMap: Map<String, String>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
+    @PUT("customers/update_price_group")
+    fun putEditPriceGroup(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf(),
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
 
     companion object {
         private var retrofit: Retrofit? = null

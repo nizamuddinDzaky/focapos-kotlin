@@ -11,16 +11,14 @@ import com.whiteelephant.monthpicker.MonthPickerDialog
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.MySession
-import id.sisi.postoko.utils.extensions.isNotCashier
-import id.sisi.postoko.utils.extensions.isSuperAdmin
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.showToastAccessDenied
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.AccountViewModel
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.DashboardPieChartAdapter
 import id.sisi.postoko.view.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard_pager.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
@@ -34,10 +32,11 @@ class DashboardFragment : Fragment() {
     private val today: Calendar = getInstance()
     private val calendar: Calendar = GregorianCalendar()
     val inputDateFormat = SimpleDateFormat("yyyy MM")
-
     val outputDateFormat = SimpleDateFormat("MMMM yyyy")
     var selectedMonth = calendar[MONTH]
     var selectedYear = calendar[YEAR]
+    var idWarehouse: String = ""
+    var warehouseName: String? = null
 
     private val prefs: Prefs by lazy {
         Prefs(MyApp.instance)
@@ -77,7 +76,6 @@ class DashboardFragment : Fragment() {
         view_pager_dashboard?.let {
             it.adapter = adapter
         }
-
         view_pager_dashboard.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {}
 
@@ -88,6 +86,12 @@ class DashboardFragment : Fragment() {
             ) {}
             override fun onPageSelected(position: Int) {
                 selectedMonth = position
+                val mFragment: DashboardPiechartFragment = adapter.getItem(view_pager_dashboard.currentItem) as DashboardPiechartFragment
+                if(warehouseName != null){
+                    mFragment.tv_warehouse_name_piechart.text = warehouseName
+                    mFragment.iv_delete_warehouse_piechart.visible()
+                }
+                mFragment.refresh(selectedYear, idWarehouse)
                 tv_date_filter.text = outputDateFormat.format(inputDateFormat.parse("$selectedYear ${selectedMonth+1}"))
             }
         })
@@ -121,7 +125,8 @@ class DashboardFragment : Fragment() {
                     selectedMonth = month
                     selectedYear = year
                     view_pager_dashboard.currentItem = selectedMonth
-                    (view_pager_dashboard.adapter as DashboardPieChartAdapter).getCurrentFragment().onResume()
+                    val page = childFragmentManager.findFragmentByTag("android:switcher:${R.id.view_pager_dashboard}:${selectedMonth}") as DashboardPiechartFragment
+                    page.refresh(selectedYear, idWarehouse)
                     tv_date_filter.text = outputDateFormat.format(inputDateFormat.parse("$selectedYear ${selectedMonth+1}"))
                 }, selectedYear, selectedMonth)
 

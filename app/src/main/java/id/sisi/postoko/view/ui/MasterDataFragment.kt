@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
+import id.sisi.postoko.utils.RC_ADD_CUSTOMER
+import id.sisi.postoko.utils.RC_ADD_PRICE_GROUP
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.AddProductActivity
@@ -38,10 +40,16 @@ class MasterDataFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        logE("masuk 1 ${(main_view_pager?.adapter as? HomePagerAdapter)?.getCurrentFragment()}")
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_ADD_CUSTOMER){
+            main_view_pager.setCurrentItem(0)
+        }else if(requestCode == RC_ADD_PRICE_GROUP){
+            main_view_pager.setCurrentItem(2)
+        }
+        logE("reqcode : ${(main_view_pager?.adapter as? HomePagerAdapter)?.getCurrentFragment()}")
+
         (main_view_pager?.adapter as? HomePagerAdapter)?.getCurrentFragment()
             ?.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     companion object {

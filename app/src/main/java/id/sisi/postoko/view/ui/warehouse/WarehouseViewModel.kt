@@ -31,7 +31,6 @@ class WarehouseViewModel : ViewModel() {
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        logE("tes ${response.body()?.data}")
                         warehouses.postValue(response.body()?.data?.list_warehouses)
                     }
                 } else {

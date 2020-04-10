@@ -7,9 +7,9 @@
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sv_search_customer_add_sales"/>
+        android:id="@+id/sv_search_master"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="300dp"
         android:layout_height="400dp"
-        android:id="@+id/rv_list_search_customer"/>
+        android:id="@+id/rv_list_search_master" />
 </LinearLayout>

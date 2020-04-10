@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.customer
+package id.sisi.postoko.view.ui.customergroup
 
 import android.app.Activity
 import android.content.Intent
@@ -6,24 +6,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
-import id.sisi.postoko.model.Customer
-import id.sisi.postoko.utils.RC_ADD_CUSTOMER
+import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.view.BaseFragment
+import id.sisi.postoko.view.ui.pricegroup.AddPriceGroupActivity
+import id.sisi.postoko.view.ui.pricegroup.PriceGroupViewModel
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
-class CustomerFragment : BaseFragment() {
-
+class CustomerGrouFragment : BaseFragment() {
     companion object {
-        fun newInstance() = CustomerFragment()
+        fun newInstance() = CustomerGrouFragment()
     }
 
-    private lateinit var viewModel: CustomerViewModel
-    private lateinit var adapter: ListMasterAdapter<Customer>
+    private lateinit var mViewModel: PriceGroupViewModel
+    private lateinit var mAdapter: ListMasterAdapter<CustomerGroup>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,7 @@ class CustomerFragment : BaseFragment() {
     }
 
     override var tagName: String
-        get() = "Pelanggan"
+        get() = "Kelompok Pelanggan"
         set(_) {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -41,40 +42,40 @@ class CustomerFragment : BaseFragment() {
 
         setupUI()
 
-        viewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
-        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+        mViewModel = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
+        mViewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
-        viewModel.getListCustomers().observe(viewLifecycleOwner, Observer {
-            adapter.updateMasterData(it)
+        mViewModel.getListCustomerGroups().observe(viewLifecycleOwner, Observer {
+            mAdapter.updateMasterData(it)
         })
 
-        viewModel.getListCustomer()
+        mViewModel.getListCustomerGroup()
         fb_add_master.setOnClickListener {
-            startActivityForResult(Intent(this.context, AddCustomerActivity::class.java), RC_ADD_CUSTOMER)
+            AddCustomerGroupActivity.show(activity as FragmentActivity)
         }
     }
 
     private fun setupUI() {
         setupRecycleView()
         swipeRefreshLayoutMaster?.setOnRefreshListener {
-            viewModel.getListCustomer()
+            mViewModel.getListPriceGroup()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (::viewModel.isInitialized) {
-                viewModel.getListCustomer()
+            if (::mViewModel.isInitialized) {
+                mViewModel.getListPriceGroup()
             }
         }
     }
 
     private fun setupRecycleView() {
-        adapter = ListMasterAdapter()
+        mAdapter = ListMasterAdapter(fragmentActivity = activity)
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
-        rv_list_master_data?.adapter = adapter
+        rv_list_master_data?.adapter = mAdapter
     }
 }

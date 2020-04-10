@@ -21,12 +21,14 @@ const val KEY_SORT_TYPE = "sortType"
 const val KEY_START_DATE = "start_date"
 const val KEY_END_DATE = "end_date"
 const val KEY_PRICE_GROUP = "price_group"
+const val KEY_CUSTOMER_GROUP = "customer_group"
 const val KEY_GOOD_RECEIVED = "good_received"
-
+const val KEY_PIECHART_DATE = "year_month"
+const val KEY_ID_PRICE_GROUP = "id_price_group"
 const val TXT_CONNECTION_FAILED = "Gagal tersambung, cek koneksi."
-
 const val ROLE_SUPER_ADMIN = 2
 const val ROLE_WAREHOUSE_ADMIN = 8
 const val ROLE_CASHIER = 5
-
 const val RC_PROFILE = 2001
+const val RC_ADD_CUSTOMER = 2000
+const val RC_ADD_PRICE_GROUP = 220
