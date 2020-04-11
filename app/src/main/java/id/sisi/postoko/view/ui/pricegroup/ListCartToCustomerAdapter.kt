@@ -98,5 +98,10 @@ class ListCartToCustomerAdapter<T>(
     fun updateMasterData(newMasterData: List<T>?) {
         masterData = newMasterData?.toMutableList()
         notifyDataSetChanged()
+
+        if (itemCount > 0)
+            notifyItemInserted(itemCount)
+        else
+            notifyDataSetChanged()
     }
 }

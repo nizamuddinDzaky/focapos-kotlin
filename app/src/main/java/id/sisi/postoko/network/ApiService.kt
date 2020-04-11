@@ -179,6 +179,13 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
+    @POST("customers/add_or_edit_customer_to_price_group")
+    fun postAddCustomerToPriceGroup(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf(),
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
     @PUT("customers/update_price_group")
     fun putEditPriceGroup(
         @HeaderMap headerMap: Map<String, String>,

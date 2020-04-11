@@ -3,13 +3,16 @@ package id.sisi.postoko.view.ui.pricegroup
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import id.sisi.postoko.R
 import id.sisi.postoko.model.BaseResponse
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.DataCustomer
 import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.addVerticalDivider
@@ -26,6 +29,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     )
     var listCustomerCart = mutableListOf<Customer>()
     var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
+    private lateinit var vmPriceGroup: PriceGroupViewModel
     private lateinit var adapterCustomer: ListCustomerToCartAdapter<Customer>
     private lateinit var adapterCart: ListCartToCustomerAdapter<Customer>
 
@@ -49,6 +53,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     private fun initView() {
         adapterCustomer = ListCustomerToCartAdapter(fragmentActivity = this)
         adapterCart = ListCartToCustomerAdapter(fragmentActivity = this)
+        vmPriceGroup = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
     }
 
     private fun setupData() {
@@ -126,7 +131,21 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     }
 
     private fun actionSave() {
-
+        if (listCustomerCart.isNotEmpty()){
+            val listIdSelected: ArrayList<String> = arrayListOf()
+            for (index in 0 until listCustomerCart.size){
+                listIdSelected.add(listCustomerCart[index].id ?: "")
+            }
+            val body: MutableMap<String, Any> = mutableMapOf(
+                "id_customer" to listIdSelected
+            )
+            vmPriceGroup.postAddCustomerToPriceGroup(body, priceGroup?.id.toString()){
+                Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    finish()
+                }
+            }
+        }
     }
 
 //    private fun toggle(count: Int) {
@@ -138,10 +157,14 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
 
     fun validation(customer: Customer) {
         if (customer.isSelected) {
-            adapterCart.addData(customer)
+//            adapterCart.addData(customer)
+            listCustomerCart.add(customer)
+            adapterCart.updateMasterData(listCustomerCart)
             rv_list_customer_cart?.smoothScrollToPosition(adapterCart.itemCount)
         } else {
-            adapterCart.removeCustomerFromCart(customer)
+            listCustomerCart.remove(customer)
+            adapterCart.updateMasterData(listCustomerCart)
+
             adapterCustomer.notifyDataSetChanged()
         }
         //toggle(adapterCart.itemCount)

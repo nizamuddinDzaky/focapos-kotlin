@@ -22,27 +22,6 @@ class PriceGroupViewModel : ViewModel() {
     private val priceGroup = MutableLiveData<List<PriceGroup>?>()
     private var isExecute = MutableLiveData<Boolean>()
 
-    fun getListCustomer() {
-        isExecute.postValue(true)
-        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        ApiServices.getInstance()?.getListCustomer(headers)?.exe(
-            onFailure = { _, _ ->
-                isExecute.postValue(false)
-                customers.postValue(null)
-            },
-            onResponse = { _, response ->
-                isExecute.postValue(false)
-                if (response.isSuccessful) {
-                    tryMe {
-                        customers.postValue(response.body()?.data?.list_customers)
-                    }
-                } else {
-                    customers.postValue(listOf())
-                }
-            }
-        )
-    }
-
     fun getListPriceGroup() {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
@@ -99,10 +78,46 @@ class PriceGroupViewModel : ViewModel() {
         )
     }
 
+    fun postAddCustomerToPriceGroup(body: Map<String, Any?>, idPriceGroup: String, listener: (Map<String, Any>) -> Unit) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_PRICE_GROUP to idPriceGroup)
+        ApiServices.getInstance()?.postAddCustomerToPriceGroup(headers, params, body)?.exe(
+            onFailure = { _, _ ->
+                listener(
+                    mapOf(
+                        "networkRespone" to NetworkResponse.FAILURE,
+                        "message" to "koneksi gagal"
+                    )
+                )
+                isExecute.postValue(true)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    listener(
+                        mapOf(
+                            "networkRespone" to NetworkResponse.SUCCESS,
+                            "message" to response.message()
+                        )
+                    )
+                } else {
+                    listener(
+                        mapOf(
+                            "networkRespone" to NetworkResponse.ERROR,
+                            "message" to response.message()
+                        )
+                    )
+                    isExecute.postValue(true)
+                }
+            }
+        )
+    }
+
     fun putEditPriceGroup(body: Map<String, Any?>, idPriceGroup: String, listener: (Map<String, Any>) -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf(KEY_ID_PRICE_GROUP to idPriceGroup.toString())
+        val params = mutableMapOf(KEY_ID_PRICE_GROUP to idPriceGroup)
         ApiServices.getInstance()?.putEditPriceGroup(headers, params, body)?.exe(
             onFailure = { _, _ ->
                 listener(
@@ -138,10 +153,6 @@ class PriceGroupViewModel : ViewModel() {
     internal fun getIsExecute(): LiveData<Boolean> {
 //        isExecute.postValue(true)
         return isExecute
-    }
-
-    internal fun getListCustomers(): LiveData<List<Customer>?> {
-        return customers
     }
 
     internal fun getListPriceGroups(): LiveData<List<PriceGroup>?> {

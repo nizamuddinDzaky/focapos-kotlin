@@ -135,12 +135,12 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     private fun actionSave() {
         if (listCustomerCart.isNotEmpty()){
             progressBar.show(this, "Silakan tunggu...")
-            val lisIdSelected: ArrayList<String> = arrayListOf()
+            val listIdSelected: ArrayList<String> = arrayListOf()
             for (index in 0 until listCustomerCart.size){
-                lisIdSelected.add(listCustomerCart[index].id ?: "")
+                listIdSelected.add(listCustomerCart[index].id ?: "")
             }
             val body: MutableMap<String, Any> = mutableMapOf(
-                "id_customer" to lisIdSelected
+                "id_customer" to listIdSelected
             )
             vmCustomerGroup.postAddCustomerToCustoemrGroup(body, customerGroup.id){
                 progressBar.dialog.dismiss()
