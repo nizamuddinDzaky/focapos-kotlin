@@ -262,4 +262,5 @@
     <string name="txt_add_remove_customer">Tambah/Hapus Daftar Pelanggan</string>
     <string name="txt_group_percentage">Group Percentage</string>
     <string name="txt_kredit_limit">Kredit Limit</string>
+    <string name="txt_title_customer_group">Kelompok Pelanggan</string>
 </resources>
