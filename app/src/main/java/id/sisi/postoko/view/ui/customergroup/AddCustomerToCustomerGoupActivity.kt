@@ -10,6 +10,7 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.DataCustomer
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
+import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.addVerticalDivider
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.helper.fromJson
@@ -47,6 +48,7 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
 
         initView()
         setupData()
+        setupAction()
     }
 
     private fun initView() {
@@ -74,6 +76,61 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
 
     private fun setupDataCart() {
         adapterCart.updateMasterData(listCustomerCart)
+    }
+
+    private fun setupAction() {
+        btn_action_submit?.setOnClickListener { actionSave() }
+        setupSearch()
+    }
+
+    private fun setupSearch() {
+        search_view?.setOnQueryTextListener(object : MySearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    submitQuerySearch(newText)
+                }
+                return false
+            }
+        })
+        search_view?.setOnSearchViewListener(object : MySearchView.SearchViewListener {
+            override fun onSearchViewShown() {
+                actoionShowSearch(true)
+            }
+
+            override fun onSearchViewClosed() {
+                actoionShowSearch(false)
+            }
+
+            override fun onFilter() {
+                submitOnFilter()
+            }
+        })
+    }
+
+    private fun actoionShowSearch(isShow: Boolean) {
+        if (!isShow) {
+            setupDataCustomer()
+        }
+    }
+
+    private fun submitOnFilter() {
+
+    }
+
+    private fun submitQuerySearch(newText: String) {
+        val resultSearch = firstListCustomer.filter {
+            val name = "${it.company} (${it.name})"
+            return@filter name.contains(newText, true)
+        }
+        adapterCustomer.updateMasterData(resultSearch)
+    }
+
+    private fun actionSave() {
+
     }
 
     fun validation(customer: Customer) {
