@@ -16,29 +16,24 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
 import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.addVerticalDivider
-import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.helper.fromJson
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
-import id.sisi.postoko.view.ui.pricegroup.CustomerPriceGroupPagerAdapter
 import id.sisi.postoko.view.ui.pricegroup.ListCustomerCGToCartAdapter
 import kotlinx.android.synthetic.main.activity_customer_customer_group.*
-import kotlinx.android.synthetic.main.activity_customer_customer_group.rv_list_customer
-import kotlinx.android.synthetic.main.activity_customer_customer_group.rv_list_customer_cart
 
 class AddCustomerToCustomerGoupActivity : BaseActivity() {
-    var firstListCustomer = listOf(
+    private var firstListCustomer = listOf(
         Customer(name = "masih"),
         Customer(name = "dalam"),
         Customer(name = "uji"),
         Customer(name = "coba")
     )
 
-    var customerGroup: CustomerGroup = CustomerGroup(id = "0", name = "ForcaPoS")
+    private var customerGroup: CustomerGroup = CustomerGroup(id = "0", name = "ForcaPoS")
     private lateinit var adapterCustomer: ListCustomerCGToCartAdapter<Customer>
     private lateinit var adapterCart: ListCartCGToCustomerAdapter<Customer>
-    var listCustomerCart = mutableListOf<Customer>()
+    private var listCustomerCart = mutableListOf<Customer>()
     private lateinit var vmCustomerGroup: CustomerGroupViewModel
     private val progressBar = CustomProgressBar()
 
@@ -138,11 +133,11 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     }
 
     private fun actionSave() {
-        if (!listCustomerCart.isEmpty()){
+        if (listCustomerCart.isNotEmpty()){
             progressBar.show(this, "Silakan tunggu...")
             val lisIdSelected: ArrayList<String> = arrayListOf()
             for (index in 0 until listCustomerCart.size){
-                lisIdSelected.add(listCustomerCart.get(index).id ?: "")
+                lisIdSelected.add(listCustomerCart[index].id ?: "")
             }
             val body: MutableMap<String, Any> = mutableMapOf(
                 "id_customer" to lisIdSelected

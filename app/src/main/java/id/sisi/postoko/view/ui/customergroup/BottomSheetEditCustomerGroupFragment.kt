@@ -9,29 +9,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.CustomerGroup
-import id.sisi.postoko.model.DataSpinner
-import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
-import id.sisi.postoko.utils.KEY_PRICE_GROUP
-import id.sisi.postoko.utils.MySpinnerAdapter
 import id.sisi.postoko.utils.NumberSeparator
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.setIfExist
-import id.sisi.postoko.view.ui.pricegroup.BottomSheetEditPriceGroupFragment
-import id.sisi.postoko.view.ui.pricegroup.PriceGroupViewModel
-import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
-import kotlinx.android.synthetic.main.content_edit_sale.*
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_customer_group.*
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_customer_group.view.*
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_price_group.*
-import java.math.BigDecimal
-import java.text.DecimalFormat
 
 class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
     private lateinit var mViewModel: CustomerGroupViewModel
