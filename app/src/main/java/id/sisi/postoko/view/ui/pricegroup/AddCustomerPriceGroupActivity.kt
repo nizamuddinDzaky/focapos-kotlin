@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.pricegroup
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -18,6 +19,7 @@ import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.addVerticalDivider
 import id.sisi.postoko.utils.helper.fromJson
 import id.sisi.postoko.view.BaseActivity
+import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_customer_price_group.*
 
 class AddCustomerPriceGroupActivity : BaseActivity() {
@@ -27,11 +29,12 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         Customer(name = "uji"),
         Customer(name = "coba")
     )
-    var listCustomerCart = mutableListOf<Customer>()
+    private var listCustomerCart = mutableListOf<Customer>()
     var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
     private lateinit var vmPriceGroup: PriceGroupViewModel
     private lateinit var adapterCustomer: ListCustomerToCartAdapter<Customer>
     private lateinit var adapterCart: ListCartToCustomerAdapter<Customer>
+    private val progressBar = CustomProgressBar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,6 +135,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
 
     private fun actionSave() {
         if (listCustomerCart.isNotEmpty()){
+            progressBar.show(this, "Silakan tunggu...")
             val listIdSelected: ArrayList<String> = arrayListOf()
             for (index in 0 until listCustomerCart.size){
                 listIdSelected.add(listCustomerCart[index].id ?: "")
@@ -140,11 +144,19 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
                 "id_customer" to listIdSelected
             )
             vmPriceGroup.postAddCustomerToPriceGroup(body, priceGroup?.id.toString()){
+                progressBar.dialog.dismiss()
                 Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
                     finish()
                 }
             }
+        }else{
+            AlertDialog.Builder(this)
+                .setTitle("Konfirmasi")
+                .setMessage("Silahkan Pilih Pelanggan Terlebih Dahulu")
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                }
+                .show()
         }
     }
 
@@ -180,8 +192,6 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     }
 
     fun updateTab() {}
-    fun countDec(customer: Customer) {}
-    fun countInc(customer: Customer) {}
 
     companion object {
         fun show(
