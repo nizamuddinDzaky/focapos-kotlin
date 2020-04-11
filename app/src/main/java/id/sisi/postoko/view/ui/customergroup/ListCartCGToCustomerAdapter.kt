@@ -90,7 +90,7 @@ class ListCartCGToCustomerAdapter<T>(
     }
 
     fun addData(value: T) {
-        masterData?.add(value)
+//        masterData?.add(value)
         if (itemCount > 0)
             notifyItemInserted(itemCount)
         else
@@ -100,5 +100,9 @@ class ListCartCGToCustomerAdapter<T>(
     fun updateMasterData(newMasterData: List<T>?) {
         masterData = newMasterData?.toMutableList()
         notifyDataSetChanged()
+        if (itemCount > 0)
+            notifyItemInserted(itemCount)
+        else
+            notifyDataSetChanged()
     }
 }

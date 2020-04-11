@@ -37,6 +37,42 @@ class CustomerGroupViewModel: ViewModel() {
         )
     }
 
+    fun postAddCustomerToCustoemrGroup(body: Map<String, Any?>,idCustomerGroup: String, listener: (Map<String, Any?>) -> Unit) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_CUSTOMER_GROUP to idCustomerGroup)
+        ApiServices.getInstance()?.postAddCustomerToCustoemrGroup(headers, params, body)?.exe(
+            onFailure = { _, _ ->
+                listener(
+                    mapOf(
+                        "networkRespone" to NetworkResponse.FAILURE,
+                        "message" to "koneksi gagal"
+                    )
+                )
+                isExecute.postValue(true)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    listener(
+                        mapOf(
+                            "networkRespone" to NetworkResponse.SUCCESS,
+                            "message" to response.body()?.message
+                        )
+                    )
+                } else {
+                    listener(
+                        mapOf(
+                            "networkRespone" to NetworkResponse.ERROR,
+                            "message" to response.body()?.message
+                        )
+                    )
+                    isExecute.postValue(true)
+                }
+            }
+        )
+    }
+
     fun postAddCustomerGroup(body: Map<String, Any?>, listener: (Map<String, Any?>) -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))

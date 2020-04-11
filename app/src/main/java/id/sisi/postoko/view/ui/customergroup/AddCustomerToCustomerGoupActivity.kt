@@ -1,26 +1,31 @@
 package id.sisi.postoko.view.ui.customergroup
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import id.sisi.postoko.R
 import id.sisi.postoko.model.BaseResponse
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.DataCustomer
+import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
 import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.addVerticalDivider
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.helper.fromJson
 import id.sisi.postoko.view.BaseActivity
+import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.pricegroup.CustomerPriceGroupPagerAdapter
 import id.sisi.postoko.view.ui.pricegroup.ListCustomerCGToCartAdapter
 import kotlinx.android.synthetic.main.activity_customer_customer_group.*
 import kotlinx.android.synthetic.main.activity_customer_customer_group.rv_list_customer
 import kotlinx.android.synthetic.main.activity_customer_customer_group.rv_list_customer_cart
-import kotlinx.android.synthetic.main.activity_customer_price_group.*
 
 class AddCustomerToCustomerGoupActivity : BaseActivity() {
     var firstListCustomer = listOf(
@@ -30,11 +35,13 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
         Customer(name = "coba")
     )
 
-
     var customerGroup: CustomerGroup = CustomerGroup(id = "0", name = "ForcaPoS")
     private lateinit var adapterCustomer: ListCustomerCGToCartAdapter<Customer>
     private lateinit var adapterCart: ListCartCGToCustomerAdapter<Customer>
     var listCustomerCart = mutableListOf<Customer>()
+    private lateinit var vmCustomerGroup: CustomerGroupViewModel
+    private val progressBar = CustomProgressBar()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_customer_group)
@@ -54,6 +61,7 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     private fun initView() {
         adapterCustomer = ListCustomerCGToCartAdapter(fragmentActivity = this)
         adapterCart = ListCartCGToCustomerAdapter(fragmentActivity = this)
+        vmCustomerGroup = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
     }
 
     private fun setupDataCustomer(loadNew: Boolean = false) {
@@ -130,14 +138,41 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     }
 
     private fun actionSave() {
-
+        if (!listCustomerCart.isEmpty()){
+            progressBar.show(this, "Silakan tunggu...")
+            val lisIdSelected: ArrayList<String> = arrayListOf()
+            for (index in 0 until listCustomerCart.size){
+                lisIdSelected.add(listCustomerCart.get(index).id ?: "")
+            }
+            val body: MutableMap<String, Any> = mutableMapOf(
+                "id_customer" to lisIdSelected
+            )
+            vmCustomerGroup.postAddCustomerToCustoemrGroup(body, customerGroup.id){
+                progressBar.dialog.dismiss()
+                Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    finish()
+                }
+            }
+        }else{
+            AlertDialog.Builder(this)
+                .setTitle("Konfirmasi")
+                .setMessage("Silahkan Pilih Pelanggan Terlebih Dahulu")
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                }
+                .show()
+        }
     }
 
     fun validation(customer: Customer) {
         if (customer.isSelected) {
-            adapterCart.addData(customer)
+            listCustomerCart.add(customer)
+            adapterCart.updateMasterData(listCustomerCart)
+
             rv_list_customer_cart?.smoothScrollToPosition(adapterCart.itemCount)
         } else {
+            listCustomerCart.remove(customer)
+            adapterCart.updateMasterData(listCustomerCart)
             adapterCart.removeCustomerFromCart(customer)
             adapterCustomer.notifyDataSetChanged()
         }
