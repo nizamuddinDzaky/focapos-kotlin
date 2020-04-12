@@ -6,20 +6,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.gson.Gson
 import id.sisi.postoko.R
-import id.sisi.postoko.model.BaseResponse
 import id.sisi.postoko.model.Customer
-import id.sisi.postoko.model.DataCustomer
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.addVerticalDivider
-import id.sisi.postoko.utils.helper.fromJson
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.customer.CustomerViewModel
 import kotlinx.android.synthetic.main.activity_customer_price_group.*
 
 class AddCustomerPriceGroupActivity : BaseActivity() {
@@ -30,10 +28,11 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         Customer(name = "coba")
     )
     private var listCustomerCart = mutableListOf<Customer>()
-    var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
+    private var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
     private lateinit var vmPriceGroup: PriceGroupViewModel
     private lateinit var adapterCustomer: ListCustomerToCartAdapter<Customer>
     private lateinit var adapterCart: ListCartToCustomerAdapter<Customer>
+    private lateinit var vmCustomer: CustomerViewModel
     private val progressBar = CustomProgressBar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +56,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         adapterCustomer = ListCustomerToCartAdapter(fragmentActivity = this)
         adapterCart = ListCartToCustomerAdapter(fragmentActivity = this)
         vmPriceGroup = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
+        vmCustomer = ViewModelProvider(this).get(CustomerViewModel::class.java)
     }
 
     private fun setupData() {
@@ -64,21 +64,28 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         rv_list_customer_cart?.adapter = adapterCart
         rv_list_customer?.addVerticalDivider()
 
-        setupDataCart()
+//        setupDataCart()
         setupDataCustomer(true)
     }
 
     private fun setupDataCustomer(loadNew: Boolean = false) {
         if (loadNew) {
-            val jsonHelper =
-                Gson().fromJson<BaseResponse<DataCustomer>>(this, "DummyListCustomer.json")
-            firstListCustomer = (jsonHelper.data?.list_customers) ?: listOf()
+            vmCustomer.getListCustomers().observe(this, Observer {
+                firstListCustomer = it ?: listOf()
+                adapterCustomer.updateMasterData(firstListCustomer)
+                setupDataCart()
+            })
         }
-        adapterCustomer.updateMasterData(firstListCustomer)
+        vmCustomer.getListCustomer()
     }
 
     private fun setupDataCart() {
-//        adapterCart.updateMasterData(firstListCustomer)
+        for(index in firstListCustomer.indices){
+            if (firstListCustomer[index].price_group_id == priceGroup?.id){
+                firstListCustomer[index].isSelected = !firstListCustomer[index].isSelected
+                validation(firstListCustomer[index])
+            }
+        }
         adapterCart.updateMasterData(listCustomerCart)
     }
 
@@ -190,8 +197,6 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         }
         return super.onCreateOptionsMenu(menu)
     }
-
-    fun updateTab() {}
 
     companion object {
         fun show(
