@@ -18,6 +18,7 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.MySpinnerAdapter
 import id.sisi.postoko.utils.RC_ADD_PRICE_GROUP
 import id.sisi.postoko.view.BaseActivity
+import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_price_group_add.*
 import java.util.*
@@ -27,6 +28,7 @@ class AddPriceGroupActivity : BaseActivity() {
     private lateinit var vmWarehouse: WarehouseViewModel
     private var listWarehouse: List<Warehouse> = ArrayList()
     private var idWarehouse: String? = null
+    private val progressBar = CustomProgressBar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,12 +74,14 @@ class AddPriceGroupActivity : BaseActivity() {
     private fun actionAddPriceGroup() {
         val numbersMap = validationAddPriceGroup()
         if (numbersMap["type"] as Boolean){
+            progressBar.show(this, "Silakan tunggu...")
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_price_group_name?.text?.toString() ?: ""),
                 "warehouse_id" to (idWarehouse?: "")
             )
 
             vmPriceGroup.postAddPriceGroup(body){
+                progressBar.dialog.dismiss()
                 Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
                     val returnIntent = Intent()

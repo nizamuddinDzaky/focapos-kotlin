@@ -13,12 +13,15 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.view.BaseActivity
+import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_customer_group_add.*
 import kotlinx.android.synthetic.main.activity_price_group_add.btn_action_submit
 
 class AddCustomerGroupActivity : BaseActivity() {
     private val numberSparator = NumberSeparator()
     private lateinit var vmCustomerGroup: CustomerGroupViewModel
+    private val progressBar = CustomProgressBar()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_group_add)
@@ -35,6 +38,7 @@ class AddCustomerGroupActivity : BaseActivity() {
     private fun actionAddCustomerGroup() {
         val numbersMap = validationFormAddCustomerGroup()
         if (numbersMap["type"] as Boolean){
+            progressBar.show(this, "Silakan tunggu...")
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_customer_group_name?.text.toString()),
                 "percentage" to (et_customer_group_percentage?.text.toString()),
@@ -42,6 +46,7 @@ class AddCustomerGroupActivity : BaseActivity() {
             )
 
             vmCustomerGroup.postAddCustomerGroup(body){
+                progressBar.dialog.dismiss()
                 Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
                     val returnIntent = Intent()

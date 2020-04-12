@@ -16,6 +16,7 @@ import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
 import id.sisi.postoko.utils.NumberSeparator
+import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_customer_group.*
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_customer_group.view.*
 
@@ -24,6 +25,8 @@ class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
     private val numberSparator = NumberSeparator()
     private var customerGroup: CustomerGroup? = null
     var listener: () -> Unit = {}
+    private val progressBar = CustomProgressBar()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +56,7 @@ class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
     private fun actionEditCustomerGroup() {
         val numbersMap = validationFormEditCustomerGroup()
         if (numbersMap["type"] as Boolean){
+            context?.let { progressBar.show(it, "Silakan tunggu...") }
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_customer_group_name?.text.toString()),
                 "percentage" to (et_customer_group_percentage?.text.toString()),
@@ -62,6 +66,7 @@ class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
             mViewModel.putEditCustomerGroup(body,customerGroup?.id.toString()){
                 Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    progressBar.dialog.dismiss()
                     this.dismiss()
                     listener()
                 }

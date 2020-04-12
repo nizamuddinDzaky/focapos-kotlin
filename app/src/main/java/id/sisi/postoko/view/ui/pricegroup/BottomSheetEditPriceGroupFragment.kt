@@ -20,8 +20,8 @@ import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.MySpinnerAdapter
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
+import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_price_group.*
 import java.util.*
@@ -34,6 +34,8 @@ class BottomSheetEditPriceGroupFragment : BottomSheetDialogFragment() {
     var listener: (Boolean) -> Unit = {}
     private var listWarehouse: List<Warehouse> = ArrayList()
     private var priceGroup: PriceGroup? = null
+    private val progressBar = CustomProgressBar()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -92,6 +94,7 @@ class BottomSheetEditPriceGroupFragment : BottomSheetDialogFragment() {
     private fun actionEditPriceGroup() {
         val numbersMap = validationEditPriceGroup()
         if (numbersMap["type"] as Boolean){
+            context?.let { progressBar.show(it, "Silakan tunggu...") }
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_price_group_name?.text?.toString() ?: ""),
                 "warehouse_id" to (idWarehouse?: "")
@@ -100,6 +103,7 @@ class BottomSheetEditPriceGroupFragment : BottomSheetDialogFragment() {
             vmPriceGroup.putEditPriceGroup(body,priceGroup?.id.toString()){
                 Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    progressBar.dialog.dismiss()
                     this.dismiss()
                     listener(true)
                 }
