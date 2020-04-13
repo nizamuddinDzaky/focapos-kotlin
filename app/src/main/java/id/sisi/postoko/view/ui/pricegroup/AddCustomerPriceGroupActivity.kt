@@ -15,6 +15,7 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.extensions.addVerticalDivider
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.customer.CustomerViewModel
@@ -63,8 +64,6 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         rv_list_customer?.adapter = adapterCustomer
         rv_list_customer_cart?.adapter = adapterCart
         rv_list_customer?.addVerticalDivider()
-
-//        setupDataCart()
         setupDataCustomer(true)
     }
 
@@ -75,8 +74,10 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
                 adapterCustomer.updateMasterData(firstListCustomer)
                 setupDataCart()
             })
+            vmCustomer.getListCustomer()
+        }else{
+            adapterCustomer.updateMasterData(firstListCustomer)
         }
-        vmCustomer.getListCustomer()
     }
 
     private fun setupDataCart() {
@@ -113,6 +114,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
             }
 
             override fun onSearchViewClosed() {
+                logE("closed Search")
                 actoionShowSearch(false)
             }
 
@@ -129,7 +131,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     }
 
     private fun submitOnFilter() {
-
+        logE("testing")
     }
 
     private fun submitQuerySearch(newText: String) {
