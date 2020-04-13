@@ -263,4 +263,9 @@
     <string name="txt_group_percentage">Group Percentage</string>
     <string name="txt_kredit_limit">Kredit Limit</string>
     <string name="txt_title_customer_group">Kelompok Pelanggan</string>
+    <string name="txt_price_sale">Harga Penjualan</string>
+    <string name="txt_price_credit">Harga Kredit</string>
+    <string name="txt_min_order">Min Order</string>
+    <string name="txt_title_detail_price_group">Detail Kelompok Harga</string>
+    <string name="txt_multiple">Multiple</string>
 </resources>

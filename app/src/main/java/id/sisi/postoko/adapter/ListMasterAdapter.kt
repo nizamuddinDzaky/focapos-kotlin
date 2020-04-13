@@ -18,10 +18,8 @@ import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.customer.DetailCustomerActivity
 import id.sisi.postoko.view.ui.customergroup.AddCustomerToCustomerGoupActivity
-import id.sisi.postoko.view.ui.customergroup.BottomSheetEditCustomerGroupFragment
 import id.sisi.postoko.view.ui.pricegroup.AddCustomerPriceGroupActivity
-import id.sisi.postoko.view.ui.pricegroup.AddPriceGroupActivity
-import id.sisi.postoko.view.ui.pricegroup.BottomSheetEditPriceGroupFragment
+import id.sisi.postoko.view.ui.pricegroup.DetailPriceGroupActivity
 import kotlinx.android.synthetic.main.list_item_master.view.*
 import java.text.NumberFormat
 import java.util.*
@@ -130,7 +128,10 @@ class ListMasterAdapter<T>(
                         }
                     }
                     R.id.menu_more_price_group_detail -> {
-                        MyToast.make(view.context).showErrorL("coming soon")
+                        DetailPriceGroupActivity.show(
+                            fragmentActivity as FragmentActivity,
+                            priceGroup
+                        )
                     }
                     else -> {
                     }
