@@ -18,8 +18,8 @@ android {
         applicationId "id.sisi.postoko"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 8
-        versionName "2.0.20200403"
+        versionCode 9
+        versionName "2.0.20200410"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
     }
