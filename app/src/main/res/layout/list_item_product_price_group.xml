@@ -63,7 +63,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.7">
                             <TextView
-                                android:id="@+id/expand_text"
+                                android:id="@+id/tv_product_name"
                                 style="@style/TextAppearance.AppCompat.Medium"
                                 android:layout_width="0dp"
                                 android:textColor="@color/colorBlack"
@@ -101,7 +101,6 @@
                     <TextView
                         android:id="@+id/tv_product_code"
                         android:paddingLeft="16dp"
-                        android:text="asdasdssa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="16dp"
@@ -139,14 +138,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"/>
+
                             <EditText
+                                android:id="@+id/et_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="numberDecimal"
                                 android:importantForAutofill="no"
                                 android:focusableInTouchMode="true"
                                 android:autofillHints="Rp10000"
-                                tools:ignore="LabelFor" />
+                                tools:ignore="LabelFor"
+                                android:backgroundTint="@android:color/holo_blue_bright"
+                                tools:targetApi="lollipop" />
                             <TextView
                                 android:id="@+id/tv_subtitle_price"
                                 android:text="@string/txt_price_sale"
@@ -168,13 +171,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"/>
                             <EditText
+                                android:id="@+id/et_price_credit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="numberDecimal"
                                 android:importantForAutofill="no"
                                 android:focusableInTouchMode="true"
                                 android:autofillHints="Rp10000"
-                                tools:ignore="LabelFor" />
+                                android:backgroundTint="#00B0FF"
+                                tools:ignore="LabelFor"
+                                tools:targetApi="lollipop" />
                             <TextView
                                 android:id="@+id/tv_subtitle_credit_price"
                                 android:text="@string/txt_price_credit"
@@ -203,13 +209,16 @@
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"/>
                             <EditText
+                                android:id="@+id/et_min_order"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="numberDecimal"
                                 android:importantForAutofill="no"
                                 android:focusableInTouchMode="true"
                                 android:autofillHints="Rp10000"
-                                tools:ignore="LabelFor" />
+                                android:backgroundTint="@android:color/holo_blue_bright"
+                                tools:ignore="LabelFor"
+                                tools:targetApi="lollipop" />
                             <TextView
                                 android:id="@+id/tv_subtitle_min_order"
                                 android:text="@string/txt_min_order"
@@ -233,8 +242,10 @@
                             <Spinner
                                 android:id="@+id/sp_multiple"
                                 android:layout_width="match_parent"
+                                android:backgroundTint="@android:color/holo_blue_bright"
                                 style="@style/Widget.AppCompat.Spinner.Underlined"
-                                android:layout_height="40dp" />
+                                android:layout_height="40dp"
+                                tools:targetApi="lollipop" />
                             <TextView
                                 android:id="@+id/tv_subtitle_multiple"
                                 android:text="@string/txt_multiple"

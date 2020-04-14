@@ -95,3 +95,8 @@ data class DataPieChart(
     var closed: String?,
     var pending: String?
 )
+
+data class DataProductPrice(
+    var total_group_product_price: Int?,
+    var group_product_price: List<Product>
+)
