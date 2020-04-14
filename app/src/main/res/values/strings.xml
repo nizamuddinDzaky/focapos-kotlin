@@ -268,4 +268,6 @@
     <string name="txt_min_order">Min Order</string>
     <string name="txt_title_detail_price_group">Detail Kelompok Harga</string>
     <string name="txt_multiple">Multiple</string>
+    <string name="txt_add_price_group">Tambah Price Group</string>
+    <string name="txt_maksimal_30_karakter">Maksimal 30 Karakter</string>
 </resources>
