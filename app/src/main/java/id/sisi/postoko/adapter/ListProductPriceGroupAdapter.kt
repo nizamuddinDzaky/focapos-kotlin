@@ -13,7 +13,7 @@ import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.list_item_product_price_group.view.*
 
-class ListProductPriceGroup(private var product: List<Product>? = arrayListOf()): RecyclerView.Adapter<ListProductPriceGroup.ProductViewHolder>(){
+class ListProductPriceGroupAdapter(private var product: List<Product>? = arrayListOf()): RecyclerView.Adapter<ListProductPriceGroupAdapter.ProductViewHolder>(){
 
     var listener: (Product) -> Unit = {}
 

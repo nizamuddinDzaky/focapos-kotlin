@@ -1,6 +1,5 @@
 package id.sisi.postoko.view.ui.pricegroup
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -8,20 +7,17 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
 import id.sisi.postoko.R
-import id.sisi.postoko.adapter.ListProductPriceGroup
+import id.sisi.postoko.adapter.ListProductPriceGroupAdapter
 import id.sisi.postoko.model.*
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.helper.fromJson
 import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.detail_price_group.*
 
 class DetailPriceGroupActivity : BaseActivity() {
     private var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
-    private lateinit var adapter: ListProductPriceGroup
+    private lateinit var adapter: ListProductPriceGroupAdapter
     private lateinit var vmPriceGroup: PriceGroupViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +44,7 @@ class DetailPriceGroupActivity : BaseActivity() {
     }
 
     private fun setupRecycleView() {
-        adapter = ListProductPriceGroup()
+        adapter = ListProductPriceGroupAdapter()
         adapter.listener ={
             actionUpdateProductPrice(it)
         }
