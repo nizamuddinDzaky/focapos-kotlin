@@ -64,7 +64,7 @@ class ListProductPriceGroupAdapter(private var product: List<Product>? = arrayLi
             itemView.et_price.addTextChangedListener(numberSparator.onTextChangedListener(itemView.et_price))
 
             if (value?.price_kredit != null){
-                itemView.et_price_credit.setText(value?.price_kredit.toString())
+                itemView.et_price_credit.setText(value.price_kredit.toString())
             }
             itemView.et_price.setText(value?.price.toString())
             itemView.et_min_order.setText(value?.min_order.toString())

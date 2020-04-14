@@ -200,6 +200,12 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
+    @GET("customers/list_customer_member_of_price_group")
+    fun getListCustomerPriceGroup(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataCustomerPriceGroup>>
+
     @GET("customers/group_product_in_prices_group")
     fun getListProductPrice(
         @HeaderMap headerMap: Map<String, String>,

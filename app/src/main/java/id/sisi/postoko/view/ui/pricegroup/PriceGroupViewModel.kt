@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
+import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.network.ApiServices
@@ -15,8 +16,31 @@ import id.sisi.postoko.utils.extensions.tryMe
 
 class PriceGroupViewModel : ViewModel() {
     private val priceGroup = MutableLiveData<List<PriceGroup>?>()
+    private val customers = MutableLiveData<List<Customer>?>()
     private val productPrice = MutableLiveData<List<Product>?>()
     private var isExecute = MutableLiveData<Boolean>()
+
+    fun getListCustomerPriceGroup(id_price_group: String) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_PRICE_GROUP to ( id_price_group))
+        ApiServices.getInstance()?.getListCustomerPriceGroup(headers, params)?.exe(
+            onFailure = { _, _ ->
+                isExecute.postValue(false)
+                customers.postValue(null)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    tryMe {
+                        customers.postValue(response.body()?.data?.list_customer)
+                    }
+                } else {
+                    customers.postValue(listOf())
+                }
+            }
+        )
+    }
 
     fun getListPriceGroup() {
         isExecute.postValue(true)
@@ -215,5 +239,9 @@ class PriceGroupViewModel : ViewModel() {
 
     internal fun getListProductPrice(): LiveData<List<Product>?> {
         return productPrice
+    }
+
+    internal fun getListCustomers(): LiveData<List<Customer>?> {
+        return customers
     }
 }

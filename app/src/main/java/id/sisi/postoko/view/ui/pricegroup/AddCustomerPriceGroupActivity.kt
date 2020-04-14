@@ -33,7 +33,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     private lateinit var vmPriceGroup: PriceGroupViewModel
     private lateinit var adapterCustomer: ListCustomerToCartAdapter<Customer>
     private lateinit var adapterCart: ListCartToCustomerAdapter<Customer>
-    private lateinit var vmCustomer: CustomerViewModel
+
     private val progressBar = CustomProgressBar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +57,6 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         adapterCustomer = ListCustomerToCartAdapter(fragmentActivity = this)
         adapterCart = ListCartToCustomerAdapter(fragmentActivity = this)
         vmPriceGroup = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
-        vmCustomer = ViewModelProvider(this).get(CustomerViewModel::class.java)
     }
 
     private fun setupData() {
@@ -69,12 +68,13 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
 
     private fun setupDataCustomer(loadNew: Boolean = false) {
         if (loadNew) {
-            vmCustomer.getListCustomers().observe(this, Observer {
+            vmPriceGroup.getListCustomers().observe(this, Observer {
                 firstListCustomer = it ?: listOf()
+                logE("data: $it")
                 adapterCustomer.updateMasterData(firstListCustomer)
                 setupDataCart()
             })
-            vmCustomer.getListCustomer()
+            vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString())
         }else{
             adapterCustomer.updateMasterData(firstListCustomer)
         }

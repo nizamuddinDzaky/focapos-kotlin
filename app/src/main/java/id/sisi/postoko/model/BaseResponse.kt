@@ -26,6 +26,11 @@ data class DataCustomer(
     var list_customers: List<Customer>?
 )
 
+data class DataCustomerPriceGroup(
+    var total_list_customer: Int?,
+    var list_customer: List<Customer>?
+)
+
 data class DataCustomerGroup(
     var total_supplier: Int?,
     var customer_groups: List<CustomerGroup>?
