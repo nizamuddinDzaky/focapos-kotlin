@@ -1,15 +1,21 @@
 package id.sisi.postoko.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputLayout
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
-import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.login.BottomSheetForgetPasswordFragment
+import id.sisi.postoko.view.ui.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private val prefs: Prefs by lazy {
         Prefs(MyApp.instance)
     }
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var toast: Toast
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,51 +33,68 @@ class MainActivity : AppCompatActivity() {
             return
         }
         setContentView(R.layout.activity_main)
+        toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        viewModel.getDataLogin().observe(this, Observer {
+            it?.token?.let { token ->
+                viewModel.getUserProfile(token)
+            }
+        })
+        viewModel.getUserProfile().observe(this, Observer { user ->
+            viewModel.getDataLogin().value?.token?.let { token ->
+                successLogin(token, user)
+            }
+        })
+        viewModel.getIsExecute().observe(this, Observer {
+            if (it && !progressBar.isShowing()) {
+                progressBar.show(this, "Silakan tunggu...")
+            } else {
+                progressBar.dismiss()
+            }
+        })
+        viewModel.getMessage().observe(this, Observer {
+            logE("error $it")
+            it?.let {
+                toast.showErrorL(it)
+            }
+        })
 
         val mandatory = listOf<EditText>(et_username, et_password)
 
         prefs.usernameLogin?.let {
             et_username?.setText(it)
         }
+        layout_et_password?.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
         prefs.passwordLogin?.let {
+            layout_et_password?.endIconMode =
+                if (it.isEmpty()) TextInputLayout.END_ICON_PASSWORD_TOGGLE else TextInputLayout.END_ICON_NONE
             et_password?.setText(it)
         }
         checkbox_remember_me?.isChecked =
             !(et_username.text.isNullOrEmpty() && et_password.text.isNullOrEmpty())
+        btn_login_forget_password?.setOnClickListener {
+            BottomSheetForgetPasswordFragment.show(supportFragmentManager)
+        }
 
         btn_login?.setOnClickListener {
             if (!mandatory.validation()) {
                 return@setOnClickListener
             }
-            progressBar.show(this, "Silakan tunggu...")
-            val username = et_username?.text?.toStr() ?: "123456789"
-            val password = et_password?.text?.toStr() ?: "Indonesia1"
-            val body = mapOf(
-                "username" to username,
-                "password" to password
-            )
-            ApiServices.getInstance()?.postLogin(body)?.exe(
-                onFailure = { call, throwable ->
-                    logE("gagal")
-                },
-                onResponse = { call, response ->
-                    logE("berhasil")
-                    tryMe {
-                        if (response.body()?.code == 200) {
-                            prefs.posToken = response.body()?.data?.token
-                            if (checkbox_remember_me?.isChecked == true) {
-                                prefs.usernameLogin = username
-                                prefs.passwordLogin = password
-                            } else {
-                                prefs.usernameLogin = ""
-                                prefs.passwordLogin = ""
-                            }
-                            startActivity(Intent(this, HomeActivity::class.java))
-                        }
-                    }
-                }) {
-                progressBar.dialog.dismiss()
+            val username = et_username?.text?.toStr() ?: "demo"
+            val password = et_password?.text?.toStr() ?: "123456789"
+            val body = mapOf("username" to username, "password" to password)
+            viewModel.postLogin(body) {
+                val isRememberMe = checkbox_remember_me?.isChecked == true
+                prefs.usernameLogin = if (isRememberMe) username else ""
+                prefs.passwordLogin = if (isRememberMe) password else ""
             }
         }
+    }
+
+    private fun successLogin(token: String, user: User?) {
+        prefs.posToken = token
+        MyApp.prefs.isLogin = true
+        MyApp.prefs.posRoleId = user?.group_id
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 }

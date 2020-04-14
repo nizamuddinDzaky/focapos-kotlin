@@ -2,36 +2,36 @@ package id.sisi.postoko.utils.helper
 
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
-import id.sisi.postoko.view.AccountFragment
-import id.sisi.postoko.view.HistoryFragment
-import id.sisi.postoko.view.HomeFragment
-import id.sisi.postoko.view.PurchaseFragment
+import id.sisi.postoko.view.ui.dashboard.DashboardFragment
+import id.sisi.postoko.view.ui.gr.GoodReceivedRootFragment
+import id.sisi.postoko.view.ui.sales.SalesRootFragment
+import id.sisi.postoko.view.ui.MasterDataFragment
 
 enum class BottomNavigationPosition(val position: Int, val id: Int) {
     HOME(0, R.id.menu_home),
-    PURCHASE(1, R.id.menu_purchase),
-    HISTORY(2, R.id.menu_history),
-    ACCOUNT(3, R.id.menu_account);
+    RECEIVE(1, R.id.menu_good_receive),
+    SALES(2, R.id.menu_sales_booking),
+    MASTER(3, R.id.menu_master_data);
 }
 
 fun findNavigationPositionById(id: Int): BottomNavigationPosition = when (id) {
     BottomNavigationPosition.HOME.id -> BottomNavigationPosition.HOME
-    BottomNavigationPosition.PURCHASE.id -> BottomNavigationPosition.PURCHASE
-    BottomNavigationPosition.HISTORY.id -> BottomNavigationPosition.HISTORY
-    BottomNavigationPosition.ACCOUNT.id -> BottomNavigationPosition.ACCOUNT
-    else -> BottomNavigationPosition.PURCHASE
+    BottomNavigationPosition.RECEIVE.id -> BottomNavigationPosition.RECEIVE
+    BottomNavigationPosition.SALES.id -> BottomNavigationPosition.SALES
+    BottomNavigationPosition.MASTER.id -> BottomNavigationPosition.MASTER
+    else -> BottomNavigationPosition.RECEIVE
 }
 
 fun BottomNavigationPosition.createFragment(): Fragment = when (this) {
-    BottomNavigationPosition.HOME -> HomeFragment.newInstance()
-    BottomNavigationPosition.PURCHASE -> PurchaseFragment.newInstance()
-    BottomNavigationPosition.HISTORY -> HistoryFragment.newInstance()
-    BottomNavigationPosition.ACCOUNT -> AccountFragment.newInstance()
+    BottomNavigationPosition.HOME -> DashboardFragment.newInstance()
+    BottomNavigationPosition.RECEIVE -> GoodReceivedRootFragment.newInstance()
+    BottomNavigationPosition.SALES -> SalesRootFragment.newInstance()
+    BottomNavigationPosition.MASTER -> MasterDataFragment.newInstance()
 }
 
 fun BottomNavigationPosition.getTag(): String = when (this) {
-    BottomNavigationPosition.HOME -> HomeFragment.TAG
-    BottomNavigationPosition.PURCHASE -> PurchaseFragment.TAG
-    BottomNavigationPosition.HISTORY -> HistoryFragment.TAG
-    BottomNavigationPosition.ACCOUNT -> AccountFragment.TAG
+    BottomNavigationPosition.HOME -> DashboardFragment.TAG
+    BottomNavigationPosition.RECEIVE -> GoodReceivedRootFragment.TAG
+    BottomNavigationPosition.SALES -> SalesRootFragment.TAG
+    BottomNavigationPosition.MASTER -> MasterDataFragment.TAG
 }

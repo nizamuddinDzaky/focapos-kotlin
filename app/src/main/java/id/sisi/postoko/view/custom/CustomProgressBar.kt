@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.custom
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.BlendMode
@@ -18,13 +19,18 @@ class CustomProgressBar {
 
     lateinit var dialog: Dialog
 
-    fun show(context: Context): Dialog {
-        return show(context, null)
+    fun isShowing() = ::dialog.isInitialized && dialog.isShowing
+
+    fun dismiss() {
+        if (::dialog.isInitialized) {
+            dialog.dismiss()
+        }
     }
 
+    @SuppressLint("InflateParams")
     fun show(context: Context, title:CharSequence?): Dialog {
-        val inflator = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflator.inflate(R.layout.progress_bar, null)
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.progress_bar, null)
         if (title != null) {
             view.cp_title.text = title
         }
@@ -41,7 +47,7 @@ class CustomProgressBar {
         return dialog
     }
 
-    fun setColorFilter(@NonNull drawable: Drawable, color:Int) {
+    private fun setColorFilter(@NonNull drawable: Drawable, color:Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             drawable.colorFilter = BlendModeColorFilter(color, BlendMode.SRC_ATOP)
         } else {

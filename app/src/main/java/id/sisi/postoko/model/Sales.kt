@@ -1,0 +1,72 @@
+package id.sisi.postoko.model
+
+import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Sales (
+    val id : Int,
+    val date : String,
+    val reference_no : String,
+    val customer_id : Int,
+    val customer : String,
+    val biller_id : Int,
+    val biller : String,
+    val warehouse_id : Int,
+    val note : String,
+    val staff_note : String,
+    val total : Double,
+    val product_discount : Double,
+    val total_discount : Double,
+    var order_discount_id : String? = null,
+    val order_discount : Double,
+    val product_tax : Double,
+    var order_tax_id : String? = null,
+    val order_tax : Double,
+    val total_tax : Double,
+    val shipping : Double,
+    val grand_total : Double,
+    val sale_status : String,
+    val payment_status : String,
+    val payment_term : Int,
+    val sale_type : String,
+    var due_date : String? = null,
+    val created_by : String,
+    val created_at : String,
+    var updated_by : String? = null,
+    var updated_at : String? = null,
+    val total_items : Int,
+    val pos : Int,
+    val paid : Double,
+    var return_id : String? = null,
+    val surcharge : Double,
+    val attachment : String? = null,
+    var return_sale_ref : String? = null,
+    var sale_id : String? = null,
+    var return_sale_total : Double? = null,
+    var rounding : String? = null,
+    var client_id : String? = null,
+    var flag : String? = null,
+    var is_deleted : String? = null,
+    var device_id : String? = null,
+    var uuid : String? = null,
+    var uuid_app : String? = null,
+    var order_id : String? = null,
+    var mtid : String? = null,
+    var company_id : Int? = null,
+    var delivery_date : String? = null,
+    var is_updated_price : String? = null,
+    var cf1 : String? = null,
+    var cf2 : String? = null,
+    var charge : String? = null,
+    var reason : String? = null,
+    var correction_price : String? = null,
+    var delivery_method : String? = null,
+    var payment_method : String? = null,
+    var status_kredit_pro : String? = null,
+    var delivery_status : String? = null
+) : Parcelable {
+    @IgnoredOnParcel
+    var saleItems: List<SaleItem>? = arrayListOf()
+}

@@ -19,13 +19,6 @@ fun tryMe(runMe: () -> Unit) {
     }
 }
 
-fun String.toStr(): String? {
-    if (!this.isBlank() && this.isNotEmpty()) {
-        return this
-    }
-    return null
-}
-
 fun Editable.toStr(): String? {
     if (!this.isBlank() && this.isNotEmpty()) {
         return this.toString()

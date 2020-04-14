@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.ui.gr.GoodReceivedRootFragment">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_good_received"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E5E5E5"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/et_top_margin"
+                android:paddingLeft="@dimen/et_top_margin"
+                android:paddingEnd="@dimen/et_top_margin"
+                android:paddingRight="@dimen/et_top_margin"
+                android:paddingBottom="@dimen/standard_margin"
+                tools:itemCount="5"
+                tools:listitem="@layout/list_item_gr"
+                tools:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/layout_status_progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_margin"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/standard_margin"
+                    android:src="@drawable/female_forca" />
+
+                <TextView
+                    android:id="@+id/tv_status_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:text="Gagal Memuat" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/standard_margin"
+                    android:text="@string/txt_action_swipe_layout"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

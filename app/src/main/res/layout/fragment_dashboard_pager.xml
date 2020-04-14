@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ui.dashboard.DashboardPiechartFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_15"
+        tools:ignore="UselessParent">
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/tv_month_name_chart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+        </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|end"
+            android:paddingRight="@dimen/margin_15"
+            tools:ignore="RtlHardcoded,RtlSymmetry,UseCompoundDrawables">
+            <LinearLayout
+                android:id="@+id/l_filter_warehouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/building_icon_foreground"/>
+                <TextView
+                    android:id="@+id/tv_warehouse_name_piechart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:textStyle="bold"
+                    android:text="@string/txt_warehouse"
+                    android:textColor="#858484"
+                    android:gravity="center_vertical"/>
+                <ImageView
+                    android:id="@+id/iv_delete_warehouse_piechart"
+                    android:layout_width="50dp"
+                    android:visibility="gone"
+                    android:layout_height="50dp"
+                    android:src="@drawable/building_icon_foreground"/>
+            </LinearLayout>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_legend_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+</FrameLayout>

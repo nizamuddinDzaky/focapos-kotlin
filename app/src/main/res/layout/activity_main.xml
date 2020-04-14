@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg01"
     tools:context=".view.MainActivity">
 
     <ImageView
         android:id="@+id/iv_logo_aksestoko"
         android:layout_width="match_parent"
         android:layout_height="@dimen/logo_height"
-        android:layout_margin="@dimen/standart_margin"
+        android:layout_margin="@dimen/standard_margin"
         android:contentDescription="@string/txt_logo"
-        android:src="@drawable/logo_aksestoko"
+        android:src="@drawable/logo_forcapos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -23,7 +24,8 @@
         android:id="@+id/layout_et_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standart_margin"
+        android:layout_margin="@dimen/standard_margin"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_logo_aksestoko">
@@ -31,25 +33,26 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_username"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edittext_layout_height"
+            android:layout_height="@dimen/edit_text_layout_height"
             android:background="@drawable/edit_text_style"
             android:hint="@string/txt_username"
+            android:inputType="textEmailAddress"
             android:paddingStart="@dimen/et_top_margin"
             android:paddingLeft="@dimen/et_top_margin"
             android:paddingTop="@dimen/et_top_margin"
             android:paddingEnd="@dimen/et_top_margin"
-            android:paddingRight="@dimen/et_top_margin" />
+            android:paddingRight="@dimen/et_top_margin"
+            android:paddingBottom="@dimen/et_top_margin" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/standart_margin"
-        android:layout_marginLeft="@dimen/standart_margin"
-        android:layout_marginTop="@dimen/et_top_margin"
-        android:layout_marginEnd="@dimen/standart_margin"
-        android:layout_marginRight="@dimen/standart_margin"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_et_username">
@@ -57,74 +60,78 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edittext_layout_height"
+            android:layout_height="@dimen/edit_text_layout_height"
             android:background="@drawable/edit_text_style"
             android:hint="@string/txt_password"
+            android:imeOptions="actionSend"
             android:inputType="textPassword"
             android:paddingStart="@dimen/et_top_margin"
             android:paddingLeft="@dimen/et_top_margin"
             android:paddingTop="@dimen/et_top_margin"
             android:paddingEnd="@dimen/et_top_margin"
-            android:paddingRight="@dimen/et_top_margin" />
+            android:paddingRight="@dimen/et_top_margin"
+            android:paddingBottom="@dimen/et_top_margin" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standart_margin"
+        android:layout_margin="@dimen/standard_margin"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_et_password">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_height="wrap_content">
 
             <CheckBox
                 android:id="@+id/checkbox_remember_me"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
                 android:text="@string/txt_remember_me" />
 
             <TextView
-                android:id="@+id/tv_forget_password"
-                android:layout_width="0dp"
+                android:id="@+id/btn_login_forget_password"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="end"
-                android:text="@string/txt_forget_password" />
-        </LinearLayout>
+                android:text="@string/txt_forget_password"
+                tools:ignore="RelativeOverlap" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
-            android:layout_marginTop="@dimen/standart_margin"
+            android:layout_marginTop="@dimen/standard_margin"
             android:background="@drawable/button_red_style"
             android:text="@string/txt_login"
             android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/button_text_red_style" />
 
         <Button
-            android:id="@+id/btn_signup"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
-            android:layout_marginTop="@dimen/standart_margin"
+            android:layout_marginTop="@dimen/standard_margin"
             android:background="@drawable/button_white_style"
             android:text="@string/txt_sign_up"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/button_text_white_style" />
 
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standart_margin"
+        android:layout_margin="@dimen/standard_margin"
         android:text="@string/txt_copyright"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

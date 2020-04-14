@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".view.ui.sales.AddSalesActivity"
+    tools:showIn="@layout/activity_add_sales">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_15">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_date_sale"
+                    android:textColor="#676767"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@string/txt_icon_calendar"
+                        android:src="@drawable/calendar_icon_foreground" />
+
+                    <EditText
+                        android:id="@+id/et_date_add_sale"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="1dp"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:importantForAutofill="no"
+                        android:inputType="none"
+                        tools:ignore="KeyboardInaccessibleWidget,LabelFor,TextFields" />
+                </LinearLayout>
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_biler"
+                    android:textColor="#000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@string/txt_icon_biller"
+                        android:src="@drawable/building_icon_foreground" />
+
+                    <com.tiper.MaterialSpinner
+                        android:id="@+id/sp_supplier"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:clickable="true"
+                        android:focusable="false"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_warehouse"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@string/txt_icon_warehouse"
+                        android:src="@drawable/warehouse_icon_foreground" />
+
+                    <com.tiper.MaterialSpinner
+                        android:id="@+id/sp_warehouse_add_sale"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:clickable="true"
+                        android:focusable="false"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_customer"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@string/txt_image_person"
+                        android:src="@drawable/home_foreground" />
+
+                    <EditText
+                        android:id="@+id/et_customer"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="1dp"
+                        android:focusableInTouchMode="false"
+                        android:importantForAutofill="no"
+                        android:inputType="none"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="@string/txt_product"
+                android:textColor="#676767"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_product_add_sale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_15">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_total"
+                        android:textColor="#676767"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_total_add_sale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/txt_nol_total_rupiah"
+                        android:textAlignment="textEnd"
+                        android:textColor="#000" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/btn_add_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f3f2f2"
+            android:text="@string/txt_add_product"
+            android:textColor="#0f569d"
+            style="?android:attr/borderlessButtonStyle"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_discount"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_discount_add_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_delivery_fee"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_shipping_add_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_sale_status"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/rg_status_add_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_status_pending"
+                        tools:targetApi="lollipop" />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_ordered"
+                        tools:targetApi="lollipop" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_term_of_payment"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_payment_term_add_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_payment_status"
+                    android:textColor="#676767"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_status_pending"
+                        tools:targetApi="lollipop" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_due_date"
+                        tools:targetApi="lollipop" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_status_partial"
+                        tools:targetApi="lollipop" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_status_paid"
+                        tools:targetApi="lollipop" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_sale_note"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_note_add_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_employee_records"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_staff_note_add_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <Button
+            android:id="@+id/btn_confirmation_add_sale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1CA865"
+            android:text="@string/txt_add"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+</ScrollView><!--
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".view.ui.sales.AddSalesActivity"
+    tools:showIn="@layout/activity_add_sales">
+
+</LinearLayout>
+-->

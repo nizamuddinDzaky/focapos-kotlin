@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/et_top_margin"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:layout_marginRight="@dimen/et_top_margin">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_customer_group_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_layout_height_default"
+                    android:hint="@string/txt_customer_group"
+                    android:paddingStart="@dimen/et_top_margin"
+                    android:paddingEnd="@dimen/et_top_margin" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/et_top_margin"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:layout_marginRight="@dimen/et_top_margin">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_customer_group_percentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_layout_height_default"
+                    android:hint="@string/txt_group_percentage"
+                    android:paddingStart="@dimen/et_top_margin"
+                    android:inputType="numberDecimal"
+                    android:paddingEnd="@dimen/et_top_margin" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/et_top_margin"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:layout_marginRight="@dimen/et_top_margin">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_customer_group_kredit_limit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_layout_height_default"
+                    android:hint="@string/txt_kredit_limit"
+                    android:paddingStart="@dimen/et_top_margin"
+                    android:inputType="number"
+                    android:paddingEnd="@dimen/et_top_margin" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_action_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_bottom_sheet"
+        android:layout_margin="@dimen/standard_margin"
+        android:layout_weight="0"
+        android:background="@color/main_green"
+        android:text="@string/txt_action_save"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

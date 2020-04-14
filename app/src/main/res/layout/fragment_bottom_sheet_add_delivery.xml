@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:text="@string/txt_add_delivery"
+        android:textAlignment="center"
+        android:textColor="@color/colorTittleInput"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/et_top_margin"
+        android:layout_weight="0"
+        android:background="@color/colorBlack" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_date_range_black_24dp"
+                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusable="false"
+                    android:importantForAutofill="no"
+                    android:inputType="date"
+                    tools:ignore="KeyboardInaccessibleWidget,LabelFor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_status"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/rg_add_delivery_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_being_packed" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_in_shipping" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_already_received" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!--
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/et_top_margin">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Referensi Nomor Pengiriman"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/colorNotSelect"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/et_add_delivery_reference_no"
+                                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                                android:hint="SALE/2020/02/0001"
+                                android:drawablePadding="@dimen/et_top_margin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+            -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_sales_reference_numbers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_reference_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_date_range_black_24dp"
+                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/txt_hint_example_sales_number"
+                    android:importantForAutofill="no"
+                    android:inputType="none" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_posted_by"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_delivered_by"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_account_black_24dp"
+                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    tools:ignore="LabelFor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_received_by"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_received_by"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_account_black_24dp"
+                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    tools:ignore="LabelFor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_customer_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_customer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_account_black_24dp"
+                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_customer_address"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_customer_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_account_black_24dp"
+                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/et_top_margin"
+                android:background="@color/colorNotSelect" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#E5E5E5"
+                android:clipToPadding="false"
+                tools:itemCount="2"
+                tools:listitem="@layout/list_item_add_delivery" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/et_top_margin"
+                android:background="@color/colorNotSelect" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_note"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="5"
+                    android:minLines="3"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:text="Tunai"
+                    tools:ignore="LabelFor" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_confirmation_add_delivery"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_weight="0"
+        android:background="@color/main_green"
+        android:text="@string/txt_action_send_it"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

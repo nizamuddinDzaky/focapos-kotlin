@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/et_top_margin"
@@ -14,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -25,20 +27,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ID Pemesanan" />
+                    android:text="@string/txt_booking_id" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="(Silog Corp)"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/main_blue"
+                    tools:text="(Silog Corp)" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sale/2020/02/0020"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/main_blue"
+                    tools:text="Sale/2020/02/0020" />
             </LinearLayout>
 
             <LinearLayout
@@ -50,13 +52,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Status Pesanan" />
+                    android:text="@string/txt_booking_status" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dikonfirmasi"
-                    android:textColor="@android:color/holo_green_dark" />
+                    android:textColor="@color/main_green"
+                    tools:text="Dikonfirmasi" />
             </LinearLayout>
 
         </LinearLayout>
@@ -66,7 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/et_top_margin"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -77,13 +80,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tanggal Pemesanan" />
+                    android:text="@string/txt_booking_date" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="22 Februari 2020"
-                    android:textColor="#333333" />
+                    android:textColor="#333333"
+                    tools:text="22 Februari 2020" />
             </LinearLayout>
 
             <LinearLayout
@@ -95,13 +98,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Status Pembayaran" />
+                    android:text="@string/txt_payment_status" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Belum Bayar"
-                    android:textColor="@android:color/holo_orange_dark" />
+                    android:textColor="@color/main_orange"
+                    tools:text="Belum Bayar" />
             </LinearLayout>
 
         </LinearLayout>
@@ -121,7 +124,8 @@
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="0.3"
-                android:src="@drawable/dynamix" />
+                android:src="@drawable/dynamix"
+                android:contentDescription="@string/txt_image_cement" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -134,13 +138,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dynamix Serbaguna 40KG"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Dynamix Serbaguna 40KG" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rp 46.000 / SAK" />
+                    tools:text="Rp 46.000 / SAK" />
             </LinearLayout>
 
         </LinearLayout>
@@ -154,7 +158,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -165,14 +170,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TOTAL"
+                    android:text="@string/txt_total"
                     android:textAllCaps="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp 52.000"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    tools:text="Rp 52.000" />
 
             </LinearLayout>
 
@@ -186,13 +191,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lihat Detail"
+                    android:text="@string/txt_see_detail"
                     android:textAllCaps="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-->" />
+                    tools:text="-->" />
 
             </LinearLayout>
 

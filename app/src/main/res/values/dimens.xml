@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="standart_margin">16dp</dimen>
+    <dimen name="standard_margin">16dp</dimen>
     <dimen name="et_top_margin">8dp</dimen>
     <dimen name="logo_height">100dp</dimen>
-    <dimen name="edittext_layout_height">56dp</dimen>
+    <dimen name="edit_text_layout_height">64dp</dimen>
+    <dimen name="edit_text_layout_height_default">48dp</dimen>
     <dimen name="button_height">48dp</dimen>
+    <dimen name="button_height_bottom_sheet">32dp</dimen>
     <dimen name="bt_buy_margin">25dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_90">90dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_title_edit_profile">16dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
+    <dimen name="line">1dp</dimen>
+    <dimen name="header_profile">40dp</dimen>
+    <dimen name="avatar_size">64dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="search_view_text_padding">65dp</dimen>
+    <dimen name="tab_indicator_height">4dp</dimen>
 </resources>

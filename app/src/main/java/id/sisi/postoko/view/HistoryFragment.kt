@@ -17,9 +17,8 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = getString(R.string.txt_history)
-        val view = inflater.inflate(R.layout.fragment_history, container, false)
-        return view
+        activity?.title = getString(R.string.txt_menu_confirmation_delivery)
+        return inflater.inflate(R.layout.fragment_history, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
