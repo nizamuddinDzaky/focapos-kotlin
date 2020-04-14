@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     tools:context=".view.ui.dashboard.AccountFragment">
 
     <LinearLayout
@@ -80,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_sales"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#858484"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/margin_5"
                     app:layout_constraintTop_toBottomOf="@id/iv_view_01" />
@@ -143,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_purchase"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#858484"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/margin_5"
                     app:layout_constraintTop_toBottomOf="@id/iv_view_03" />
@@ -173,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_master_data"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#858484"
+                    android:textColor="@color/colorTittleInput"
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/margin_5"
                     app:layout_constraintTop_toBottomOf="@id/iv_view_04" />
@@ -184,7 +183,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/bt_buy_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
             android:background="@drawable/shadow2">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -225,7 +224,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:textStyle="bold"
-                            android:text="datang bulan"
                             android:textColor="#858484"
                             android:gravity="center_vertical"/>
 

@@ -24,14 +24,12 @@ import com.github.mikephil.charting.utils.MPPointF
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListLegendDashboardAdapter
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.ui.warehouse.WarehouseDialogFragment
 import kotlinx.android.synthetic.main.fragment_dashboard_pager.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 /**
@@ -87,9 +85,9 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val selectedYear = (parentFragment as DashboardFragment).selectedYear
-        val warehouse_id = (parentFragment as DashboardFragment).idWarehouse
-        val inputDateFormat = SimpleDateFormat("MM")
-        val outputDateFormat = SimpleDateFormat("MMMM")
+        val warehouseId = (parentFragment as DashboardFragment).idWarehouse
+        SimpleDateFormat("MM")
+        SimpleDateFormat("MMMM")
         l_filter_warehouse.setOnClickListener{
             val dialogFragment = WarehouseDialogFragment()
             dialogFragment.listener = {
@@ -108,8 +106,7 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
             (parentFragment as DashboardFragment).idWarehouse = ""
             (parentFragment as DashboardFragment).warehouseName = null
         }
-        tv_month_name_chart.text = month.toString() +"=>"+ outputDateFormat.format(inputDateFormat.parse((month+1).toString()))
-        viewModel.requestPieChartData("$selectedYear-${month+1}", warehouse_id)
+        viewModel.requestPieChartData("$selectedYear-${month+1}", warehouseId)
     }
 
     private fun setUpPieChart() {
@@ -144,7 +141,7 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
 
     private fun setDataPieChart() {
 
-        val entries = java.util.ArrayList<PieEntry>()
+        val entries = ArrayList<PieEntry>()
         val totalTransaksi = totClosed + totPending + totReserved
         entries.add(PieEntry((totClosed/totalTransaksi).toFloat(),""))
         entries.add(PieEntry((totReserved/totalTransaksi).toFloat(),""))
@@ -163,7 +160,7 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
             Color.rgb(37, 206, 217)
         )
 
-        val colors = java.util.ArrayList<Int>()
+        val colors = ArrayList<Int>()
 
         for (c in colorChart) colors.add(c)
 
@@ -180,8 +177,7 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
     }
 
     private fun setupRecycleView() {
-        adapter = ListLegendDashboardAdapter()
-        logE("jumlahTransaksi : $listJumlah")
+        adapter = ListLegendDashboardAdapter(fragmentActivity = activity)
         adapter.updateLegendData(listStatus,listJumlah,listImage)
         rv_legend_dashboard?.layoutManager = LinearLayoutManager(this.context)
         rv_legend_dashboard?.setHasFixedSize(false)
