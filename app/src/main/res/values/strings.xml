@@ -271,4 +271,5 @@
     <string name="txt_add_price_group">Tambah Price Group</string>
     <string name="txt_maksimal_30_karakter">Maksimal 30 Karakter</string>
     <string name="title_activity_edit_price_group">Edit Price Group</string>
+    <string name="title_activity_customer_selected_price_group">Pelanggan Yang Dipilih</string>
 </resources>

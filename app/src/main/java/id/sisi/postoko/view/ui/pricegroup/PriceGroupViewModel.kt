@@ -12,6 +12,7 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_PRICE_GROUP
 import id.sisi.postoko.utils.extensions.exe
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class PriceGroupViewModel : ViewModel() {
@@ -20,7 +21,7 @@ class PriceGroupViewModel : ViewModel() {
     private val productPrice = MutableLiveData<List<Product>?>()
     private var isExecute = MutableLiveData<Boolean>()
 
-    fun getListCustomerPriceGroup(id_price_group: String) {
+    fun getListCustomerPriceGroup(id_price_group: String, getSelected: Boolean = false) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_PRICE_GROUP to ( id_price_group))
@@ -33,7 +34,12 @@ class PriceGroupViewModel : ViewModel() {
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        customers.postValue(response.body()?.data?.list_customer)
+                        logE("${response.body()}")
+                        if(!getSelected) {
+                            customers.postValue(response.body()?.data?.list_customer)
+                        } else{
+                            customers.postValue(response.body()?.data?.customer_selected)
+                        }
                     }
                 } else {
                     customers.postValue(listOf())

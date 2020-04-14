@@ -28,7 +28,8 @@ data class DataCustomer(
 
 data class DataCustomerPriceGroup(
     var total_list_customer: Int?,
-    var list_customer: List<Customer>?
+    var list_customer: List<Customer>?,
+    var customer_selected: List<Customer>?
 )
 
 data class DataCustomerGroup(

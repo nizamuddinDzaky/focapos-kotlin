@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.pricegroup
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -7,7 +8,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.MenuItem
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -15,25 +15,17 @@ import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.DataSpinner
 import id.sisi.postoko.model.PriceGroup
-import id.sisi.postoko.model.Sales
 import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.network.NetworkResponse
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.MySpinnerAdapter
 import id.sisi.postoko.utils.RC_ADD_PRICE_GROUP
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
-
 import kotlinx.android.synthetic.main.activity_edit_price_group.*
 import kotlinx.android.synthetic.main.content_edit_price_group.*
-import kotlinx.android.synthetic.main.content_edit_price_group.btn_action_submit
-import kotlinx.android.synthetic.main.content_edit_price_group.et_price_group_name
-import kotlinx.android.synthetic.main.content_edit_price_group.sp_price_group_warehouse
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_price_group.*
-import java.util.ArrayList
+import java.util.*
 
 class EditPriceGroupActivity : AppCompatActivity() {
     private var priceGroup: PriceGroup? = null
@@ -43,13 +35,14 @@ class EditPriceGroupActivity : AppCompatActivity() {
     private lateinit var vmPriceGroup: PriceGroupViewModel
     private val progressBar = CustomProgressBar()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_price_group)
         setSupportActionBar(toolbar)
 
         val bundle = intent.extras
-        priceGroup = bundle?.getParcelable<PriceGroup>(KEY_PRICE_GROUP)
+        priceGroup = bundle?.getParcelable(KEY_PRICE_GROUP)
         supportActionBar?.title = null
 
         toolbar_subtitle.text = "( ${priceGroup?.name} )"

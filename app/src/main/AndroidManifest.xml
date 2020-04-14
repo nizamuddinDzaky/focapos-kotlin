@@ -21,9 +21,13 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".view.ui.pricegroup.CustomerSelectedPriceGroupActivity"
+            android:label="@string/title_activity_customer_selected_price_group"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".view.ui.pricegroup.EditPriceGroupActivity"
             android:label="@string/title_activity_edit_price_group"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.customer.EditCustomerActivity"
             android:label="@string/title_activity_edit_customer"
