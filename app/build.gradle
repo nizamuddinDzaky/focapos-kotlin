@@ -59,6 +59,8 @@ dependencies {
 
     //android support
     implementation 'com.android.support:design:29.0.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
     kapt "com.android.databinding:compiler:$gradle_version"
 
     //third party

@@ -20,6 +20,7 @@ import id.sisi.postoko.view.ui.customer.DetailCustomerActivity
 import id.sisi.postoko.view.ui.customergroup.AddCustomerToCustomerGoupActivity
 import id.sisi.postoko.view.ui.pricegroup.AddCustomerPriceGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.DetailPriceGroupActivity
+import id.sisi.postoko.view.ui.pricegroup.EditPriceGroupActivity
 import kotlinx.android.synthetic.main.list_item_master.view.*
 import java.text.NumberFormat
 import java.util.*
@@ -119,13 +120,7 @@ class ListMasterAdapter<T>(
                         )
                     }
                     R.id.menu_more_price_group_edit -> {
-                        listenerPriceGroup(priceGroup)
-                        fragmentActivity?.let {
-//                            BottomSheetEditPriceGroupFragment.show(
-//                                it.supportFragmentManager,
-//                                priceGroup
-//                            )
-                        }
+                        EditPriceGroupActivity.show(fragmentActivity as FragmentActivity, priceGroup)
                     }
                     R.id.menu_more_price_group_detail -> {
                         DetailPriceGroupActivity.show(

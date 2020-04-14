@@ -21,6 +21,10 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".view.ui.pricegroup.EditPriceGroupActivity"
+            android:label="@string/title_activity_edit_price_group"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".view.ui.customer.EditCustomerActivity"
             android:label="@string/title_activity_edit_customer"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -82,7 +86,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ui.pricegroup.DetailPriceGroupActivity" />
-
         <activity
             android:name=".view.ui.pricegroup.AddPriceGroupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -100,4 +103,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

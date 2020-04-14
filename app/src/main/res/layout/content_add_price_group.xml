@@ -43,23 +43,6 @@
                 android:textSize="@dimen/margin_10"
                 tools:ignore="SpUsage" />
 
-
-            <!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="@dimen/et_top_margin"-->
-<!--                android:layout_marginTop="@dimen/et_top_margin"-->
-<!--                android:layout_marginRight="@dimen/et_top_margin">-->
-
-<!--                <androidx.appcompat.widget.AppCompatEditText-->
-<!--                    android:id="@+id/et_price_group_name"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="@dimen/edit_text_layout_height_default"-->
-<!--                    android:hint="@string/txt_group_name"-->
-<!--                    android:paddingStart="@dimen/et_top_margin"-->
-<!--                    android:paddingEnd="@dimen/et_top_margin" />-->
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,19 +77,8 @@
                 android:layout_margin="@dimen/standard_margin"
                 android:background="@color/main_green"
                 android:text="@string/txt_action_save"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
-</ScrollView><!--
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.ui.sales.AddSalesActivity"
-    tools:showIn="@layout/activity_add_sales">
-
-</LinearLayout>
--->
+</ScrollView>
