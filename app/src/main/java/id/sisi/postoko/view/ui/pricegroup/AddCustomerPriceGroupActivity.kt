@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.pricegroup
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -14,15 +15,15 @@ import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.MySearchView
+import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_PG
 import id.sisi.postoko.utils.extensions.addVerticalDivider
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
-import id.sisi.postoko.view.ui.customer.CustomerViewModel
 import kotlinx.android.synthetic.main.activity_customer_price_group.*
 
 class AddCustomerPriceGroupActivity : BaseActivity() {
-    var firstListCustomer = listOf(
+    private var firstListCustomer = listOf(
         Customer(name = "masih"),
         Customer(name = "dalam"),
         Customer(name = "uji"),
@@ -147,7 +148,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
             progressBar.show(this, "Silakan tunggu...")
             val listIdSelected: ArrayList<String> = arrayListOf()
             for (index in 0 until listCustomerCart.size){
-                listIdSelected.add(listCustomerCart[index].id ?: "")
+                listIdSelected.add(listCustomerCart[index].customer_id ?: "")
             }
             val body: MutableMap<String, Any> = mutableMapOf(
                 "id_customer" to listIdSelected
@@ -156,6 +157,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
                 progressBar.dialog.dismiss()
                 Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    setResult(Activity.RESULT_OK)
                     finish()
                 }
             }
@@ -168,17 +170,9 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
                 .show()
         }
     }
-
-//    private fun toggle(count: Int) {
-//        if ((count > 1) or (count == 1 && rv_list_customer_cart.visibility == View.VISIBLE)) return
-//        val animation: Animation =
-//            AnimationUtils.loadAnimation(this, R.anim.slide_up)
-//        rv_list_customer_cart.startAnimation(animation)
-//    }
-
+    
     fun validation(customer: Customer) {
         if (customer.isSelected) {
-//            adapterCart.addData(customer)
             listCustomerCart.add(customer)
             adapterCart.updateMasterData(listCustomerCart)
             rv_list_customer_cart?.smoothScrollToPosition(adapterCart.itemCount)
@@ -188,7 +182,6 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
 
             adapterCustomer.notifyDataSetChanged()
         }
-        //toggle(adapterCart.itemCount)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -207,7 +200,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         ) {
             val page = Intent(fragmentActivity, AddCustomerPriceGroupActivity::class.java)
             page.putExtra(KEY_PRICE_GROUP, priceGroup)
-            fragmentActivity.startActivity(page)
+            fragmentActivity.startActivityForResult(page, RC_ADD_CUSTOMER_TO_PG)
         }
     }
 }

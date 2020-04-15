@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_15">
-
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/sv_customer"
                 android:layout_width="match_parent"
@@ -29,10 +28,22 @@
             android:layout_height="1dp"
             android:background="@color/colorLine"
              />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_list_customer_selected"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_customer_selected"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+                <include layout="@layout/failed_load_data" />
+            </LinearLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -16,10 +14,13 @@ import id.sisi.postoko.adapter.ListCustomerSelectedPGAdapter
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
+import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_PG
+import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
-
+import id.sisi.postoko.utils.extensions.visible
 import kotlinx.android.synthetic.main.activity_customer_selected_price_group.*
 import kotlinx.android.synthetic.main.content_customer_selected_price_group.*
+import kotlinx.android.synthetic.main.failed_load_data.*
 
 class CustomerSelectedPriceGroupActivity : AppCompatActivity() {
     private var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
@@ -40,12 +41,33 @@ class CustomerSelectedPriceGroupActivity : AppCompatActivity() {
 
         initView()
 
+        vmPriceGroup.getIsExecute().observe(this, Observer {
+            swipeRefreshLayout?.isRefreshing = it
+        })
+
+        swipeRefreshLayout?.setOnRefreshListener {
+            vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString(), true)
+        }
+
         vmPriceGroup.getListCustomers().observe(this, Observer {
             firstListCustomer = it ?: listOf()
             setDataCustomer(it)
+
+            if (it?.size ?: 0 == 0) {
+                layout_status_progress?.visible()
+                rv_list_customer_selected?.gone()
+                val status = when(it?.size) {
+                    0 -> "Belum ada pembayaran"
+                    else -> "Gagal Memuat Data"
+                }
+                tv_status_progress?.text = status
+            } else {
+                layout_status_progress?.gone()
+                rv_list_customer_selected?.visible()
+            }
         })
 
-        vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString(), false)
+        vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString(), true)
 
         sv_customer.setOnClickListener {
             sv_customer?.onActionViewExpanded()
@@ -57,7 +79,7 @@ class CustomerSelectedPriceGroupActivity : AppCompatActivity() {
                 if (newText.isNotEmpty() && newText.length > 2) {
                     startSearchData(newText)
                 } else {
-                    firstListCustomer.let { setDataCustomer(it) }
+                    setDataCustomer(firstListCustomer)
                 }
                 return true
             }
@@ -67,7 +89,7 @@ class CustomerSelectedPriceGroupActivity : AppCompatActivity() {
 
         })
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener { _ ->
             priceGroup?.let {
                 AddCustomerPriceGroupActivity.show(
                     this as FragmentActivity,
@@ -102,6 +124,14 @@ class CustomerSelectedPriceGroupActivity : AppCompatActivity() {
         if(item.itemId == android.R.id.home)
             super.onBackPressed()
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        logE("request code : $requestCode")
+        if(requestCode == RC_ADD_CUSTOMER_TO_PG){
+            vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString(), true)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     companion object {

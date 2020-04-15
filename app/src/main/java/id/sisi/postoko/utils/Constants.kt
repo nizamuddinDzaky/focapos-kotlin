@@ -34,3 +34,4 @@ const val RC_PROFILE = 2001
 const val RC_ADD_CUSTOMER = 2000
 const val RC_ADD_PRICE_GROUP = 220
 const val RC_ADD_CUSTOMER_GROUP = 221
+const val RC_ADD_CUSTOMER_TO_PG = 222
