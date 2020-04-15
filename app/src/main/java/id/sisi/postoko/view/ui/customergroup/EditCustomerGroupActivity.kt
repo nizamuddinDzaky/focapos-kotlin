@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
@@ -18,7 +16,6 @@ import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
-
 import kotlinx.android.synthetic.main.activity_edit_customer_group.*
 import kotlinx.android.synthetic.main.content_edit_customer_group.*
 
