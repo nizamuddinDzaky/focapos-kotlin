@@ -18,6 +18,7 @@ import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.customer.DetailCustomerActivity
 import id.sisi.postoko.view.ui.customergroup.AddCustomerToCustomerGoupActivity
+import id.sisi.postoko.view.ui.customergroup.EditCustomerGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.CustomerSelectedPriceGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.DetailPriceGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.EditPriceGroupActivity
@@ -160,7 +161,11 @@ class ListMasterAdapter<T>(
                         )
                     }
                     R.id.menu_more_customer_group_edit -> {
-                        listenerCustomerGroup(customerGroup)
+                        EditCustomerGroupActivity.show(
+                            fragmentActivity as FragmentActivity,
+                            customerGroup
+                        )
+//                        listenerCustomerGroup(customerGroup)
 //                        fragmentActivity?.let {
 //                            BottomSheetEditCustomerGroupFragment.show(
 //                                it.supportFragmentManager,
