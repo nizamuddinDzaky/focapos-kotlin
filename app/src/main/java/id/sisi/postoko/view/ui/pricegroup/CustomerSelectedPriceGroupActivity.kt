@@ -18,11 +18,12 @@ import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_PG
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
+import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_customer_selected_price_group.*
 import kotlinx.android.synthetic.main.content_customer_selected_price_group.*
 import kotlinx.android.synthetic.main.failed_load_data.*
 
-class CustomerSelectedPriceGroupActivity : AppCompatActivity() {
+class CustomerSelectedPriceGroupActivity : BaseActivity() {
     private var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
     private lateinit var vmPriceGroup: PriceGroupViewModel
     private lateinit var adapterCustomer: ListCustomerSelectedPGAdapter
@@ -33,6 +34,8 @@ class CustomerSelectedPriceGroupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_selected_price_group)
         setSupportActionBar(toolbar)
+        displayHomeEnable()
+        disableElevation()
         supportActionBar?.title = null
         intent?.getParcelableExtra<PriceGroup>(KEY_PRICE_GROUP)?.let {
             priceGroup = it

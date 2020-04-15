@@ -43,11 +43,13 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         displayHomeEnable()
         disableElevation()
-        supportActionBar?.title = getString(R.string.txt_title_price_group)
-        supportActionBar?.subtitle = getString(R.string.txt_add_remove_customer)
+        supportActionBar?.title = null
+//        supportActionBar?.subtitle = getString(R.string.txt_add_remove_customer)
         intent?.getParcelableExtra<PriceGroup>(KEY_PRICE_GROUP)?.let {
             priceGroup = it
         }
+
+        toolbar_subtitle.text = priceGroup?.name
 
         initView()
         setupData()

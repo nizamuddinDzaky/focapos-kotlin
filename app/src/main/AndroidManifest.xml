@@ -39,7 +39,6 @@
         <activity
             android:name=".view.ui.customer.DetailCustomerActivity"
             android:label=""
-            android:parentActivityName=".view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.sales.EditSaleActivity"
