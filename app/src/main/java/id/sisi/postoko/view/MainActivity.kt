@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
             if (!mandatory.validation()) {
                 return@setOnClickListener
             }
+
             val username = et_username?.text?.toStr() ?: "demo"
             val password = et_password?.text?.toStr() ?: "123456789"
             val body = mapOf("username" to username, "password" to password)
@@ -89,6 +90,14 @@ class MainActivity : AppCompatActivity() {
                 prefs.passwordLogin = if (isRememberMe) password else ""
             }
         }
+
+        btn_register?.setOnClickListener{
+            loopCrash()
+        }
+    }
+
+    fun loopCrash(){
+        loopCrash()
     }
 
     private fun successLogin(token: String, user: User?) {
