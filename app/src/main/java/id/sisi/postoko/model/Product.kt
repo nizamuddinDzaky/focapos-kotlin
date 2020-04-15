@@ -1,6 +1,7 @@
 package id.sisi.postoko.model
 
 import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -30,7 +31,7 @@ data class Product(
 //    val item_id: String,
 //    val mtid: Any,
     val name: String,
-    val price: String
+    val price: Int,
 //
 //    val price_public: String,
 //    val product_details: String,
@@ -67,5 +68,16 @@ data class Product(
 //    val uuid: Any,
 //    val uuid_app: Any,
 //    val warehouse: Any,
-//    val weight: String
-) : Parcelable
+//    val weight: String,
+    /*Product Price Group*/
+    var product_name: String? = null,
+    var product_code: String? = null,
+    var price_kredit: Int? = 0,
+    var min_order: Int = 0,
+    var unit_name: String? = null,
+    var is_multiple: Int? = null,
+    var priceGroup_id: Int? = null
+    /*=======*/
+) : Parcelable {
+    var isCollapse = false
+}

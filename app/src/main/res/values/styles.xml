@@ -35,5 +35,9 @@
         <item name="android:paddingRight">@dimen/search_icon_padding</item>
     </style>
 
+    <style name="MyHintStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/holo_blue_light</item>
+    </style>
+
     <dimen name="search_icon_padding">12dp</dimen>
 </resources>

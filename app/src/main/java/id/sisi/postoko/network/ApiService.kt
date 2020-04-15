@@ -193,6 +193,25 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
+    @PUT("customers/update_product_in_price_group")
+    fun putEditProductPrice(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf(),
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
+    @GET("customers/list_customer_member_of_price_group")
+    fun getListCustomerPriceGroup(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataCustomerPriceGroup>>
+
+    @GET("customers/group_product_in_prices_group")
+    fun getListProductPrice(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataProductPrice>>
+
     @POST("customers/add_customer_group")
     fun postAddCustomerGroup(
         @HeaderMap headerMap: Map<String, String>,
@@ -216,9 +235,9 @@ interface ApiServices {
     companion object {
         private var retrofit: Retrofit? = null
 
-        private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
+//        private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-        //private const val BASE_URL: String = "http://10.15.4.102:9090/api/v1/distributor/"
+        private const val BASE_URL: String = "http://10.15.4.102:9090/api/v1/distributor/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {

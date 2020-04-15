@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    tools:context=".view.ui.pricegroup.AddPriceGroupActivity"
-    tools:ignore="Overdraw">
+    tools:context=".view.ui.pricegroup.EditPriceGroupActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,20 +18,35 @@
             android:background="#fff"
             app:navigationIcon="@drawable/back_arrow_foreground"
             app:popupTheme="@style/AppTheme.PopupOverlay">
-            <TextView
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_add_price_group"
-                android:textColor="#676767"
                 android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textSize="@dimen/margin_20"
-                android:id="@+id/toolbar_title"
-                tools:ignore="SpUsage" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_activity_edit_price_group"
+                    android:textColor="#676767"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/margin_20"
+                    android:id="@+id/toolbar_title"
+                    tools:ignore="SpUsage" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#676767"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/margin_15"
+                    android:id="@+id/toolbar_subtitle"
+                    tools:ignore="SpUsage" />
+            </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_add_price_group" />
+    <include layout="@layout/content_edit_price_group" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

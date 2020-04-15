@@ -15,7 +15,7 @@ import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_customer_group_add.*
-import kotlinx.android.synthetic.main.activity_price_group_add.btn_action_submit
+//import kotlinx.android.synthetic.main.activity_price_group_add.btn_action_submit
 
 class AddCustomerGroupActivity : BaseActivity() {
     private val numberSparator = NumberSeparator()

@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -21,6 +22,7 @@ import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_price_group_add.*
+import kotlinx.android.synthetic.main.content_add_price_group.*
 import java.util.*
 
 class AddPriceGroupActivity : BaseActivity() {
@@ -32,9 +34,11 @@ class AddPriceGroupActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_price_group_add)
-        displayHomeEnable()
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        setContentView(R.layout.activity_price_group_add)
         vmWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
         vmPriceGroup = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
 
@@ -60,7 +64,7 @@ class AddPriceGroupActivity : BaseActivity() {
                 id: Long
             ) {
                 if (listWarehouse.isNotEmpty()){
-                    idWarehouse = listWarehouse[position].id
+                    idWarehouse = listWarehouse[position-1].id
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -112,6 +116,12 @@ class AddPriceGroupActivity : BaseActivity() {
             cek = false
         }
         return mapOf("message" to message, "type" to cek)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        super.onBackPressed()
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

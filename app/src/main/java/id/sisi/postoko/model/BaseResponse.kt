@@ -26,6 +26,12 @@ data class DataCustomer(
     var list_customers: List<Customer>?
 )
 
+data class DataCustomerPriceGroup(
+    var total_list_customer: Int?,
+    var list_customer: List<Customer>?,
+    var customer_selected: List<Customer>?
+)
+
 data class DataCustomerGroup(
     var total_supplier: Int?,
     var customer_groups: List<CustomerGroup>?
@@ -94,4 +100,9 @@ data class DataPieChart(
     var reserved: String?,
     var closed: String?,
     var pending: String?
+)
+
+data class DataProductPrice(
+    var total_group_product_price: Int?,
+    var group_product_price: List<Product>
 )
