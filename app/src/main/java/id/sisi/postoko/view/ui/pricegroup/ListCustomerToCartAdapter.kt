@@ -36,10 +36,10 @@ class ListCustomerToCartAdapter<T>(
             when (value) {
                 is Customer -> {
                     value.isSelected.visibleOrGone(itemView.view_mark_selected)
-                    val name = "${value.company} (${value.name})"
+                    val name = "${value.customer_company} (${value.customer_name})"
                     itemView.tv_customer_price_group_item_1?.text = name
                     itemView.tv_customer_price_group_item_2?.text = value.address
-                    itemView.tv_alias_customer?.text = getAlias(value.company)
+                    itemView.tv_alias_customer?.text = getAlias(value.customer_company)
                     itemView.setOnClickListener {
                         adapter.addCustomerToCart(value)
                     }

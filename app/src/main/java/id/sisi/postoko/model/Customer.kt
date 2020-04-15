@@ -52,7 +52,8 @@ data class Customer(
     var vat_no: String? = null,
 //    var village: Any
     var customer_name: String? = null,
-    var customer_id: String? = null
+    var customer_id: String? = null,
+    var customer_company: String? = null
 ) : Parcelable {
     @IgnoredOnParcel
     var isSelected = false

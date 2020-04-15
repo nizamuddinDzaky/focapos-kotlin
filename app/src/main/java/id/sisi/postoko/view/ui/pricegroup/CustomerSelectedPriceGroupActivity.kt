@@ -32,10 +32,11 @@ class CustomerSelectedPriceGroupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_selected_price_group)
         setSupportActionBar(toolbar)
+        supportActionBar?.title = null
         intent?.getParcelableExtra<PriceGroup>(KEY_PRICE_GROUP)?.let {
             priceGroup = it
         }
-        supportActionBar?.subtitle = "( ${priceGroup?.name} )"
+        toolbar_subtitle.text = "( ${priceGroup?.name} )"
 
         initView()
 
