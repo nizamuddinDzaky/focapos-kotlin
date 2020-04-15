@@ -26,7 +26,7 @@ data class DataCustomer(
     var list_customers: List<Customer>?
 )
 
-data class DataCustomerPriceGroup(
+data class DataCustomerSelected(
     var total_list_customer: Int?,
     var list_customer: List<Customer>?,
     var customer_selected: List<Customer>?
