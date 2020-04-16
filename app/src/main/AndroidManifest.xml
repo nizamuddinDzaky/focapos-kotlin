@@ -21,6 +21,14 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".view.ui.customergroup.CustomerSelectedCustomerGroupActivity"
+            android:label="@string/title_activity_customer_selected_customer_group"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.customergroup.EditCustomerGroupActivity"
+            android:label="@string/title_activity_edit_customer_group"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".view.ui.pricegroup.CustomerSelectedPriceGroupActivity"
             android:label="@string/title_activity_customer_selected_price_group"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -99,8 +107,11 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.customergroup.AddCustomerGroupActivity" />
-        <activity android:name=".view.ui.customergroup.AddCustomerToCustomerGoupActivity">
+        <activity
+            android:name=".view.ui.customergroup.AddCustomerGroupActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.ui.customergroup.AddCustomerToCustomerGoupActivity"
+            android:theme="@style/AppTheme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

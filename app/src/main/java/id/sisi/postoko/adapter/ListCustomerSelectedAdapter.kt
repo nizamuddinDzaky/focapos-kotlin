@@ -7,11 +7,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
-import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.extensions.toUpper
 import kotlinx.android.synthetic.main.list_customer_selected.view.*
 
-class ListCustomerSelectedPGAdapter (private var customer: List<Customer>? = arrayListOf(), private var fragmentActivity: FragmentActivity? = null): RecyclerView.Adapter<ListCustomerSelectedPGAdapter.CustomerViewHolder>() {
+class ListCustomerSelectedAdapter (private var customer: List<Customer>? = arrayListOf(), private var fragmentActivity: FragmentActivity? = null): RecyclerView.Adapter<ListCustomerSelectedAdapter.CustomerViewHolder>() {
+
+    var listenerCustomer: (Customer) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         val view =
@@ -25,13 +26,16 @@ class ListCustomerSelectedPGAdapter (private var customer: List<Customer>? = arr
     }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
-        holder.bind(customer?.get(position))
+        holder.bind(customer?.get(position), listenerCustomer)
     }
 
     class CustomerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(value: Customer?) {
+        fun bind(value: Customer?, listenerCustomer: (Customer) -> Unit) {
             itemView.tv_customer_name.text = value?.customer_name?.toUpper()
             itemView.tv_alias_customer.text = getAlias(value?.customer_name)
+            itemView.iv_delete.setOnClickListener {
+                value?.let { it1 -> listenerCustomer(it1) }
+            }
         }
 
         private fun getAlias(name: String?): String {

@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.pricegroup
+package id.sisi.postoko.view.ui.customergroup
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -12,20 +12,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListCustomerSelectedAdapter
 import id.sisi.postoko.model.Customer
-import id.sisi.postoko.model.PriceGroup
-import id.sisi.postoko.utils.KEY_PRICE_GROUP
-import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_PG
+import id.sisi.postoko.model.CustomerGroup
+import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
+import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_CG
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_customer_selected_price_group.*
 import kotlinx.android.synthetic.main.content_customer_selected_price_group.*
 import kotlinx.android.synthetic.main.failed_load_data.*
 
-class CustomerSelectedPriceGroupActivity : BaseActivity() {
-    private var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
-    private lateinit var vmPriceGroup: PriceGroupViewModel
+class CustomerSelectedCustomerGroupActivity : BaseActivity() {
+    private var customerGroup: CustomerGroup = CustomerGroup(id = "0", name = "ForcaPoS")
+    private lateinit var vmCustomerGroup: CustomerGroupViewModel
     private lateinit var adapterCustomer: ListCustomerSelectedAdapter
     var firstListCustomer: List<Customer> = listOf()
 
@@ -36,23 +35,25 @@ class CustomerSelectedPriceGroupActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         displayHomeEnable()
         disableElevation()
-        supportActionBar?.title = null
-        intent?.getParcelableExtra<PriceGroup>(KEY_PRICE_GROUP)?.let {
-            priceGroup = it
+        supportActionBar?.title=null
+        intent?.getParcelableExtra<CustomerGroup>(KEY_CUSTOMER_GROUP)?.let {
+            customerGroup = it
+            toolbar_subtitle.text = "( ${customerGroup.name} )"
         }
-        toolbar_subtitle.text = "( ${priceGroup?.name} )"
 
         initView()
 
-        vmPriceGroup.getIsExecute().observe(this, Observer {
+        vmCustomerGroup.getIsExecute().observe(this, Observer {
             swipeRefreshLayout?.isRefreshing = it
         })
 
         swipeRefreshLayout?.setOnRefreshListener {
-            vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString(), true)
+            vmCustomerGroup.getListCustomerCustomerGroup(customerGroup.id, true)
         }
 
-        vmPriceGroup.getListCustomers().observe(this, Observer {
+
+
+        vmCustomerGroup.getListCustomers().observe(this, Observer {
             firstListCustomer = it ?: listOf()
             setDataCustomer(it)
 
@@ -60,7 +61,7 @@ class CustomerSelectedPriceGroupActivity : BaseActivity() {
                 layout_status_progress?.visible()
                 rv_list_customer_selected?.gone()
                 val status = when(it?.size) {
-                    0 -> "Belum ada pembayaran"
+                    0 -> "Belum ada Data"
                     else -> "Gagal Memuat Data"
                 }
                 tv_status_progress?.text = status
@@ -70,7 +71,14 @@ class CustomerSelectedPriceGroupActivity : BaseActivity() {
             }
         })
 
-        vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString(), true)
+        vmCustomerGroup.getListCustomerCustomerGroup(customerGroup.id, true)
+
+        fab.setOnClickListener {
+            AddCustomerToCustomerGoupActivity.show(
+                this as FragmentActivity,
+                customerGroup
+            )
+        }
 
         sv_customer.setOnClickListener {
             sv_customer?.onActionViewExpanded()
@@ -91,15 +99,6 @@ class CustomerSelectedPriceGroupActivity : BaseActivity() {
             }
 
         })
-
-        fab.setOnClickListener { _ ->
-            priceGroup?.let {
-                AddCustomerPriceGroupActivity.show(
-                    this as FragmentActivity,
-                    it
-                )
-            }
-        }
     }
 
     private fun startSearchData(query: String) {
@@ -115,17 +114,6 @@ class CustomerSelectedPriceGroupActivity : BaseActivity() {
         adapterCustomer.updateCustomerData(it)
     }
 
-    private fun initView() {
-        adapterCustomer = ListCustomerSelectedAdapter(fragmentActivity = this)
-        adapterCustomer.listenerCustomer={
-            Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
-        }
-        rv_list_customer_selected?.layoutManager = LinearLayoutManager(this)
-        rv_list_customer_selected?.setHasFixedSize(false)
-        rv_list_customer_selected?.adapter = adapterCustomer
-        vmPriceGroup = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == android.R.id.home)
             super.onBackPressed()
@@ -133,22 +121,32 @@ class CustomerSelectedPriceGroupActivity : BaseActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        logE("request code : $requestCode")
-        if(requestCode == RC_ADD_CUSTOMER_TO_PG){
-            vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString(), true)
+        if(requestCode == RC_ADD_CUSTOMER_TO_CG){
+            vmCustomerGroup.getListCustomerCustomerGroup(customerGroup.id, true)
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun initView() {
+        adapterCustomer = ListCustomerSelectedAdapter(fragmentActivity = this)
+        adapterCustomer.listenerCustomer={
+            Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
+        }
+        vmCustomerGroup = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
+        rv_list_customer_selected?.layoutManager = LinearLayoutManager(this)
+        rv_list_customer_selected?.setHasFixedSize(false)
+        rv_list_customer_selected?.adapter = adapterCustomer
     }
 
     companion object {
         fun show(
             fragmentActivity: FragmentActivity,
-            priceGroup: PriceGroup
+            customerGroup: CustomerGroup
         ) {
-            val page = Intent(fragmentActivity, CustomerSelectedPriceGroupActivity::class.java)
-//            page.putExtra("fragment_activty", fragmentActivity)
-            page.putExtra(KEY_PRICE_GROUP, priceGroup)
+            val page = Intent(fragmentActivity, CustomerSelectedCustomerGroupActivity::class.java)
+            page.putExtra(KEY_CUSTOMER_GROUP, customerGroup)
             fragmentActivity.startActivity(page)
         }
     }
+
 }

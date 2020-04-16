@@ -1,8 +1,9 @@
 package id.sisi.postoko.view.ui.customergroup
 
-import android.app.AlertDialog
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -13,12 +14,15 @@ import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
 import id.sisi.postoko.utils.MySearchView
+import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_CG
 import id.sisi.postoko.utils.extensions.addVerticalDivider
+import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
-import id.sisi.postoko.view.ui.customer.CustomerViewModel
-import id.sisi.postoko.view.ui.pricegroup.ListCustomerCGToCartAdapter
 import kotlinx.android.synthetic.main.activity_customer_customer_group.*
+import kotlinx.android.synthetic.main.failed_load_data.*
 
 class AddCustomerToCustomerGoupActivity : BaseActivity() {
     private var firstListCustomer = listOf(
@@ -33,18 +37,18 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     private lateinit var adapterCart: ListCartCGToCustomerAdapter<Customer>
     private var listCustomerCart = ArrayList<Customer>()
     private lateinit var vmCustomerGroup: CustomerGroupViewModel
-    private lateinit var vmCustomer: CustomerViewModel
     private val progressBar = CustomProgressBar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_customer_group)
+        setSupportActionBar(toolbar)
         displayHomeEnable()
         disableElevation()
-        supportActionBar?.title = getString(R.string.txt_title_customer_group)
-        supportActionBar?.subtitle = getString(R.string.txt_add_remove_customer)
+        supportActionBar?.title = null
         intent?.getParcelableExtra<CustomerGroup>(KEY_CUSTOMER_GROUP)?.let {
             customerGroup = it
+            toolbar_subtitle.text = it.name
         }
 
         initView()
@@ -56,19 +60,6 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
         adapterCustomer = ListCustomerCGToCartAdapter(fragmentActivity = this)
         adapterCart = ListCartCGToCustomerAdapter(fragmentActivity = this)
         vmCustomerGroup = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
-        vmCustomer = ViewModelProvider(this).get(CustomerViewModel::class.java)
-    }
-
-    private fun setupDataCustomer(loadNew: Boolean = false) {
-        if (loadNew) {
-            vmCustomer.getListCustomers().observe(this, Observer {
-                firstListCustomer = it ?: listOf()
-                adapterCustomer.updateMasterData(firstListCustomer)
-                setupDataCart()
-            })
-
-            vmCustomer.getListCustomer()
-        }
     }
 
     private fun setupData() {
@@ -78,6 +69,37 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
 
         setupDataCustomer(true)
     }
+
+    private fun setupDataCustomer(loadNew: Boolean = false) {
+        if (loadNew) {
+            vmCustomerGroup.getListCustomers().observe(this, Observer {
+                firstListCustomer = it ?: listOf()
+                tv_swipe_down.gone()
+                logE("size= ${it?.size}")
+                if (it?.size ?: 0 == 0) {
+                    val status = when(it?.size) {
+                        0 -> "Belum ada Data"
+                        else -> "Gagal Memuat Data"
+                    }
+                    tv_status_progress?.text = status
+                    layout_status_progress?.visible()
+                    rv_list_customer_cart.gone()
+                    rv_list_customer.gone()
+                } else {
+                    layout_status_progress?.gone()
+                    rv_list_customer_cart.visible()
+                    rv_list_customer.visible()
+                }
+
+                adapterCustomer.updateMasterData(firstListCustomer)
+                setupDataCart()
+            })
+            vmCustomerGroup.getListCustomerCustomerGroup(customerGroup.id)
+        }else{
+            adapterCustomer.updateMasterData(firstListCustomer)
+        }
+    }
+
 
     private fun setupDataCart() {
         for(index in firstListCustomer.indices){
@@ -141,41 +163,45 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     }
 
     private fun actionSave() {
-        if (listCustomerCart.isNotEmpty()){
-            progressBar.show(this, "Silakan tunggu...")
-            val listIdSelected: ArrayList<String> = arrayListOf()
-            for (index in 0 until listCustomerCart.size){
-                listIdSelected.add(listCustomerCart[index].id ?: "")
-            }
-            val body: MutableMap<String, Any> = mutableMapOf(
-                "id_customer" to listIdSelected
-            )
-            vmCustomerGroup.postAddCustomerToCustoemrGroup(body, customerGroup.id){
-                progressBar.dialog.dismiss()
-                Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    finish()
-                }
-            }
-        }else{
-            AlertDialog.Builder(this)
-                .setTitle("Konfirmasi")
-                .setMessage("Silahkan Pilih Pelanggan Terlebih Dahulu")
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
+        progressBar.show(this, "Silakan tunggu...")
+        val listIdSelected: ArrayList<String> = arrayListOf()
+        for (index in 0 until listCustomerCart.size){
+            listIdSelected.add(listCustomerCart[index].customer_id ?: "")
         }
+        val body: MutableMap<String, Any> = mutableMapOf(
+            "id_customer" to listIdSelected
+        )
+        vmCustomerGroup.postAddCustomerToCustoemrGroup(body, customerGroup.id){
+            progressBar.dialog.dismiss()
+            Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
+            if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+        menu?.findItem(R.id.menu_action_search)?.let {
+            search_view?.typeView = 0
+            search_view?.setMenuItem(it)
+        }
+        return super.onCreateOptionsMenu(menu)
     }
 
     fun validation(customer: Customer) {
         if (customer.isSelected) {
+            logE("asdsadsad")
             listCustomerCart.add(customer)
             adapterCart.updateMasterData(listCustomerCart)
 
             rv_list_customer_cart?.smoothScrollToPosition(adapterCart.itemCount)
         } else {
+            logE("qwewqe")
             listCustomerCart.remove(customer)
             val index = listCustomerCart.indexOf(customer)
+
             adapterCart.notifyItemRemoved(index)
             adapterCart.updateMasterData(listCustomerCart)
         }
@@ -188,7 +214,7 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
         ) {
             val page = Intent(fragmentActivity, AddCustomerToCustomerGoupActivity::class.java)
             page.putExtra(KEY_CUSTOMER_GROUP, customerGroup)
-            fragmentActivity.startActivity(page)
+            fragmentActivity.startActivityForResult(page, RC_ADD_CUSTOMER_TO_CG)
         }
     }
 }

@@ -25,6 +25,8 @@ class AddCustomerGroupActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_group_add)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = null
         displayHomeEnable()
 
         et_customer_group_percentage.setText("0")

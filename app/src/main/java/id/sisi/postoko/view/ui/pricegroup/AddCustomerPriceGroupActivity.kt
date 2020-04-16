@@ -146,30 +146,21 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     }
 
     private fun actionSave() {
-        if (listCustomerCart.isNotEmpty()){
-            progressBar.show(this, "Silakan tunggu...")
-            val listIdSelected: ArrayList<String> = arrayListOf()
-            for (index in 0 until listCustomerCart.size){
-                listIdSelected.add(listCustomerCart[index].customer_id ?: "")
+        progressBar.show(this, "Silakan tunggu...")
+        val listIdSelected: ArrayList<String> = arrayListOf()
+        for (index in 0 until listCustomerCart.size){
+            listIdSelected.add(listCustomerCart[index].customer_id ?: "")
+        }
+        val body: MutableMap<String, Any> = mutableMapOf(
+            "id_customer" to listIdSelected
+        )
+        vmPriceGroup.postAddCustomerToPriceGroup(body, priceGroup?.id.toString()){
+            progressBar.dialog.dismiss()
+            Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
+            if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                setResult(Activity.RESULT_OK)
+                finish()
             }
-            val body: MutableMap<String, Any> = mutableMapOf(
-                "id_customer" to listIdSelected
-            )
-            vmPriceGroup.postAddCustomerToPriceGroup(body, priceGroup?.id.toString()){
-                progressBar.dialog.dismiss()
-                Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    setResult(Activity.RESULT_OK)
-                    finish()
-                }
-            }
-        }else{
-            AlertDialog.Builder(this)
-                .setTitle("Konfirmasi")
-                .setMessage("Silahkan Pilih Pelanggan Terlebih Dahulu")
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
         }
     }
     

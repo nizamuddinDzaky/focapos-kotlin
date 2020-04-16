@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.pricegroup
+package id.sisi.postoko.view.ui.customergroup
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +9,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.utils.extensions.toUpper
 import id.sisi.postoko.utils.extensions.visibleOrGone
-import id.sisi.postoko.view.ui.customergroup.AddCustomerToCustomerGoupActivity
 import kotlinx.android.synthetic.main.list_customer_price_group.view.*
-import kotlinx.android.synthetic.main.list_item_master.view.*
 
 class ListCustomerCGToCartAdapter<T>(
     private var masterData: MutableList<T>? = mutableListOf(),
@@ -38,10 +36,10 @@ class ListCustomerCGToCartAdapter<T>(
             when (value) {
                 is Customer -> {
                     value.isSelected.visibleOrGone(itemView.view_mark_selected)
-                    val name = "${value.company} (${value.name})"
+                    val name = "${value.customer_company} (${value.customer_name})"
                     itemView.tv_customer_price_group_item_1?.text = name
                     itemView.tv_customer_price_group_item_2?.text = value.address
-                    itemView.tv_alias_customer?.text = getAlias(value.company)
+                    itemView.tv_alias_customer?.text = getAlias(value.customer_company)
                     itemView.setOnClickListener {
                         adapter.addCustomerToCart(value)
                     }

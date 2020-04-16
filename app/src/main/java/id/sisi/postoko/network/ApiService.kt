@@ -204,7 +204,7 @@ interface ApiServices {
     fun getListCustomerPriceGroup(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
-    ): Call<BaseResponse<DataCustomerPriceGroup>>
+    ): Call<BaseResponse<DataCustomerSelected>>
 
     @GET("customers/group_product_in_prices_group")
     fun getListProductPrice(
@@ -231,6 +231,12 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
+
+    @GET("customers/list_customer_member_of_customer_group")
+    fun getListCustomerCustomerGroup(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataCustomerSelected>>
 
     companion object {
         private var retrofit: Retrofit? = null
