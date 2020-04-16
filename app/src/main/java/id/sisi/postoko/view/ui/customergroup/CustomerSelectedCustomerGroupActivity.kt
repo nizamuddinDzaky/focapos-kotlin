@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,10 +14,10 @@ import id.sisi.postoko.adapter.ListCustomerSelectedAdapter
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
+import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_CG
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseActivity
-
 import kotlinx.android.synthetic.main.activity_customer_selected_price_group.*
 import kotlinx.android.synthetic.main.content_customer_selected_price_group.*
 import kotlinx.android.synthetic.main.failed_load_data.*
@@ -74,7 +73,7 @@ class CustomerSelectedCustomerGroupActivity : BaseActivity() {
 
         vmCustomerGroup.getListCustomerCustomerGroup(customerGroup.id, true)
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             AddCustomerToCustomerGoupActivity.show(
                 this as FragmentActivity,
                 customerGroup
@@ -119,6 +118,13 @@ class CustomerSelectedCustomerGroupActivity : BaseActivity() {
         if(item.itemId == android.R.id.home)
             super.onBackPressed()
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == RC_ADD_CUSTOMER_TO_CG){
+            vmCustomerGroup.getListCustomerCustomerGroup(customerGroup.id, true)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun initView() {

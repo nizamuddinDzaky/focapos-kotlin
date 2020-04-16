@@ -110,7 +110,8 @@
         <activity
             android:name=".view.ui.customergroup.AddCustomerGroupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.ui.customergroup.AddCustomerToCustomerGoupActivity">
+        <activity android:name=".view.ui.customergroup.AddCustomerToCustomerGoupActivity"
+            android:theme="@style/AppTheme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

@@ -11,7 +11,6 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_CUSTOMER_GROUP
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class CustomerGroupViewModel: ViewModel() {
@@ -32,7 +31,6 @@ class CustomerGroupViewModel: ViewModel() {
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        logE("${response.body()}")
                         if(!getSelected) {
                             customers.postValue(response.body()?.data?.list_customer)
                         } else{
