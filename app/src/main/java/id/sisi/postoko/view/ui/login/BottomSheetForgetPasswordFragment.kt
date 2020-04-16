@@ -1,35 +1,68 @@
 package id.sisi.postoko.view.ui.login
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
+import id.sisi.postoko.network.NetworkResponse
+import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.profile.ProfileViewModel
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_forget_password.*
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class BottomSheetForgetPasswordFragment : BottomSheetDialogFragment() {
-    private lateinit var mViewModel: LoginViewModel
+    private lateinit var vmProfile: ProfileViewModel
+    private val progressBar = CustomProgressBar()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        vmProfile = ViewModelProvider(this).get(ProfileViewModel::class.java)
+
         return inflater.inflate(R.layout.fragment_bottom_sheet_forget_password, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        btn_action_submit.setOnClickListener {
+            actionForgetPassword()
+        }
+
         view.findViewById<ImageView>(R.id.btn_close)?.setOnClickListener {
             dismiss()
         }
     }
+
+    private fun actionForgetPassword() {
+        val email = et_email?.text
+
+        if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && email?.length!! > 0 ){
+            context?.let { progressBar.show(it, "Silakan tunggu...") }
+            val body: MutableMap<String, Any> = mutableMapOf(
+                "email" to (et_email?.text?.toString() ?: "")
+            )
+
+            vmProfile.postResetPassword(body){
+                progressBar.dialog.dismiss()
+                Toast.makeText(context, ""+it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    dismiss()
+                }
+            }
+        }
+    }
+
+
 
     companion object {
         fun show(

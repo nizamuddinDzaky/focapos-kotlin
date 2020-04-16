@@ -63,6 +63,12 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataProfile>>
 
+    @POST("auth/forgot_password")
+    fun postResetPassword(
+        @HeaderMap headerMap: Map<String, String>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
     @GET("warehouses/list_warehouses")
     fun getListWarehouse(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataWarehouse>>
 
