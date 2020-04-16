@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -25,7 +26,7 @@ class BottomSheetForgetPasswordFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextView>(R.id.btn_close)?.setOnClickListener {
+        view.findViewById<ImageView>(R.id.btn_close)?.setOnClickListener {
             dismiss()
         }
     }
