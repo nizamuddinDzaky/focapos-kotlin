@@ -30,6 +30,7 @@ class ProfileActivity : BaseActivity() {
             showData(it)
         })
 
+        mViewModel.getUserProfile()
         setAction()
     }
 
