@@ -1,78 +1,74 @@
 package id.sisi.postoko.view.ui.customergroup
 
-import android.app.AlertDialog
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
 import id.sisi.postoko.utils.NumberSeparator
+import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
+import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_customer_group.*
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_customer_group.view.*
+import kotlinx.android.synthetic.main.activity_edit_customer_group.*
+import kotlinx.android.synthetic.main.content_edit_customer_group.*
 
-class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
-    private lateinit var mViewModel: CustomerGroupViewModel
-    private val numberSparator = NumberSeparator()
-    private var customerGroup: CustomerGroup? = null
-    var listener: () -> Unit = {}
+class EditCustomerGroupActivity : BaseActivity() {
+    private var customerGroup: CustomerGroup = CustomerGroup(id = "0", name = "ForcaPoS")
     private val progressBar = CustomProgressBar()
+    private val numberSparator = NumberSeparator()
+    private lateinit var mViewModel: CustomerGroupViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_edit_customer_group)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = null
+        displayHomeEnable()
+        
         mViewModel = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_bottom_sheet_edit_customer_group, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextView>(R.id.btn_close)?.setOnClickListener {
-            dismiss()
-        }
 
         et_customer_group_kredit_limit.addTextChangedListener(numberSparator.onTextChangedListener(et_customer_group_kredit_limit))
-        customerGroup = arguments?.getParcelable<CustomerGroup>(KEY_CUSTOMER_GROUP)?.also { customerGroup ->
+        intent?.getParcelableExtra<CustomerGroup>(KEY_CUSTOMER_GROUP)?.let {
+            customerGroup = it
+            toolbar_subtitle.text = customerGroup.name
             et_customer_group_name?.setText(customerGroup.name)
             et_customer_group_percentage?.setText(customerGroup.percent)
             et_customer_group_kredit_limit?.setText(String.format("%.0f",customerGroup.kredit_limit))
         }
 
-        view.btn_action_submit.setOnClickListener {
+        btn_action_submit.setOnClickListener {
             actionEditCustomerGroup()
         }
+
     }
 
     private fun actionEditCustomerGroup() {
         val numbersMap = validationFormEditCustomerGroup()
         if (numbersMap["type"] as Boolean){
-            context?.let { progressBar.show(it, "Silakan tunggu...") }
+            this.let { progressBar.show(it, "Silakan tunggu...") }
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_customer_group_name?.text.toString()),
                 "percentage" to (et_customer_group_percentage?.text.toString()),
                 "credit_limit" to (et_customer_group_kredit_limit?.tag.toString())
             )
 
-            mViewModel.putEditCustomerGroup(body,customerGroup?.id.toString()){
-                Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
+            mViewModel.putEditCustomerGroup(body, customerGroup.id){
+                Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
                     progressBar.dialog.dismiss()
-                    this.dismiss()
-                    listener()
+                    setResult(Activity.RESULT_OK)
+                    finish()
                 }
             }
         }else{
-            AlertDialog.Builder(context)
+            AlertDialog.Builder(this)
                 .setTitle("Konfirmasi")
                 .setMessage(numbersMap["message"] as String)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -98,19 +94,13 @@ class BottomSheetEditCustomerGroupFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        var listener: () -> Unit = {}
         fun show(
-            fragmentManager: FragmentManager,
+            fragmentActivity: FragmentActivity,
             customerGroup: CustomerGroup
         ) {
-            val bottomSheetFragment = BottomSheetEditCustomerGroupFragment()
-            val bundle = Bundle()
-            bundle.putParcelable(KEY_CUSTOMER_GROUP, customerGroup)
-            bottomSheetFragment.arguments = bundle
-            bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
-            bottomSheetFragment.listener={
-                listener()
-            }
+            val page = Intent(fragmentActivity, EditCustomerGroupActivity::class.java)
+            page.putExtra(KEY_CUSTOMER_GROUP, customerGroup)
+            fragmentActivity.startActivityForResult(page, RC_ADD_CUSTOMER_GROUP)
         }
     }
 }

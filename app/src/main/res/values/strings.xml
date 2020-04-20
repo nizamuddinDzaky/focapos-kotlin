@@ -263,4 +263,18 @@
     <string name="txt_group_percentage">Group Percentage</string>
     <string name="txt_kredit_limit">Kredit Limit</string>
     <string name="txt_title_customer_group">Kelompok Pelanggan</string>
+    <string name="txt_price_sale">Harga Penjualan</string>
+    <string name="txt_price_credit">Harga Kredit</string>
+    <string name="txt_min_order">Min Order</string>
+    <string name="txt_title_detail_price_group">Detail Kelompok Harga</string>
+    <string name="txt_multiple">Multiple</string>
+    <string name="txt_add_price_group">Tambah Price Group</string>
+    <string name="txt_maksimal_30_karakter">Maksimal 30 Karakter</string>
+    <string name="title_activity_edit_price_group">Edit Price Group</string>
+    <string name="title_activity_customer_selected_price_group">Pelanggan Yang Dipilih</string>
+    <string name="title_activity_edit_customer_group">Edit Kelompok Pelanggan</string>
+    <string name="txt_tanpa_tanda_persen">Tanpa Tanda %</string>
+    <string name="txt_add_customer_group">Tambah Kelompok Pelanggan</string>
+    <string name="title_activity_customer_selected_customer_group">Pelanggan Yang Dipilih</string>
+    <string name="txt_reset_password">Reset Password</string>
 </resources>

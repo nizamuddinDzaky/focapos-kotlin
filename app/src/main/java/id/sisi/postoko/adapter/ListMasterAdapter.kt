@@ -17,11 +17,11 @@ import id.sisi.postoko.utils.extensions.MyToast
 import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.customer.DetailCustomerActivity
-import id.sisi.postoko.view.ui.customergroup.AddCustomerToCustomerGoupActivity
-import id.sisi.postoko.view.ui.customergroup.BottomSheetEditCustomerGroupFragment
-import id.sisi.postoko.view.ui.pricegroup.AddCustomerPriceGroupActivity
-import id.sisi.postoko.view.ui.pricegroup.AddPriceGroupActivity
-import id.sisi.postoko.view.ui.pricegroup.BottomSheetEditPriceGroupFragment
+import id.sisi.postoko.view.ui.customergroup.CustomerSelectedCustomerGroupActivity
+import id.sisi.postoko.view.ui.customergroup.EditCustomerGroupActivity
+import id.sisi.postoko.view.ui.pricegroup.CustomerSelectedPriceGroupActivity
+import id.sisi.postoko.view.ui.pricegroup.DetailPriceGroupActivity
+import id.sisi.postoko.view.ui.pricegroup.EditPriceGroupActivity
 import kotlinx.android.synthetic.main.list_item_master.view.*
 import java.text.NumberFormat
 import java.util.*
@@ -31,9 +31,6 @@ class ListMasterAdapter<T>(
     private var fragmentActivity: FragmentActivity? = null
 ) :
     RecyclerView.Adapter<ListMasterAdapter.MasterViewHolder<T>>() {
-
-    var listenerPriceGroup: (PriceGroup) -> Unit = {}
-    var listenerCustomerGroup: (CustomerGroup) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MasterViewHolder<T> {
         val view =
@@ -47,7 +44,7 @@ class ListMasterAdapter<T>(
     }
 
     override fun onBindViewHolder(holder: MasterViewHolder<T>, position: Int) {
-        holder.bind(masterData?.get(position), listenerPriceGroup, listenerCustomerGroup)
+        holder.bind(masterData?.get(position))
     }
 
     class MasterViewHolder<T>(
@@ -56,7 +53,7 @@ class ListMasterAdapter<T>(
     ) :
         RecyclerView.ViewHolder(itemView) {
 
-        fun bind(value: T?, listenerPriceGroup: (PriceGroup) -> Unit, listenerCustomerGroup: (CustomerGroup) -> Unit) {
+        fun bind(value: T?) {
             when (value) {
                 is Warehouse -> {
                     itemView.tv_master_data_name?.text = value.name
@@ -85,7 +82,7 @@ class ListMasterAdapter<T>(
                     itemView.tv_master_data_description?.text = value.warehouse_name
                     itemView.btn_menu_more?.visible()
                     itemView.btn_menu_more?.setOnClickListener {
-                        showPopupPriceGroup(it, value, listenerPriceGroup)
+                        showPopupPriceGroup(it, value)
                     }
                     itemView.setOnClickListener {
                         itemView.btn_menu_more?.performClick()
@@ -99,7 +96,7 @@ class ListMasterAdapter<T>(
                     itemView.tv_master_data_description?.text = formatRupiah.format(value.kredit_limit).toString()
                     itemView.btn_menu_more?.visible()
                     itemView.btn_menu_more?.setOnClickListener {
-                        showPopupCustomerGroup(it, value, listenerCustomerGroup)
+                        showPopupCustomerGroup(it, value)
                     }
                     itemView.setOnClickListener {
                         itemView.btn_menu_more?.performClick()
@@ -108,29 +105,26 @@ class ListMasterAdapter<T>(
             }
         }
 
-        private fun showPopupPriceGroup(view: View, priceGroup: PriceGroup, listenerPriceGroup: (PriceGroup) -> Unit) {
+        private fun showPopupPriceGroup(view: View, priceGroup: PriceGroup) {
             val popup = PopupMenu(view.context, view)
             popup.inflate(R.menu.menu_more_price_group)
 
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item?.itemId) {
                     R.id.menu_more_price_group_add_customer -> {
-                        AddCustomerPriceGroupActivity.show(
+                        CustomerSelectedPriceGroupActivity.show(
                             fragmentActivity as FragmentActivity,
                             priceGroup
                         )
                     }
                     R.id.menu_more_price_group_edit -> {
-                        listenerPriceGroup(priceGroup)
-                        fragmentActivity?.let {
-//                            BottomSheetEditPriceGroupFragment.show(
-//                                it.supportFragmentManager,
-//                                priceGroup
-//                            )
-                        }
+                        EditPriceGroupActivity.show(fragmentActivity as FragmentActivity, priceGroup)
                     }
                     R.id.menu_more_price_group_detail -> {
-                        MyToast.make(view.context).showErrorL("coming soon")
+                        DetailPriceGroupActivity.show(
+                            fragmentActivity as FragmentActivity,
+                            priceGroup
+                        )
                     }
                     else -> {
                     }
@@ -152,20 +146,24 @@ class ListMasterAdapter<T>(
             popup.show()
         }
 
-        private fun showPopupCustomerGroup(view: View, customerGroup: CustomerGroup, listenerCustomerGroup: (CustomerGroup) -> Unit) {
+        private fun showPopupCustomerGroup(view: View, customerGroup: CustomerGroup) {
             val popup = PopupMenu(view.context, view)
             popup.inflate(R.menu.menu_more_customer_group)
 
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item?.itemId) {
                     R.id.menu_more_customer_group_add_customer -> {
-                        AddCustomerToCustomerGoupActivity.show(
+                        CustomerSelectedCustomerGroupActivity.show(
                             fragmentActivity as FragmentActivity,
                             customerGroup
                         )
                     }
                     R.id.menu_more_customer_group_edit -> {
-                        listenerCustomerGroup(customerGroup)
+                        EditCustomerGroupActivity.show(
+                            fragmentActivity as FragmentActivity,
+                            customerGroup
+                        )
+//                        listenerCustomerGroup(customerGroup)
 //                        fragmentActivity?.let {
 //                            BottomSheetEditCustomerGroupFragment.show(
 //                                it.supportFragmentManager,

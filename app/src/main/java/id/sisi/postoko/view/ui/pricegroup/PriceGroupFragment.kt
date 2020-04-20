@@ -83,23 +83,9 @@ class PriceGroupFragment : BaseFragment() {
 
     private fun setupRecycleView() {
         mAdapter = ListMasterAdapter(fragmentActivity = activity)
-        mAdapter.listenerPriceGroup={
-            showBottomEditSheetPriceGroup(it)
-        }
+
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = mAdapter
     }
-
-    private fun showBottomEditSheetPriceGroup(priceGroup: PriceGroup) {
-        BottomSheetEditPriceGroupFragment.show(
-            childFragmentManager,
-            priceGroup
-        )
-        BottomSheetEditPriceGroupFragment.listener={
-            mViewModel.getListPriceGroup()
-        }
-    }
-
-
 }

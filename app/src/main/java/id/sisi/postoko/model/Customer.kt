@@ -1,6 +1,7 @@
 package id.sisi.postoko.model
 
 import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -48,8 +49,12 @@ data class Customer(
     var updated_at: String? = null,
 //    var uuid: Any,
 //    var uuid_app: Any,
-    var vat_no: String? = null
+    var vat_no: String? = null,
 //    var village: Any
+    var customer_name: String? = null,
+    var customer_id: String? = null,
+    var customer_company: String? = null
 ) : Parcelable {
+    @IgnoredOnParcel
     var isSelected = false
 }

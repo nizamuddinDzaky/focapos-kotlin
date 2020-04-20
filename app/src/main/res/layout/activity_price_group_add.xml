@@ -1,64 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="8dp">
+    android:background="@color/colorBackground"
+    tools:context=".view.ui.pricegroup.AddPriceGroupActivity"
+    tools:ignore="Overdraw">
 
-    <androidx.core.widget.NestedScrollView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/et_top_margin"
-                android:layout_marginTop="@dimen/et_top_margin"
-                android:layout_marginRight="@dimen/et_top_margin">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/et_price_group_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_layout_height_default"
-                    android:hint="@string/txt_group_name"
-                    android:paddingStart="@dimen/et_top_margin"
-                    android:paddingEnd="@dimen/et_top_margin" />
-            </com.google.android.material.textfield.TextInputLayout>
-
+            android:layout_height="?attr/actionBarSize"
+            android:background="#fff"
+            app:navigationIcon="@drawable/back_arrow_foreground"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/et_top_margin"
-                android:paddingStart="@dimen/standard_margin"
-                android:paddingEnd="@dimen/standard_margin"
-                android:text="@string/txt_choose_warehouse"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:text="@string/txt_add_price_group"
+                android:textColor="#676767"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/margin_20"
+                android:id="@+id/toolbar_title"
+                tools:ignore="SpUsage" />
+        </androidx.appcompat.widget.Toolbar>
 
-            <Spinner
-                android:id="@+id/sp_price_group_warehouse"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/et_top_margin"
-                android:layout_marginEnd="@dimen/et_top_margin" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <Button
-        android:id="@+id/btn_action_submit"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height_bottom_sheet"
-        android:layout_margin="@dimen/standard_margin"
-        android:layout_weight="0"
-        android:background="@color/main_green"
-        android:text="@string/txt_action_save"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@android:color/white" />
+    <include layout="@layout/content_add_price_group" />
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

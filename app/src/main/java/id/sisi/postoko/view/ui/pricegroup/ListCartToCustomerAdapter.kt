@@ -51,8 +51,8 @@ class ListCartToCustomerAdapter<T>(
         fun bind(value: T?, adapter: ListCartToCustomerAdapter<T>) {
             when (value) {
                 is Customer -> {
-                    itemView.tv_list_customer_cart_title?.text = value.company
-                    itemView.tv_alias_customer?.text = getAlias(value.company)
+                    itemView.tv_list_customer_cart_title?.text = value.customer_company
+                    itemView.tv_alias_customer?.text = getAlias(value.customer_company)
                     itemView.setOnClickListener {
                         adapter.unselected(value)
                     }
