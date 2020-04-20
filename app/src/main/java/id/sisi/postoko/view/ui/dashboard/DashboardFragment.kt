@@ -11,6 +11,7 @@ import com.whiteelephant.monthpicker.MonthPickerDialog
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.MySession
+import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.AccountViewModel
@@ -28,7 +29,7 @@ import java.util.Calendar.*
 @SuppressLint("SimpleDateFormat")
 class DashboardFragment : Fragment() {
     private lateinit var viewModel: AccountViewModel
-
+    private val typeface = TypeFace()
     private val today: Calendar = getInstance()
     private val calendar: Calendar = GregorianCalendar()
     val inputDateFormat = SimpleDateFormat("yyyy MM")
@@ -76,6 +77,17 @@ class DashboardFragment : Fragment() {
         view_pager_dashboard?.let {
             it.adapter = adapter
         }
+
+        activity?.assets?.let {
+            typeface.typeFace("robot_font/Roboto-Bold.ttf",tv_user_company_name, it)
+            typeface.typeFace("robot_font/Roboto-Regular.ttf",tv_user_company_address, it)
+            typeface.typeFace("robot_font/Roboto-Regular.ttf",tv_view_01, it)
+            typeface.typeFace("robot_font/Roboto-Regular.ttf",tv_view_02, it)
+            typeface.typeFace("robot_font/Roboto-Regular.ttf",tv_view_03, it)
+            typeface.typeFace("robot_font/Roboto-Regular.ttf",tv_view_04, it)
+            typeface.typeFace("robot_font/Roboto-Bold.ttf",tv_date_filter, it)
+        }
+
         view_pager_dashboard.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {}
 

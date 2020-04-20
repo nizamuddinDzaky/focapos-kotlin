@@ -31,12 +31,10 @@ class DashboardPieChartAdapter(fm: FragmentManager) :
     }
 
     override fun getItemPosition(x: Any): Int {
-
         return POSITION_UNCHANGED
     }
 
     fun getCurrentFragment(): DashboardPiechartFragment {
-        logE("current Fragment : ${pages[currentPage].tag} => $currentPage")
         return pages[currentPage] as DashboardPiechartFragment
     }
 
