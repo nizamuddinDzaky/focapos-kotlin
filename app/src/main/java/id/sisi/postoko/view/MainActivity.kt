@@ -92,12 +92,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_register?.setOnClickListener{
-            loopCrash()
-        }
-    }
 
-    fun loopCrash(){
-        loopCrash()
+        }
     }
 
     private fun successLogin(token: String, user: User?) {
