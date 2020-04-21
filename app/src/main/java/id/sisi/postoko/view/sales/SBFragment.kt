@@ -68,8 +68,7 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
     }
 
     private fun setupRecycleView() {
-        adapter = SBAdapter {
-        }
+        adapter = SBAdapter (fragmentActivity = activity)
         layoutManager = LinearLayoutManager(this.context)
         rv_list_sales?.layoutManager = layoutManager
         rv_list_sales?.setHasFixedSize(false)

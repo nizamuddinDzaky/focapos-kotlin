@@ -47,7 +47,6 @@ class ListLegendDashboardAdapter (
             itemView.tv_status_legend_dashboard.text = status
             itemView.tv_jumlah_legend_dashboard.text = jumlah
             fragmentActivity?.assets?.let {
-                logE("asdasdasdad")
                 typeface.typeFace("robot_font/Roboto-Bold.ttf",itemView.tv_status_legend_dashboard,it)
                 typeface.typeFace("robot_font/Roboto-Regular.ttf",itemView.tv_jumlah_legend_dashboard,it)
             }

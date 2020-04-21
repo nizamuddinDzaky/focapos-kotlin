@@ -1,9 +1,14 @@
 package id.sisi.postoko.view.ui.sales
 
+import android.R.attr.label
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,8 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListDetailSalesBookingAdapter
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.extensions.*
+import id.sisi.postoko.utils.extensions.goneIfEmptyOrNull
+import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.utils.extensions.tryValue
 import kotlinx.android.synthetic.main.detail_sales_booking_fragment.*
+
 
 class DetailSalesBookingFragment : Fragment() {
 
@@ -38,6 +47,13 @@ class DetailSalesBookingFragment : Fragment() {
         val idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
 
         setupUI()
+
+        tv_copy.setOnClickListener {
+            val myClipboard: ClipboardManager = activity?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("label", tv_sale_detail_reference_no.text)
+            myClipboard.setPrimaryClip(clip)
+            Toast.makeText(context, "Copied ${tv_sale_detail_reference_no.text}", Toast.LENGTH_SHORT).show()
+        }
 
         viewModel = ViewModelProvider(
             this,

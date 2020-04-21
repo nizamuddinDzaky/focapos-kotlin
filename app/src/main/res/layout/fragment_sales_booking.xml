@@ -18,6 +18,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list_sales"
                 android:layout_width="match_parent"
+                android:background="@color/colorBackground"
                 android:layout_height="match_parent"
                 android:visibility="gone"
                 tools:itemCount="10"

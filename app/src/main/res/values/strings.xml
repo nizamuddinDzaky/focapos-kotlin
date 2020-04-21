@@ -280,4 +280,6 @@
     <string name="txt_show_password">Show Password</string>
     <string name="txt_desc_forgot_pass">Masukan email yang terdaftar di akun POS anda dan kami akan mengirimkan email untuk mereset kata sandi anda</string>
     <string name="txt_question_sign_up">Belum punya akun ?</string>
+    <string name="txt_ordered_by">Dipesan Oleh</string>
+    <string name="txt_reference">Reference</string>
 </resources>

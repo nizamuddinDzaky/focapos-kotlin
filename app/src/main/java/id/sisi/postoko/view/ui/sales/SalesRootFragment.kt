@@ -1,16 +1,22 @@
 package id.sisi.postoko.view.ui.sales
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import id.sisi.postoko.R
+import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.SalesPagerAdapter
 import kotlinx.android.synthetic.main.fragment_root_sales.*
 
+
 class SalesRootFragment : Fragment() {
+    private val typeface = TypeFace()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,12 +32,17 @@ class SalesRootFragment : Fragment() {
         fb_add_transaction?.setOnClickListener {
             startActivityForResult(Intent(this.context, AddSalesActivity::class.java), 2020)
         }
+
+
         main_container?.gone()
         main_view_pager?.let {
             it.adapter = SalesPagerAdapter(childFragmentManager, context)
             tabs_main_pagers?.setupWithViewPager(it)
         }
+        context?.assets?.let { typeface.fontTab(tabs_main_pagers, "robot_font/Roboto-Regular.ttf", it) }
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
