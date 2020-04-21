@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.network.NetworkResponse
+import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_forget_password.*
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_bottom_sheet_forget_password.*
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class BottomSheetForgetPasswordFragment : BottomSheetDialogFragment() {
     private lateinit var vmProfile: ProfileViewModel
+    private val typeface = TypeFace()
     private val progressBar = CustomProgressBar()
 
     override fun onCreateView(
@@ -33,6 +35,13 @@ class BottomSheetForgetPasswordFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        context?.assets?.let {
+            typeface.typeFace("robot_font/Roboto-Bold.ttf",tv_title_bottom_sheet,it)
+            typeface.typeFace("robot_font/Roboto-Regular.ttf",tv_desc_forgot_pass,it)
+            typeface.typeFace("robot_font/Roboto-Bold.ttf",tv_email,it)
+            typeface.typeFace("robot_font/Roboto-Italic.ttf",tv_helper_email,it)
+        }
 
         btn_action_submit.setOnClickListener {
             actionForgetPassword()

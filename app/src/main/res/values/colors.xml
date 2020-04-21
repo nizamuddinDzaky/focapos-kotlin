@@ -6,7 +6,7 @@
 
     <color name="colorNotSelect">#CBCBCB</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorBackground">#EDEDED</color>
+    <color name="colorBackground">#E5E5E5</color>
     <color name="colorLine">#CACACA</color>
     <color name="colorButtonScroll">#1CA865</color>
     <color name="colorTittleInput">#676767</color>
