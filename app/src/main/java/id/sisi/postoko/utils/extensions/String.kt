@@ -32,6 +32,65 @@ fun String.toLower() = this.toLowerCase(Locale.getDefault())
 
 fun String.toUpper() = this.toUpperCase(Locale.getDefault())
 
+fun String.toDisplayStatusColor(): Int{
+    var idString = 0
+    when {
+        this == "pending" -> {
+            idString = R.color.main_orange
+        }
+        this == "confirmed" -> {
+            idString = R.color.main_green
+        }
+        this == "reserved" -> {
+            idString = R.color.main_green
+        }
+        this == "closed" -> {
+            idString = R.color.main_red
+        }
+        this == "canceled" -> {
+            idString = R.color.main_red
+        }
+        this == "partial" -> {
+            idString = R.color.main_blue
+        }
+        this == "due" -> {
+            idString = R.color.main_red
+        }
+        this == "waiting" -> {
+            idString = R.color.main_orange
+        }
+        this == "paid" -> {
+            idString = R.color.text_green
+        }
+        this == "done" -> {
+            idString = R.color.text_green
+        }
+        this == "packing" -> {
+            idString = R.color.main_orange
+        }
+        this == "delivering" -> {
+            idString = R.color.main_blue
+        }
+        this == "delivered" -> {
+            idString = R.color.text_green
+        }
+        this == "returned" -> {
+            idString = R.color.main_red
+        }
+        this == "sent" -> {
+            idString = R.color.text_green
+        }
+        this == "completed" -> {
+            idString = R.color.text_green
+        }
+        this == "received" -> {
+            idString = R.color.text_green
+        }
+    }
+
+    return idString
+}
+
 fun String.toDisplayStatus(): Int {
     var idString = 0
     when {
@@ -85,6 +144,19 @@ fun String.toDisplayStatus(): Int {
         }
         this == "received" -> {
             idString = R.string.txt_status_received
+        }
+    }
+    return idString
+}
+
+fun String.toDisplayPaymentType(): Int{
+    var idString = 0
+    when{
+        this == "cash" -> {
+            idString = R.string.txt_payment_cash
+        }
+        this == "bank" -> {
+            idString = R.string.txt_bank
         }
     }
     return idString

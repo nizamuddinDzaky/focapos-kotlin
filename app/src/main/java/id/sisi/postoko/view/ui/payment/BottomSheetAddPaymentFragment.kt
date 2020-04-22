@@ -1,27 +1,34 @@
 package id.sisi.postoko.view.ui.payment
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.Dialog
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_payment.*
 import java.text.SimpleDateFormat
 import java.util.*
-
+import id.sisi.postoko.R
+import id.sisi.postoko.network.NetworkResponse
+import id.sisi.postoko.utils.extensions.toDisplayDate
 
 class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
     private val progressBar = CustomProgressBar()
@@ -47,7 +54,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
 
         val idSalesBooking = arguments?.getInt(KEY_ID_SALES_BOOKING) ?: 0
         sales = arguments?.getParcelable("sale")
-        mustPaid = sales?.grand_total?.minus(sales?.paid!!) ?: 0.0
+        mustPaid = sales?.paid?.let { sales?.grand_total?.minus(it) } ?: 0.0
 
         viewModel = ViewModelProvider(
             this,
@@ -61,6 +68,23 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
             }
         })
 
+//            (rg_payment_type?.get(i) as? RadioButton)?.tag =
+//                PaymentType.values()[i].name.toLowerCase(
+//                    Locale.getDefault()
+//                )
+
+
+
+
+
+//        rg_status_add_sale?.setOnCheckedChangeListener { radioGroup, i ->
+//            val radioButton = radioGroup.findViewById<RadioButton>(i)
+//            if(radioButton.text == "ColdFusion"){
+//                expandable_layout.expand(true)
+//            }else{
+//                expandable_layout.collapse(true)
+//            }
+//        }
         et_add_payment_date?.setText(currentDate.toDisplayDate())
         et_add_payment_date?.hint = currentDate.toDisplayDate()
         et_add_payment_date?.tag = currentDate

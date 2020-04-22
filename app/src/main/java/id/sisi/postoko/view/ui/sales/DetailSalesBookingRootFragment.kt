@@ -8,13 +8,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import id.sisi.postoko.R
+import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.pager.DetailSalesBookingPagerAdapter
 import kotlinx.android.synthetic.main.fragment_root_detail_sales_booking.*
+import kotlinx.android.synthetic.main.fragment_root_detail_sales_booking.main_container
+import kotlinx.android.synthetic.main.fragment_root_detail_sales_booking.main_view_pager
+import kotlinx.android.synthetic.main.fragment_root_detail_sales_booking.tabs_main_pagers
+import kotlinx.android.synthetic.main.fragment_root_sales.*
 
 
 class DetailSalesBookingRootFragment : Fragment() {
+    private var typeface = TypeFace()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,6 +38,8 @@ class DetailSalesBookingRootFragment : Fragment() {
             it.adapter = DetailSalesBookingPagerAdapter(childFragmentManager)
             tabs_main_pagers?.setupWithViewPager(it)
         }
+        context?.assets?.let { typeface.fontTab(tabs_main_pagers, "robot_font/Roboto-Regular.ttf", it) }
+
         main_view_pager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 

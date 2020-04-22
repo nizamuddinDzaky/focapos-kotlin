@@ -8,7 +8,8 @@
     android:tag="asdasdasdsad">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,28 +38,37 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/txt_from"
-                            android:textColor="@color/colorBlack" />
+                            android:text="@string/txt_ordered_by"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorBlack"
+                            tools:targetApi="jelly_bean" />
 
                         <TextView
                             android:id="@+id/tv_detail_sbo_customer_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
-                            android:textStyle="bold"
-                            tools:text="Helios Toko Jaya" />
+                            android:fontFamily="@font/roboto_bold"
+                            tools:text="Helios Toko Jaya"
+                            tools:targetApi="jelly_bean" />
 
                         <TextView
                             android:id="@+id/tv_detail_sbo_customer_address_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/text_grey"
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban "
+                            tools:targetApi="jelly_bean" />
 
                         <TextView
                             android:id="@+id/tv_detail_sbo_customer_address_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="Jawa Timur" />
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/text_grey"
+                            tools:text="Jawa Timur"
+                            tools:targetApi="jelly_bean" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -91,28 +101,38 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
                             android:text="@string/txt_distributor"
-                            android:textColor="@color/colorBlack" />
+                            android:textColor="@color/colorBlack"
+                            tools:targetApi="jelly_bean" />
 
                         <TextView
                             android:id="@+id/tv_detail_sbo_supplier_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
                             android:textColor="@color/colorBlack"
                             android:textStyle="bold"
-                            tools:text="Helios Crop" />
+                            tools:text="Helios Crop"
+                            tools:targetApi="jelly_bean" />
 
                         <TextView
                             android:id="@+id/tv_detail_sbo_supplier_address_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/text_grey"
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban "
+                            tools:targetApi="jelly_bean" />
 
                         <TextView
                             android:id="@+id/tv_detail_sbo_supplier_address_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="Jawa Timur" />
+                            android:textColor="@color/text_grey"
+                            android:fontFamily="@font/roboto_regular"
+                            tools:text="Jawa Timur"
+                            tools:targetApi="jelly_bean" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -145,7 +165,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/txt_warehouse"
-                            android:textColor="@color/colorBlack" />
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorBlack"
+                            tools:targetApi="jelly_bean" />
 
                         <TextView
                             android:id="@+id/tv_detail_sbo_warehouse_name"
@@ -153,26 +175,34 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
                             android:textStyle="bold"
-                            tools:text="Helios Warehouse" />
+                            android:fontFamily="@font/roboto_bold"
+                            tools:text="Helios Warehouse"
+                            tools:targetApi="jelly_bean" />
 
                         <TextView
                             android:id="@+id/tv_detail_sbo_warehouse_address_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/text_grey"
+                            tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban "
+                            tools:targetApi="jelly_bean" />
 
                         <TextView
                             android:id="@+id/tv_detail_sbo_warehouse_address_2"
                             android:layout_width="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/text_grey"
                             android:layout_height="wrap_content"
-                            tools:text="Jawa Timur" />
+                            tools:text="Jawa Timur"
+                            tools:targetApi="jelly_bean" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/standard_margin"
                     android:background="@android:color/white"
                     android:orientation="horizontal"
                     android:padding="@dimen/et_top_margin">
@@ -198,15 +228,17 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="0.6"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/txt_reference_number" />
+                                    android:text="@string/txt_reference"
+                                    android:fontFamily="@font/roboto_regular"
+                                    tools:targetApi="jelly_bean" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -218,36 +250,45 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textColor="@color/colorBlack"
-                                        android:textStyle="bold"
-                                        tools:text="SALE/2020/02/0001" />
-
+                                        android:fontFamily="@font/roboto_bold"
+                                        tools:text="SALE/2020/02/0001"
+                                        tools:targetApi="jelly_bean" />
+                                    <View
+                                        android:layout_width="@dimen/margin_10"
+                                        android:layout_height="match_parent"
+                                        android:background="#fff" />
                                     <TextView
+                                        android:id="@+id/tv_copy"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="@string/txt_copy"
                                         android:textColor="@color/main_red"
-                                        android:textStyle="bold" />
+                                        android:fontFamily="@font/roboto_regular"
+                                        tools:targetApi="jelly_bean" />
                                 </LinearLayout>
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="0.4"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/txt_date" />
+                                    android:text="@string/txt_date"
+                                    android:fontFamily="@font/roboto_regular"
+                                    tools:targetApi="jelly_bean" />
 
                                 <TextView
                                     android:id="@+id/tv_sale_detail_sbo_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/colorBlack"
-                                    android:textStyle="bold"
-                                    tools:text="13/11/2020 11:40" />
+                                    android:fontFamily="@font/roboto_bold"
+                                    tools:text="13/11/2020 11:40"
+                                    tools:targetApi="jelly_bean" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -259,16 +300,18 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="0.6"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/margin_10"
-                                    android:text="@string/txt_sale_status" />
+                                    android:text="@string/txt_sale_status"
+                                    android:fontFamily="@font/roboto_regular"
+                                    tools:targetApi="jelly_bean" />
 
                                 <TextView
                                     android:id="@+id/tv_sale_detail_sbo_sale_status"
@@ -280,16 +323,18 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="0.4"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/margin_10"
-                                    android:text="@string/txt_delivery_status" />
+                                    android:text="@string/txt_delivery_status"
+                                    android:fontFamily="@font/roboto_regular"
+                                    tools:targetApi="jelly_bean" />
 
                                 <TextView
                                     android:id="@+id/tv_sale_detail_sbo_delivery_status"
@@ -307,7 +352,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/standard_margin"
                     android:background="#FFFFFF"
                     android:orientation="horizontal">
 
@@ -323,7 +368,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="@string/txt_product"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_regular"
+                        tools:targetApi="jelly_bean" />
                 </LinearLayout>
 
                 <View
@@ -336,6 +382,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#E5E5E5"
+                    android:overScrollMode="never"
                     android:clipToPadding="false"
                     tools:itemCount="2"
                     tools:listitem="@layout/list_product_sales_booking" />
@@ -352,6 +399,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/txt_order_discounts"
+                        android:fontFamily="@font/roboto_bold"
+                        tools:targetApi="jelly_bean"
                         android:textStyle="bold" />
 
                     <TextView
@@ -359,7 +408,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        tools:targetApi="jelly_bean"
+                        android:textColor="@color/text_green"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
 
@@ -375,6 +426,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/txt_total_idr"
+                        android:fontFamily="@font/roboto_bold"
+                        tools:targetApi="jelly_bean"
                         android:textStyle="bold" />
 
                     <TextView
@@ -382,7 +435,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
 
@@ -398,14 +453,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/txt_get_paid_idr"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean" />
 
                     <TextView
                         android:id="@+id/tv_sale_detail_sbo_paid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
 
@@ -421,14 +480,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/txt_final_amount_idr"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean" />
 
                     <TextView
                         android:id="@+id/tv_sale_detail_grand_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
             </LinearLayout>

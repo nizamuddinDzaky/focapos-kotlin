@@ -4,19 +4,22 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.toCurrencyID
-import id.sisi.postoko.utils.extensions.toDisplayDate
-import id.sisi.postoko.utils.extensions.toDisplayStatus
+import id.sisi.postoko.utils.TypeFace
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.list_item_sales_booking.view.*
 
-class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : RecyclerView.Adapter<ListSalesAdapter.SalesViewHolder>() {
+class ListSalesAdapter(
+    private var sales: List<Sales>? = arrayListOf(),
+    private var fragmentActivity: FragmentActivity? = null
+) : RecyclerView.Adapter<ListSalesAdapter.SalesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SalesViewHolder {
         val view =
@@ -30,12 +33,12 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
     }
 
     override fun onBindViewHolder(holder: SalesViewHolder, position: Int) {
-        holder.bind(sales?.get(position))
+        holder.bind(sales?.get(position), fragmentActivity)
     }
 
     class SalesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(sale: Sales?, fragmentActivity: FragmentActivity? = null) {
 
-        fun bind(sale: Sales?) {
             sale?.let {
                 itemView.tv_sales_reference_no?.text = it.reference_no
                 val date = " ${it.date.toDisplayDate()}"
@@ -48,7 +51,6 @@ class ListSalesAdapter(private var sales: List<Sales>? = arrayListOf()) : Recycl
                 val seeDetail = "Lihat ${it.total_items} Rincian Item"
                 itemView.tv_sales_detail?.text = seeDetail
                 itemView.setOnClickListener {
-                    logE("click action detail sales ${sale.id}")
                     val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
                     page.putExtra(KEY_ID_SALES_BOOKING, sale.id)
                     page.putExtra(KEY_DELIVERY_STATUS_SALE, sale.delivery_status)

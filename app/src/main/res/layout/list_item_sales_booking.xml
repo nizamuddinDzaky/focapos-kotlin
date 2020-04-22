@@ -11,22 +11,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/standard_margin"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_margin"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="120dp"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
                 android:contentDescription="@string/txt_image_cement"
                 android:src="@drawable/dynamix" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/standard_margin"
+                android:paddingRight="@dimen/standard_margin"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -44,21 +48,9 @@
                             android:id="@+id/tv_sales_reference_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/main_blue"
+                            android:textColor="@color/main_red"
                             android:textStyle="bold"
                             tools:text="SO/2020/02/0001" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlack"
-                            tools:text="DYNAMIX SERBAGUNA 40 KG" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:text="200 SAK" />
-
                     </LinearLayout>
 
                     <TextView
@@ -93,6 +85,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_label_sales_payment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/txt_payment_status" />
@@ -100,9 +93,7 @@
                         <TextView
                             android:id="@+id/tv_sales_payment_status"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/main_red"
-                            tools:text="Menunggu" />
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
@@ -114,6 +105,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_label_sales_deliv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/txt_delivery_status" />
@@ -121,17 +113,16 @@
                         <TextView
                             android:id="@+id/tv_sales_delevery_status"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/main_green"
-                            tools:text="done" />
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
                 </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>
+
+
 
         <View
             android:layout_width="match_parent"
@@ -142,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/margin_5"
+            android:padding="@dimen/standard_margin"
             android:weightSum="1">
 
             <TextView

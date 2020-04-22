@@ -8,12 +8,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_6"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_6"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -49,12 +49,13 @@
                             android:id="@+id/tv_detail_sbo_item_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_6"
                             android:gravity="center_vertical"
+                            android:fontFamily="@font/roboto_bold"
                             android:textAllCaps="true"
                             android:textColor="#B20838"
-                            android:textSize="12sp"
+                            android:textSize="12dp"
                             android:textStyle="bold"
+                            tools:targetApi="jelly_bean"
                             tools:text="Dynamix Serbaguna 40KG" />
                     </LinearLayout>
 
@@ -74,6 +75,8 @@
                             android:layout_marginTop="@dimen/margin_6"
                             android:textColor="#666666"
                             android:textSize="12sp"
+                            android:fontFamily="@font/roboto_regular"
+                            tools:targetApi="jelly_bean"
                             tools:text="200 SAK" />
 
                     </LinearLayout>
@@ -86,7 +89,9 @@
                     android:layout_marginTop="@dimen/margin_10"
                     android:gravity="center_vertical"
                     android:text="@string/txt_price_unit"
-                    android:textColor="#666666"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:targetApi="jelly_bean"
+                    android:textColor="@color/text_grey"
                     android:textSize="12sp" />
 
                 <LinearLayout
@@ -100,13 +105,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/bt_buy_margin"
                         android:layout_marginRight="@dimen/bt_buy_margin"
+                        android:fontFamily="@font/roboto_regular"
+                        tools:targetApi="jelly_bean"
+                        android:textColor="#d57792"
                         tools:text="Rp10.000" />
 
                     <TextView
                         android:id="@+id/tv_detail_sbo_item_end_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        tools:targetApi="jelly_bean"
                         tools:text="Rp10.000" />
                 </LinearLayout>
             </LinearLayout>
