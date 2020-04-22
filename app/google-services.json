@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "396460601207",
+    "firebase_url": "https://forcapos-66e41.firebaseio.com",
+    "project_id": "forcapos-66e41",
+    "storage_bucket": "forcapos-66e41.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396460601207:android:54441d3294e019807c7b72",
+        "android_client_info": {
+          "package_name": "id.sisi.postoko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396460601207-lvetmq1cgohpepjbef3314fg0q93fsqk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsqKn2Pm5MYgDAZWm-UHVCOLnmGH-PqMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396460601207-lvetmq1cgohpepjbef3314fg0q93fsqk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

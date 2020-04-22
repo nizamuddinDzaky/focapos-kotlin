@@ -2,6 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.firebase-perf'
+
+// Apply the Crashlytics Gradle plugin
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     signingConfigs {
@@ -16,8 +21,9 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "id.sisi.postoko"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
+        multiDexEnabled true
         versionCode 9
         versionName "2.0.20200410"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -80,6 +86,16 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'android.arch.paging:runtime:1.0.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    // Recommended: Add the Firebase SDK for Google Analytics.
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+
+    // Add the Firebase SDK for Crashlytics.
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
+
+    implementation 'com.google.firebase:firebase-perf:19.0.6'
 
     implementation 'com.google.android.material:material:1.1.0'
     testImplementation 'junit:junit:4.12'

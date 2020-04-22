@@ -109,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             if (!mandatory.validation()) {
                 return@setOnClickListener
             }
+
             val username = et_username?.text?.toStr() ?: "demo"
             val password = et_password?.text?.toStr() ?: "123456789"
             val body = mapOf("username" to username, "password" to password)
