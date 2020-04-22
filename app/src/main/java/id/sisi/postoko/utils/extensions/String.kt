@@ -149,6 +149,19 @@ fun String.toDisplayStatus(): Int {
     return idString
 }
 
+fun String.toDisplayPaymentType(): Int{
+    var idString = 0
+    when{
+        this == "cash" -> {
+            idString = R.string.txt_payment_cash
+        }
+        this == "bank" -> {
+            idString = R.string.txt_bank
+        }
+    }
+    return idString
+}
+
 fun String.toDisplayDate(): String {
     try {
         val dateInFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)

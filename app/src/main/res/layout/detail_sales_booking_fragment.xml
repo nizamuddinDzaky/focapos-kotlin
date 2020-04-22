@@ -352,7 +352,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/standard_margin"
                     android:background="#FFFFFF"
                     android:orientation="horizontal">
 
@@ -368,7 +368,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="@string/txt_product"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_regular"
+                        tools:targetApi="jelly_bean" />
                 </LinearLayout>
 
                 <View
@@ -381,6 +382,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#E5E5E5"
+                    android:overScrollMode="never"
                     android:clipToPadding="false"
                     tools:itemCount="2"
                     tools:listitem="@layout/list_product_sales_booking" />
@@ -397,6 +399,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/txt_order_discounts"
+                        android:fontFamily="@font/roboto_bold"
+                        tools:targetApi="jelly_bean"
                         android:textStyle="bold" />
 
                     <TextView
@@ -404,7 +408,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        tools:targetApi="jelly_bean"
+                        android:textColor="@color/text_green"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
 
@@ -420,6 +426,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/txt_total_idr"
+                        android:fontFamily="@font/roboto_bold"
+                        tools:targetApi="jelly_bean"
                         android:textStyle="bold" />
 
                     <TextView
@@ -427,7 +435,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
 
@@ -443,14 +453,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/txt_get_paid_idr"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean" />
 
                     <TextView
                         android:id="@+id/tv_sale_detail_sbo_paid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
 
@@ -466,14 +480,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/txt_final_amount_idr"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean" />
 
                     <TextView
                         android:id="@+id/tv_sale_detail_grand_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
             </LinearLayout>

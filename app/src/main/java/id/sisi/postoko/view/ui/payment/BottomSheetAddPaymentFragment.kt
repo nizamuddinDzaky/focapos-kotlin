@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -47,7 +48,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
 
         val idSalesBooking = arguments?.getInt(KEY_ID_SALES_BOOKING) ?: 0
         sales = arguments?.getParcelable("sale")
-        mustPaid = sales?.grand_total?.minus(sales?.paid!!) ?: 0.0
+        mustPaid = sales?.paid?.let { sales?.grand_total?.minus(it) } ?: 0.0
 
         viewModel = ViewModelProvider(
             this,

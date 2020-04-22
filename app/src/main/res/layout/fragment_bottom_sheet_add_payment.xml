@@ -72,14 +72,14 @@
             android:inputType="none"
             tools:ignore="KeyboardInaccessibleWidget,LabelFor,TextFields" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_add_payment_date"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
-<!--            android:textStyle="bold"-->
-<!--            tools:text="21 Feb 2020" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_add_payment_date"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+        <!--            android:textStyle="bold"-->
+        <!--            tools:text="21 Feb 2020" />-->
 
     </LinearLayout>
 

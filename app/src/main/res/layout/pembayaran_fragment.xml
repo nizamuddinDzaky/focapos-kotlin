@@ -2,27 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="#FFFFFF"
                 android:orientation="horizontal"
+                android:padding="@dimen/standard_margin"
                 android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_8"
+                    android:paddingTop="1dp"
                     android:orientation="vertical">
 
                     <ImageView
@@ -36,12 +35,9 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_6"
-                    android:layout_marginLeft="@dimen/margin_6"
-                    android:layout_marginTop="@dimen/margin_5"
-                    android:layout_marginBottom="@dimen/margin_6"
                     android:layout_weight="2.4"
-                    android:background="@android:color/white"
+                    android:layout_marginLeft="@dimen/standard_margin"
+                    android:layout_marginRight="@dimen/standard_margin"
                     android:orientation="vertical">
 
                     <TextView
@@ -49,7 +45,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/txt_payment_list"
                         android:textColor="@color/colorBlack"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_bold"
+                        android:textStyle="bold"
+                        tools:targetApi="jelly_bean" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -71,7 +69,6 @@
                         android:id="@+id/rv_list_item_pembayaran"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/white"
                         android:clipToPadding="false"
                         tools:itemCount="2"
                         tools:listitem="@layout/list_item_pembayaran"
@@ -95,7 +92,7 @@
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_margin"
-        android:backgroundTint="@color/main_blue"
+        android:backgroundTint="@color/text_blue"
         android:src="@drawable/add_payment"
         tools:targetApi="lollipop" />
 

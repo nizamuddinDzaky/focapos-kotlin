@@ -105,6 +105,8 @@
     <string name="txt_plant_name">Nama Pabrik</string>
     <string name="txt_add_payment">Menambah Pembayaran</string>
     <string name="txt_payment_cash">Tunai</string>
+    <string name="txt_other">Lainnya</string>
+    <string name="txt_bank">Bank</string>
     <string name="txt_total_idr">Jumlah (Rp)</string>
     <string name="txt_action_add_payment">Tambah Pembayaran</string>
     <string name="txt_purchase_create">Membuat Pembelian</string>
@@ -282,4 +284,7 @@
     <string name="txt_question_sign_up">Belum punya akun ?</string>
     <string name="txt_ordered_by">Dipesan Oleh</string>
     <string name="txt_reference">Reference</string>
+    <string name="txt_see_attachment">Lihat Lampiran</string>
+    <string name="txt_gift_card">Gift Card</string>
+    <string name="txt_credit_card">Kartu Kredit</string>
 </resources>
