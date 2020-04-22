@@ -119,10 +119,6 @@ class MainActivity : AppCompatActivity() {
                 prefs.passwordLogin = if (isRememberMe) password else ""
             }
         }
-
-        btn_register?.setOnClickListener{
-
-        }
     }
 
     private fun successLogin(token: String, user: User?) {
