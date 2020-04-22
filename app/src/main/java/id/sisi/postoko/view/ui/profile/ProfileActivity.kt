@@ -11,6 +11,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.RC_PROFILE
 import id.sisi.postoko.utils.extensions.getTryString
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryValue
 import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -69,6 +70,9 @@ class ProfileActivity : BaseActivity() {
 
     private fun showData(user: User?) {
         user?.let {
+            logE("profile : $it")
+            tv_user_company_name?.text = it.company
+            tv_user_company_address?.text = it.address
             tv_profile_first_name?.text = it.first_name
             tv_profile_last_name?.text = it.last_name
             tv_profile_gender?.text = getTryString(GenderType.MALE.tryValue(it.gender)?.stringId)

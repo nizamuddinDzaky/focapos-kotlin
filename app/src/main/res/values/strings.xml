@@ -243,7 +243,7 @@
     <string name="txt_company">Perusahaan</string>
     <string name="txt_city">Kota</string>
     <string name="txt_village">Desa</string>
-    <string name="txt_change_password">Ganti Kata Sandi</string>
+    <string name="txt_change_password">Ganti Password</string>
     <string name="txt_helper_max_text">Maksimal 30 Karakter</string>
     <string name="txt_male">Laki-Laki</string>
     <string name="txt_female">Perempuan</string>

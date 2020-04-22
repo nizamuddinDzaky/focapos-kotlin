@@ -91,10 +91,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ui.payment.DetailPaymentActivity" />
-        <activity android:name=".view.ui.profile.ProfileActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
+        <activity
+            android:name=".view.ui.profile.ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".view.ui.pricegroup.DetailPriceGroupActivity" />
         <activity
