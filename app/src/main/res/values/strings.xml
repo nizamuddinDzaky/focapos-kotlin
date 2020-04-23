@@ -293,4 +293,9 @@
     <string name="txt_helper_province">Silahkan Pilih Provinsi Anda</string>
     <string name="txt_helper_city">Silahkan Pilih Kota Anda</string>
     <string name="txt_helper_village">Silahkan Pilih Desa Anda</string>
+    <string name="txt_list_customer">Daftar Pelanggan</string>
+    <string name="txt_select_all">Tandai Semua</string>
+    <string name="txt_unselect_all">Hapus Semua</string>
+    <string name="txt_reset">Reset</string>
+    <string name="txt_region">Region</string>
 </resources>
