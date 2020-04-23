@@ -11,6 +11,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.RC_PROFILE
 import id.sisi.postoko.utils.extensions.getTryString
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryValue
 import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 class ProfileActivity : BaseActivity() {
 
     private lateinit var mViewModel: ProfileViewModel
-
+    private lateinit var user: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -28,6 +29,9 @@ class ProfileActivity : BaseActivity() {
         mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         mViewModel.getUser().observe(this, Observer {
             showData(it)
+            if (it != null) {
+                user = it
+            }
         })
 
         mViewModel.getUserProfile()
@@ -38,37 +42,45 @@ class ProfileActivity : BaseActivity() {
         tv_profile_change_personal?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.PERSONAL
+                BottomSheetEditProfileFragment.ProfileType.PERSONAL,
+                user
             )
         }
         tv_profile_change_address?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.ADDRESS
+                BottomSheetEditProfileFragment.ProfileType.ADDRESS,
+                user
             )
         }
         tv_profile_change_company?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.COMPANY
+                BottomSheetEditProfileFragment.ProfileType.COMPANY,
+                user
             )
         }
         tv_profile_change_account?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.ACCOUNT
+                BottomSheetEditProfileFragment.ProfileType.ACCOUNT,
+                user
             )
         }
         btn_change_password?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.PASSWORD
+                BottomSheetEditProfileFragment.ProfileType.PASSWORD,
+                user
             )
         }
     }
 
     private fun showData(user: User?) {
         user?.let {
+            logE("profile : $it")
+            tv_user_company_name?.text = it.company
+            tv_user_company_address?.text = it.address
             tv_profile_first_name?.text = it.first_name
             tv_profile_last_name?.text = it.last_name
             tv_profile_gender?.text = getTryString(GenderType.MALE.tryValue(it.gender)?.stringId)

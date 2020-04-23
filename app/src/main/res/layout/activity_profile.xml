@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,555 +8,653 @@
     android:fillViewport="true"
     tools:context=".view.ui.dashboard.AccountFragment">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
-        android:orientation="vertical"
-        tools:ignore="UselessParent">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_header"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:id="@+id/layout_header1"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/header_profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/layout_header2"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="@drawable/header_white_style"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_header1" />
-
-            <ImageView
-                android:id="@+id/iv_header_avatar"
-                android:layout_width="@dimen/avatar_size"
-                android:layout_height="@dimen/avatar_size"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
-                android:contentDescription="@string/txt_image_avatar"
-                android:src="@drawable/avatar_account"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_user_company_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
-                android:drawableEnd="@drawable/icon_edit"
-                android:drawableRight="@drawable/icon_edit"
-                android:drawablePadding="@dimen/et_top_margin"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingEnd="@dimen/et_top_margin"
-                android:paddingRight="@dimen/et_top_margin"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintEnd_toEndOf="@id/layout_header2"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toEndOf="@id/iv_header_avatar"
-                app:layout_constraintTop_toTopOf="@id/layout_header2"
-                tools:ignore="RtlSymmetry"
-                tools:text="PT SISI" />
-
-            <TextView
-                android:id="@+id/tv_user_company_address"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintEnd_toEndOf="@id/layout_header2"
-                app:layout_constraintStart_toStartOf="@id/tv_user_company_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_user_company_name"
-                tools:text="Jawa Timur" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/et_top_margin"
-            android:padding="@dimen/et_top_margin">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_personal"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_profile_change_personal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/txt_action_edit"
-                android:textAllCaps="false"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/main_blue" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_profile_personal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_first_name"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_first_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:id="@+id/tv_profile_title_last_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_last_name"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_last_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_gender"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/et_top_margin"
-            android:padding="@dimen/et_top_margin">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_address"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_profile_change_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/txt_action_edit"
-                android:textAllCaps="false"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/main_blue" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_province"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_city"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_village"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_village"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="Alamat"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/et_top_margin"
-                    android:layout_marginLeft="@dimen/et_top_margin"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_postal_code"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_postal_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/et_top_margin"
-            android:padding="@dimen/et_top_margin">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_company"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_profile_change_company"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/txt_action_edit"
-                android:textAllCaps="false"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/main_blue" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_customer_cf1"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_cf1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_customer_cf6"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_cf6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/et_top_margin"
-            android:padding="@dimen/et_top_margin">
+            android:layout_height="?attr/actionBarSize"
+            android:background="#fff"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_account"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold" />
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/margin_20"
+                android:id="@+id/toolbar_title"
+                tools:ignore="SpUsage" />
+        </androidx.appcompat.widget.Toolbar>
 
-            <TextView
-                android:id="@+id/tv_profile_change_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/txt_action_edit"
-                android:textAllCaps="false"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/main_blue" />
-        </RelativeLayout>
-
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/standard_margin"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/layout_header1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/header_profile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/layout_header2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:background="@drawable/header_white_style"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_header1" />
+
+                <ImageView
+                    android:id="@+id/iv_header_avatar"
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_marginLeft="@dimen/standard_margin"
+                    android:contentDescription="@string/txt_image_avatar"
+                    android:src="@drawable/avatar_account"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_user_company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_marginLeft="@dimen/standard_margin"
+                    android:fontFamily="@font/roboto_bold"
+                    android:drawableEnd="@drawable/icon_edit"
+                    android:drawableRight="@drawable/icon_edit"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="@dimen/margin_10"
+                    android:paddingEnd="@dimen/et_top_margin"
+                    android:paddingRight="@dimen/et_top_margin"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toEndOf="@id/layout_header2"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/iv_header_avatar"
+                    app:layout_constraintTop_toTopOf="@id/layout_header2"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="PT SISI" />
+
+                <TextView
+                    android:id="@+id/tv_user_company_address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="#A8A8A8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:paddingBottom="@dimen/margin_10"
+                    app:layout_constraintEnd_toEndOf="@id/layout_header2"
+                    app:layout_constraintStart_toStartOf="@id/tv_user_company_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_user_company_name"
+                    tools:text="Jawa Timur" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_10">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_email"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
+                    android:text="@string/txt_personal"
+                    android:textColor="@color/colorBlack"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:fontFamily="@font/roboto_regular" />
 
                 <TextView
-                    android:id="@+id/tv_profile_email"
+                    android:id="@+id/tv_profile_change_personal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
+                    android:text="@string/txt_action_edit"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_blue"
+                    tools:ignore="RelativeOverlap" />
             </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_profile_personal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_first_name"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"/>
+
+                    <TextView
+                        android:id="@+id/tv_profile_first_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:id="@+id/tv_profile_title_last_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="@string/txt_last_name"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_last_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="@string/txt_gender"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorBlack"
+                    android:text="@string/txt_address"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/tv_profile_change_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/txt_action_edit"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_blue"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_province"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_city"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_village"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_village"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_address"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_address"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_postal_code"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_postal_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_company"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/tv_profile_change_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/txt_action_edit"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textAllCaps="false"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_blue"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_customer_cf1"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_cf1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_customer_cf6"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_cf6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_account"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/tv_profile_change_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/txt_action_edit"
+                    android:textAllCaps="false"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/text_blue"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_email"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLine" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/txt_telp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="Lorem ipsum"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorLine" />
+                android:layout_marginTop="@dimen/et_top_margin" />
 
-            <RelativeLayout
+            <Button
+                android:id="@+id/btn_change_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/txt_telp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_profile_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Lorem ipsum" />
-            </RelativeLayout>
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/standard_margin"
+                android:background="@color/main_green"
+                android:text="@string/txt_change_password"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white" />
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/et_top_margin" />
-
-        <Button
-            android:id="@+id/btn_change_password"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:layout_margin="@dimen/et_top_margin"
-            android:background="@color/main_green"
-            android:text="@string/txt_change_password"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

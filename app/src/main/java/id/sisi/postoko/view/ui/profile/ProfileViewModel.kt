@@ -65,7 +65,7 @@ class ProfileViewModel : ViewModel() {
         )
     }
 
-    fun putUserProfile(body: MutableMap<String, String>, idUser: String) {
+    fun putUserProfile(body: MutableMap<String, String>, idUser: String, listener: (Map<String, Any>) -> Unit) {
         if (body.isEmpty()) {
             logE("body is empty, force cancel call api.")
             return
@@ -86,9 +86,11 @@ class ProfileViewModel : ViewModel() {
                         newUser?.companyData = response.body()?.data?.company
                         user.postValue(newUser)
                         isSuccessUpdate.postValue(true)
+                        listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.message()))
                     }
                 } else {
                     isExecute.postValue(true)
+                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.message()))
                 }
             }
         )

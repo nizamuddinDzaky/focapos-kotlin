@@ -1,5 +1,10 @@
 package id.sisi.postoko.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class User (
     val id : Int?,
     val last_ip_address : String?,
@@ -48,6 +53,7 @@ data class User (
     val phone_otp : Int?,
     val activated_at : String?,
     val registered_by : String?
-) {
+): Parcelable {
+    @IgnoredOnParcel
     var companyData: Customer? = null
 }

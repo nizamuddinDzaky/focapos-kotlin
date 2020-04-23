@@ -243,13 +243,14 @@
     <string name="txt_company">Perusahaan</string>
     <string name="txt_city">Kota</string>
     <string name="txt_village">Desa</string>
-    <string name="txt_change_password">Ganti Kata Sandi</string>
+    <string name="txt_change_password">Ganti Password</string>
     <string name="txt_helper_max_text">Maksimal 30 Karakter</string>
     <string name="txt_male">Laki-Laki</string>
     <string name="txt_female">Perempuan</string>
     <string name="txt_helper_cf1">Masukkan ID Bisnis Kokoh Anda</string>
     <string name="txt_helper_cf6">Masukkan kode untuk LT</string>
     <string name="txt_helper_telp">Pastikan No Telp Aktif</string>
+    <string name="txt_helper_new_password">Masukan password baru anda</string>
     <string name="txt_new_password">Kata Sandi Baru</string>
     <string name="txt_confirm_password">Konfirmasi Kata Sandi</string>
     <string name="txt_helper_retry_password">Ulangi kata sandi baru Anda</string>
@@ -287,4 +288,9 @@
     <string name="txt_see_attachment">Lihat Lampiran</string>
     <string name="txt_gift_card">Gift Card</string>
     <string name="txt_credit_card">Kartu Kredit</string>
+    <string name="txt_helper_address">Masukan Alamat Anda</string>
+    <string name="txt_helper_postal_code">Masukan kode pos</string>
+    <string name="txt_helper_province">Silahkan Pilih Provinsi Anda</string>
+    <string name="txt_helper_city">Silahkan Pilih Kota Anda</string>
+    <string name="txt_helper_village">Silahkan Pilih Desa Anda</string>
 </resources>
