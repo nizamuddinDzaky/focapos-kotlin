@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 class ProfileActivity : BaseActivity() {
 
     private lateinit var mViewModel: ProfileViewModel
-
+    private lateinit var user: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -29,6 +29,9 @@ class ProfileActivity : BaseActivity() {
         mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         mViewModel.getUser().observe(this, Observer {
             showData(it)
+            if (it != null) {
+                user = it
+            }
         })
 
         mViewModel.getUserProfile()
@@ -39,31 +42,36 @@ class ProfileActivity : BaseActivity() {
         tv_profile_change_personal?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.PERSONAL
+                BottomSheetEditProfileFragment.ProfileType.PERSONAL,
+                user
             )
         }
         tv_profile_change_address?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.ADDRESS
+                BottomSheetEditProfileFragment.ProfileType.ADDRESS,
+                user
             )
         }
         tv_profile_change_company?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.COMPANY
+                BottomSheetEditProfileFragment.ProfileType.COMPANY,
+                user
             )
         }
         tv_profile_change_account?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.ACCOUNT
+                BottomSheetEditProfileFragment.ProfileType.ACCOUNT,
+                user
             )
         }
         btn_change_password?.setOnClickListener {
             BottomSheetEditProfileFragment.show(
                 supportFragmentManager,
-                BottomSheetEditProfileFragment.ProfileType.PASSWORD
+                BottomSheetEditProfileFragment.ProfileType.PASSWORD,
+                user
             )
         }
     }
