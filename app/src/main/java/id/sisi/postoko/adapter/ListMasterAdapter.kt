@@ -17,6 +17,7 @@ import id.sisi.postoko.utils.extensions.MyToast
 import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.customer.DetailCustomerActivity
+import id.sisi.postoko.view.ui.customergroup.AddCustomerToCustomerGoupActivity
 import id.sisi.postoko.view.ui.customergroup.CustomerSelectedCustomerGroupActivity
 import id.sisi.postoko.view.ui.customergroup.EditCustomerGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.AddCustomerPriceGroupActivity
@@ -153,7 +154,7 @@ class ListMasterAdapter<T>(
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item?.itemId) {
                     R.id.menu_more_customer_group_add_customer -> {
-                        CustomerSelectedCustomerGroupActivity.show(
+                        AddCustomerToCustomerGoupActivity.show(
                             fragmentActivity as FragmentActivity,
                             customerGroup
                         )

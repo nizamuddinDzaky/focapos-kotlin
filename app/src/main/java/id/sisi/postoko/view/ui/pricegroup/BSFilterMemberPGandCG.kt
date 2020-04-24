@@ -17,7 +17,7 @@ import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.visible
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_filter_price_group.*
 
-class BottomSheetFilterMemberPriceGroup: BottomSheetDialogFragment() {
+class BSFilterMemberPGandCG: BottomSheetDialogFragment() {
 
     private var expanded: Boolean = false
     var listener: (Map<String, Any>) -> Unit= {}
@@ -112,7 +112,7 @@ class BottomSheetFilterMemberPriceGroup: BottomSheetDialogFragment() {
             strFilter: String?
         ) {
 
-            val bottomSheetFragment = BottomSheetFilterMemberPriceGroup()
+            val bottomSheetFragment = BSFilterMemberPGandCG()
             bottomSheetFragment.listener = {
                 listener(it)
             }
