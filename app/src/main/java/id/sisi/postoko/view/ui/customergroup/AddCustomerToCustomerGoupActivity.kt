@@ -1,9 +1,11 @@
 package id.sisi.postoko.view.ui.customergroup
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -13,16 +15,12 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
-import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_CG
 import id.sisi.postoko.utils.extensions.addVerticalDivider
-import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.pricegroup.BSFilterMemberPGandCG
 import kotlinx.android.synthetic.main.activity_customer_customer_group.*
-import kotlinx.android.synthetic.main.failed_load_data.*
 
 class AddCustomerToCustomerGoupActivity : BaseActivity() {
     private var firstListCustomer = listOf(
@@ -38,6 +36,7 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     private var listCustomerCart = ArrayList<Customer>()
     private lateinit var vmCustomerGroup: CustomerGroupViewModel
     private val progressBar = CustomProgressBar()
+    private var strFilter: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,23 +73,6 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
         if (loadNew) {
             vmCustomerGroup.getListCustomers().observe(this, Observer {
                 firstListCustomer = it ?: listOf()
-                tv_swipe_down.gone()
-                logE("size= ${it?.size}")
-                if (it?.size ?: 0 == 0) {
-                    val status = when(it?.size) {
-                        0 -> "Belum ada Data"
-                        else -> "Gagal Memuat Data"
-                    }
-                    tv_status_progress?.text = status
-                    layout_status_progress?.visible()
-                    rv_list_customer_cart.gone()
-                    rv_list_customer.gone()
-                } else {
-                    layout_status_progress?.gone()
-                    rv_list_customer_cart.visible()
-                    rv_list_customer.visible()
-                }
-
                 adapterCustomer.updateMasterData(firstListCustomer)
                 setupDataCart()
             })
@@ -100,23 +82,35 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
         }
     }
 
-
+    @SuppressLint("SetTextI18n")
     private fun setupDataCart() {
         for(index in firstListCustomer.indices){
             if (firstListCustomer[index].customer_group_id == customerGroup.id){
                 firstListCustomer[index].isSelected = !firstListCustomer[index].isSelected
-                validation(firstListCustomer[index])
+                listCustomerCart.add(firstListCustomer[index])
             }
         }
+        tv_total_selected.text = "Pelanggan yang terpilih (${listCustomerCart.size})"
         adapterCart.updateMasterData(listCustomerCart)
     }
 
     private fun setupAction() {
+        tv_select_all.setOnClickListener { selectUnselectAll(false) }
+        tv_unselect_all.setOnClickListener { selectUnselectAll(true) }
         btn_action_submit?.setOnClickListener { actionSave() }
-        setupSearch()
+//        setupSearch()
     }
 
-    private fun setupSearch() {
+    private fun selectUnselectAll(flag: Boolean){
+        for(index in firstListCustomer.indices){
+            if (firstListCustomer[index].isSelected == flag){
+                firstListCustomer[index].isSelected = !firstListCustomer[index].isSelected
+                validation(firstListCustomer[index])
+            }
+        }
+        adapterCustomer.updateMasterData(firstListCustomer)
+    }
+    /*private fun setupSearch() {
         search_view?.setOnQueryTextListener(object : MySearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
@@ -142,9 +136,9 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
                 submitOnFilter()
             }
         })
-    }
+    }*/
 
-    private fun actoionShowSearch(isShow: Boolean) {
+    /*private fun actoionShowSearch(isShow: Boolean) {
         if (!isShow) {
             setupDataCustomer()
         }
@@ -152,11 +146,11 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
 
     private fun submitOnFilter() {
 
-    }
+    }*/
 
     private fun submitQuerySearch(newText: String) {
         val resultSearch = firstListCustomer.filter {
-            val name = "${it.company} (${it.name})"
+            val name = "${it.customer_company} (${it.customer_name})"
             return@filter name.contains(newText, true)
         }
         adapterCustomer.updateMasterData(resultSearch)
@@ -182,29 +176,44 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_search, menu)
-        menu?.findItem(R.id.menu_action_search)?.let {
+        menuInflater.inflate(R.menu.menu_search_blue_ic, menu)
+        menu?.findItem(R.id.menu_action_search)/*?.let {
             search_view?.typeView = 0
             search_view?.setMenuItem(it)
-        }
+        }*/
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_action_search) {
+            BSFilterMemberPGandCG.show(
+                supportFragmentManager,
+                strFilter
+            )
+            BSFilterMemberPGandCG.listener = {
+                submitQuerySearch(it["filter"].toString())
+                strFilter = it["filter"].toString()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    @SuppressLint("SetTextI18n")
     fun validation(customer: Customer) {
         if (customer.isSelected) {
-            logE("asdsadsad")
             listCustomerCart.add(customer)
             adapterCart.updateMasterData(listCustomerCart)
 
-            rv_list_customer_cart?.smoothScrollToPosition(adapterCart.itemCount)
+            rv_list_customer_cart?.smoothScrollToPosition(0)
         } else {
-            logE("qwewqe")
             listCustomerCart.remove(customer)
             val index = listCustomerCart.indexOf(customer)
 
             adapterCart.notifyItemRemoved(index)
             adapterCart.updateMasterData(listCustomerCart)
+            adapterCustomer.notifyDataSetChanged()
         }
+        tv_total_selected.text = "Pelanggan yang terpilih (${listCustomerCart.size})"
     }
 
     companion object {

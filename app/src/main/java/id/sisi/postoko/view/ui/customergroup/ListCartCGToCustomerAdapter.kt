@@ -9,8 +9,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toUpper
 import kotlinx.android.synthetic.main.list_customer_price_group_cart.view.*
+import java.util.*
 
 class ListCartCGToCustomerAdapter<T>(
     private var masterData: MutableList<T>? = mutableListOf(),
@@ -30,6 +32,7 @@ class ListCartCGToCustomerAdapter<T>(
 
     override fun onBindViewHolder(holder: MasterViewHolder<T>, position: Int) {
         holder.bind(masterData?.get(position), this)
+        logE("position : $position")
         setAnimation(holder.itemView, position)
     }
 
@@ -95,6 +98,7 @@ class ListCartCGToCustomerAdapter<T>(
 
     fun updateMasterData(newMasterData: List<T>?) {
         masterData = newMasterData?.toMutableList()
+        masterData?.reverse()
         notifyDataSetChanged()
         if (itemCount > 0)
             notifyItemInserted(itemCount)
