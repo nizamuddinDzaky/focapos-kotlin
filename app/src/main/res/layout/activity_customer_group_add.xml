@@ -26,8 +26,8 @@
                 android:text="@string/txt_add_customer_group"
                 android:textColor="#676767"
                 android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textSize="@dimen/margin_20"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="@dimen/margin_15"
                 android:id="@+id/toolbar_title"
                 tools:ignore="SpUsage" />
         </androidx.appcompat.widget.Toolbar>

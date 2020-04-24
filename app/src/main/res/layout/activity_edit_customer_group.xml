@@ -30,8 +30,8 @@
                     android:text="@string/title_activity_edit_customer_group"
                     android:textColor="#676767"
                     android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/margin_20"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textSize="@dimen/margin_15"
                     android:id="@+id/toolbar_title"
                     tools:ignore="SpUsage" />
                 <TextView
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#676767"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/margin_15"
+                    android:textSize="@dimen/margin_10"
                     android:id="@+id/toolbar_subtitle"
                     tools:ignore="SpUsage" />
             </LinearLayout>
