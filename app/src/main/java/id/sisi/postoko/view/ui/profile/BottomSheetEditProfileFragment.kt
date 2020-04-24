@@ -11,18 +11,16 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
-import id.sisi.postoko.model.Payment
 import id.sisi.postoko.model.User
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.MyToast
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.putIfDataNotNull
 import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.view.custom.CustomProgressBar
@@ -37,6 +35,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
     private lateinit var mViewModel: ProfileViewModel
     private var tempUser: User? = null
     private val progressBar = CustomProgressBar()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,18 +45,12 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
             tempUser = it
         }
         mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-//        mViewModel.getUser().observe(viewLifecycleOwner, Observer {
-//            tempUser = it
-//            it?.let { updateUI(it) }
-//        })
-//        mViewModel.getIsSuccessUpdatee().observe(viewLifecycleOwner, Observer {
-//            if (it) dismiss()
-//        })
+
         val layoutId = when (profileType) {
             ProfileType.ADDRESS -> R.layout.fragment_bottom_sheet_edit_profile_address
             ProfileType.COMPANY -> R.layout.fragment_bottom_sheet_edit_profile_company
             ProfileType.ACCOUNT -> R.layout.fragment_bottom_sheet_edit_profile_account
-            ProfileType.PASSWORD -> R.layout.fragment_bottom_sheet_edit_profile_password
+            /*ProfileType.PASSWORD -> R.layout.fragment_bottom_sheet_edit_profile_password*/
             else -> R.layout.fragment_bottom_sheet_edit_profile_personal
         }
         return inflater.inflate(layoutId, container, false)
@@ -122,9 +115,6 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
                 et_profile_email?.setText(user.email)
                 et_profile_phone?.setText(user.phone)
             }
-            ProfileType.PASSWORD -> {
-
-            }
             else -> {
 //                view?.findViewById<TextView>(R.id.et_profile_first_name)?.setText(user.first_name)
                 et_profile_first_name?.setText(user.first_name)
@@ -162,12 +152,12 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
                     "phone" to (et_profile_phone?.text?.toString() ?: "")
                 )
             }
-            ProfileType.PASSWORD -> {
+            /*ProfileType.PASSWORD -> {
                 body = mutableMapOf(
                     "email" to (et_profile_email?.text?.toString() ?: ""),
                     "phone" to (et_profile_phone?.text?.toString() ?: "")
                 )
-            }
+            }*/
             else -> {
                 var gender: String? = null
                 if (rbtn_male?.isChecked == true) gender = "male"
@@ -182,6 +172,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         }
         mViewModel.putUserProfile(body, tempUser?.id?.toString()!!){
             progressBar.dialog.dismiss()
+            Toast.makeText(context, "${it["message"]}", Toast.LENGTH_SHORT).show()
             if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
                 (activity as? ProfileActivity)?.refreshData(true)
                 this.dismiss()
@@ -191,7 +182,6 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        logE("mausk")
         (activity as? ProfileActivity)?.refreshData(mViewModel.getIsSuccessUpdatee().value)
     }
 
@@ -214,7 +204,6 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         PERSONAL,
         ADDRESS,
         COMPANY,
-        ACCOUNT,
-        PASSWORD,
+        ACCOUNT
     }
 }
