@@ -1,10 +1,11 @@
 package id.sisi.postoko.view.sales
 
 import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -14,25 +15,28 @@ import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.TypeFace
-import id.sisi.postoko.utils.extensions.*
+import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.utils.extensions.toDisplayStatus
+import id.sisi.postoko.utils.extensions.toDisplayStatusColor
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.list_item_sales_booking.view.*
 
 class SBAdapter(private var fragmentActivity: FragmentActivity? = null) :
     PagedListAdapter<Sales, SBAdapter.ViewHolder>(DIFF_CALLBACK) {
-    private var listener: (Sales?) -> Unit = {}
+    /*private var listener: (Sales?) -> Unit = {}*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_sales_booking, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindTo(getItem(position), listener, fragmentActivity)
+        holder.bindTo(getItem(position), fragmentActivity)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val typeface = TypeFace()
-        fun bindTo(sale: Sales?, listener: (Sales?) -> Unit, fragmentActivity: FragmentActivity? = null) {
+        fun bindTo(sale: Sales?,  fragmentActivity: FragmentActivity? = null) {
 
             fragmentActivity?.assets?.let {
                 typeface.typeFace("robot_font/Roboto-Bold.ttf",itemView.tv_sales_reference_no,it)
@@ -58,7 +62,12 @@ class SBAdapter(private var fragmentActivity: FragmentActivity? = null) :
 
                 itemView.tv_sales_payment_status?.text =
                     itemView.context.getText(it.payment_status.toDisplayStatus())
-                itemView.tv_sales_payment_status.setTextColor(it.payment_status.toDisplayStatusColor())
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    itemView.tv_sales_payment_status.setTextColor(itemView.context.getColor(it.payment_status.toDisplayStatusColor()))
+                }else{
+                    itemView.tv_sales_payment_status.setTextColor(ResourcesCompat.getColor(itemView.resources, it.payment_status.toDisplayStatusColor(), null))
+                }
 
                 itemView.tv_sales_total_price?.text = it.grand_total.toCurrencyID()
                 val seeDetail = "Lihat ${it.total_items} Rincian Item"

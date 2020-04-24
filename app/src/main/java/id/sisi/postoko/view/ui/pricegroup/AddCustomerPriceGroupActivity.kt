@@ -1,10 +1,12 @@
 package id.sisi.postoko.view.ui.pricegroup
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -14,15 +16,20 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
-import id.sisi.postoko.utils.MySearchView
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_PG
 import id.sisi.postoko.utils.extensions.addVerticalDivider
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
+import kotlinx.android.synthetic.main.activity_customer_customer_group.*
 import kotlinx.android.synthetic.main.activity_customer_price_group.*
+import kotlinx.android.synthetic.main.activity_customer_price_group.btn_action_submit
+import kotlinx.android.synthetic.main.activity_customer_price_group.rv_list_customer
+import kotlinx.android.synthetic.main.activity_customer_price_group.rv_list_customer_cart
+import kotlinx.android.synthetic.main.activity_customer_price_group.toolbar
+import kotlinx.android.synthetic.main.activity_customer_price_group.toolbar_subtitle
 
 class AddCustomerPriceGroupActivity : BaseActivity() {
+    private var strFilter: String? = null
     private var firstListCustomer = listOf(
         Customer(name = "masih"),
         Customer(name = "dalam"),
@@ -37,6 +44,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
 
     private val progressBar = CustomProgressBar()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_price_group)
@@ -50,7 +58,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         }
 
         toolbar_subtitle.text = priceGroup?.name
-
+        tv_total_selected.text = "Pelanggan yang terpilih (${listCustomerCart.size})"
         initView()
         setupData()
         setupAction()
@@ -73,7 +81,6 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         if (loadNew) {
             vmPriceGroup.getListCustomers().observe(this, Observer {
                 firstListCustomer = it ?: listOf()
-                logE("data: $it")
                 adapterCustomer.updateMasterData(firstListCustomer)
                 setupDataCart()
             })
@@ -94,11 +101,23 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     }
 
     private fun setupAction() {
+        tv_select_all.setOnClickListener { selectUnselectAll(false) }
+        tv_unselect_all.setOnClickListener { selectUnselectAll(true) }
         btn_action_submit?.setOnClickListener { actionSave() }
-        setupSearch()
+        /*setupSearch()*/
     }
 
-    private fun setupSearch() {
+    private fun selectUnselectAll(flag: Boolean){
+        for(index in firstListCustomer.indices){
+            if (firstListCustomer[index].isSelected == flag){
+                firstListCustomer[index].isSelected = !firstListCustomer[index].isSelected
+                validation(firstListCustomer[index])
+            }
+        }
+        adapterCustomer.updateMasterData(firstListCustomer)
+    }
+
+    /*private fun setupSearch() {
         search_view?.setOnQueryTextListener(object : MySearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
@@ -125,9 +144,9 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
                 submitOnFilter()
             }
         })
-    }
+    }*/
 
-    private fun actoionShowSearch(isShow: Boolean) {
+    /*private fun actoionShowSearch(isShow: Boolean) {
         if (!isShow) {
             setupDataCustomer()
         }
@@ -135,11 +154,11 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
 
     private fun submitOnFilter() {
         logE("testing")
-    }
+    }*/
 
     private fun submitQuerySearch(newText: String) {
         val resultSearch = firstListCustomer.filter {
-            val name = "${it.company} (${it.name})"
+            val name = "${it.customer_company} (${it.customer_name})"
             return@filter name.contains(newText, true)
         }
         adapterCustomer.updateMasterData(resultSearch)
@@ -164,6 +183,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         }
     }
     
+    @SuppressLint("SetTextI18n")
     fun validation(customer: Customer) {
         if (customer.isSelected) {
             listCustomerCart.add(customer)
@@ -175,15 +195,31 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
 
             adapterCustomer.notifyDataSetChanged()
         }
+        tv_total_selected.text = "Pelanggan yang terpilih (${listCustomerCart.size})"
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_search, menu)
+        menuInflater.inflate(R.menu.menu_search_blue_ic, menu)
         menu?.findItem(R.id.menu_action_search)?.let {
             search_view?.typeView = 0
             search_view?.setMenuItem(it)
+
         }
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_action_search) {
+            BottomSheetFilterMemberPriceGroup.show(
+                supportFragmentManager,
+                strFilter
+            )
+            BottomSheetFilterMemberPriceGroup.listener = {
+                submitQuerySearch(it["filter"].toString())
+                strFilter = it["filter"].toString()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
