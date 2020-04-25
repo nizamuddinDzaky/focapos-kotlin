@@ -47,7 +47,7 @@ class ProfileViewModel : ViewModel() {
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getProfile(headers)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 user.postValue(null)
             },
             onResponse = { _, response ->
@@ -59,7 +59,7 @@ class ProfileViewModel : ViewModel() {
                         user.postValue(newUser)
                     }
                 } else {
-                    isExecute.postValue(true)
+
                 }
             }
         )
@@ -96,8 +96,40 @@ class ProfileViewModel : ViewModel() {
         )
     }
 
-    internal fun getIsExecute(): LiveData<Boolean> {
+    fun putChangePassword(body: MutableMap<String, String>, listener: (Map<String, Any?>) -> Unit) {
+        if (body.isEmpty()) {
+            logE("body is empty, force cancel call api.")
+            return
+        }
         isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        ApiServices.getInstance()?.putChangePassword(headers, body)?.exe(
+            onFailure = { _, _ ->
+                isExecute.postValue(false)
+                user.postValue(null)
+                listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "Network error"))
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    tryMe {
+                        val newUser = response.body()?.data?.user
+                        newUser?.companyData = response.body()?.data?.company
+                        user.postValue(newUser)
+                        isSuccessUpdate.postValue(true)
+
+                        listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.body()?.message))
+                    }
+                } else {
+
+                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.body()?.message))
+                }
+            }
+        )
+    }
+
+    internal fun getIsExecute(): LiveData<Boolean> {
+
         return isExecute
     }
 
