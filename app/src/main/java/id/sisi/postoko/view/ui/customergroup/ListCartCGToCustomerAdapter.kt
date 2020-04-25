@@ -32,7 +32,6 @@ class ListCartCGToCustomerAdapter<T>(
 
     override fun onBindViewHolder(holder: MasterViewHolder<T>, position: Int) {
         holder.bind(masterData?.get(position), this)
-        logE("position : $position")
         setAnimation(holder.itemView, position)
     }
 
@@ -40,7 +39,7 @@ class ListCartCGToCustomerAdapter<T>(
         viewToAnimate: View,
         position: Int
     ) { // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition) {
+        if (position == 0 && itemCount > 1) {
             val animation: Animation =
                 AnimationUtils.loadAnimation(viewToAnimate.context, R.anim.item_animation_fall_down)
             viewToAnimate.startAnimation(animation)
@@ -77,31 +76,31 @@ class ListCartCGToCustomerAdapter<T>(
             }
         }
     }
-/*
-    fun removeCustomerFromCart(value: T) {
-        lastPosition -= 1
-        val index = masterData?.indexOf(value)
-        masterData?.remove(value)
-        if (index != null)
-            notifyItemRemoved(index)
-        else
-            notifyDataSetChanged()
-    }*/
-/*
-    fun addData(value: T) {
-        masterData?.add(value)
-        if (itemCount > 0)
-            notifyItemInserted(itemCount)
-        else
-            notifyDataSetChanged()
-    }*/
+
 
     fun updateMasterData(newMasterData: List<T>?) {
         masterData = newMasterData?.toMutableList()
-        masterData?.reverse()
         notifyDataSetChanged()
         if (itemCount > 0)
             notifyItemInserted(itemCount)
+        else
+            notifyDataSetChanged()
+    }
+
+    fun insertData(newData: T) {
+        masterData?.add(0, newData)
+        if (itemCount > 0)
+            notifyItemInserted(0)
+        else
+            notifyDataSetChanged()
+    }
+
+    fun removeData(data: T){
+        lastPosition -= 1
+        val index = masterData?.indexOf(data)
+        masterData?.remove(data)
+        if (index != null)
+            notifyItemRemoved(index)
         else
             notifyDataSetChanged()
     }
