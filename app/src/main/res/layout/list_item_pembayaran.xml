@@ -128,10 +128,12 @@
             android:layout_height="1dp"
             android:background="@color/colorLine" />
         <TextView
+            android:id="@+id/tv_attachment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_see_attachment"
-            android:layout_margin="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_10"
             android:gravity="center"
             android:textSize="13sp"
             android:textColor="@color/main_blue"
