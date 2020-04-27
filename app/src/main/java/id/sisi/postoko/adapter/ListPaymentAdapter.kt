@@ -9,6 +9,7 @@ import id.sisi.postoko.model.Payment
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.toDisplayPaymentType
+import id.sisi.postoko.view.ui.payment.ImagePaymentDialogFragment
 import kotlinx.android.synthetic.main.list_item_pembayaran.view.*
 
 class ListPaymentAdapter(
@@ -39,8 +40,12 @@ class ListPaymentAdapter(
                 itemView.tv_payment_amount?.text = it.amount.toCurrencyID()
                 itemView.tv_payment_date?.text = it.date.toDisplayDate()
                 itemView.tv_payment_type.text = itemView.context.getText(it.paid_by.toDisplayPaymentType())
+                /*itemView.tv_attachment.setOnClickListener {
+                    val dialogFragment = ImagePaymentDialogFragment()
+                    dialogFragment.show(itemView.childFragmentManager, "dialog")
+                }*/
             }
-            itemView.setOnClickListener {
+            itemView.tv_attachment.setOnClickListener {
                 listener(payment)
             }
         }

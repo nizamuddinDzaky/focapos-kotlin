@@ -93,6 +93,11 @@ class PaymentFragment : Fragment(){
         adapter = ListPaymentAdapter {
             showBottomSheetDetailPayment(it)
         }
+        adapter.listener={
+            val dialogFragment = ImagePaymentDialogFragment()
+
+            dialogFragment.show(childFragmentManager, "dialog")
+        }
         rv_list_item_pembayaran?.layoutManager = LinearLayoutManager(this.context)
         rv_list_item_pembayaran?.setHasFixedSize(false)
         rv_list_item_pembayaran?.adapter = adapter

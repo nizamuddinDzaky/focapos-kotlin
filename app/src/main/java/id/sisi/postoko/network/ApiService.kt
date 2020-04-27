@@ -63,6 +63,12 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataProfile>>
 
+    @PUT("auth/update_password")
+    fun putChangePassword(
+        @HeaderMap headerMap: Map<String, String>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataProfile>>
+
     @POST("auth/forgot_password")
     fun postResetPassword(
         @HeaderMap headerMap: Map<String, String>,

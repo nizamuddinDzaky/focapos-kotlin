@@ -11,6 +11,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.FrameLayout
 import android.widget.RadioButton
 import android.widget.Toast
@@ -30,14 +31,14 @@ import id.sisi.postoko.R
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.toDisplayDate
 
-class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
+class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     private val progressBar = CustomProgressBar()
     private val numberSparator = NumberSeparator()
     lateinit var viewModel: AddPaymentViewModel
     var listener: () -> Unit = {}
     private var sales: Sales? = null
     private var mustPaid: Double = 0.0
-
+    var isCheckeds = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -129,6 +130,16 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment() {
         et_add_payment_total.addTextChangedListener(numberSparator.onTextChangedListener(et_add_payment_total))
         btn_confirmation_add_payment?.setOnClickListener {
             actionAddPayment()
+        }
+        rb_cash.setOnClickListener {
+            if(isCheckeds){
+                    rb_cash.isChecked = false
+                    this.isCheckeds = false
+            }else{
+                    rb_cash.isChecked = true
+                    this.isCheckeds = true
+
+            }
         }
     }
 

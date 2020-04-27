@@ -40,4 +40,9 @@
     </style>
 
     <dimen name="search_icon_padding">12dp</dimen>
+
+    <style name="DialogTheme">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
 </resources>

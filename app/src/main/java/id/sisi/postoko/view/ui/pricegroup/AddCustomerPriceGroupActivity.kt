@@ -2,7 +2,6 @@ package id.sisi.postoko.view.ui.pricegroup
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -20,7 +19,6 @@ import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_PG
 import id.sisi.postoko.utils.extensions.addVerticalDivider
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
-import kotlinx.android.synthetic.main.activity_customer_customer_group.*
 import kotlinx.android.synthetic.main.activity_customer_price_group.*
 import kotlinx.android.synthetic.main.activity_customer_price_group.btn_action_submit
 import kotlinx.android.synthetic.main.activity_customer_price_group.rv_list_customer
@@ -58,7 +56,6 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         }
 
         toolbar_subtitle.text = priceGroup?.name
-        tv_total_selected.text = "Pelanggan yang terpilih (${listCustomerCart.size})"
         initView()
         setupData()
         setupAction()
@@ -94,7 +91,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         for(index in firstListCustomer.indices){
             if (firstListCustomer[index].price_group_id == priceGroup?.id){
                 firstListCustomer[index].isSelected = !firstListCustomer[index].isSelected
-                validation(firstListCustomer[index])
+                listCustomerCart.add(firstListCustomer[index])
             }
         }
         adapterCart.updateMasterData(listCustomerCart)
@@ -107,6 +104,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         /*setupSearch()*/
     }
 
+    @SuppressLint("SetTextI18n")
     private fun selectUnselectAll(flag: Boolean){
         for(index in firstListCustomer.indices){
             if (firstListCustomer[index].isSelected == flag){
@@ -114,6 +112,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
                 validation(firstListCustomer[index])
             }
         }
+        tv_total_selected.text = "Pelanggan yang terpilih (${listCustomerCart.size})"
         adapterCustomer.updateMasterData(firstListCustomer)
     }
 
@@ -186,35 +185,27 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     @SuppressLint("SetTextI18n")
     fun validation(customer: Customer) {
         if (customer.isSelected) {
-            listCustomerCart.add(customer)
-            adapterCart.updateMasterData(listCustomerCart)
-            rv_list_customer_cart?.smoothScrollToPosition(adapterCart.itemCount)
+            adapterCart.insertData(customer)
+            rv_list_customer_cart?.smoothScrollToPosition(0)
         } else {
-            listCustomerCart.remove(customer)
-            adapterCart.updateMasterData(listCustomerCart)
-
-            adapterCustomer.notifyDataSetChanged()
+            adapterCart.removeData(customer)
         }
         tv_total_selected.text = "Pelanggan yang terpilih (${listCustomerCart.size})"
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search_blue_ic, menu)
-        menu?.findItem(R.id.menu_action_search)?.let {
-            search_view?.typeView = 0
-            search_view?.setMenuItem(it)
-
-        }
+        menu?.findItem(R.id.menu_action_search)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_action_search) {
-            BottomSheetFilterMemberPriceGroup.show(
+            BSFilterMemberPGandCG.show(
                 supportFragmentManager,
                 strFilter
             )
-            BottomSheetFilterMemberPriceGroup.listener = {
+            BSFilterMemberPGandCG.listener = {
                 submitQuerySearch(it["filter"].toString())
                 strFilter = it["filter"].toString()
             }
