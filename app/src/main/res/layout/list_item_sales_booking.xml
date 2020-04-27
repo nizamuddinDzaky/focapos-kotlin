@@ -11,24 +11,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/standard_margin"
+        android:paddingTop="@dimen/et_top_margin"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_marginBottom="@dimen/et_top_margin"
+            android:paddingLeft="@dimen/et_top_margin"
+            android:paddingRight="@dimen/et_top_margin"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/txt_image_cement"
-                android:src="@drawable/dynamix" />
+            <RelativeLayout
+                android:layout_width="74dp"
+                android:layout_height="74dp"
+                tools:ignore="UselessParent">
+                <View
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_margin="@dimen/margin_6"
+                    android:background="@drawable/bg_avatar_transaksi" />
+                <TextView
+                    android:id="@+id/tv_alias_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:text="PoS"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/et_top_margin"
                 android:paddingLeft="@dimen/standard_margin"
                 android:paddingRight="@dimen/standard_margin"
                 android:orientation="vertical">
@@ -48,8 +64,8 @@
                             android:id="@+id/tv_sales_reference_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/main_red"
-                            android:textStyle="bold"
+                            android:textColor="#0893B2"
+                            android:fontFamily="@font/roboto_bold"
                             tools:text="SO/2020/02/0001" />
                     </LinearLayout>
 
@@ -60,6 +76,7 @@
                         android:layout_weight="0"
                         android:drawableStart="@drawable/ic_time"
                         android:drawableLeft="@drawable/ic_time"
+                        android:fontFamily="@font/roboto_bold"
                         android:padding="@dimen/margin_5"
                         android:textColor="#666666"
                         android:textSize="12sp"
@@ -70,59 +87,69 @@
                     android:layout_width="1dp"
                     android:layout_height="1dp"
                     android:layout_margin="@dimen/margin_2" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_customer_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:fontFamily="@font/roboto_bold"
+                    tools:text="asdasd"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_label_sales_payment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txt_payment_status" />
-
-                        <TextView
-                            android:id="@+id/tv_sales_payment_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_label_sales_deliv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txt_delivery_status" />
-
-                        <TextView
-                            android:id="@+id/tv_sales_delevery_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:layout_marginBottom="@dimen/et_top_margin"
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_label_sales_payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/txt_payment_status" />
+
+                <TextView
+                    android:id="@+id/tv_sales_payment_status"
+                    android:layout_width="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_label_sales_deliv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/txt_delivery_status" />
+
+                <TextView
+                    android:id="@+id/tv_sales_delevery_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -133,7 +160,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/standard_margin"
+            android:padding="@dimen/et_top_margin"
             android:weightSum="1">
 
             <TextView
@@ -141,6 +168,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
                 tools:text="Rincian Penjualan" />
 
             <TextView
@@ -148,6 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
+                android:fontFamily="@font/roboto_bold"
                 tools:text="Rp 123.000.000" />
         </LinearLayout>
 
