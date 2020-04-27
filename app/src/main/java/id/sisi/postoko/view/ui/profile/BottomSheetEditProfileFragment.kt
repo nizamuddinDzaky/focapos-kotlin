@@ -8,11 +8,10 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import android.widget.ArrayAdapter;
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -21,9 +20,11 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.User
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.MyToast
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.putIfDataNotNull
 import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_account.*
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_address.*
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_company.*
@@ -33,8 +34,13 @@ import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_persona
 class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
     private lateinit var profileType: ProfileType
     private lateinit var mViewModel: ProfileViewModel
+    private lateinit var mViewModelDaerah: DaerahViewModel
     private var tempUser: User? = null
     private val progressBar = CustomProgressBar()
+
+    private var provinceList: Array<String> = arrayOf()
+    private var cityList: Array<String> = arrayOf()
+    private var villageList: Array<String> = arrayOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +51,34 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
             tempUser = it
         }
         mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        mViewModelDaerah = ViewModelProvider(this).get(DaerahViewModel::class.java)
+
+        mViewModelDaerah.getAllProvince().observe(requireActivity(), Observer {
+            it?.let {listDataDaerah ->
+                provinceList = listDataDaerah.map {dataDaerah ->
+                    return@map dataDaerah.province_name ?: ""
+                }.toTypedArray()
+            }
+            tempUser?.let { setUIProvince(it) }
+        })
+
+        mViewModelDaerah.getAllCity().observe(requireActivity(), Observer {
+            it?.let {listDataDaerah ->
+                cityList = listDataDaerah.map {dataDaerah ->
+                    return@map dataDaerah.kabupaten_name ?: ""
+                }.toTypedArray()
+            }
+            tempUser?.let { setUICity(it) }
+        })
+
+        mViewModelDaerah.getAllStates().observe(requireActivity(), Observer {
+            it?.let {listDataDaerah ->
+                villageList = listDataDaerah.map {dataDaerah ->
+                    return@map dataDaerah.kecamatan_name ?: ""
+                }.toTypedArray()
+            }
+            tempUser?.let {setUIStates(it) }
+        })
 
         val layoutId = when (profileType) {
             ProfileType.ADDRESS -> R.layout.fragment_bottom_sheet_edit_profile_address
@@ -53,6 +87,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
             /*ProfileType.PASSWORD -> R.layout.fragment_bottom_sheet_edit_profile_password*/
             else -> R.layout.fragment_bottom_sheet_edit_profile_personal
         }
+
         return inflater.inflate(layoutId, container, false)
     }
 
@@ -99,6 +134,52 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         view.findViewById<TextView>(R.id.btn_action_submit)?.setOnClickListener {
             view.findViewById<TextView>(R.id.btn_reset)?.performClick()
         }
+
+        spinner_profile_province.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                mViewModelDaerah.getCity(provinceList[position])
+            }
+        }
+
+        spinner_profile_city.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                mViewModelDaerah.getStates(cityList[position])
+            }
+        }
+
+        mViewModelDaerah.getProvince()
+    }
+
+    private fun setUIProvince(user: User){
+        spinner_profile_province.adapter = ArrayAdapter(
+            requireActivity(),
+            R.layout.support_simple_spinner_dropdown_item,
+            provinceList
+        )
+
+        spinner_profile_province.setSelection(provinceList.indexOf(user.country))
+    }
+
+    private fun setUICity(user: User){
+        spinner_profile_city.adapter = ArrayAdapter(
+            requireActivity(),
+            R.layout.support_simple_spinner_dropdown_item,
+            cityList
+        )
+
+        spinner_profile_city.setSelection(cityList.indexOf(user.city))
+    }
+
+    private fun setUIStates(user: User){
+        spinner_profile_village.adapter = ArrayAdapter(
+            requireActivity(),
+            R.layout.support_simple_spinner_dropdown_item,
+            villageList
+        )
+
+        spinner_profile_village.setSelection(villageList.indexOf(user.state))
     }
 
     private fun updateUI(user: User) {
