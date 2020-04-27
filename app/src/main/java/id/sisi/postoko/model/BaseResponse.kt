@@ -20,6 +20,16 @@ data class DataProfile(
     var company: Customer?
 )
 
+data class DataDaerah(
+    var province_code: String?,
+    var kabupaten_code: String?,
+    var kecamatan_code: String?,
+    var province_name: String?,
+    var kabupaten_name: String?,
+    var kecamatan_name: String?,
+    var id_wilayah:String?
+)
+
 data class DataCustomer(
     var total_supplier: Int?,
     var customer: Customer?,
