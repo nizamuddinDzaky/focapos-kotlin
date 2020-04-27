@@ -8,7 +8,6 @@ import id.sisi.postoko.model.DataDaerah
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
 class DaerahViewModel : ViewModel() {
