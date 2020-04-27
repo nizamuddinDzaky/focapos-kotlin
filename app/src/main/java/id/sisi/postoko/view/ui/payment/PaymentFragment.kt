@@ -90,19 +90,32 @@ class PaymentFragment : Fragment(){
     }
 
     private fun setupRecycleView() {
-        adapter = ListPaymentAdapter {
-            showBottomSheetDetailPayment(it)
+        adapter = ListPaymentAdapter ()
+
+        adapter.listenerEdit = {
+            showBottomSheetEditPayment(it)
+        }
+
+        adapter.listener={
+            val dialogFragment = ImagePaymentDialogFragment()
+            dialogFragment.show(childFragmentManager, "dialog")
         }
         rv_list_item_pembayaran?.layoutManager = LinearLayoutManager(this.context)
         rv_list_item_pembayaran?.setHasFixedSize(false)
         rv_list_item_pembayaran?.adapter = adapter
     }
 
-    private fun showBottomSheetDetailPayment(payment: Payment?) {
-        val bottomSheetFragment = BottomSheetDetailPaymentFragment()
+    private fun showBottomSheetEditPayment(payment: Payment?) {
+        val sale = (activity as? DetailSalesBookingActivity)?.tempSale
+        val bottomSheetFragment = BottomSheetEditPaymentFragment()
         val bundle = Bundle()
+        bundle.putParcelable("sale",sale)
+        sale?.id?.let { bundle.putInt(KEY_ID_SALES_BOOKING, it) }
         bundle.putParcelable("payment", payment)
         bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.listener={
+            viewModel.getListPayment()
+        }
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 

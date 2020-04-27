@@ -23,222 +23,250 @@ import javax.net.ssl.X509TrustManager
 
 @JvmSuppressWildcards
 interface ApiServices {
-    @POST("auth/login")
+    @POST("api/v1/distributor/auth/login")
     fun postLogin(@Body body: Map<String, String>): Call<BaseResponse<DataLogin>>
 
-    @POST("sales_booking/add_payments")
+    @POST("api/v1/distributor/sales_booking/add_payments")
     fun postAddPayment(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, String>
     ): Call<BaseResponse<DataLogin>>
 
-    @POST("sales_booking/add_sales_booking")
+    @PUT("api/v1/distributor/sales_booking/edit_payments")
+    fun putEditPayment(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf(),
+        @Body body: Map<String, String>
+    ): Call<BaseResponse<DataLogin>>
+
+    @POST("api/v1/distributor/sales_booking/add_sales_booking")
     fun postAddSales(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @POST("purchases/add_gr_to_po")
+    @POST("api/v1/distributor/purchases/add_gr_to_po")
     fun postAddGoodReceived(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, String>
     ): Call<BaseResponse<DataLogin>>
 
-    @POST("sales_booking/add_deliveries_booking")
+    @POST("api/v1/distributor/sales_booking/add_deliveries_booking")
     fun postAddDelivery(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @GET("auth/profile")
+    @GET("api/Local/list_province")
+    fun getProvince(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<List<DataDaerah>>>
+
+    @GET("api/Local/list_city")
+    fun getCity(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<List<DataDaerah>>>
+
+    @GET("api/Local/list_states")
+    fun getStates(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<List<DataDaerah>>>
+
+    @GET("api/v1/distributor/auth/profile")
     fun getProfile(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProfile>>
 
-    @PUT("auth/update_profile")
+    @PUT("api/v1/distributor/auth/update_profile")
     fun putProfile(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, Any>,
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataProfile>>
 
-    @POST("auth/forgot_password")
+    @PUT("api/v1/distributor/auth/update_password")
+    fun putChangePassword(
+        @HeaderMap headerMap: Map<String, String>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataProfile>>
+
+    @POST("api/v1/distributor/auth/forgot_password")
     fun postResetPassword(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @GET("warehouses/list_warehouses")
+    @GET("api/v1/distributor/warehouses/list_warehouses")
     fun getListWarehouse(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataWarehouse>>
 
-    @GET("warehouses/detail_warehouses")
+    @GET("api/v1/distributor/warehouses/detail_warehouses")
     fun getDetailWarehouse(
         @HeaderMap headerMap: Map<String, Any>,
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataWarehouse>>
 
-    @GET("suppliers/list_suppliers")
+    @GET("api/v1/distributor/suppliers/list_suppliers")
     fun getListSupplier(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataSupplier>>
 
-    @GET("suppliers/detail_suppliers")
+    @GET("api/v1/distributor/suppliers/detail_suppliers")
     fun getDetailSupplier(
         @HeaderMap headerMap: Map<String, Any>,
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataSupplier>>
 
-    @GET("customers/list_customers")
+    @GET("api/v1/distributor/customers/list_customers")
     fun getListCustomer(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataCustomer>>
 
-    @GET("customers/customers_groups")
+    @GET("api/v1/distributor/customers/customers_groups")
     fun getListCustomerGroup(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataCustomerGroup>>
 
-    @GET("customers/price_groups")
+    @GET("api/v1/distributor/customers/price_groups")
     fun getListPriceGroup(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataPriceGroup>>
 
-    @GET("customers/detail_customers")
+    @GET("api/v1/distributor/customers/detail_customers")
     fun getDetailCustomer(
         @HeaderMap headerMap: Map<String, Any>,
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataCustomer>>
 
-    @POST("customers/add_customers")
+    @POST("api/v1/distributor/api/v1/distributor/customers/add_customers")
     fun postCustomers(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @PUT("customers/update_customers")
+    @PUT("api/v1/distributor/customers/update_customers")
     fun putEditCustomers(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @GET("products/list_products")
+    @GET("api/v1/distributor/products/list_products")
     fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
 
-    @GET("Sales_booking/list_transaction_sales_booking")
+    @GET("api/v1/distributor/Sales_booking/list_transaction_sales_booking")
     fun getPieChartData(
         @HeaderMap headerMap: Map<String, Any>,
         @QueryMap params: Map<String, Any?> = mapOf()
     ): Call<BaseResponse<DataPieChart>>
 
-    @GET("sales_booking/list_sales_booking")
+    @GET("api/v1/distributor/sales_booking/list_sales_booking")
     fun getListSale(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataSales>>
 
-    @GET("sales_booking/list_payments")
+    @GET("api/v1/distributor/sales_booking/list_payments")
     fun getListSalePayment(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataPayment>>
 
-    @GET("sales_booking/list_deliveries_booking")
+    @GET("api/v1/distributor/sales_booking/list_deliveries_booking")
     fun getListSaleDelivery(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataDelivery>>
 
-    @GET("sales_booking/detail_sales_booking")
+    @GET("api/v1/distributor/sales_booking/detail_sales_booking")
     fun getDetailSale(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataSaleDetail>>
 
-    @GET("purchases/list_goods_received")
+    @GET("api/v1/distributor/purchases/list_goods_received")
     fun getListGoodReceived(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataGoodsReceived>>
 
-    @GET("purchases/list_goods_received_paging")
+    @GET("api/v1/distributor/purchases/list_goods_received_paging")
     fun getListGoodReceivedPaging(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataGoodsReceived>>
 
-    @GET("purchases/detail_goods_received")
+    @GET("api/v1/distributor/purchases/detail_goods_received")
     fun getDetailGoodReceived(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataGoodsReceived>>
 
-    @PUT("sales_booking/edit_sales_booking")
+    @PUT("api/v1/distributor/sales_booking/edit_sales_booking")
     fun putEditSales(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @GET("sales_booking/detail_deliveries")
+    @GET("api/v1/distributor/sales_booking/detail_deliveries")
     fun getDetailDeliveries(
         @HeaderMap headerMap: Map<String, Any>,
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataDeliveryDetail>>
 
-    @POST("customers/add_price_group")
+    @POST("api/v1/distributor/customers/add_price_group")
     fun postAddPriceGroup(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @POST("customers/add_or_edit_customer_to_price_group")
+    @POST("api/v1/distributor/customers/add_or_edit_customer_to_price_group")
     fun postAddCustomerToPriceGroup(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @PUT("customers/update_price_group")
+    @PUT("api/v1/distributor/customers/update_price_group")
     fun putEditPriceGroup(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @PUT("customers/update_product_in_price_group")
+    @PUT("api/v1/distributor/customers/update_product_in_price_group")
     fun putEditProductPrice(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @GET("customers/list_customer_member_of_price_group")
+    @GET("api/v1/distributor/customers/list_customer_member_of_price_group")
     fun getListCustomerPriceGroup(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataCustomerSelected>>
 
-    @GET("customers/group_product_in_prices_group")
+    @GET("api/v1/distributor/customers/group_product_in_prices_group")
     fun getListProductPrice(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataProductPrice>>
 
-    @POST("customers/add_customer_group")
+    @POST("api/v1/distributor/customers/add_customer_group")
     fun postAddCustomerGroup(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @POST("customers/add_or_edit_customer_to_customer_group")
+    @POST("api/v1/distributor/customers/add_or_edit_customer_to_customer_group")
     fun postAddCustomerToCustoemrGroup(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @PUT("customers/update_customer_group")
+    @PUT("api/v1/distributor/customers/update_customer_group")
     fun putEditCustomerGroup(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
-    @GET("customers/list_customer_member_of_customer_group")
+    @GET("api/v1/distributor/customers/list_customer_member_of_customer_group")
     fun getListCustomerCustomerGroup(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf()
@@ -247,9 +275,9 @@ interface ApiServices {
     companion object {
         private var retrofit: Retrofit? = null
 
-        private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
+        //private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-        //private const val BASE_URL: String = "http://10.15.4.102:9090/api/v1/distributor/"
+        private const val BASE_URL: String = "http://10.15.4.102:9090/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {

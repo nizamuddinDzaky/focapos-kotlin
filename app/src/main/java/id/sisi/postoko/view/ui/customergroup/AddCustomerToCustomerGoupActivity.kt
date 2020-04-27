@@ -201,17 +201,10 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     @SuppressLint("SetTextI18n")
     fun validation(customer: Customer) {
         if (customer.isSelected) {
-            listCustomerCart.add(customer)
-            adapterCart.updateMasterData(listCustomerCart)
-
+            adapterCart.insertData(customer)
             rv_list_customer_cart?.smoothScrollToPosition(0)
         } else {
-            listCustomerCart.remove(customer)
-            val index = listCustomerCart.indexOf(customer)
-
-            adapterCart.notifyItemRemoved(index)
-            adapterCart.updateMasterData(listCustomerCart)
-            adapterCustomer.notifyDataSetChanged()
+            adapterCart.removeData(customer)
         }
         tv_total_selected.text = "Pelanggan yang terpilih (${listCustomerCart.size})"
     }
