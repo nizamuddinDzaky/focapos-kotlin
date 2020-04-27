@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
@@ -17,15 +18,20 @@ import com.tiper.MaterialSpinner
 import id.sisi.postoko.R
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.model.User
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.content_add_customer.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_address.*
 import java.util.*
 
 class AddCustomerActivity : AppCompatActivity() {
     private lateinit var viewModelCustomer: CustomerViewModel
+    private lateinit var mViewModelDaerah: DaerahViewModel
+
     private var listCustomerGroupName = ArrayList<String>()
     private var listCustomerGroup: List<CustomerGroup> = ArrayList()
     private var listPriceGroupName = ArrayList<String>()
@@ -33,6 +39,10 @@ class AddCustomerActivity : AppCompatActivity() {
     private var idCustomerGroup: String? = null
     private var idPriceGroup: String? = null
     private val progressBar = CustomProgressBar()
+
+    private var provinceList: Array<String> = arrayOf()
+    private var cityList: Array<String> = arrayOf()
+    private var villageList: Array<String> = arrayOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,31 +88,18 @@ class AddCustomerActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: MaterialSpinner): Unit = Unit
         }
 
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.array_provinsi,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            sp_provinsi_group_add_customer.adapter = adapter
+        sp_provinsi_group_add_customer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                mViewModelDaerah.getCity(provinceList[position])
+            }
         }
 
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.array_kabupaten,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            sp_city_group_add_customer.adapter = adapter
-        }
-
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.array_kecamatan,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            sp_district_group_add_customer.adapter = adapter
+        sp_district_group_add_customer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                mViewModelDaerah.getStates(cityList[position])
+            }
         }
 
         btn_confirmation_add_customer.setOnClickListener {
@@ -118,6 +115,61 @@ class AddCustomerActivity : AppCompatActivity() {
             rg_status_add_customer?.tag = radioButton.tag
         }
         rg_status_add_customer?.check(rg_status_add_customer?.get(1)?.id ?: 0)
+
+        mViewModelDaerah = ViewModelProvider(this).get(DaerahViewModel::class.java)
+
+        mViewModelDaerah.getAllProvince().observe(this, Observer {
+            it?.let {listDataDaerah ->
+                provinceList = listDataDaerah.map {dataDaerah ->
+                    return@map dataDaerah.province_name ?: ""
+                }.toTypedArray()
+            }
+            setUIProvince()
+        })
+
+        mViewModelDaerah.getAllCity().observe(this, Observer {
+            it?.let {listDataDaerah ->
+                cityList = listDataDaerah.map {dataDaerah ->
+                    return@map dataDaerah.kabupaten_name ?: ""
+                }.toTypedArray()
+            }
+            setUICity()
+        })
+
+        mViewModelDaerah.getAllStates().observe(this, Observer {
+            it?.let {listDataDaerah ->
+                villageList = listDataDaerah.map {dataDaerah ->
+                    return@map dataDaerah.kecamatan_name ?: ""
+                }.toTypedArray()
+            }
+            setUIStates()
+        })
+
+        mViewModelDaerah.getProvince()
+    }
+
+    private fun setUIProvince(){
+        sp_provinsi_group_add_customer.adapter = ArrayAdapter(
+            this,
+            R.layout.support_simple_spinner_dropdown_item,
+            provinceList
+        )
+    }
+
+    private fun setUICity(){
+        sp_district_group_add_customer.adapter = ArrayAdapter(
+            this,
+            R.layout.support_simple_spinner_dropdown_item,
+            cityList
+        )
+    }
+
+    private fun setUIStates(){
+        sp_city_group_add_customer.adapter = ArrayAdapter(
+            this,
+            R.layout.support_simple_spinner_dropdown_item,
+            villageList
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
