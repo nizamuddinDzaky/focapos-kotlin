@@ -298,4 +298,5 @@
     <string name="txt_unselect_all">Hapus Semua</string>
     <string name="txt_reset">Reset</string>
     <string name="txt_region">Region</string>
+    <string name="txt_edit_payment">Ubah Pembayaran</string>
 </resources>
