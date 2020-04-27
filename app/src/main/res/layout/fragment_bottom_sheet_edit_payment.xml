@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/txt_add_payment"
+            android:text="@string/txt_edit_payment"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#676767"
             android:textStyle="bold" />

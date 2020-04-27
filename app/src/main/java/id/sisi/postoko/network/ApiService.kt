@@ -33,6 +33,13 @@ interface ApiServices {
         @Body body: Map<String, String>
     ): Call<BaseResponse<DataLogin>>
 
+    @PUT("api/v1/distributor/sales_booking/edit_payments")
+    fun putEditPayment(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf(),
+        @Body body: Map<String, String>
+    ): Call<BaseResponse<DataLogin>>
+
     @POST("api/v1/distributor/sales_booking/add_sales_booking")
     fun postAddSales(
         @HeaderMap headerMap: Map<String, String>,
