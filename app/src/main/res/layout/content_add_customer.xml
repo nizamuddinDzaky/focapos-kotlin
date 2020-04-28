@@ -129,7 +129,7 @@
                 android:text="@string/txt_province"
                 android:textColor="#676767"
                 android:textStyle="bold" />
-            <com.tiper.MaterialSpinner
+            <Spinner
                 android:id="@+id/sp_provinsi_group_add_customer"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -142,7 +142,7 @@
                 android:text="@string/txt_district"
                 android:textColor="#676767"
                 android:textStyle="bold" />
-            <com.tiper.MaterialSpinner
+            <Spinner
                 android:id="@+id/sp_district_group_add_customer"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -155,7 +155,7 @@
                 android:text="@string/txt_kecamatan"
                 android:textColor="#676767"
                 android:textStyle="bold" />
-            <com.tiper.MaterialSpinner
+            <Spinner
                 android:id="@+id/sp_city_group_add_customer"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

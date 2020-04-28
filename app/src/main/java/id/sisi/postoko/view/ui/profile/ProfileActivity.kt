@@ -11,6 +11,7 @@ import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.RC_PROFILE
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.BaseActivity
+import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.failed_load_data.*
 
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.failed_load_data.*
 class ProfileActivity : BaseActivity() {
 
     private lateinit var mViewModel: ProfileViewModel
+
     private lateinit var user: User
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +28,8 @@ class ProfileActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+
+
         mViewModel.getIsExecute().observe(this, Observer {
             logE("$it")
             swipeRefreshLayout?.isRefreshing = it
