@@ -11,11 +11,11 @@ import id.sisi.postoko.utils.KEY_ID_DELIVERY
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.tryMe
 
-class DeliveryDetailViewModel(var idDelivery: Int) : ViewModel() {
+class DeliveryDetailViewModel() : ViewModel() {
     private val delivery = MutableLiveData<Delivery?>()
     private var isExecute = MutableLiveData<Boolean>()
 
-    fun requestDetailDelivery() {
+    fun requestDetailDelivery(idDelivery: Int) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_DELIVERY to idDelivery.toString())

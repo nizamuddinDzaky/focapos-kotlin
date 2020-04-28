@@ -51,7 +51,7 @@ fun String.toDisplayStatusColor(): Int{
             idString = R.color.main_red
         }
         this == "partial" -> {
-            idString = R.color.main_blue
+            idString = R.color.text_blue
         }
         this == "due" -> {
             idString = R.color.main_red
@@ -69,7 +69,7 @@ fun String.toDisplayStatusColor(): Int{
             idString = R.color.main_orange
         }
         this == "delivering" -> {
-            idString = R.color.main_blue
+            idString = R.color.text_blue
         }
         this == "delivered" -> {
             idString = R.color.text_green

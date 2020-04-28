@@ -17,6 +17,7 @@ import id.sisi.postoko.adapter.ListPengirimanAdapter
 import id.sisi.postoko.model.Delivery
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
+import id.sisi.postoko.utils.KEY_ID_DELIVERY
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
@@ -112,7 +113,7 @@ class DeliveryFragment : Fragment() {
     private fun showBottomSheetDetailDelivery(delivery: Delivery?) {
         val bottomSheetFragment = BottomSheetDetailDeliveryFragment()
         val bundle = Bundle()
-        bundle.putParcelable("detail_delivery", delivery)
+        bundle.putString(KEY_ID_DELIVERY, delivery?.id)
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
