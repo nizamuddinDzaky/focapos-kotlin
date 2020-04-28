@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Delivery
+import id.sisi.postoko.utils.KEY_ID_DELIVERY
 
 
 class BottomSheetDetailDeliveryFragment : BottomSheetDialogFragment() {
@@ -21,15 +22,8 @@ class BottomSheetDetailDeliveryFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val delivery = arguments?.getParcelable<Delivery>("delivery")
+        val delivery = arguments?.getParcelable<Delivery>(KEY_ID_DELIVERY)
 
-        delivery?.let {
-//            tv_payment_detail_reference_no?.text = it.reference_no
-//            tv_payment_detail_date?.text = it.date.toDisplayDate()
-////            tv_payment_detail_payment_type?.text = it.type
-//            tv_payment_detail_payment_type?.text = it.paid_by
-//            tv_payment_detail_total?.text = it.amount.toCurrencyID()
-//            tv_payment_detail_note?.text = it.note
-        }
+        delivery?.let {}
     }
 }
