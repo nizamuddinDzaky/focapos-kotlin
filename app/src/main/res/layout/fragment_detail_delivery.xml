@@ -67,6 +67,7 @@
                     android:fontFamily="@font/roboto_bold"/>
 
                 <TextView
+                    android:id="@+id/tv_no_do"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
@@ -92,6 +93,7 @@
                     android:fontFamily="@font/roboto_bold" />
 
                 <TextView
+                    android:id="@+id/tv_date"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
@@ -117,6 +119,7 @@
                     android:fontFamily="@font/roboto_bold" />
 
                 <TextView
+                    android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
@@ -179,7 +182,7 @@
                         android:fontFamily="@font/roboto_regular"/>
 
                     <TextView
-                        android:id="@+id/tv_detail_sbo_customer_name"
+                        android:id="@+id/tv_biller_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
@@ -187,14 +190,20 @@
                         tools:text="Helios Toko Jaya" />
 
                     <TextView
-                        android:id="@+id/tv_detail_sbo_customer_address_1"
+                        android:id="@+id/tv_biller_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
+                    <TextView
+                        android:id="@+id/tv_biller_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
                     <TextView
-                        android:id="@+id/tv_detail_sbo_customer_address_2"
+                        android:id="@+id/tv_biller_province"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
@@ -261,7 +270,7 @@
                         android:textColor="@color/colorBlack" />
 
                     <TextView
-                        android:id="@+id/tv_detail_sbo_supplier_name"
+                        android:id="@+id/tv_customer_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
@@ -269,14 +278,21 @@
                         tools:text="Helios Crop" />
 
                     <TextView
-                        android:id="@+id/tv_detail_sbo_supplier_address_1"
+                        android:id="@+id/tv_customer_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
                     <TextView
-                        android:id="@+id/tv_detail_sbo_supplier_address_2"
+                        android:id="@+id/tv_customer_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
+
+                    <TextView
+                        android:id="@+id/tv_customer_province"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"

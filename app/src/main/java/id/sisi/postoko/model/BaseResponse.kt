@@ -103,7 +103,7 @@ data class DataDelivery(
 
 data class DataDeliveryDetail(
     var delivery: Delivery?,
-    var deliveryItem: List<DeliveryItem>
+    var delivery_items: List<DeliveryItem>
 )
 
 data class DataPieChart(
