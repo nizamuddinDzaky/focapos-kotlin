@@ -4,13 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:paddingTop="8dp">
+    android:orientation="vertical">
     <RelativeLayout
         android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:paddingTop="8dp">
 
         <ImageView
@@ -20,7 +18,7 @@
             android:layout_marginStart="@dimen/et_top_margin"
             android:layout_marginLeft="@dimen/et_top_margin"
             android:src="@drawable/back_arrow_foreground"
-            />
+            android:contentDescription="@string/txt_image_avatar"/>
 
         <TextView
             android:id="@+id/tv_title_bottom_sheet"
@@ -37,7 +35,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/et_top_margin"
         android:background="@color/colorLine" />
     <ScrollView
         android:layout_width="match_parent"
@@ -109,14 +106,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Masukan Nomor Gift Card"
+                            android:text="@string/txt_gift_card"
                             android:textColor="#646464"
                             android:fontFamily="@font/roboto_bold"
                             tools:targetApi="jelly_bean" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:importantForAutofill="no"
+                            tools:ignore="LabelFor" />
                     </net.cachapa.expandablelayout.ExpandableLayout>
                 </LinearLayout>
                 <View

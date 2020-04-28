@@ -3,26 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="8dp">
+    android:orientation="vertical">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:gravity="center"
-        android:text="@string/txt_add_delivery"
-        android:textAlignment="center"
-        android:textColor="@color/colorTittleInput"
-        android:textStyle="bold"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:paddingTop="@dimen/et_top_margin"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/et_top_margin"
+            android:layout_marginLeft="@dimen/et_top_margin"
+            android:src="@drawable/back_arrow_foreground"
+            android:contentDescription="@string/txt_image_avatar"/>
+
+        <TextView
+            android:id="@+id/tv_title_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/txt_add_delivery"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#676767"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/et_top_margin"
-        android:layout_weight="0"
-        android:background="@color/colorBlack" />
+        android:background="@color/colorLine" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -46,20 +61,23 @@
                     android:text="@string/txt_date"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:drawableStart="@drawable/ic_date_range_black_24dp"
-                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawableLeft="@drawable/ic_calendar"
                     android:drawablePadding="@dimen/et_top_margin"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
                     android:focusable="false"
                     android:importantForAutofill="no"
                     android:inputType="date"
-                    tools:ignore="KeyboardInaccessibleWidget,LabelFor" />
+                    tools:ignore="KeyboardInaccessibleWidget,LabelFor"
+                    tools:targetApi="lollipop" />
 
             </LinearLayout>
 
@@ -75,7 +93,7 @@
                     android:text="@string/txt_status"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
 
                 <RadioGroup
                     android:id="@+id/rg_add_delivery_status"
@@ -86,17 +104,30 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/txt_being_packed" />
+                        android:buttonTint="@android:color/holo_blue_bright"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@string/txt_being_packed"
+                        android:layout_weight="1"
+                        tools:targetApi="lollipop" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/txt_in_shipping" />
+                        android:fontFamily="@font/roboto_regular"
+                        android:buttonTint="@android:color/holo_blue_bright"
+                        android:text="@string/txt_in_shipping"
+                        android:layout_weight="1"
+                        tools:targetApi="lollipop" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_already_received" />
+                        android:layout_height="36dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:buttonTint="@android:color/holo_blue_bright"
+                        android:text="@string/txt_already_received"
+                        android:layout_weight="1"
+                        tools:targetApi="lollipop" />
+
                 </RadioGroup>
             </LinearLayout>
 
@@ -127,6 +158,38 @@
             -->
 
             <LinearLayout
+                android:id="@+id/layout_ref_do"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_delivery_reference_numbers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_reference_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/file"
+                    android:drawableLeft="@drawable/file"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/txt_hint_example_sales_number"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:targetApi="lollipop"/>
+
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -138,20 +201,23 @@
                     android:text="@string/txt_sales_reference_numbers"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
 
                 <EditText
-                    android:id="@+id/et_add_delivery_reference_no"
+                    android:id="@+id/et_add_delivery_sales_ref"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_date_range_black_24dp"
-                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:drawableStart="@drawable/file"
+                    android:drawableLeft="@drawable/file"
                     android:drawablePadding="@dimen/et_top_margin"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
                     android:hint="@string/txt_hint_example_sales_number"
                     android:importantForAutofill="no"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    tools:targetApi="lollipop"/>
 
             </LinearLayout>
 
@@ -167,18 +233,21 @@
                     android:text="@string/txt_posted_by"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_delivered_by"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_account_black_24dp"
-                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawableStart="@drawable/driver"
+                    android:drawableLeft="@drawable/driver"
                     android:drawablePadding="@dimen/et_top_margin"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    tools:targetApi="lollipop"/>
 
             </LinearLayout>
 
@@ -194,18 +263,21 @@
                     android:text="@string/txt_received_by"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_received_by"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_account_black_24dp"
-                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawableLeft="@drawable/ic_calendar"
                     android:drawablePadding="@dimen/et_top_margin"
                     android:importantForAutofill="no"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
                     android:inputType="text"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    tools:targetApi="lollipop"/>
 
             </LinearLayout>
 
@@ -221,19 +293,22 @@
                     android:text="@string/txt_customer_name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_customer_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_account_black_24dp"
-                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawableStart="@drawable/ic_warehouse"
+                    android:drawableLeft="@drawable/ic_warehouse"
                     android:drawablePadding="@dimen/et_top_margin"
                     android:focusableInTouchMode="false"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
                     android:importantForAutofill="no"
                     android:inputType="none"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    tools:targetApi="lollipop" />
 
             </LinearLayout>
 
@@ -249,19 +324,22 @@
                     android:text="@string/txt_customer_address"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_customer_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_account_black_24dp"
-                    android:drawableLeft="@drawable/ic_account_black_24dp"
+                    android:drawableStart="@drawable/mark_1"
+                    android:drawableLeft="@drawable/mark_1"
                     android:drawablePadding="@dimen/et_top_margin"
                     android:focusableInTouchMode="false"
                     android:importantForAutofill="no"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
                     android:inputType="none"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    tools:targetApi="lollipop" />
 
             </LinearLayout>
 
@@ -270,19 +348,7 @@
                 android:layout_height="@dimen/et_top_margin"
                 android:background="@color/colorNotSelect" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#E5E5E5"
-                android:clipToPadding="false"
-                tools:itemCount="2"
-                tools:listitem="@layout/list_item_add_delivery" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/et_top_margin"
-                android:background="@color/colorNotSelect" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -290,13 +356,21 @@
                 android:orientation="vertical"
                 android:padding="@dimen/et_top_margin">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/et_top_margin"
+                    android:clipToPadding="false"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/list_item_add_delivery" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_note"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
 
                 <EditText
                     android:id="@+id/et_add_delivery_note"
@@ -304,26 +378,29 @@
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:importantForAutofill="no"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
                     android:inputType="text"
                     android:maxLines="5"
                     android:minLines="3"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     tools:text="Tunai"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    tools:targetApi="lollipop" />
 
+                <Button
+                    android:id="@+id/btn_confirmation_add_delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height_bottom_sheet"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginLeft="@dimen/et_top_margin"
+                    android:layout_marginRight="@dimen/et_top_margin"
+                    android:background="@color/main_green"
+                    android:text="@string/txt_action_send_it"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@android:color/white" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <Button
-        android:id="@+id/btn_confirmation_add_delivery"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:layout_weight="0"
-        android:background="@color/main_green"
-        android:text="@string/txt_action_send_it"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@android:color/white" />
-
 </LinearLayout>

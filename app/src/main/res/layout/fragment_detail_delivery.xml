@@ -8,14 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorBackground"
->
+        android:background="@color/colorBackground">
 
         <RelativeLayout
             android:id="@+id/layout_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:background="#fff"
             android:paddingTop="8dp">
 
@@ -26,7 +24,7 @@
                 android:layout_marginStart="@dimen/et_top_margin"
                 android:layout_marginLeft="@dimen/et_top_margin"
                 android:src="@drawable/back_arrow_foreground"
-                />
+                android:contentDescription="@string/txt_image_avatar"/>
 
             <TextView
                 android:id="@+id/tv_title_bottom_sheet"
@@ -665,7 +663,8 @@
                 android:gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
-                tools:text="Catatan" />
+                tools:text="Catatan"
+                tools:ignore="TooManyViews" />
 
         </LinearLayout>
 

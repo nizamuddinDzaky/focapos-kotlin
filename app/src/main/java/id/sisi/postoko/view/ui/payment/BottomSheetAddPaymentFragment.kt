@@ -44,34 +44,34 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
         return inflater.inflate(R.layout.fragment_bottom_sheet_add_payment, container, false)
     }
 
-        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-            val dialog =  super.onCreateDialog(savedInstanceState)
-            dialog.setOnShowListener { dialogInterface ->
-                val bottomSheetDialog = dialogInterface as BottomSheetDialog
-                setupFullHeight(bottomSheetDialog)
-            }
-            return dialog
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog =  super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            setupFullHeight(bottomSheetDialog)
         }
+        return dialog
+    }
 
-        private fun setupFullHeight(bottomSheetDialog: BottomSheetDialog) {
-            val bottomSheet =
-                bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
-            val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from<FrameLayout?>(bottomSheet!!)
-            val layoutParams = bottomSheet.layoutParams
-            val windowHeight = getWindowHeight()
-            if (layoutParams != null) {
-                layoutParams.height = windowHeight
-            }
-            bottomSheet.layoutParams = layoutParams
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    private fun setupFullHeight(bottomSheetDialog: BottomSheetDialog) {
+        val bottomSheet =
+            bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
+        val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from<FrameLayout?>(bottomSheet!!)
+        val layoutParams = bottomSheet.layoutParams
+        val windowHeight = getWindowHeight()
+        if (layoutParams != null) {
+            layoutParams.height = windowHeight
         }
+        bottomSheet.layoutParams = layoutParams
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
 
-        private fun getWindowHeight(): Int { // Calculate window height for fullscreen use
-            val displayMetrics = DisplayMetrics()
-            (context as Activity?)!!.windowManager.defaultDisplay
-                .getMetrics(displayMetrics)
-            return displayMetrics.heightPixels
-        }
+    private fun getWindowHeight(): Int { // Calculate window height for fullscreen use
+        val displayMetrics = DisplayMetrics()
+        (context as Activity?)!!.windowManager.defaultDisplay
+            .getMetrics(displayMetrics)
+        return displayMetrics.heightPixels
+    }
 
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -166,7 +166,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
 
             val body = mutableMapOf(
                 "date" to (et_add_payment_date?.tag?.toString() ?: ""),
-                "amount_paid" to (et_add_payment_total?.text?.toString() ?: "0"),
+                "amount_paid" to (et_add_payment_total?.tag?.toString() ?: "0"),
                 "note" to (et_add_payment_note?.text?.toString() ?: "")
             )
             viewModel.postAddPayment(body) {
@@ -190,7 +190,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     private fun validationFormAddPayment(): Map<String, Any?> {
         var message = ""
         var cek = true
-        if (et_add_payment_total.text.toString().toDouble() > mustPaid){
+        if (et_add_payment_total.tag.toString().toDouble() > mustPaid){
             message += "- Payment Melebihi\n"
             cek = false
         }

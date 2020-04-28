@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.ArrayAdapter;
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +19,6 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.User
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.MyToast
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.putIfDataNotNull
 import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.view.custom.CustomProgressBar
@@ -31,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_company
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_personal.*
 
 
+@Suppress("NON_EXHAUSTIVE_WHEN")
 class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
     private lateinit var profileType: ProfileType
     private lateinit var mViewModel: ProfileViewModel
@@ -53,7 +52,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         mViewModelDaerah = ViewModelProvider(this).get(DaerahViewModel::class.java)
 
-        mViewModelDaerah.getAllProvince().observe(requireActivity(), Observer {
+        mViewModelDaerah.getAllProvince().observe(requireActivity(), Observer { it ->
             it?.let {listDataDaerah ->
                 provinceList = listDataDaerah.map {dataDaerah ->
                     return@map dataDaerah.province_name ?: ""
@@ -62,7 +61,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
             tempUser?.let { setUIProvince(it) }
         })
 
-        mViewModelDaerah.getAllCity().observe(requireActivity(), Observer {
+        mViewModelDaerah.getAllCity().observe(requireActivity(), Observer { it ->
             it?.let {listDataDaerah ->
                 cityList = listDataDaerah.map {dataDaerah ->
                     return@map dataDaerah.kabupaten_name ?: ""
@@ -71,7 +70,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
             tempUser?.let { setUICity(it) }
         })
 
-        mViewModelDaerah.getAllStates().observe(requireActivity(), Observer {
+        mViewModelDaerah.getAllStates().observe(requireActivity(), Observer { it ->
             it?.let {listDataDaerah ->
                 villageList = listDataDaerah.map {dataDaerah ->
                     return@map dataDaerah.kecamatan_name ?: ""
@@ -134,22 +133,27 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         view.findViewById<TextView>(R.id.btn_action_submit)?.setOnClickListener {
             view.findViewById<TextView>(R.id.btn_reset)?.performClick()
         }
+        when (profileType){
+            ProfileType.ADDRESS -> {
+                spinner_profile_province.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        mViewModelDaerah.getCity(provinceList[position])
+                    }
+                }
 
-        spinner_profile_province.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                mViewModelDaerah.getCity(provinceList[position])
+                spinner_profile_city.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        mViewModelDaerah.getStates(cityList[position])
+                    }
+                }
+
+                mViewModelDaerah.getProvince()
+
             }
         }
 
-        spinner_profile_city.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                mViewModelDaerah.getStates(cityList[position])
-            }
-        }
-
-        mViewModelDaerah.getProvince()
     }
 
     private fun setUIProvince(user: User){

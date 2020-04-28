@@ -1,18 +1,24 @@
 package id.sisi.postoko.view.ui.delivery
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemDeliveryAdapter
@@ -129,7 +135,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             dpd?.show()
         }
 
-        et_add_delivery_reference_no?.setText(sale?.reference_no)
+        et_add_delivery_sales_ref?.setText(sale?.reference_no)
 
         adapter = ListItemDeliveryAdapter(listSaleItems)
         adapter.listenerProduct = this
@@ -168,7 +174,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
 
             val body = mutableMapOf(
                 "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
-                "sale_reference_no" to (et_add_delivery_reference_no?.text?.toString() ?: ""),
+                "sale_reference_no" to (et_add_delivery_sales_ref?.text?.toString() ?: ""),
                 "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
                 "address" to (et_add_delivery_customer_address?.text?.toString() ?: ""),
                 "status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
