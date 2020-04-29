@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.NumberSeparator
+
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_customer_group_add.*
 //import kotlinx.android.synthetic.main.activity_price_group_add.btn_action_submit
 
 class AddCustomerGroupActivity : BaseActivity() {
-    private val numberSparator = NumberSeparator()
+    /*private val numberSparator = id.sisi.postoko.utils.NumberSeparator()*/
     private lateinit var vmCustomerGroup: CustomerGroupViewModel
     private val progressBar = CustomProgressBar()
 
@@ -31,7 +32,8 @@ class AddCustomerGroupActivity : BaseActivity() {
 
         et_customer_group_percentage.setText("0")
         vmCustomerGroup = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
-        et_customer_group_kredit_limit.addTextChangedListener(numberSparator.onTextChangedListener(et_customer_group_kredit_limit))
+        et_customer_group_kredit_limit.addTextChangedListener(NumberSeparator(et_customer_group_kredit_limit))
+        /*et_customer_group_kredit_limit.addTextChangedListener(numberSparator.onTextChangedListener(et_customer_group_kredit_limit))*/
         btn_action_submit.setOnClickListener {
             actionAddCustomerGroup()
         }

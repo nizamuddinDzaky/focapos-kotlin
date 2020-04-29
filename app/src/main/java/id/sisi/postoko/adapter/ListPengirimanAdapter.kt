@@ -4,14 +4,19 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Delivery
+import id.sisi.postoko.utils.MyPopupMenu
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.toDisplayStatus
 import id.sisi.postoko.utils.extensions.toDisplayStatusColor
+import id.sisi.postoko.view.ui.delivery.DeliveryStatus
 import kotlinx.android.synthetic.main.list_item_pengiriman.view.*
+import java.util.*
 
 class ListPengirimanAdapter(
     private var deliveries: List<Delivery>? = listOf(),
@@ -36,7 +41,11 @@ class ListPengirimanAdapter(
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(delivery: Delivery?, listener: (Delivery?) -> Unit) {
+        fun bind(
+            delivery: Delivery?,
+            listener: (Delivery?) -> Unit
+        ) {
+
             delivery?.let {
                 itemView.tv_delivery_date?.text = it.date.toDisplayDate()
                 itemView.tv_delivery_sales_order_number?.text = it.sale_reference_no
@@ -48,12 +57,87 @@ class ListPengirimanAdapter(
                 }else{
                     itemView.tv_status_deliv.setTextColor(ResourcesCompat.getColor(itemView.resources, it.status.toDisplayStatusColor(), null))
                 }
-//                itemView.tv_delivery_quantity?.text = it.
-//                itemView.tv_delivery_total?.text = it.
+
                 itemView.tv_delivery_driver_name?.text = it.delivered_by
             }
+
+            itemView.btn_menu_more.setOnClickListener {
+                logE("${delivery?.status} ")
+                val listAction: MutableList<() -> Unit>
+                val listMenu: MutableList<String>
+                if (delivery?.status == DeliveryStatus.PACKING.toString().toLowerCase(Locale.ROOT)
+                    || delivery?.status == DeliveryStatus.DELIVERING.toString().toLowerCase(Locale.ROOT)){
+                    listAction = mutableListOf(
+                        {
+                            listener(delivery)
+                        },
+                        {
+                            Toast.makeText(
+                                itemView.context,
+                                itemView.context.getString(R.string.txt_edit_delivery),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    )
+                    listMenu = mutableListOf(
+                        itemView.context.getString(R.string.txt_see_detail),
+                        itemView.context.getString(R.string.txt_edit_delivery)
+                    )
+                    MyPopupMenu(
+                        it,
+                        listMenu,
+                        listAction,
+                        highlight = itemView
+                    ).show()
+                }else if (delivery?.status == DeliveryStatus.DELIVERED.toString().toLowerCase(Locale.ROOT)){
+                    listAction = mutableListOf(
+                        { listener(delivery) },
+                        {
+                            Toast.makeText(
+                                itemView.context,
+                                itemView.context.getString(R.string.txt_edit_delivery) ,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        },
+                        {
+                            Toast.makeText(
+                                itemView.context,
+                                itemView.context.getString(R.string.txt_return_delivery),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    )
+                    listMenu = mutableListOf(
+                        itemView.context.getString(R.string.txt_see_detail),
+                        itemView.context.getString(R.string.txt_edit_delivery) ,
+                        itemView.context.getString(R.string.txt_return_delivery)
+                    )
+                    MyPopupMenu(
+                        it,
+                        listMenu,
+                        listAction,
+                        highlight = itemView
+                    ).show()
+
+                }else if (delivery?.status == DeliveryStatus.RETURNED.toString().toLowerCase(Locale.ROOT)){
+                    listAction = mutableListOf(
+                        {
+                            listener(delivery)
+                        }
+                    )
+                    listMenu = mutableListOf(
+                        itemView.context.getString(R.string.txt_see_detail)
+                    )
+                    MyPopupMenu(
+                        it,
+                        listMenu,
+                        listAction,
+                        highlight = itemView
+                    ).show()
+                }
+            }
             itemView.setOnClickListener {
-                listener(delivery)
+                itemView.btn_menu_more?.performClick()
             }
         }
     }

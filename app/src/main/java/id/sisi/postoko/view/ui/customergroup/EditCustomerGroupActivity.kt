@@ -13,6 +13,7 @@ import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
 import id.sisi.postoko.utils.NumberSeparator
+
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.content_edit_customer_group.*
 class EditCustomerGroupActivity : BaseActivity() {
     private var customerGroup: CustomerGroup = CustomerGroup(id = "0", name = "ForcaPoS")
     private val progressBar = CustomProgressBar()
-    private val numberSparator = NumberSeparator()
+    /*private val numberSparator = id.sisi.postoko.utils.NumberSeparator()*/
     private lateinit var mViewModel: CustomerGroupViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +34,8 @@ class EditCustomerGroupActivity : BaseActivity() {
         displayHomeEnable()
         
         mViewModel = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
-
-        et_customer_group_kredit_limit.addTextChangedListener(numberSparator.onTextChangedListener(et_customer_group_kredit_limit))
+        et_customer_group_kredit_limit.addTextChangedListener(NumberSeparator(et_customer_group_kredit_limit))
+        /*et_customer_group_kredit_limit.addTextChangedListener(numberSparator.onTextChangedListener(et_customer_group_kredit_limit))*/
         intent?.getParcelableExtra<CustomerGroup>(KEY_CUSTOMER_GROUP)?.let {
             customerGroup = it
             toolbar_subtitle.text = customerGroup.name

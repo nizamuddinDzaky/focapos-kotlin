@@ -31,7 +31,7 @@ import java.util.*
 
 
 class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
-    private val numberSparator = NumberSeparator()
+//    private val numberSparator id.sisi.postoko.utils.NumberSeparator()
     private var sales: Sales? = null
     private lateinit var payment: Payment
     private var mustPaid: Double = 0.0
@@ -51,8 +51,8 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         /*val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())*/
-        et_add_payment_total.addTextChangedListener(numberSparator.onTextChangedListener(et_add_payment_total))
 
+        et_add_payment_total.addTextChangedListener(NumberSeparator(et_add_payment_total))
         sales = arguments?.getParcelable("sale")
         val idSalesBooking = arguments?.getInt(KEY_ID_SALES_BOOKING) ?: 0
         mustPaid = sales?.paid?.let { sales?.grand_total?.minus(it) } ?: 0.0
@@ -62,11 +62,10 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
             et_add_payment_date?.setText(it.date.toDisplayDate())
             et_add_payment_date?.hint = it.date.toDisplayDate()
             et_add_payment_date?.tag = it.date
-            et_add_payment_total.setText(it.amount.toString())
+            et_add_payment_total.setText(it.amount.toInt().toString())
             et_add_payment_note.setText(it.note)
             mustPaid = mustPaid + it.amount
         }
-
         viewModel = ViewModelProvider(this, AddPaymentFactory(idSalesBooking)).get(AddPaymentViewModel::class.java)
 
         et_add_payment_date.setOnClickListener {

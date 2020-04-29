@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
-import id.sisi.postoko.utils.extensions.logE
 
 class MyPopupMenu(
     view: View,
@@ -46,7 +45,9 @@ class MyPopupMenu(
             outValue,
             true
         )
-        highlight?.setBackgroundResource(outValue.resourceId)
+        /*val background: ColorDrawable = highlight?.background as ColorDrawable*/
+
+        highlight?.setBackgroundColor(Color.WHITE)
     }
 
     fun show() {

@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
-import android.widget.SpinnerAdapter
 import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.Observer
@@ -47,7 +46,7 @@ class AddSalesActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private var listSaleItems = ArrayList<SaleItem>()
     private lateinit var adapter: ListProductAddSalesAdapter
     private lateinit var viewModel: AddSalesViewModel
-    private val numberSparator = NumberSeparator()
+//    private val numberSparator = id.sisi.postoko.utils.NumberSeparator()
 
     var listener: () -> Unit = {}
 
@@ -74,8 +73,8 @@ class AddSalesActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             }
         })
 
-        et_discount_add_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_discount_add_sale))
-        et_shipping_add_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_shipping_add_sale))
+        et_discount_add_sale.addTextChangedListener(NumberSeparator(et_discount_add_sale))
+        et_shipping_add_sale.addTextChangedListener(NumberSeparator(et_shipping_add_sale))
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.format(Date())
@@ -341,8 +340,8 @@ class AddSalesActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 "date" to (et_date_add_sale?.tag?.toString() ?: ""),
                 "warehouse" to (idWarehouse ?: ""),
                 "customer" to (idCustomer ?: ""),
-                "order_discount" to (et_discount_add_sale?.text?.toString() ?: ""),
-                "shipping" to (et_shipping_add_sale?.text?.toString() ?: ""),
+                "order_discount" to (et_discount_add_sale?.tag?.toString() ?: ""),
+                "shipping" to (et_shipping_add_sale?.tag?.toString() ?: ""),
                 "sale_status" to (rg_status_add_sale?.tag?.toString() ?: ""),
                 "payment_term" to (et_payment_term_add_sale?.text?.toString() ?: ""),
                 "staff_note" to (et_staff_note_add_sale?.text?.toString() ?: ""),

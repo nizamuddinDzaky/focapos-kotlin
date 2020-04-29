@@ -299,6 +299,8 @@
     <string name="txt_reset">Reset</string>
     <string name="txt_region">Region</string>
     <string name="txt_edit_payment">Ubah Pembayaran</string>
+    <string name="txt_edit_delivery">Ubah Pengiriman</string>
+    <string name="txt_return_delivery">Retur Pengiriman</string>
     <string name="txt_delivery_reference_numbers">Referensi Nomor Pengiriman</string>
     <string name="txt_sales_numbers">No Penjualan</string>
     <string name="txt_date_delivery">Tanggal Pengiriman</string>

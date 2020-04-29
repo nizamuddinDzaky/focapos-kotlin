@@ -336,7 +336,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:importantForAutofill="no"
-                    android:inputType="numberSigned"
+                    android:inputType="numberDecimal"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textStyle="bold"
                     tools:text="Rp 100.000"

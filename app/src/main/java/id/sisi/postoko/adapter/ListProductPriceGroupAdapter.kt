@@ -9,7 +9,6 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.DataSpinner
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MySpinnerAdapter
-import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.list_item_product_price_group.view.*
 
@@ -35,7 +34,7 @@ class ListProductPriceGroupAdapter(private var product: List<Product>? = arrayLi
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val dataMultiple = mutableListOf<DataSpinner>()
         private var isMultiple: String = "0"
-        private val numberSparator = NumberSeparator()
+//        private val numberSparator = id.sisi.postoko.utils.NumberSeparator()
 
         fun bind(value: Product?, listener: (Product) -> Unit = {}) {
 
@@ -60,8 +59,8 @@ class ListProductPriceGroupAdapter(private var product: List<Product>? = arrayLi
             itemView.tv_product_code.text = value?.product_code
             itemView.tv_alias_product?.text = getAlias(value?.product_name)
 
-            itemView.et_price_credit.addTextChangedListener(numberSparator.onTextChangedListener(itemView.et_price_credit))
-            itemView.et_price.addTextChangedListener(numberSparator.onTextChangedListener(itemView.et_price))
+            /*itemView.et_price_credit.addTextChangedListener(numberSparator.onTextChangedListener(itemView.et_price_credit))
+            itemView.et_price.addTextChangedListener(numberSparator.onTextChangedListener(itemView.et_price))*/
 
             if (value?.price_kredit != null){
                 itemView.et_price_credit.setText(value.price_kredit.toString())
