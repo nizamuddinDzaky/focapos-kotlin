@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="8dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/layout_title"
@@ -20,7 +19,7 @@
             android:layout_marginStart="@dimen/et_top_margin"
             android:layout_marginLeft="@dimen/et_top_margin"
             android:src="@drawable/back_arrow_foreground"
-            />
+            android:contentDescription="@string/txt_image_avatar"/>
 
         <TextView
             android:id="@+id/tv_title_bottom_sheet"
@@ -52,7 +51,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/et_top_margin"
         android:layout_weight="0"
         android:background="@color/colorLine" />
 

@@ -1,19 +1,14 @@
 package id.sisi.postoko.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Payment
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.toDisplayPaymentType
-import id.sisi.postoko.view.ui.payment.BottomSheetAddPaymentFragment
-import id.sisi.postoko.view.ui.payment.ImagePaymentDialogFragment
-import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.list_item_pembayaran.view.*
 
 class ListPaymentAdapter(

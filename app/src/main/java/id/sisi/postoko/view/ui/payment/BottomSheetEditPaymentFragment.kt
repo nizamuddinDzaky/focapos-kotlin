@@ -50,7 +50,7 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        /*val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())*/
         et_add_payment_total.addTextChangedListener(numberSparator.onTextChangedListener(et_add_payment_total))
 
         sales = arguments?.getParcelable("sale")
@@ -125,7 +125,7 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
 
             val body = mutableMapOf(
                 "date" to (et_add_payment_date?.tag?.toString() ?: ""),
-                "amount_paid" to (et_add_payment_total?.text?.toString() ?: "0"),
+                "amount_paid" to (et_add_payment_total?.tag?.toString() ?: "0"),
                 "note" to (et_add_payment_note?.text?.toString() ?: "")
             )
             logE("nizamuddin $body")
@@ -150,7 +150,7 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
     private fun validationFormAddPayment(): Map<String, Any?> {
         var message = ""
         var cek = true
-        if (et_add_payment_total.text.toString().toDouble() > mustPaid){
+        if (et_add_payment_total.tag.toString().toDouble() > mustPaid){
             message += "- Payment Melebihi\n"
             cek = false
         }

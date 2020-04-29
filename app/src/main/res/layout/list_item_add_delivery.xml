@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#fff">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/et_top_margin"
+        tools:ignore="UselessParent">
 
         <ImageView
             android:layout_width="70dp"
@@ -25,18 +28,19 @@
                 android:id="@+id/tv_sale_item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_6"
                 android:gravity="center_vertical"
                 android:textAllCaps="true"
                 android:textColor="#B20838"
                 android:textSize="12sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/roboto_bold"
                 tools:text="Dynamix Serbaguna 40KG" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
+                android:layout_marginTop="@dimen/et_top_margin"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -49,9 +53,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:fontFamily="@font/roboto_regular"
                         android:text="@string/txt_total"
                         android:textColor="#666666"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_sale_item_qty_unit_name"
@@ -59,8 +64,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:textColor="#666666"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/roboto_bold"
                         tools:text="200 SAK" />
 
                 </LinearLayout>
@@ -77,7 +82,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/txt_delivery_total_qty"
                         android:textColor="#666666"
-                        android:textSize="12sp" />
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -101,7 +107,7 @@
                             android:layout_marginRight="@dimen/et_top_margin"
                             android:gravity="center_horizontal"
                             android:textColor="#666666"
-                            android:textSize="12sp"
+                            android:textSize="15sp"
                             tools:text="200" />
 
                         <ImageView
@@ -115,4 +121,8 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine" />
+</LinearLayout>

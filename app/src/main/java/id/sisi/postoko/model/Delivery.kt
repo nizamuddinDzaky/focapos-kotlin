@@ -32,7 +32,16 @@ data class Delivery(
 //    val spj_file: Any,
     val status: String,
     val updated_at: String,
-    val updated_by: String
+    val updated_by: String,
+    var biller: String? = null,
+    var alamat_biller: String? = null,
+    var email_biller: String? = null,
+    var provinsi_biller: String? = null,
+    var state_biller: String? = null,
+    var alamat_customer: String? = null,
+    var email_customer: String? = null,
+    var provinsi_customer: String? = null,
+    var state_customer: String? = null
 //    val uuid: Any,
 //    val uuid_app: Any
 ) : Parcelable {
