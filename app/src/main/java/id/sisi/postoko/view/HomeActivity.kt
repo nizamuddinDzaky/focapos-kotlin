@@ -43,6 +43,13 @@ class HomeActivity : BaseActivity() {
 
         initFragment(savedInstanceState)
         initSearch()
+        
+
+        //Update available
+        var appUpdater = AppUpdater(this);
+        appUpdater.setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG);
+        appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
+        appUpdater.start();
     }
 
     override fun onResume() {
