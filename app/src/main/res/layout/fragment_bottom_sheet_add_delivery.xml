@@ -30,7 +30,7 @@
             android:text="@string/txt_add_delivery"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#676767"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto_bold" />
 
     </RelativeLayout>
 
@@ -347,8 +347,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/et_top_margin"
                 android:background="@color/colorNotSelect" />
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"

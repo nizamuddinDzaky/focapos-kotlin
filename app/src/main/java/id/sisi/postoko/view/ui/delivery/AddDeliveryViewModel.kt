@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
+import id.sisi.postoko.model.BaseResponse
+import id.sisi.postoko.model.DataLogin
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.exe
+import id.sisi.postoko.utils.helper.json2obj
 
 class AddDeliveryViewModel(private var idSalesBooking: Int) : ViewModel() {
     private var isExecute = MutableLiveData<Boolean>()
@@ -25,9 +28,11 @@ class AddDeliveryViewModel(private var idSalesBooking: Int) : ViewModel() {
             onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
-                    listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.message()))
+                    listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.body()?.message.toString()))
                 } else {
-                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.message()))
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to errorResponse?.message.toString()))
                     isExecute.postValue(true)
                 }
             }

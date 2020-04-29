@@ -36,12 +36,16 @@ class ListItemDeliveryAdapter(
             saleItem?.let {
                 itemView.tv_sale_item_name?.text = it.product_name
                 itemView.tv_sale_item_qty?.text = it.quantity?.toNumberID()
-                val quantity = "${it.quantity?.toNumberID()} SAK"
-                itemView.tv_sale_item_qty_unit_name?.text = quantity
+                itemView.tv_product_code?.text = it.product_code
+                val strUnsentQty = "${(it.unit_quantity?.minus(it.sent_quantity))?.toNumberID()} ${it.product_unit_code}"
+                itemView.tv_qty_unsent?.text = strUnsentQty
+
+                val strQtySale = "${it.unit_quantity?.toNumberID()} ${it.product_unit_code}"
+                itemView.tv_sale_item_qty_unit_name?.text = strQtySale
+
             }
             itemView.iv_remove_product_delivery.setOnClickListener {
-                    saleItem?.quantity?.let { it1 -> listenerProduct?.onClickMinus(it1, position) }
-//                saleItem?.quantity?.let { it1 -> listenerProduct?.onClickMinus(it1, position) }
+                saleItem?.quantity?.let { it1 -> listenerProduct?.onClickMinus(it1, position) }
             }
             itemView.iv_add_product_delivery.setOnClickListener {
                 saleItem?.quantity?.let { it1 -> listenerProduct?.onClickPlus(it1, position) }

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.utils.extensions.toAlias
 import id.sisi.postoko.utils.extensions.toUpper
 import id.sisi.postoko.utils.extensions.visibleOrGone
 import kotlinx.android.synthetic.main.list_customer_price_group.view.*
@@ -39,18 +40,12 @@ class ListCustomerToCartAdapter<T>(
                     val name = "${value.customer_company} (${value.customer_name})"
                     itemView.tv_customer_price_group_item_1?.text = name
                     itemView.tv_customer_price_group_item_2?.text = value.address
-                    itemView.tv_alias_customer?.text = getAlias(value.customer_company)
+                    itemView.tv_alias_customer?.text =value.customer_company.toAlias()
                     itemView.setOnClickListener {
                         adapter.addCustomerToCart(value)
                     }
                 }
             }
-        }
-
-        private fun getAlias(name: String?): String {
-            if (name.isNullOrEmpty()) return "#"
-            if (name.length == 1) return name.toUpper()
-            return name.toUpper().substring(0, 2)
         }
     }
 

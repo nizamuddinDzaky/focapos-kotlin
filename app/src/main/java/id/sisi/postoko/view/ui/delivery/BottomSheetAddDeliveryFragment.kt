@@ -62,7 +62,10 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
 
         sale = arguments?.getParcelable("sale_booking")
         for (x in 0 until sale?.saleItems?.size!!){
-            sale?.saleItems?.get(x)?.let { listSaleItems.add(it) }
+            sale?.saleItems?.get(x)?.let {
+                it.quantity = it.quantity?.minus(it.sent_quantity)
+                listSaleItems.add(it)
+            }
         }
 
         saleItemTemp = listSaleItems.map {
@@ -158,6 +161,10 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             rg_add_delivery_status?.tag = radioButton.tag
         }
         rg_add_delivery_status?.check(rg_add_delivery_status?.get(0)?.id ?: 0)
+
+        btn_close.setOnClickListener {
+            this.dismiss()
+        }
     }
 
     private fun actionAddDelivery() {
@@ -185,6 +192,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             )
             viewModel.postAddDelivery(body) {
                 if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    listener()
                     this.dismiss()
                 }
                 Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
@@ -213,6 +221,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     override fun onClickPlus(qty: Double, position: Int) {
         val quantity = listSaleItems[position].quantity?.plus(1)
         if (quantity != null) {
+            logE("${saleItemTemp?.get(position)?.get("sent_quantity")}")
             if (quantity > saleItemTemp?.get(position)?.get("sent_quantity")!!){
                 AlertDialog.Builder(context)
                     .setTitle("Konfirmasi")

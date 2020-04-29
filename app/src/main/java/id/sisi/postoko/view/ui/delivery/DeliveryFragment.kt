@@ -51,8 +51,9 @@ class DeliveryFragment : Fragment() {
         sale = (activity as? DetailSalesBookingActivity)?.tempSale
         setupUI()
 
+        listSaleItems = arrayListOf()
         for (x in 0 until sale?.saleItems?.size!!){
-            if (sale?.saleItems!![x].quantity!! > sale?.saleItems!![x].sent_quantity!!){
+            if (sale?.saleItems!![x].quantity!! > sale?.saleItems!![x].sent_quantity){
                 sale?.saleItems?.get(x)?.let { listSaleItems.add(it) }
             }
         }
