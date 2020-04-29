@@ -154,11 +154,11 @@
                     android:background="#FFFFFF"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <!--<ImageView
                         android:layout_width="@dimen/margin_15"
                         android:layout_height="@dimen/margin_15"
                         android:src="@drawable/mark_1"
-                        android:contentDescription="@string/txt_image_store" />
+                        android:contentDescription="@string/txt_image_store" />-->
 
                 </LinearLayout>
 
@@ -236,11 +236,11 @@
                     android:background="#FFFFFF"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <!--<ImageView
                         android:layout_width="@dimen/margin_15"
                         android:layout_height="@dimen/margin_15"
                         android:src="@drawable/mark_1"
-                        android:contentDescription="@string/txt_image_building" />
+                        android:contentDescription="@string/txt_image_building" />-->
 
                 </LinearLayout>
 
