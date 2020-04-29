@@ -2,11 +2,8 @@ package id.sisi.postoko.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Display
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import com.github.javiersantos.appupdater.AppUpdater
-import com.github.javiersantos.appupdater.enums.UpdateFrom
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.MySearchView
@@ -16,7 +13,7 @@ import id.sisi.postoko.view.research.GRFragment
 import id.sisi.postoko.view.sales.SBFragment
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.sales.SaleStatus
-import kotlinx.android.synthetic.main.activity_home.*
+//import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home3.*
 
 
@@ -46,6 +43,7 @@ class HomeActivity : BaseActivity() {
 
         initFragment(savedInstanceState)
         initSearch()
+        
 
         //Update available
         var appUpdater = AppUpdater(this);
@@ -104,7 +102,7 @@ class HomeActivity : BaseActivity() {
 
     fun showSearch(isShown: Boolean) {
         if (isShown) {
-            main_content_container?.gone()
+//            main_content_container?.gone()
             search_container?.visible()
             if (search_view.typeView == 1) {
                 grFragment?.let {
@@ -123,7 +121,7 @@ class HomeActivity : BaseActivity() {
             }
         } else {
             search_container?.gone()
-            main_content_container?.visible()
+//            main_content_container?.visible()
             switchFragment(navPosition)
         }
     }
@@ -158,6 +156,12 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun switchFragment(navPosition: BottomNavigationPosition): Boolean {
+        if (BottomNavigationPosition.HOME == navPosition) {
+            app_bar?.setBackgroundResource(R.drawable.gradient_bg_appbar)
+        } else {
+            app_bar?.setBackgroundResource(R.color.main_blue)
+            app_bar?.setExpanded(true)
+        }
         return findFragment(navPosition).let {
             if (it.isAdded) return false
             supportFragmentManager.detach() // Extension function
