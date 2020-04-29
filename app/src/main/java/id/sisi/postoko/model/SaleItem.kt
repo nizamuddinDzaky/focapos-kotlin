@@ -28,7 +28,7 @@ data class SaleItem (
     val product_unit_id : Int? = 0,
     val product_unit_code : String? = null,
     val unit_quantity : Double? = 0.0,
-    val sent_quantity : Double? = 0.0,
+    var sent_quantity : Double = 0.0,
     val client_id : String? = null,
     val flag : String? = null,
     val is_deleted : String? = null,

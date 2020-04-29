@@ -21,7 +21,6 @@ import id.sisi.postoko.model.*
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.MySpinnerAdapter
 import id.sisi.postoko.utils.NumberSeparator
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.BaseActivity
@@ -48,7 +47,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private var listWarehouse: List<Warehouse> = ArrayList()
     private lateinit var viewModel: AddSalesViewModel
     private val progressBar = CustomProgressBar()
-    private val numberSparator = NumberSeparator()
+
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,9 +68,8 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         val currentDate = sdf.parse(sale?.date)
         val strCurentDate = sdf.format(currentDate)
         var idRadioGroupStatusSale = 0
-
-        et_discount_edit_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_discount_edit_sale))
-        et_shipping_edit_sale.addTextChangedListener(numberSparator.onTextChangedListener(et_shipping_edit_sale))
+        et_discount_edit_sale.addTextChangedListener(NumberSeparator(et_discount_edit_sale))
+        et_shipping_edit_sale.addTextChangedListener(NumberSeparator(et_shipping_edit_sale))
 
         if (sale?.order_discount != 0.0)
             et_discount_edit_sale.setText(sale?.order_discount.toString())
@@ -355,7 +353,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 "date" to (et_date_edit_sale?.tag?.toString() ?: ""),
                 "customer" to (idCustomer ?: ""),
                 "warehouse" to (idWarehouse ?: ""),
-                "order_discount" to (et_discount_edit_sale?.text?.toString() ?: ""),
+                "order_discount" to (et_discount_edit_sale?.tag?.toString() ?: ""),
                 "shipping" to (et_shipping_edit_sale?.text?.toString() ?: ""),
                 "sale_status" to (rg_status_edit_sale?.tag?.toString() ?: ""),
                 "payment_term" to (et_payment_term_edit_sale?.text?.toString() ?: ""),

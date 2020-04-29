@@ -3,8 +3,6 @@ package id.sisi.postoko.view.ui.delivery
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -20,7 +18,6 @@ import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_ID_DELIVERY
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import id.sisi.postoko.view.ui.sales.SaleStatus
@@ -51,8 +48,9 @@ class DeliveryFragment : Fragment() {
         sale = (activity as? DetailSalesBookingActivity)?.tempSale
         setupUI()
 
+        listSaleItems = arrayListOf()
         for (x in 0 until sale?.saleItems?.size!!){
-            if (sale?.saleItems!![x].quantity!! > sale?.saleItems!![x].sent_quantity!!){
+            if (sale?.saleItems!![x].quantity!! > sale?.saleItems!![x].sent_quantity){
                 sale?.saleItems?.get(x)?.let { listSaleItems.add(it) }
             }
         }
@@ -94,11 +92,7 @@ class DeliveryFragment : Fragment() {
     }
 
     private fun setupRecycleView() {
-        adapter = ListPengirimanAdapter {
-            //TODO detail delivery
-
-            showBottomSheetDetailDelivery(it)
-        }
+        adapter = ListPengirimanAdapter {showBottomSheetDetailDelivery(it)}
         rv_list_item_pengiriman?.layoutManager = LinearLayoutManager(this.context)
         rv_list_item_pengiriman?.setHasFixedSize(false)
         rv_list_item_pengiriman?.adapter = adapter

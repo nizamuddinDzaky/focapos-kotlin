@@ -21,6 +21,7 @@ import id.sisi.postoko.model.Sales
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.NumberSeparator
+
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.custom.CustomProgressBar
@@ -30,7 +31,7 @@ import java.util.*
 
 class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     private val progressBar = CustomProgressBar()
-    private val numberSparator = NumberSeparator()
+    /*private val numberSparator = id.sisi.postoko.utils.NumberSeparator()*/
     lateinit var viewModel: AddPaymentViewModel
     var listener: () -> Unit = {}
     private var sales: Sales? = null
@@ -141,7 +142,8 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             }
             dpd?.show()
         }
-        et_add_payment_total.addTextChangedListener(numberSparator.onTextChangedListener(et_add_payment_total))
+        et_add_payment_total.addTextChangedListener(NumberSeparator(et_add_payment_total))
+        /*et_add_payment_total.addTextChangedListener(numberSparator.onTextChangedListener(et_add_payment_total))*/
         btn_confirmation_add_payment?.setOnClickListener {
             actionAddPayment()
         }

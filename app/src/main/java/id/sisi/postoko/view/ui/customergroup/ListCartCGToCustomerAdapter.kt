@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toAlias
 import id.sisi.postoko.utils.extensions.toUpper
 import kotlinx.android.synthetic.main.list_customer_price_group_cart.view.*
 import java.util.*
@@ -52,18 +53,12 @@ class ListCartCGToCustomerAdapter<T>(
             when (value) {
                 is Customer -> {
                     itemView.tv_list_customer_cart_title?.text = value.customer_company
-                    itemView.tv_alias_customer?.text = getAlias(value.customer_company)
+                    itemView.tv_alias_customer?.text = value.customer_company.toAlias()
                     itemView.setOnClickListener {
                         adapter.unselected(value)
                     }
                 }
             }
-        }
-
-        private fun getAlias(name: String?): String {
-            if (name.isNullOrEmpty()) return "#"
-            if (name.length == 1) return name.toUpper()
-            return name.toUpper().substring(0, 2)
         }
     }
 

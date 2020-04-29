@@ -186,3 +186,9 @@ fun Context.getTryString(resId: Int?): String {
     if (resId == null) return ""
     return getString(resId)
 }
+
+fun String?.toAlias(): String {
+    if (this.isNullOrEmpty()) return "#"
+    if (this.length == 1) return this.toUpper()
+    return this.toUpper().substring(0, 2)
+}

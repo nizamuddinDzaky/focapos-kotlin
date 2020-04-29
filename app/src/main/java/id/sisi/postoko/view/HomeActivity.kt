@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import com.github.javiersantos.appupdater.AppUpdater
+import com.github.javiersantos.appupdater.enums.UpdateFrom
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.MySearchView
@@ -46,10 +48,10 @@ class HomeActivity : BaseActivity() {
         
 
         //Update available
-        var appUpdater = AppUpdater(this);
-        appUpdater.setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG);
-        appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
-        appUpdater.start();
+        val appUpdater = AppUpdater(this)
+        appUpdater.setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG)
+        appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
+        appUpdater.start()
     }
 
     override fun onResume() {
