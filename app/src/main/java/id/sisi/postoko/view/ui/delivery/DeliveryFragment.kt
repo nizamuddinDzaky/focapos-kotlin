@@ -12,14 +12,18 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListPengirimanAdapter
+import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Delivery
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
+import id.sisi.postoko.utils.KEY_DATA_DELIVERY
 import id.sisi.postoko.utils.KEY_ID_DELIVERY
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
+import id.sisi.postoko.view.ui.sales.SaleBookingFactory
+import id.sisi.postoko.view.ui.sales.SaleBookingViewModel
 import id.sisi.postoko.view.ui.sales.SaleStatus
 import kotlinx.android.synthetic.main.failed_load_data.*
 import kotlinx.android.synthetic.main.pengiriman_fragment.*
@@ -27,9 +31,11 @@ import java.util.*
 
 class DeliveryFragment : Fragment() {
 
+    private lateinit var vmSale: SaleBookingViewModel
     private lateinit var viewModel: DeliveryViewModel
     private lateinit var adapter: ListPengirimanAdapter
     private var sale: Sales? = null
+    private var customer: Customer? = null
     private var listSaleItems  = ArrayList<SaleItem>()
     private var idSalesBooking = 0
 
@@ -45,21 +51,20 @@ class DeliveryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
-        sale = (activity as? DetailSalesBookingActivity)?.tempSale
+        customer = (activity as? DetailSalesBookingActivity)?.tempCustomer
         setupUI()
 
-        listSaleItems = arrayListOf()
-        for (x in 0 until sale?.saleItems?.size!!){
-            if (sale?.saleItems!![x].quantity!! > sale?.saleItems!![x].sent_quantity){
-                sale?.saleItems?.get(x)?.let { listSaleItems.add(it) }
-            }
-        }
-        sale?.saleItems = listSaleItems
-        if (sale?.saleItems?.size!! < 1){
-                fb_add_transaction.gone()
-            }else{
-                fb_add_transaction.visible()
-            }
+
+        vmSale = ViewModelProvider(
+            this,
+            SaleBookingFactory(idSalesBooking)
+        ).get(SaleBookingViewModel::class.java)
+
+        vmSale.getDetailSale().observe(viewLifecycleOwner, Observer {
+            setUpSale(it)
+        })
+
+        vmSale.requestDetailSale()
         viewModel = ViewModelProvider(
             this,
             DeliveryFactory(idSalesBooking)
@@ -82,6 +87,23 @@ class DeliveryFragment : Fragment() {
                 rv_list_item_pengiriman?.visible()
             }
         })
+    }
+
+    private fun setUpSale(it: Sales?) {
+        sale = it
+        listSaleItems = arrayListOf()
+        for (x in 0 until sale?.saleItems?.size!!){
+            if (sale?.saleItems!![x].quantity!! > sale?.saleItems!![x].sent_quantity){
+                sale?.saleItems?.get(x)?.let { listSaleItems.add(it) }
+            }
+        }
+        sale?.saleItems = listSaleItems
+
+        if (sale?.saleItems?.size!! < 1){
+            fb_add_transaction.gone()
+        }else{
+            fb_add_transaction.visible()
+        }
     }
 
     private fun setupUI() {
@@ -118,6 +140,7 @@ class DeliveryFragment : Fragment() {
         val bundle = Bundle()
         bundle.putInt(KEY_ID_SALES_BOOKING, id_sales_booking)
         bundle.putParcelable("sale_booking", sale)
+        bundle.putParcelable(KEY_DATA_DELIVERY, customer)
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.listener = {
             viewModel.getListDelivery()
@@ -136,6 +159,10 @@ class DeliveryFragment : Fragment() {
                 Toast.makeText(context, "Maaf Sale Belum Disetujui", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun refreshDataSale() {
+        vmSale.requestDetailSale()
     }
 
     companion object {

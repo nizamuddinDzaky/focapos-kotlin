@@ -1,11 +1,16 @@
 package id.sisi.postoko.utils.extensions
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Paint
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.sisi.postoko.R
 
 fun List<EditText>.validation(): Boolean {
@@ -51,4 +56,24 @@ fun Context.showToast(msg: String? = "") {
 
 fun Context.showToastAccessDenied() {
     Toast.makeText(this, getString(R.string.txt_warning_access_denied), Toast.LENGTH_SHORT).show()
+}
+
+fun BottomSheetDialog.setupFullHeight(activity: Activity){
+    val bottomSheet =
+        this.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
+    val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from<FrameLayout?>(bottomSheet!!)
+    val layoutParams = bottomSheet.layoutParams
+    val windowHeight = getWindowHeight(activity)
+    if (layoutParams != null) {
+        layoutParams.height = windowHeight
+    }
+    bottomSheet.layoutParams = layoutParams
+    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+}
+
+private fun getWindowHeight(activity: Activity): Int { // Calculate window height for fullscreen use
+    val displayMetrics = DisplayMetrics()
+    activity.windowManager.defaultDisplay
+        .getMetrics(displayMetrics)
+    return displayMetrics.heightPixels
 }

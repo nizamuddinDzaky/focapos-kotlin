@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Payment
+import id.sisi.postoko.utils.MyPopupMenu
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.toDisplayPaymentType
@@ -41,8 +42,15 @@ class ListPaymentAdapter(
                 itemView.tv_payment_date?.text = it.date.toDisplayDate()
                 itemView.tv_payment_type.text = itemView.context.getText(it.paid_by.toDisplayPaymentType())
             }
-            itemView.tv_edit.setOnClickListener {
-                listenerEdit(payment)
+            itemView.btn_menu_more.setOnClickListener {
+                val listAction: MutableList<() -> Unit> = mutableListOf({listenerEdit(payment)})
+                val listMenu: MutableList<String> = mutableListOf(itemView.context.getString(R.string.txt_edit))
+                MyPopupMenu(
+                    it,
+                    listMenu,
+                    listAction,
+                    highlight = itemView
+                ).show()
             }
             itemView.tv_attachment.setOnClickListener {
                 listener(payment)

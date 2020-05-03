@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -26,7 +27,9 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.network.NetworkResponse
+import id.sisi.postoko.utils.KEY_DATA_DELIVERY
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.MasterDetailViewModel
@@ -61,6 +64,12 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         val currentDate = sdf.format(Date())
 
         sale = arguments?.getParcelable("sale_booking")
+        customer = arguments?.getParcelable(KEY_DATA_DELIVERY)
+        customer.let {
+            et_add_delivery_customer_name?.setText(customer?.name)
+            et_add_delivery_customer_address?.setText(customer?.address)
+        }
+        logE("customer delivery : $customer")
         for (x in 0 until sale?.saleItems?.size!!){
             sale?.saleItems?.get(x)?.let {
                 it.quantity = it.quantity?.minus(it.sent_quantity)
@@ -87,13 +96,14 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             }
         })
 
-        viewModelCustomer = ViewModelProvider(this).get(MasterDetailViewModel::class.java)
+
+        /*viewModelCustomer = ViewModelProvider(this).get(MasterDetailViewModel::class.java)
         viewModelCustomer.getDetailCustomer().observe(viewLifecycleOwner, Observer {
             customer = it
             et_add_delivery_customer_name?.setText(customer?.name)
             et_add_delivery_customer_address?.setText(customer?.address)
         })
-        viewModelCustomer.requestDetailCustomer(sale?.customer_id ?: 1)
+        viewModelCustomer.requestDetailCustomer(sale?.customer_id ?: 1)*/
 
         //setupUI
         et_add_delivery_date?.setText(currentDate.toDisplayDate())
@@ -165,6 +175,21 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         btn_close.setOnClickListener {
             this.dismiss()
         }
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog =  super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            bottomSheetDialog.setupFullHeight(context as Activity)
+        }
+        return dialog
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        /*(activity as? ProfileActivity)?.refreshData(mViewModel.getIsSuccessUpdatee().value)*/
+        (parentFragment as DeliveryFragment).refreshDataSale()
     }
 
     private fun actionAddDelivery() {
@@ -258,5 +283,19 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 adapter.notifyDataSetChanged()
             }
         }
+    }
+
+    override fun onClickDelete(position: Int) {
+        AlertDialog.Builder(context)
+            .setTitle("Konfirmasi")
+            .setMessage("Apakah yakin ?")
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                listSaleItems.removeAt(position)
+                adapter.notifyDataSetChanged()
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                adapter.notifyDataSetChanged()
+            }
+            .show()
     }
 }

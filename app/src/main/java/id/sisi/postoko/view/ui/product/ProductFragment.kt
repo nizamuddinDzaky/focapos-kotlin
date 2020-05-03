@@ -8,8 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
-import id.sisi.postoko.adapter.ListMasterAdapter
-import id.sisi.postoko.model.Product
+import id.sisi.postoko.adapter.ListMasterProdukAdapter
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
@@ -20,7 +19,7 @@ class ProductFragment : BaseFragment() {
     }
 
     private lateinit var viewModel: ProductViewModel
-    private lateinit var adapter: ListMasterAdapter<Product>
+    private lateinit var adapter: ListMasterProdukAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +42,7 @@ class ProductFragment : BaseFragment() {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
         viewModel.getListProducts().observe(viewLifecycleOwner, Observer {
-            adapter.updateMasterData(it)
+            adapter.updateData(it)
         })
     }
 
@@ -55,7 +54,7 @@ class ProductFragment : BaseFragment() {
     }
 
     private fun setupRecycleView() {
-        adapter = ListMasterAdapter()
+        adapter = ListMasterProdukAdapter()
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = adapter

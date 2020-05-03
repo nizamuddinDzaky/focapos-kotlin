@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import id.sisi.postoko.R
+import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
@@ -21,6 +22,7 @@ class DetailSalesBookingActivity : BaseActivity() {
     private var deliverStatusSale: String = ""
     var idSalesBooking: Int = 0
     var tempSale: Sales? = null
+    var tempCustomer: Customer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

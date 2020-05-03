@@ -74,6 +74,7 @@ class DetailSalesBookingFragment : Fragment() {
         })
         viewModel.getDetailCustomer().observe(viewLifecycleOwner, Observer {
             val address = listOf(it?.region, it?.state, it?.country)
+            (activity as? DetailSalesBookingActivity)?.tempCustomer = it
             tv_detail_sbo_customer_name?.text = it?.name
             tv_detail_sbo_customer_address_1?.text = it?.address
             tv_detail_sbo_customer_address_2?.text = address.filterNotNull().joinToString()
