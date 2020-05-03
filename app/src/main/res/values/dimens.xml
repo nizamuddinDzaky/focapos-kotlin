@@ -2,6 +2,7 @@
 <resources>
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="et_top_margin">8dp</dimen>
+    <dimen name="bs_bottom_margin">50dp</dimen>
     <dimen name="logo_height">100dp</dimen>
     <dimen name="edit_text_layout_height">64dp</dimen>
     <dimen name="edit_text_layout_height_default">48dp</dimen>

@@ -187,6 +187,8 @@
     <string name="txt_point_customer">Point Pelanggan</string>
     <string name="txt_email">Email</string>
     <string name="txt_telp">Telp</string>
+    <string name="txt_search_for">Telusuri</string>
+    <string name="txt_upload_file">File Untuk Upload</string>
     <string name="txt_district">Kabupaten/Kota</string>
     <string name="txt_province">Provinsi</string>
     <string name="txt_country">Negara</string>
@@ -286,6 +288,7 @@
     <string name="txt_ordered_by">Dipesan Oleh</string>
     <string name="txt_reference">Reference</string>
     <string name="txt_see_attachment">Lihat Lampiran</string>
+    <string name="txt_attachment">Lampiran</string>
     <string name="txt_gift_card">Gift Card</string>
     <string name="txt_credit_card">Kartu Kredit</string>
     <string name="txt_helper_address">Masukan Alamat Anda</string>

@@ -25,7 +25,13 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Toolbar_name" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
 
     <style name="MSV_ImageButton">
         <item name="android:layout_width">wrap_content</item>
@@ -44,5 +50,11 @@
     <style name="DialogTheme">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="CustomActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
     </style>
 </resources>

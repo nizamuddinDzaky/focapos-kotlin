@@ -18,7 +18,6 @@ import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.customer.DetailCustomerActivity
 import id.sisi.postoko.view.ui.customergroup.AddCustomerToCustomerGoupActivity
-import id.sisi.postoko.view.ui.customergroup.CustomerSelectedCustomerGroupActivity
 import id.sisi.postoko.view.ui.customergroup.EditCustomerGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.AddCustomerPriceGroupActivity
 import id.sisi.postoko.view.ui.pricegroup.DetailPriceGroupActivity
@@ -65,19 +64,21 @@ class ListMasterAdapter<T>(
                     itemView.tv_master_data_description?.text = value.address
                 }
                 is Customer -> {
-                    val name = "${value.company} (${value.name})"
+                    val name = "${value.company}"
                     itemView.tv_master_data_name?.text = name
-                    itemView.tv_master_data_description?.text = value.address
+                    val address = "${value.city}, ${value.country}"
+                    itemView.tv_master_data_description?.text = address
+                    itemView.tv_master_data_description2?.text = value.cf1
                     itemView.setOnClickListener {
                         val page = Intent(itemView.context, DetailCustomerActivity::class.java)
                         page.putExtra(KEY_ID_CUSTOMER, value.id?.toInt())
                         itemView.context.startActivity(page)
                     }
                 }
-                is Product -> {
+                /*is Product -> {
                     itemView.tv_master_data_name?.text = value.name
                     itemView.tv_master_data_description?.text = value.code
-                }
+                }*/
                 is PriceGroup -> {
                     itemView.tv_master_data_name?.text = value.name
                     itemView.tv_master_data_description?.text = value.warehouse_name
