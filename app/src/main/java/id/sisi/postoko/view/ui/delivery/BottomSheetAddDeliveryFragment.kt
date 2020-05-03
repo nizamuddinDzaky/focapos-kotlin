@@ -284,4 +284,18 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             }
         }
     }
+
+    override fun onClickDelete(position: Int) {
+        AlertDialog.Builder(context)
+            .setTitle("Konfirmasi")
+            .setMessage("Apakah yakin ?")
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                listSaleItems.removeAt(position)
+                adapter.notifyDataSetChanged()
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                adapter.notifyDataSetChanged()
+            }
+            .show()
+    }
 }

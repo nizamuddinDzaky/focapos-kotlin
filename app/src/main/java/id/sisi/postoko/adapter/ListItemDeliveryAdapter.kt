@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.SaleItem
+import id.sisi.postoko.utils.extensions.toAlias
 import id.sisi.postoko.utils.extensions.toNumberID
 import kotlinx.android.synthetic.main.list_item_add_delivery.view.*
 
@@ -42,13 +43,16 @@ class ListItemDeliveryAdapter(
 
                 val strQtySale = "${it.unit_quantity?.toNumberID()} ${it.product_unit_code}"
                 itemView.tv_sale_item_qty_unit_name?.text = strQtySale
-
+                itemView.tv_alias_product?.text = it.product_name.toAlias()
             }
             itemView.iv_remove_product_delivery.setOnClickListener {
                 saleItem?.quantity?.let { it1 -> listenerProduct?.onClickMinus(it1, position) }
             }
             itemView.iv_add_product_delivery.setOnClickListener {
                 saleItem?.quantity?.let { it1 -> listenerProduct?.onClickPlus(it1, position) }
+            }
+            itemView.btn_delete.setOnClickListener {
+                listenerProduct?.onClickDelete(position)
             }
 //            itemView.setOnClickListener {
 //                listener(saleItem)
@@ -58,5 +62,6 @@ class ListItemDeliveryAdapter(
     interface OnClickListenerInterface {
         fun onClickPlus(qty: Double, position: Int)
         fun onClickMinus(qty: Double, position: Int)
+        fun onClickDelete(position: Int)
     }
 }

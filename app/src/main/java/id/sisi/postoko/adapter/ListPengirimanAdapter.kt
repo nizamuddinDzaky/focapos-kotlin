@@ -62,7 +62,6 @@ class ListPengirimanAdapter(
             }
 
             itemView.btn_menu_more.setOnClickListener {
-                logE("${delivery?.status} ")
                 val listAction: MutableList<() -> Unit>
                 val listMenu: MutableList<String>
                 if (delivery?.status == DeliveryStatus.PACKING.toString().toLowerCase(Locale.ROOT)
