@@ -24,6 +24,7 @@ class CustomerFragment : BaseFragment() {
 
     private lateinit var viewModel: CustomerViewModel
     private lateinit var adapter: ListMasterAdapter<Customer>
+    var listCustomer: List<Customer>? = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,24 +40,55 @@ class CustomerFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setupUI()
 
         viewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
         viewModel.getListCustomers().observe(viewLifecycleOwner, Observer {
-            adapter.updateMasterData(it)
+            listCustomer = it
+
+            it?.let { it1 -> setupUI(it1) }
+
         })
 
         viewModel.getListCustomer()
         fb_add_master.setOnClickListener {
             startActivityForResult(Intent(this.context, AddCustomerActivity::class.java), RC_ADD_CUSTOMER)
         }
+
+        sv_master.setOnClickListener {
+            sv_master?.onActionViewExpanded()
+        }
+        sv_master.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    startSearchData(newText)
+                } else {
+                    listCustomer?.let { setupUI(it) }
+                }
+                return true
+            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+        })
     }
 
-    private fun setupUI() {
-        setupRecycleView()
+    private fun startSearchData(query: String) {
+        listCustomer?.let {
+            val listSearchResult = listCustomer!!.filter {
+                it.company?.contains(query, true)!! or it.address?.contains(query, true)!!
+            }
+            setupUI(listSearchResult)
+        }
+    }
+
+    private fun setupUI(listCustomer: List<Customer>) {
+        setupRecycleView(listCustomer)
         swipeRefreshLayoutMaster?.setOnRefreshListener {
             viewModel.getListCustomer()
         }
@@ -71,8 +103,9 @@ class CustomerFragment : BaseFragment() {
         }
     }
 
-    private fun setupRecycleView() {
+    private fun setupRecycleView(listCustomer: List<Customer>) {
         adapter = ListMasterAdapter()
+        adapter.updateMasterData(listCustomer)
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = adapter

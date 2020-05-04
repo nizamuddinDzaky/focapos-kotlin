@@ -56,7 +56,34 @@ class WarehouseDialogFragment: DialogFragment() {
                 setupUI(listWarehouse?: arrayListOf())
             }
         })
+
+        sv_search_master?.onActionViewExpanded()
+        sv_search_master.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    startSearchData(newText)
+                } else {
+                    listWarehouse?.let { setupUI(it) }
+                }
+                return true
+            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+        })
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun startSearchData(query: String) {
+        listWarehouse?.let {
+            val listSearchResult = listWarehouse!!.filter {
+                it.name.contains(query, true) or it.address.contains(query, true)
+            }
+            setupUI(listSearchResult)
+        }
     }
 
     private fun dismissDialog() {

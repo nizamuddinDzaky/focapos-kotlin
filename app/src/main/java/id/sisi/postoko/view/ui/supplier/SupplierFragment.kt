@@ -21,7 +21,7 @@ class SupplierFragment : BaseFragment() {
 
     private lateinit var viewModel: SupplierViewModel
     private lateinit var adapter: ListMasterAdapter<Supplier>
-
+    private var listSupplier: List<Supplier>? = arrayListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,26 +36,57 @@ class SupplierFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setupUI()
 
         viewModel = ViewModelProvider(this).get(SupplierViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
         viewModel.getListSuppliers().observe(viewLifecycleOwner, Observer {
-            adapter.updateMasterData(it)
+            listSupplier = it
+            listSupplier?.let { it1 -> setupUI(it1) }
+            /**/
+        })
+
+        sv_master.setOnClickListener {
+            sv_master?.onActionViewExpanded()
+        }
+        sv_master.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    startSearchData(newText)
+                } else {
+                    listSupplier?.let { setupUI(it) }
+                }
+                return true
+            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
         })
     }
 
-    private fun setupUI() {
-        setupRecycleView()
+    private fun startSearchData(query: String) {
+        listSupplier?.let {
+            val listSearchResult = listSupplier!!.filter {
+                it.name.contains(query, true) or it.address.contains(query, true)
+            }
+            setupUI(listSearchResult)
+        }
+    }
+
+    private fun setupUI(listSupplier: List<Supplier>) {
+        setupRecycleView(listSupplier)
         swipeRefreshLayoutMaster?.setOnRefreshListener {
             viewModel.getListSupplier()
         }
     }
 
-    private fun setupRecycleView() {
+    private fun setupRecycleView(listSupplier: List<Supplier>) {
         adapter = ListMasterAdapter()
+        adapter.updateMasterData(listSupplier)
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = adapter
