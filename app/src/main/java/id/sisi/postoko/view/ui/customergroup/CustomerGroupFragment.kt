@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.CustomerGroup
+import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
@@ -52,7 +52,11 @@ class CustomerGroupFragment : BaseFragment() {
 
         mViewModel.getListCustomerGroup()
         fb_add_master.setOnClickListener {
-            AddCustomerGroupActivity.show(activity as FragmentActivity)
+            val bottomSheetFragment = BottomSheetAddCustomerGroup()
+            bottomSheetFragment.listener={
+                mViewModel.getListCustomerGroup()
+            }
+            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
 
         sv_master.setOnClickListener {
@@ -104,6 +108,18 @@ class CustomerGroupFragment : BaseFragment() {
     private fun setupRecycleView(listCustomerGroup: List<CustomerGroup>) {
         mAdapter = ListMasterAdapter(fragmentActivity = activity)
         mAdapter.updateMasterData(listCustomerGroup)
+
+        mAdapter.listenerCustomerGroup={
+            val bottomSheetFragment = BottomSheetEditCustomerGroup()
+            val bundle = Bundle()
+            bundle.putParcelable(KEY_CUSTOMER_GROUP, it)
+            bottomSheetFragment.arguments = bundle
+            bottomSheetFragment.listener={
+                mViewModel.getListCustomerGroup()
+            }
+            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+        }
+
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = mAdapter

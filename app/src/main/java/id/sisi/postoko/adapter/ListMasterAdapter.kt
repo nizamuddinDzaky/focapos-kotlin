@@ -32,6 +32,8 @@ class ListMasterAdapter<T>(
 ) :
     RecyclerView.Adapter<ListMasterAdapter.MasterViewHolder<T>>() {
 
+    var listenerCustomerGroup: (CustomerGroup) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MasterViewHolder<T> {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.list_item_master, parent, false)
@@ -44,7 +46,7 @@ class ListMasterAdapter<T>(
     }
 
     override fun onBindViewHolder(holder: MasterViewHolder<T>, position: Int) {
-        holder.bind(masterData?.get(position))
+        holder.bind(masterData?.get(position), listenerCustomerGroup)
     }
 
     class MasterViewHolder<T>(
@@ -53,7 +55,7 @@ class ListMasterAdapter<T>(
     ) :
         RecyclerView.ViewHolder(itemView) {
 
-        fun bind(value: T?) {
+        fun bind(value: T?, listenerCustomerGroup: (CustomerGroup) -> Unit = {}) {
             when (value) {
                 is Warehouse -> {
                     itemView.tv_master_data_name?.text = value.name
@@ -98,7 +100,7 @@ class ListMasterAdapter<T>(
                     itemView.tv_master_data_description?.text = formatRupiah.format(value.kredit_limit).toString()
                     itemView.btn_menu_more?.visible()
                     itemView.btn_menu_more?.setOnClickListener {
-                        showPopupCustomerGroup(it, value)
+                        showPopupCustomerGroup(it, value, listenerCustomerGroup)
                     }
                     itemView.setOnClickListener {
                         itemView.btn_menu_more?.performClick()
@@ -148,7 +150,7 @@ class ListMasterAdapter<T>(
             popup.show()
         }
 
-        private fun showPopupCustomerGroup(view: View, customerGroup: CustomerGroup) {
+        private fun showPopupCustomerGroup(view: View, customerGroup: CustomerGroup, listenerCustomerGroup: (CustomerGroup) -> Unit = {}) {
             val popup = PopupMenu(view.context, view)
             popup.inflate(R.menu.menu_more_customer_group)
 
@@ -161,11 +163,8 @@ class ListMasterAdapter<T>(
                         )
                     }
                     R.id.menu_more_customer_group_edit -> {
-                        EditCustomerGroupActivity.show(
-                            fragmentActivity as FragmentActivity,
-                            customerGroup
-                        )
-//                        listenerCustomerGroup(customerGroup)
+
+                        listenerCustomerGroup(customerGroup)
 //                        fragmentActivity?.let {
 //                            BottomSheetEditCustomerGroupFragment.show(
 //                                it.supportFragmentManager,
