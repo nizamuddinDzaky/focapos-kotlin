@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
@@ -81,8 +81,16 @@ class PriceGroupFragment : BaseFragment() {
         })
 
         fb_add_master.setOnClickListener {
-            AddPriceGroupActivity.show(activity as FragmentActivity)
+            showBottomSheetAdd()
         }
+    }
+
+    private fun showBottomSheetAdd() {
+        val bottomSheetFragment = BottomSheetAddPriceGroup()
+        bottomSheetFragment.listener={
+            mViewModel.getListPriceGroup()
+        }
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     private fun setupUI(listPriceGroup: List<PriceGroup>) {
@@ -114,8 +122,22 @@ class PriceGroupFragment : BaseFragment() {
     private fun setupRecycleView(listPriceGroup: List<PriceGroup>) {
         mAdapter = ListMasterAdapter(fragmentActivity = activity)
         mAdapter.updateMasterData(listPriceGroup)
+        mAdapter.listenerPriceGroup={
+            showBottomSheetEdit(it)
+        }
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = mAdapter
+    }
+
+    private fun showBottomSheetEdit(it: PriceGroup) {
+        val bottomSheetFragment = BottomSheetEditPriceGroup()
+        val bundle = Bundle()
+        bundle.putParcelable(KEY_PRICE_GROUP, it)
+        bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.listener={
+            mViewModel.getListPriceGroup()
+        }
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 }
