@@ -21,11 +21,12 @@
                 android:padding="@dimen/margin_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/sv_customer"
+                    android:id="@+id/sv_master"
                     android:layout_width="match_parent"
-                    android:background="#eee"
-                    android:layout_height="30dp"/>
+                    android:layout_height="30dp"
+                    android:background="#eee" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

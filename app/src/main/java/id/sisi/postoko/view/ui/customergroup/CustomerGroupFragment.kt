@@ -14,7 +14,6 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.view.BaseFragment
-import id.sisi.postoko.view.ui.pricegroup.PriceGroupViewModel
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
 class CustomerGroupFragment : BaseFragment() {
@@ -24,6 +23,7 @@ class CustomerGroupFragment : BaseFragment() {
 
     private lateinit var mViewModel: CustomerGroupViewModel
     private lateinit var mAdapter: ListMasterAdapter<CustomerGroup>
+    private var listCustomerGroup: List<CustomerGroup>? = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,24 +39,54 @@ class CustomerGroupFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setupUI()
+
 
         mViewModel = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
         mViewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
         mViewModel.getListCustomerGroups().observe(viewLifecycleOwner, Observer {
-            mAdapter.updateMasterData(it)
+            listCustomerGroup = it
+            listCustomerGroup?.let { it1 -> setupUI(it1) }
         })
 
         mViewModel.getListCustomerGroup()
         fb_add_master.setOnClickListener {
             AddCustomerGroupActivity.show(activity as FragmentActivity)
         }
+
+        sv_master.setOnClickListener {
+            sv_master?.onActionViewExpanded()
+        }
+        sv_master.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    startSearchData(newText)
+                } else {
+                    listCustomerGroup?.let { setupUI(it) }
+                }
+                return true
+            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+        })
     }
 
-    private fun setupUI() {
-        setupRecycleView()
+    private fun startSearchData(query: String) {
+        listCustomerGroup?.let {
+            val listSearchResult = listCustomerGroup!!.filter {
+                it.name.contains(query, true)
+            }
+            setupUI(listSearchResult)
+        }
+    }
+
+    private fun setupUI(listCustomerGroup: List<CustomerGroup>) {
+        setupRecycleView(listCustomerGroup)
         swipeRefreshLayoutMaster?.setOnRefreshListener {
             mViewModel.getListCustomerGroup()
         }
@@ -71,9 +101,9 @@ class CustomerGroupFragment : BaseFragment() {
         }
     }
 
-    private fun setupRecycleView() {
+    private fun setupRecycleView(listCustomerGroup: List<CustomerGroup>) {
         mAdapter = ListMasterAdapter(fragmentActivity = activity)
-
+        mAdapter.updateMasterData(listCustomerGroup)
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = mAdapter
