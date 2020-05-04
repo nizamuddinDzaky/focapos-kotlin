@@ -42,7 +42,8 @@ class BottomSheetEditCustomerGroup: BottomSheetDialogFragment() {
         tv_title_bottom_sheet.text = getString(R.string.title_activity_edit_customer_group)
         arguments?.getParcelable<CustomerGroup>(KEY_CUSTOMER_GROUP)?.let {
             customerGroup = it
-            tv_subtitle_bottom_sheet.text = customerGroup.name
+            val strSubTitle = "( ${customerGroup.name} )"
+            tv_subtitle_bottom_sheet.text = strSubTitle
             et_customer_group_name?.setText(customerGroup.name)
             et_customer_group_percentage?.setText(customerGroup.percent)
             et_customer_group_kredit_limit?.setText(String.format("%.0f",customerGroup.kredit_limit))
