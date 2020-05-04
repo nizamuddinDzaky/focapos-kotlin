@@ -24,18 +24,18 @@
             android:name=".view.ui.customergroup.CustomerSelectedCustomerGroupActivity"
             android:label="@string/title_activity_customer_selected_customer_group"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.customergroup.EditCustomerGroupActivity"
-            android:label="@string/title_activity_edit_customer_group"
-            android:theme="@style/AppTheme.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".view.ui.customergroup.EditCustomerGroupActivity"-->
+<!--            android:label="@string/title_activity_edit_customer_group"-->
+<!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".view.ui.pricegroup.CustomerSelectedPriceGroupActivity"
             android:label="@string/title_activity_customer_selected_price_group"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.pricegroup.EditPriceGroupActivity"
-            android:label="@string/title_activity_edit_price_group"
-            android:theme="@style/AppTheme.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".view.ui.pricegroup.EditPriceGroupActivity"-->
+<!--            android:label="@string/title_activity_edit_price_group"-->
+<!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".view.ui.customer.EditCustomerActivity"
             android:label="@string/title_activity_edit_customer"
@@ -66,7 +66,8 @@
         <activity android:name=".view.AddProductActivity" />
         <activity
             android:name=".view.ui.gr.DetailGoodReceivedActivity"
-            android:parentActivityName=".view.MainActivity" />
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/AppTheme.NoTitleBar"/>
         <activity
             android:name=".view.ui.sales.DetailSalesBookingActivity"
             android:parentActivityName=".view.MainActivity" />
@@ -96,9 +97,9 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".view.ui.pricegroup.DetailPriceGroupActivity" />
-        <activity
-            android:name=".view.ui.pricegroup.AddPriceGroupActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".view.ui.pricegroup.AddPriceGroupActivity"-->
+<!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".view.ui.pricegroup.AddCustomerPriceGroupActivity"
             android:theme="@style/AppTheme.NoTitleBar">
@@ -106,9 +107,9 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.ui.customergroup.AddCustomerGroupActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".view.ui.customergroup.AddCustomerGroupActivity"-->
+<!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity android:name=".view.ui.customergroup.AddCustomerToCustomerGoupActivity"
             android:theme="@style/AppTheme.NoTitleBar">
             <intent-filter>
