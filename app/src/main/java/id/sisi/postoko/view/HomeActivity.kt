@@ -190,4 +190,6 @@ class HomeActivity : BaseActivity() {
         bottom_navigation?.menu?.findItem(R.id.menu_good_receive)?.isVisible =
             roleId.isNotCashier()
     }
+
+
 }
