@@ -16,10 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListDetailSalesBookingAdapter
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.extensions.goneIfEmptyOrNull
-import id.sisi.postoko.utils.extensions.toCurrencyID
-import id.sisi.postoko.utils.extensions.toDisplayDate
-import id.sisi.postoko.utils.extensions.tryValue
+import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.detail_sales_booking_fragment.*
 
 
@@ -49,10 +46,7 @@ class DetailSalesBookingFragment : Fragment() {
         setupUI()
 
         tv_copy.setOnClickListener {
-            val myClipboard: ClipboardManager = activity?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("label", tv_sale_detail_reference_no.text)
-            myClipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "Copied ${tv_sale_detail_reference_no.text}", Toast.LENGTH_SHORT).show()
+            tv_sale_detail_reference_no.copyText(activity)
         }
 
         viewModel = ViewModelProvider(

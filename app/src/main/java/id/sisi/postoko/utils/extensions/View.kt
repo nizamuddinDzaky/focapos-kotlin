@@ -1,6 +1,8 @@
 package id.sisi.postoko.utils.extensions
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Paint
 import android.util.DisplayMetrics
@@ -9,6 +11,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.sisi.postoko.R
@@ -76,4 +79,11 @@ private fun getWindowHeight(activity: Activity): Int { // Calculate window heigh
     activity.windowManager.defaultDisplay
         .getMetrics(displayMetrics)
     return displayMetrics.heightPixels
+}
+
+fun TextView.copyText(activity: FragmentActivity?){
+    val myClipboard: ClipboardManager = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText("label", this.text)
+    myClipboard.setPrimaryClip(clip)
+    Toast.makeText(context, "Copied ${this.text}", Toast.LENGTH_SHORT).show()
 }
