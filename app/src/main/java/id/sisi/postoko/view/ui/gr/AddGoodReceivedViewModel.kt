@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.gr
 
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,9 +10,11 @@ import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_GOODS_RECEIVED
+import id.sisi.postoko.utils.extensions.copyText
 import id.sisi.postoko.utils.extensions.exe
+import id.sisi.postoko.utils.extensions.logE
 
-class AddGoodReceivedViewModel(private var idGoodsReceived: Int) : ViewModel() {
+class AddGoodReceivedViewModel(private var idGoodsReceived: Int, private val fa: FragmentActivity? = null) : ViewModel() {
     private var _isExecute = MutableLiveData<Boolean>()
     private var _goodReceived = MutableLiveData<GoodReceived?>()
 
@@ -64,6 +67,11 @@ class AddGoodReceivedViewModel(private var idGoodsReceived: Int) : ViewModel() {
         BottomSheetAddGoodReceivedFragment.showBottomSheet(fragmentManager, _goodReceived.value) {
             requestDetailGoodReceived()
         }
+    }
+
+    fun copyString(string: String){
+        string.copyText(fa)
+        logE("coba : $string $idGoodsReceived")
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {

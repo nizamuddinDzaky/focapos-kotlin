@@ -15,6 +15,10 @@
             type="androidx.fragment.app.FragmentManager" />
 
         <variable
+            name="fragmentActivity"
+            type="androidx.fragment.app.FragmentActivity" />
+
+        <variable
             name="vModel"
             type="id.sisi.postoko.view.ui.gr.AddGoodReceivedViewModel" />
     </data>
@@ -180,6 +184,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="0"
                         android:text="@string/txt_copy"
+                        android:onClick="@{() -> vModel.copyString(vModel.getDetailGoodReceived().no_do)}"
                         android:textColor="@color/main_red"
                         android:fontFamily="@font/roboto_bold" />
                 </LinearLayout>
@@ -293,6 +298,7 @@
                         android:layout_weight="0"
                         android:text="@string/txt_copy"
                         android:textColor="@color/main_red"
+                        android:onClick="@{() -> vModel.copyString(vModel.gr.no_pp)}"
                         android:fontFamily="@font/roboto_bold" />
 
                 </LinearLayout>
@@ -382,6 +388,7 @@
                         android:layout_weight="0"
                         android:text="@string/txt_copy"
                         android:textColor="@color/main_red"
+                        android:onClick="@{() -> vModel.copyString(vModel.gr.no_so)}"
                         android:fontFamily="@font/roboto_bold" />
 
                 </LinearLayout>
@@ -469,9 +476,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
+                        android:fontFamily="@font/roboto_bold"
                         android:text="@string/txt_copy"
-                        android:textColor="@color/main_red"
-                        android:fontFamily="@font/roboto_bold" />
+                        android:onClick="@{() -> vModel.copyString(vModel.gr.no_transaksi)}"
+                        android:textColor="@color/main_red" />
 
                 </LinearLayout>
 
@@ -564,9 +572,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
+                        android:fontFamily="@font/roboto_bold"
+                        android:onClick="@{() -> vModel.copyString(vModel.gr.no_spj)}"
                         android:text="@string/txt_copy"
-                        android:textColor="@color/main_red"
-                        android:fontFamily="@font/roboto_bold" />
+                        android:textColor="@color/main_red" />
 
                 </LinearLayout>
 
@@ -653,9 +662,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
+                        android:fontFamily="@font/roboto_bold"
                         android:text="@string/txt_copy"
-                        android:textColor="@color/main_red"
-                        android:fontFamily="@font/roboto_bold" />
+                        android:onClick="@{() -> vModel.copyString(vModel.gr.no_polisi)}"
+                        android:textColor="@color/main_red" />
 
                 </LinearLayout>
 

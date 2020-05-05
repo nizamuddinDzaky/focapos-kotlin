@@ -46,7 +46,7 @@ class DetailSalesBookingFragment : Fragment() {
         setupUI()
 
         tv_copy.setOnClickListener {
-            tv_sale_detail_reference_no.copyText(activity)
+            tv_sale_detail_reference_no.text.toString().copyText(activity)
         }
 
         viewModel = ViewModelProvider(
