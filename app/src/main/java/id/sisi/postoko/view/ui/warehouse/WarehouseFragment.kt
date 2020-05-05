@@ -21,6 +21,7 @@ class WarehouseFragment : BaseFragment() {
 
     private lateinit var viewModel: WarehouseViewModel
     private lateinit var adapter: ListMasterAdapter<Warehouse>
+    private var listWarehouse: List<Warehouse>? = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,26 +37,58 @@ class WarehouseFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setupUI()
+
 
         viewModel = ViewModelProvider(this).get(WarehouseViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
         viewModel.getListWarehouses().observe(viewLifecycleOwner, Observer {
-            adapter.updateMasterData(it)
+            /**/
+            listWarehouse = it
+            listWarehouse?.let { it1 -> setupUI(it1) }
+        })
+
+        sv_master.setOnClickListener {
+            sv_master?.onActionViewExpanded()
+        }
+        sv_master.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    startSearchData(newText)
+                } else {
+                    listWarehouse?.let { setupUI(it) }
+                }
+                return true
+            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
         })
     }
 
-    private fun setupUI() {
-        setupRecycleView()
+    private fun startSearchData(query: String) {
+        listWarehouse?.let {
+            val listSearchResult = listWarehouse!!.filter {
+                it.name.contains(query, true) or it.address.contains(query, true)
+            }
+            setupUI(listSearchResult)
+        }
+    }
+
+    private fun setupUI(listWarehouse: List<Warehouse>) {
+        setupRecycleView(listWarehouse)
         swipeRefreshLayoutMaster?.setOnRefreshListener {
             viewModel.getListWarehouse()
         }
     }
 
-    private fun setupRecycleView() {
+    private fun setupRecycleView(listWarehouse: List<Warehouse>) {
         adapter = ListMasterAdapter()
+        adapter.updateMasterData(listWarehouse)
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = adapter

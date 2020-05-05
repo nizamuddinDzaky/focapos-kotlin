@@ -110,6 +110,7 @@
     <string name="txt_total_idr">Jumlah (Rp)</string>
     <string name="txt_action_add_payment">Tambah Pembayaran</string>
     <string name="txt_purchase_create">Membuat Pembelian</string>
+    <string name="txt_purchases">Pembelian</string>
     <string name="txt_initial_price_idr">Harga Awal (Rp)</string>
     <string name="txt_qty">Qty</string>
     <string name="txt_new_price_idr">Harga Baru (Rp)</string>

@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
@@ -25,6 +25,7 @@ class PriceGroupFragment : BaseFragment() {
 
     private lateinit var mViewModel: PriceGroupViewModel
     private lateinit var mAdapter: ListMasterAdapter<PriceGroup>
+    private var listPriceGroup: List<PriceGroup>? = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,15 +41,15 @@ class PriceGroupFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setupUI()
+
 
         mViewModel = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
         mViewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutMaster?.isRefreshing = it
         })
         mViewModel.getListPriceGroups().observe(viewLifecycleOwner, Observer {
-            logE("masuk gak hayooo2")
-            mAdapter.updateMasterData(it)
+            listPriceGroup = it
+            listPriceGroup?.let { it1 -> setupUI(it1) }
         })
 
         mViewModel.getListPriceGroup()
@@ -59,15 +60,52 @@ class PriceGroupFragment : BaseFragment() {
 //            mViewModel.getListPriceGroup()
 //        }
 
+        sv_master.setOnClickListener {
+            sv_master?.onActionViewExpanded()
+        }
+        sv_master.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isNotEmpty() && newText.length > 2) {
+                    startSearchData(newText)
+                } else {
+                    listPriceGroup?.let { setupUI(it) }
+                }
+                return true
+            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+        })
+
         fb_add_master.setOnClickListener {
-            AddPriceGroupActivity.show(activity as FragmentActivity)
+            showBottomSheetAdd()
         }
     }
 
-    private fun setupUI() {
-        setupRecycleView()
+    private fun showBottomSheetAdd() {
+        val bottomSheetFragment = BottomSheetAddPriceGroup()
+        bottomSheetFragment.listener={
+            mViewModel.getListPriceGroup()
+        }
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun setupUI(listPriceGroup: List<PriceGroup>) {
+        setupRecycleView(listPriceGroup)
         swipeRefreshLayoutMaster?.setOnRefreshListener {
             mViewModel.getListPriceGroup()
+        }
+    }
+
+    private fun startSearchData(query: String) {
+        listPriceGroup?.let {
+            val listSearchResult = listPriceGroup!!.filter {
+                it.name!!.contains(query, true)
+            }
+            setupUI(listSearchResult)
         }
     }
 
@@ -81,11 +119,25 @@ class PriceGroupFragment : BaseFragment() {
         }
     }
 
-    private fun setupRecycleView() {
+    private fun setupRecycleView(listPriceGroup: List<PriceGroup>) {
         mAdapter = ListMasterAdapter(fragmentActivity = activity)
-
+        mAdapter.updateMasterData(listPriceGroup)
+        mAdapter.listenerPriceGroup={
+            showBottomSheetEdit(it)
+        }
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
         rv_list_master_data?.adapter = mAdapter
+    }
+
+    private fun showBottomSheetEdit(it: PriceGroup) {
+        val bottomSheetFragment = BottomSheetEditPriceGroup()
+        val bundle = Bundle()
+        bundle.putParcelable(KEY_PRICE_GROUP, it)
+        bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.listener={
+            mViewModel.getListPriceGroup()
+        }
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 }

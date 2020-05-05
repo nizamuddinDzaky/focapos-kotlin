@@ -27,8 +27,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/btn_action_good_received">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,7 +58,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/txt_from"
-                            android:textColor="@color/colorBlack" />
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/roboto_regular"/>
 
                         <TextView
                             android:id="@+id/tv_good_received_detail_from_name"
@@ -67,18 +67,20 @@
                             android:layout_height="wrap_content"
                             android:text="@{vModel.gr.company_name}"
                             android:textColor="@color/colorBlack"
-                            android:textStyle="bold"
+                            android:fontFamily="@font/roboto_bold"
                             tools:text="Semen Gresik" />
 
                         <TextView
                             android:id="@+id/tv_good_received_detail_from_address_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             tools:text="Jawa Timur" />
 
                     </LinearLayout>
@@ -113,6 +115,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/txt_to"
+                            android:fontFamily="@font/roboto_regular"
                             android:textColor="@color/colorBlack" />
 
                         <TextView
@@ -121,7 +124,7 @@
                             android:layout_height="wrap_content"
                             android:text="@{vModel.gr.distributor}"
                             android:textColor="@color/colorBlack"
-                            android:textStyle="bold"
+                            android:fontFamily="@font/roboto_bold"
                             tools:text="Helios Crop" />
 
                         <TextView
@@ -156,7 +159,7 @@
                         android:layout_marginLeft="@dimen/margin_20"
                         android:layout_weight="0"
                         android:text="@string/txt_do_number"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_bold" />
 
                     <TextView
                         android:id="@+id/tv_good_received_detail_do_number"
@@ -167,7 +170,7 @@
                         android:layout_weight="1"
                         android:text="@{vModel.getDetailGoodReceived().no_do}"
                         android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
                         tools:text="088887627862" />
 
                     <TextView
@@ -177,8 +180,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="0"
                         android:text="@string/txt_copy"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/main_red"
+                        android:fontFamily="@font/roboto_bold" />
                 </LinearLayout>
 
                 <View
@@ -214,7 +217,8 @@
                         android:layout_marginLeft="@dimen/margin_20"
                         android:layout_weight="0"
                         android:text="@string/txt_total_idr"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_detail_grand_total"
@@ -224,7 +228,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
                         bind:currencyID="@{vModel.gr.grand_total}"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
@@ -240,7 +245,8 @@
                     android:paddingRight="@dimen/margin_10"
                     android:paddingBottom="@dimen/et_top_margin"
                     android:text="@string/txt_detail"
-                    android:textStyle="bold" />
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_bold" />
 
                 <View
                     android:layout_width="match_parent"
@@ -262,6 +268,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         android:text="@string/txt_pp_number" />
 
                     <TextView
@@ -273,6 +281,8 @@
                         android:layout_marginEnd="@dimen/margin_10"
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         android:gravity="end"
                         android:text="@{vModel.gr.no_pp}"
                         tools:text="1000092928" />
@@ -282,8 +292,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:text="@string/txt_copy"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/main_red"
+                        android:fontFamily="@font/roboto_bold" />
 
                 </LinearLayout>
 
@@ -295,12 +305,15 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         android:text="@string/txt_pp_date" />
 
                     <TextView
@@ -313,6 +326,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         bind:displayDateOnly="@{vModel.gr.tanggal_pp}"
                         tools:text="19/09/2020" />
 
@@ -335,13 +350,16 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="21dp"
                         android:layout_weight="0"
-                        android:text="@string/txt_so_number" />
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@string/txt_so_number"
+                        android:textColor="@color/text_grey" />
 
                     <TextView
                         android:id="@+id/tv_good_received_so_number"
@@ -354,6 +372,8 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="@{vModel.gr.no_so}"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         tools:text="889920229283" />
 
                     <TextView
@@ -361,8 +381,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:text="@string/txt_copy"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/main_red"
+                        android:fontFamily="@font/roboto_bold" />
 
                 </LinearLayout>
 
@@ -374,13 +394,16 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/txt_so_date" />
+                        android:text="@string/txt_so_date"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_so_date"
@@ -393,6 +416,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         tools:text="19/09/2020" />
 
                     <TextView
@@ -414,13 +439,16 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/txt_trx_number" />
+                        android:text="@string/txt_trx_number"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_transaction_number"
@@ -432,6 +460,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         android:text="@{vModel.gr.no_transaksi}"
                         tools:text="889920229283" />
 
@@ -440,8 +470,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:text="@string/txt_copy"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/main_red"
+                        android:fontFamily="@font/roboto_bold" />
 
                 </LinearLayout>
 
@@ -453,6 +483,7 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10"
                     android:paddingBottom="@dimen/et_top_margin">
 
@@ -460,7 +491,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/txt_order_type" />
+                        android:text="@string/txt_order_type"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_order_type"
@@ -472,6 +505,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         android:text="@{vModel.gr.tipe_order}"
                         tools:text="ZOR" />
 
@@ -506,7 +541,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/txt_spj_number" />
+                        android:text="@string/txt_spj_number"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_spj_number"
@@ -519,6 +556,8 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="@{vModel.gr.no_spj}"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         tools:text="1000092928" />
 
                     <TextView
@@ -526,8 +565,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:text="@string/txt_copy"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/main_red"
+                        android:fontFamily="@font/roboto_bold" />
 
                 </LinearLayout>
 
@@ -539,13 +578,16 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/txt_spj_date" />
+                        android:text="@string/txt_spj_date"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_spj_date"
@@ -558,6 +600,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         tools:text="19/09/2020" />
 
                     <TextView
@@ -579,13 +623,16 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/txt_police_number" />
+                        android:text="@string/txt_police_number"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_police_number"
@@ -597,6 +644,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         android:text="@{vModel.gr.no_polisi}"
                         tools:text="W 008 AB" />
 
@@ -605,8 +654,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:text="@string/txt_copy"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/main_red"
+                        android:fontFamily="@font/roboto_bold" />
 
                 </LinearLayout>
 
@@ -618,13 +667,16 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/txt_driver_name" />
+                        android:text="@string/txt_driver_name"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_driver_name"
@@ -636,6 +688,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         android:text="@{vModel.gr.nama_sopir}"
                         tools:text="SAIKUN" />
 
@@ -658,13 +712,16 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/txt_plant_code" />
+                        android:text="@string/txt_plant_code"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_plant_number"
@@ -676,6 +733,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         android:text="@{vModel.gr.kode_plant}"
                         tools:text="5401" />
 
@@ -698,6 +757,7 @@
                     android:paddingStart="@dimen/margin_20"
                     android:paddingLeft="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_10"
+                    android:paddingTop="@dimen/et_top_margin"
                     android:paddingRight="@dimen/margin_10"
                     android:paddingBottom="@dimen/et_top_margin">
 
@@ -705,7 +765,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/txt_plant_name" />
+                        android:text="@string/txt_plant_name"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"/>
 
                     <TextView
                         android:id="@+id/tv_good_received_plant_name"
@@ -717,6 +779,8 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
                         android:text="@{vModel.gr.nama_plant}"
                         tools:text="CP REMBANG" />
 
@@ -731,23 +795,23 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/btn_action_good_received"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/et_top_margin"
+                    android:background="@color/colorButtonScroll"
+                    android:onClick="@{() -> vModel.startReceived(fragmentManager)}"
+                    android:text="@string/txt_purchases"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone"
+                    bind:isReceived="@{vModel.gr.status_penerimaan}"
+                    tools:visibility="visible" />
             </LinearLayout>
-
         </androidx.core.widget.NestedScrollView>
 
-        <Button
-            android:id="@+id/btn_action_good_received"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorButtonScroll"
-            android:onClick="@{() -> vModel.startReceived(fragmentManager)}"
-            android:text="@string/txt_receive"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:visibility="gone"
-            bind:isReceived="@{vModel.gr.status_penerimaan}"
-            tools:visibility="visible" />
+
 
     </RelativeLayout>
 </layout>
