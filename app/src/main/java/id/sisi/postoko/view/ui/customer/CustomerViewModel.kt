@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.CustomerGroup
+import id.sisi.postoko.model.DataSyncCustomerToBK
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.network.NetworkResponse
@@ -20,6 +21,8 @@ class CustomerViewModel : ViewModel() {
     private val priceGroup = MutableLiveData<List<PriceGroup>?>()
     private var isExecute = MutableLiveData<Boolean>()
     private var idCustomer: String? = null
+
+    private var statusSyncCustomerToBK = MutableLiveData<DataSyncCustomerToBK>()
 
     fun getListCustomer() {
         isExecute.postValue(true)
@@ -37,6 +40,26 @@ class CustomerViewModel : ViewModel() {
                     }
                 } else {
                     customers.postValue(listOf())
+                }
+            }
+        )
+    }
+
+    fun regSyncCustomerToBK() {
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        ApiServices.getInstance()?.getSyncCustomerToBK(headers)?.exe(
+            onFailure = { _, _ ->
+                statusSyncCustomerToBK.postValue(null)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    tryMe {
+                        statusSyncCustomerToBK.postValue(response.body()?.data)
+                    }
+                } else {
+                    statusSyncCustomerToBK.postValue(null)
                 }
             }
         )
@@ -144,5 +167,9 @@ class CustomerViewModel : ViewModel() {
 
     fun setIdCustomer(idCustomer : String){
         this.idCustomer = idCustomer
+    }
+
+    internal fun getSyncCustomerToBK(): LiveData<DataSyncCustomerToBK>{
+        return this.statusSyncCustomerToBK
     }
 }

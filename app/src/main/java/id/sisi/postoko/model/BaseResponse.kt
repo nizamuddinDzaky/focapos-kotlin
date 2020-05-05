@@ -20,6 +20,10 @@ data class DataProfile(
     var company: Customer?
 )
 
+data class DataSyncCustomerToBK(
+    var total_customer_data: String?
+)
+
 data class DataDaerah(
     var province_code: String?,
     var kabupaten_code: String?,

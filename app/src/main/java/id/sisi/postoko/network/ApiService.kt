@@ -78,6 +78,9 @@ interface ApiServices {
     @GET("api/v1/distributor/auth/profile")
     fun getProfile(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProfile>>
 
+    @POST("api/v1/distributor/Customers/sync_customer_to_bk")
+    fun getSyncCustomerToBK(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataSyncCustomerToBK>>
+
     @PUT("api/v1/distributor/auth/update_profile")
     fun putProfile(
         @HeaderMap headerMap: Map<String, String>,
@@ -275,9 +278,9 @@ interface ApiServices {
     companion object {
         private var retrofit: Retrofit? = null
 
-        //private const val BASE_URL: String = "https://qp.forca.id/api/v1/distributor/"
+        private const val BASE_URL: String = "https://qp.forca.id/"
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-        private const val BASE_URL: String = "http://10.15.4.102:9090/"
+        //private const val BASE_URL: String = "http://10.15.4.102:9090/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {
