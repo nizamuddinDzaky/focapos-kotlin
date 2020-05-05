@@ -28,7 +28,7 @@ class DetailGoodReceivedFragment : Fragment() {
         activity?.title = getString(R.string.txt_title_detail_good_receive)
 
         val idGoodReceived = (activity as? DetailGoodReceivedActivity)?.mGoodReceived?.id ?: "0"
-        viewModel = ViewModelProvider(this, AddGoodReceivedFactory(idGoodReceived.toInt())).get(
+        viewModel = ViewModelProvider(this, AddGoodReceivedFactory(idGoodReceived.toInt(), activity)).get(
             AddGoodReceivedViewModel::class.java
         )
         viewBinding = DetailGoodReceivedFragmentBinding.inflate(inflater, container, false).apply {
