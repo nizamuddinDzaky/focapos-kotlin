@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.UpdateFrom
+import com.google.firebase.iid.FirebaseInstanceId
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
@@ -79,6 +80,9 @@ class HomeActivity : BaseActivity() {
         appUpdater.setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG)
         appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
         appUpdater.start()
+
+        val firebaseToken = FirebaseInstanceId.getInstance().getToken()
+        Toast.makeText(this, "FCM Registration Token: $firebaseToken", Toast.LENGTH_LONG).show()
     }
 
     override fun onResume() {
