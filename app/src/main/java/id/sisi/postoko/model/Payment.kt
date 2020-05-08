@@ -8,7 +8,7 @@ data class Payment(
     val amount: Double,
 //    val amount_dist: Any,
 //    val approval_code: Any,
-//    val attachment: Any,
+    val attachment: String,
 //    val billing_id: Any,
 //    val c_payment_id: Any,
     val cc_holder: String,
@@ -41,8 +41,8 @@ data class Payment(
     val sale_id: String,
 //    val sales_order_id: Any,
 //    val transaction_id: Any,
-    val type: String
-//    val url_image: Any,
+    val type: String,
+    val url_image: String
 //    val uuid: Any,
 //    val uuid_app: Any
 ) : Parcelable
