@@ -2,22 +2,27 @@ package id.sisi.postoko.view.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
+import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.utils.RC_ADD_PRICE_GROUP
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.AddProductActivity
+import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.HomePagerAdapter
+import id.sisi.postoko.view.ui.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class MasterDataFragment : Fragment() {
+    private lateinit var user: User
+
+    private lateinit var mViewModel: ProfileViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,5 +63,24 @@ class MasterDataFragment : Fragment() {
     companion object {
         val TAG: String = MasterDataFragment::class.java.simpleName
         fun newInstance() = MasterDataFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_syncron, menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var id = item.itemId
+        if(id == R.id.menu_action_syncron){
+            (activity as? HomeActivity)?.syncMasterCustomer()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -172,6 +172,7 @@
     <string name="txt_edit_penjualan">Edit Penjualan</string>
     <string name="txt_reason_edit_sale">Alasan edit/cancel Order</string>
     <string name="menu_filter">Filter</string>
+    <string name="menu_syncron">Syncron</string>
 
     <string-array name="sorting_type">
         <item>Kecil > Besar</item>
