@@ -98,6 +98,9 @@ class PaymentFragment : Fragment(){
 
         adapter.listener={
             val dialogFragment = ImagePaymentDialogFragment()
+            val bundle = Bundle()
+            bundle.putString("payment", it)
+            dialogFragment.arguments = bundle
             dialogFragment.show(childFragmentManager, "dialog")
         }
         rv_list_item_pembayaran?.layoutManager = LinearLayoutManager(this.context)
