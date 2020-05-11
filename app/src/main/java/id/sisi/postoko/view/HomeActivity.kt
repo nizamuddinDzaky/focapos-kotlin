@@ -235,7 +235,7 @@ class HomeActivity : BaseActivity() {
 
         dialog.tv_syncron.setOnClickListener {
             dialog.dismiss()
-            progressBar.show(this, "Sinkron sedang dilakukan, Silakan tunggu...")
+            progressBar.show(this, "Silakan tunggu...")
 
             viewCustomerViewModel.getSyncCustomerToBK().observe(this, Observer {
                 progressBar.dialog.dismiss()
