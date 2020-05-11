@@ -81,9 +81,9 @@ private fun getWindowHeight(activity: Activity): Int { // Calculate window heigh
     return displayMetrics.heightPixels
 }
 
-fun TextView.copyText(activity: FragmentActivity?){
+fun String.copyText(activity: FragmentActivity?){
     val myClipboard: ClipboardManager = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clip = ClipData.newPlainText("label", this.text)
+    val clip = ClipData.newPlainText("label", this)
     myClipboard.setPrimaryClip(clip)
-    Toast.makeText(context, "Copied ${this.text}", Toast.LENGTH_SHORT).show()
+    Toast.makeText(activity, "Copied $this", Toast.LENGTH_SHORT).show()
 }

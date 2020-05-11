@@ -6,6 +6,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 
 import id.sisi.postoko.R
+import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.view.AddProductActivity
 import id.sisi.postoko.view.HomeActivity
@@ -13,6 +14,7 @@ import id.sisi.postoko.view.pager.GoodReceivedPagerAdapter
 import kotlinx.android.synthetic.main.fragment_root_good_received.*
 
 class GoodReceivedRootFragment : Fragment() {
+    private var typeface = TypeFace()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +35,7 @@ class GoodReceivedRootFragment : Fragment() {
             it.adapter = GoodReceivedPagerAdapter(childFragmentManager, context)
             tabs_main_pagers?.setupWithViewPager(it)
         }
+        context?.assets?.let { typeface.fontTab(tabs_main_pagers, "robot_font/Roboto-Regular.ttf", it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

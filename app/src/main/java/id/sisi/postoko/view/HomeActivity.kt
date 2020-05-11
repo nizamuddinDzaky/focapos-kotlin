@@ -54,6 +54,7 @@ class HomeActivity : BaseActivity() {
 
         setSupportActionBar(toolbar)
 
+        initFragment(savedInstanceState)
         bottom_navigation?.apply {
             active(navPosition.position) // Extension function
             setOnNavigationItemSelectedListener { item ->
@@ -62,7 +63,7 @@ class HomeActivity : BaseActivity() {
             }
         }
 
-        initFragment(savedInstanceState)
+
         initSearch()
 
         viewCustomerViewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)

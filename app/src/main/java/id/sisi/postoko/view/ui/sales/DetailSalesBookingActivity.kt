@@ -12,6 +12,7 @@ import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.KEY_TAG_SALES_ROOT_FRAGMENT
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.ui.delivery.DeliveryStatus
+import kotlinx.android.synthetic.main.detail_good_received_activity.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -27,7 +28,7 @@ class DetailSalesBookingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_sales_booking_activity)
-
+        setSupportActionBar(toolbar)
         idSalesBooking = intent.getIntExtra(KEY_ID_SALES_BOOKING, 0)
         deliverStatusSale = intent.getStringExtra(KEY_DELIVERY_STATUS_SALE)
         supportActionBar?.elevation = 0.0F
