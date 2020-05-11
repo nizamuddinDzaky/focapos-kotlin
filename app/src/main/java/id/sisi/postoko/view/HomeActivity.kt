@@ -227,7 +227,7 @@ class HomeActivity : BaseActivity() {
         val dialog = Dialog(this, R.style.MyCustomDialogFullScreen)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_syncron_master_customer)
-        dialog.tv_message.setText(Html.fromHtml("Sinkron Data akan dilakukan, Berikut\n Merupakan <b>Kode Anda : xxx</b>"))
+        dialog.tv_message.setText(Html.fromHtml("Anda yakin akan melakukan sinkron data pelanggan?"))
 
         dialog.tv_batal.setOnClickListener {
             dialog.dismiss()
