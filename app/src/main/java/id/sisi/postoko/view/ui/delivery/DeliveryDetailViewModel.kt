@@ -12,7 +12,7 @@ import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 
-class DeliveryDetailViewModel() : ViewModel() {
+class DeliveryDetailViewModel : ViewModel() {
     private val delivery = MutableLiveData<Delivery?>()
     private var isExecute = MutableLiveData<Boolean>()
 

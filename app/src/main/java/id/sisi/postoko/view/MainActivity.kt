@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.getMessage().observe(this, Observer {
             logE("error $it")
             it?.let {
-                toast.showErrorL(it)
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
         })
 

@@ -12,7 +12,6 @@ import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_GOODS_RECEIVED
 import id.sisi.postoko.utils.extensions.copyText
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 
 class AddGoodReceivedViewModel(private var idGoodsReceived: Int, private val fa: FragmentActivity? = null) : ViewModel() {
     private var _isExecute = MutableLiveData<Boolean>()
@@ -71,7 +70,6 @@ class AddGoodReceivedViewModel(private var idGoodsReceived: Int, private val fa:
 
     fun copyString(string: String){
         string.copyText(fa)
-        logE("coba : $string $idGoodsReceived")
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {

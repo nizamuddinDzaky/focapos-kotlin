@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/et_top_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_detail_good_received_name"
+            android:layout_width="match_parent"
+            android:textColor="#B20838"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            tools:text="Dynamix Serbaguna 40 KG" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:layout_marginTop="@dimen/et_top_margin"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_initial_price_idr"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_good_received_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorBlack"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:text="45.000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_qty"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_good_received_quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorBlack"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:text="200 SAK" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/txt_new_price_idr" />
+
+                <EditText
+                    android:id="@+id/et_detail_good_received_new_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:inputType="numberSigned"
+                    tools:text="45.000"
+                    android:fontFamily="@font/roboto_regular"
+                    android:autofillHints="no" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0"
+        android:background="@color/colorLine" />
+</androidx.cardview.widget.CardView>
