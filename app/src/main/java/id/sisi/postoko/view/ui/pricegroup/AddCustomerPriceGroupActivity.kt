@@ -117,44 +117,6 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         adapterCustomer.updateMasterData(firstListCustomer)
     }
 
-    /*private fun setupSearch() {
-        search_view?.setOnQueryTextListener(object : MySearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                if (newText.isNotEmpty() && newText.length > 2) {
-                    submitQuerySearch(newText)
-                }
-                return false
-            }
-        })
-        search_view?.setOnSearchViewListener(object : MySearchView.SearchViewListener {
-            override fun onSearchViewShown() {
-                actoionShowSearch(true)
-            }
-
-            override fun onSearchViewClosed() {
-                logE("closed Search")
-                actoionShowSearch(false)
-            }
-
-            override fun onFilter() {
-                submitOnFilter()
-            }
-        })
-    }*/
-
-    /*private fun actoionShowSearch(isShow: Boolean) {
-        if (!isShow) {
-            setupDataCustomer()
-        }
-    }
-
-    private fun submitOnFilter() {
-        logE("testing")
-    }*/
 
     private fun submitQuerySearch(newText: String, filterCountry: String, filterCity: String) {
         val resultSearch = firstListCustomer.filter {
