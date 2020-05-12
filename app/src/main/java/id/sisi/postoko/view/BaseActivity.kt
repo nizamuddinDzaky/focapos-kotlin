@@ -1,5 +1,7 @@
 package id.sisi.postoko.view
 
+import android.content.pm.ActivityInfo
+import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import id.sisi.postoko.model.MessageEvent
@@ -10,9 +12,15 @@ import org.greenrobot.eventbus.ThreadMode
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+    }
+
     override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
+
     }
 
     override fun onStop() {

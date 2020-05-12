@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.UpdateFrom
+import com.google.firebase.iid.FirebaseInstanceId
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
@@ -80,6 +81,9 @@ class HomeActivity : BaseActivity() {
         appUpdater.setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG)
         appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
         appUpdater.start()
+
+        val firebaseToken = FirebaseInstanceId.getInstance().getToken()
+        Toast.makeText(this, "FCM Registration Token: $firebaseToken", Toast.LENGTH_LONG).show()
     }
 
     override fun onResume() {
@@ -223,7 +227,7 @@ class HomeActivity : BaseActivity() {
         val dialog = Dialog(this, R.style.MyCustomDialogFullScreen)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_syncron_master_customer)
-        dialog.tv_message.setText(Html.fromHtml("Sinkron Data akan dilakukan, Berikut\n Merupakan <b>Kode Anda : xxx</b>"))
+        dialog.tv_message.setText(Html.fromHtml("Anda yakin akan melakukan sinkron data pelanggan?"))
 
         dialog.tv_batal.setOnClickListener {
             dialog.dismiss()
@@ -231,7 +235,7 @@ class HomeActivity : BaseActivity() {
 
         dialog.tv_syncron.setOnClickListener {
             dialog.dismiss()
-            progressBar.show(this, "Sinkron sedang dilakukan, Silakan tunggu...")
+            progressBar.show(this, "Silakan tunggu...")
 
             viewCustomerViewModel.getSyncCustomerToBK().observe(this, Observer {
                 progressBar.dialog.dismiss()
