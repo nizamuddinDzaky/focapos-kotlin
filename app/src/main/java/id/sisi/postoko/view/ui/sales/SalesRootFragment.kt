@@ -30,7 +30,7 @@ class SalesRootFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         fb_add_transaction?.setOnClickListener {
-            startActivityForResult(Intent(this.context, AddSalesActivity::class.java), 2020)
+            /*startActivityForResult(Intent(this.context, AddSalesActivity::class.java), 2020)*/
         }
 
 

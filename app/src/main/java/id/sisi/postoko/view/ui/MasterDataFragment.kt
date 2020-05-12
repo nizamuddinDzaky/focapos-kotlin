@@ -11,7 +11,7 @@ import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.utils.RC_ADD_PRICE_GROUP
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.view.AddProductActivity
+import id.sisi.postoko.view.ui.product.AddProductActivity
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.HomePagerAdapter
 import id.sisi.postoko.view.ui.profile.ProfileViewModel

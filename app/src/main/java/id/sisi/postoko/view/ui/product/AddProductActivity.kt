@@ -1,8 +1,8 @@
-package id.sisi.postoko.view
+package id.sisi.postoko.view.ui.product
 
 import android.os.Bundle
 import id.sisi.postoko.R
-import id.sisi.postoko.view.ui.addproduct.AddProductFragment
+import id.sisi.postoko.view.BaseActivity
 
 class AddProductActivity : BaseActivity() {
 

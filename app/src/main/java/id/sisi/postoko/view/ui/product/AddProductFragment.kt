@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.addproduct
+package id.sisi.postoko.view.ui.product
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

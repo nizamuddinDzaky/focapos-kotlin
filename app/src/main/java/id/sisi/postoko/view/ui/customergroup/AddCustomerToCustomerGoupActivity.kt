@@ -202,9 +202,14 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     fun validation(customer: Customer) {
         if (customer.isSelected) {
             adapterCart.insertData(customer)
+            listCustomerCart.add(customer)
+            adapterCustomer.notifyDataSetChanged()
             rv_list_customer_cart?.smoothScrollToPosition(0)
         } else {
             adapterCart.removeData(customer)
+
+            listCustomerCart.remove(customer)
+            adapterCustomer.notifyDataSetChanged()
         }
         tv_total_selected.text = "Pelanggan yang terpilih (${listCustomerCart.size})"
     }
