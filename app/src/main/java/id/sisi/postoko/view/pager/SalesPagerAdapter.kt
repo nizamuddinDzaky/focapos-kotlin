@@ -15,9 +15,9 @@ class SalesPagerAdapter(fm: FragmentManager, private var ctx: Context?) :
         SBFragment(PENDING),
         SBFragment(RESERVED),
         SBFragment(CLOSED)
-//        SalesBookingFragment(PENDING),
-//        SalesBookingFragment(RESERVED),
-//        SalesBookingFragment(CLOSED)
+        /*SalesBookingFragment(PENDING),
+        SalesBookingFragment(RESERVED),
+        SalesBookingFragment(CLOSED)*/
     )
     private var currentPosition: Int = 0
 

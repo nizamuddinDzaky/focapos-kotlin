@@ -5,11 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
-import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.model.PurchaseItem
 import id.sisi.postoko.utils.NumberSeparator
-import id.sisi.postoko.utils.extensions.format
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toNumberID
 import kotlinx.android.synthetic.main.list_item_add_good_received.view.*
@@ -20,7 +17,7 @@ class ListItemAddGoodReceiveAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ListItemAddGoodReceiveAdapter.ProductViewHolder {
+    ): ProductViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.list_item_add_good_received, parent, false)
 
@@ -32,7 +29,7 @@ class ListItemAddGoodReceiveAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: ListItemAddGoodReceiveAdapter.ProductViewHolder,
+        holder: ProductViewHolder,
         position: Int
     ) {
         holder.bind(listPurchase?.get(position))
@@ -41,14 +38,12 @@ class ListItemAddGoodReceiveAdapter(
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(purchaseItem: PurchaseItem?) {
-            val price =
-                (purchaseItem?.unit_price?.toDouble() ?: 0.0)*(purchaseItem?.quantity?.toDouble() ?: 1.0)
             itemView.tv_detail_good_received_name.text =  purchaseItem?.product_name
             itemView.tv_detail_good_received_price.text = purchaseItem?.unit_price?.toCurrencyID()
             itemView.tv_detail_good_received_quantity.text = purchaseItem?.quantity?.toNumberID()
 
             itemView.et_detail_good_received_new_price.addTextChangedListener(NumberSeparator(itemView.et_detail_good_received_new_price))
-            itemView.et_detail_good_received_new_price?.setText(purchaseItem?.unit_price?.toCurrencyID())
+            itemView.et_detail_good_received_new_price?.setText(purchaseItem?.unit_price?.toDouble()?.toInt().toString())
         }
     }
 

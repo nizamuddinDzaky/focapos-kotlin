@@ -32,6 +32,9 @@ class GRAdapter(private var listener: (GoodReceived?) -> Unit = {}) :
 
         fun bindTo(goodReceived: GoodReceived?, listener: (GoodReceived?) -> Unit) {
             goodReceived?.let {
+                itemView.tv_product_name?.text = it.nama_produk
+                val strQty = "${it.qty_do} ${it.uom}"
+                itemView.tv_qty?.text = strQty
                 itemView.tv_good_received_do_number?.text = it.no_do
                 itemView.tv_good_received_so_number?.text = it.no_so
                 itemView.tv_good_received_date?.text = it.tanggal_do?.toDisplayDateFromDO()

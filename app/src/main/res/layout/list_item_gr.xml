@@ -72,12 +72,12 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tv_good_received_so_number"
+                                android:id="@+id/tv_product_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:textAllCaps="true"
-                                android:textColor="#0893B2"
+                                android:textColor="@color/colorBlack"
                                 android:fontFamily="@font/roboto_bold"
                                 android:text="@{gr.no_so}"
                                 tools:text="SO/2020/02/0020" />
@@ -103,13 +103,8 @@
 
                         </LinearLayout>
                     </LinearLayout>
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="1dp"
-                        android:layout_margin="@dimen/margin_2" />
-
                     <TextView
-                        android:id="@+id/tv_good_received_do_number"
+                        android:id="@+id/tv_qty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -126,8 +121,7 @@
                         android:layout_marginBottom="@dimen/et_top_margin"
                         android:layout_weight="1"
                         android:baselineAligned="false"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -144,11 +138,12 @@
                                 android:textSize="12sp" />
 
                             <TextView
+                                android:id="@+id/tv_good_received_so_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:textAllCaps="true"
-                                android:textColor="#0893B2"
+                                android:textColor="#B20838"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 tools:text="SO/2020/02/0020" />
@@ -170,11 +165,12 @@
                                 android:textSize="12sp" />
 
                             <TextView
+                                android:id="@+id/tv_good_received_do_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:textAllCaps="true"
-                                android:textColor="#0893B2"
+                                android:textColor="#B20838"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 tools:text="DO/2020/02/0020" />

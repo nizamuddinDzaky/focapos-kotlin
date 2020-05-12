@@ -171,9 +171,6 @@ class ListMasterAdapter<T>(
 //                            )
 //                        }
                     }
-                    R.id.menu_more_customer_group_detail -> {
-                        MyToast.make(view.context).showErrorL("coming soon")
-                    }
                     else -> {
                     }
                 }

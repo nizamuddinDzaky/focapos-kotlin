@@ -6,7 +6,4 @@
     <item
         android:id="@+id/menu_more_customer_group_edit"
         android:title="@string/txt_edit_customer_group" />
-    <item
-        android:id="@+id/menu_more_customer_group_detail"
-        android:title="@string/txt_see_detail" />
 </menu>
