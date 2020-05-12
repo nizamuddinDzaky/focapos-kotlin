@@ -17,6 +17,7 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_CG
 import id.sisi.postoko.utils.extensions.addVerticalDivider
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.pricegroup.BSFilterMemberPGandCG
@@ -37,6 +38,8 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
     private lateinit var vmCustomerGroup: CustomerGroupViewModel
     private val progressBar = CustomProgressBar()
     private var strFilter: String? = null
+    private var strCountry: String? = null
+    private var strCity: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,20 +69,20 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
         rv_list_customer_cart?.adapter = adapterCart
         rv_list_customer?.addVerticalDivider()
 
-        setupDataCustomer(true)
+        setupDataCustomer(/*true*/)
     }
 
-    private fun setupDataCustomer(loadNew: Boolean = false) {
-        if (loadNew) {
+    private fun setupDataCustomer(/*loadNew: Boolean = false*/) {
+        /*if (loadNew) {*/
             vmCustomerGroup.getListCustomers().observe(this, Observer {
                 firstListCustomer = it ?: listOf()
                 adapterCustomer.updateMasterData(firstListCustomer)
                 setupDataCart()
             })
             vmCustomerGroup.getListCustomerCustomerGroup(customerGroup.id)
-        }else{
+        /*}else{
             adapterCustomer.updateMasterData(firstListCustomer)
-        }
+        }*/
     }
 
     @SuppressLint("SetTextI18n")
@@ -98,7 +101,6 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
         tv_select_all.setOnClickListener { selectUnselectAll(false) }
         tv_unselect_all.setOnClickListener { selectUnselectAll(true) }
         btn_action_submit?.setOnClickListener { actionSave() }
-//        setupSearch()
     }
 
     private fun selectUnselectAll(flag: Boolean){
@@ -110,48 +112,13 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
         }
         adapterCustomer.updateMasterData(firstListCustomer)
     }
-    /*private fun setupSearch() {
-        search_view?.setOnQueryTextListener(object : MySearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                if (newText.isNotEmpty() && newText.length > 2) {
-                    submitQuerySearch(newText)
-                }
-                return false
-            }
-        })
-        search_view?.setOnSearchViewListener(object : MySearchView.SearchViewListener {
-            override fun onSearchViewShown() {
-                actoionShowSearch(true)
-            }
-
-            override fun onSearchViewClosed() {
-                actoionShowSearch(false)
-            }
-
-            override fun onFilter() {
-                submitOnFilter()
-            }
-        })
-    }*/
-
-    /*private fun actoionShowSearch(isShow: Boolean) {
-        if (!isShow) {
-            setupDataCustomer()
-        }
-    }
-
-    private fun submitOnFilter() {
-
-    }*/
-
-    private fun submitQuerySearch(newText: String) {
+    private fun submitQuerySearch(newText: String, filterCountry: String, filterCity: String) {
         val resultSearch = firstListCustomer.filter {
             val name = "${it.customer_company} (${it.customer_name})"
-            return@filter name.contains(newText, true)
+            return@filter name.contains(newText, true) or
+                    (it.customer_province?.contains(filterCountry, true) ?: false) or
+                    (it.customer_city?.contains(filterCity, true) ?: false)
         }
         adapterCustomer.updateMasterData(resultSearch)
     }
@@ -188,11 +155,15 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
         if (item.itemId == R.id.menu_action_search) {
             BSFilterMemberPGandCG.show(
                 supportFragmentManager,
-                strFilter
+                strFilter,
+                strCountry,
+                strCity
             )
             BSFilterMemberPGandCG.listener = {
-                submitQuerySearch(it["filter"].toString())
-                strFilter = it["filter"].toString()
+                submitQuerySearch(it["filter_str"].toString(), it["filter_country"].toString(), it["filter_city"].toString())
+                strFilter = it["filter_str"].toString()
+                strCountry = it["filter_country"].toString()
+                strCity = it["filter_city"].toString()
             }
         }
         return super.onOptionsItemSelected(item)

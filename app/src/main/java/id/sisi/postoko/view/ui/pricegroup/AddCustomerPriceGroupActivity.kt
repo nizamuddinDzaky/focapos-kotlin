@@ -39,7 +39,8 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     private lateinit var vmPriceGroup: PriceGroupViewModel
     private lateinit var adapterCustomer: ListCustomerToCartAdapter<Customer>
     private lateinit var adapterCart: ListCartToCustomerAdapter<Customer>
-
+    private var strCountry: String? = null
+    private var strCity: String? = null
     private val progressBar = CustomProgressBar()
 
     @SuppressLint("SetTextI18n")
@@ -71,20 +72,20 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         rv_list_customer?.adapter = adapterCustomer
         rv_list_customer_cart?.adapter = adapterCart
         rv_list_customer?.addVerticalDivider()
-        setupDataCustomer(true)
+        setupDataCustomer(/*true*/)
     }
 
-    private fun setupDataCustomer(loadNew: Boolean = false) {
-        if (loadNew) {
+    private fun setupDataCustomer(/*loadNew: Boolean = false*/) {
+        /*if (loadNew) {*/
             vmPriceGroup.getListCustomers().observe(this, Observer {
                 firstListCustomer = it ?: listOf()
                 adapterCustomer.updateMasterData(firstListCustomer)
                 setupDataCart()
             })
             vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString())
-        }else{
+        /*}else{
             adapterCustomer.updateMasterData(firstListCustomer)
-        }
+        }*/
     }
 
     private fun setupDataCart() {
@@ -155,10 +156,12 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         logE("testing")
     }*/
 
-    private fun submitQuerySearch(newText: String) {
+    private fun submitQuerySearch(newText: String, filterCountry: String, filterCity: String) {
         val resultSearch = firstListCustomer.filter {
             val name = "${it.customer_company} (${it.customer_name})"
-            return@filter name.contains(newText, true)
+            return@filter name.contains(newText, true) or
+                    (it.customer_province?.contains(filterCountry, true) ?: false) or
+                    (it.customer_city?.contains(filterCity, true) ?: false)
         }
         adapterCustomer.updateMasterData(resultSearch)
     }
@@ -206,11 +209,15 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         if (item.itemId == R.id.menu_action_search) {
             BSFilterMemberPGandCG.show(
                 supportFragmentManager,
-                strFilter
+                strFilter,
+                strCountry,
+                strCity
             )
             BSFilterMemberPGandCG.listener = {
-                submitQuerySearch(it["filter"].toString())
-                strFilter = it["filter"].toString()
+                submitQuerySearch(it["filter_str"].toString(), it["filter_country"].toString(), it["filter_city"].toString())
+                strFilter = it["filter_str"].toString()
+                strCountry = it["filter_country"].toString()
+                strCity = it["filter_city"].toString()
             }
         }
         return super.onOptionsItemSelected(item)

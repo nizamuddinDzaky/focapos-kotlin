@@ -219,7 +219,7 @@
                                 android:fontFamily="@font/roboto_bold" />
 
                             <Spinner
-                                android:id="@+id/spinner_profile_province"
+                                android:id="@+id/spinner_filter_city"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.AppCompat.Spinner.Underlined"
