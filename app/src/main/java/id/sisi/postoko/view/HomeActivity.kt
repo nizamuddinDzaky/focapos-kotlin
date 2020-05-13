@@ -229,6 +229,15 @@ class HomeActivity : BaseActivity() {
         dialog.setContentView(R.layout.dialog_syncron_master_customer)
         dialog.tv_message.setText(Html.fromHtml("Anda yakin akan melakukan sinkron data pelanggan?"))
 
+        viewCustomerViewModel.getSyncCustomerToBK().observe(this, Observer {
+            progressBar.dialog.dismiss()
+            if (it != null) {
+                Toast.makeText(this, "Sinkron Sukses, Total pelanggan berhasil disinkron : "+it.total_customer_data, Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(this, "Post Sync customer to bk failed because data store active not found!", Toast.LENGTH_LONG).show()
+            }
+        })
+
         dialog.tv_batal.setOnClickListener {
             dialog.dismiss()
         }
@@ -236,18 +245,7 @@ class HomeActivity : BaseActivity() {
         dialog.tv_syncron.setOnClickListener {
             dialog.dismiss()
             progressBar.show(this, "Silakan tunggu...")
-
-            viewCustomerViewModel.getSyncCustomerToBK().observe(this, Observer {
-                progressBar.dialog.dismiss()
-                Toast.makeText(this, ""+it, Toast.LENGTH_LONG).show()
-                if (it != null) {
-                    Toast.makeText(this, "Sinkron Sukses, Total pelanggan berhasil disinkron : "+it.total_customer_data, Toast.LENGTH_LONG).show()
-                }else{
-                    Toast.makeText(this, "Sinkron Gagal, Solahkan Coba Lagi", Toast.LENGTH_LONG).show()
-                }
-            })
-
-            viewCustomerViewModel.regSyncCustomerToBK(this)
+            viewCustomerViewModel.regSyncCustomerToBK()
         }
 
         dialog.show()

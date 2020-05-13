@@ -47,24 +47,22 @@ class CustomerViewModel : ViewModel() {
         )
     }
 
-    fun regSyncCustomerToBK(h: HomeActivity) {
+    fun regSyncCustomerToBK() {
         var body: Map<String, Any?> = mutableMapOf()
 
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.postSyncCustomerToBK(headers, body)?.exe(
             onFailure = { _, _ ->
-                Toast.makeText(h, mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal").toString(), Toast.LENGTH_LONG).show()
                 isExecute.postValue(false)
                 statusSyncCustomerToBK.postValue(null)
             },
             onResponse = { _, response ->
                 isExecute.postValue(false)
+
                 if (response.isSuccessful) {
-                    Toast.makeText(h, mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response).toString(), Toast.LENGTH_LONG).show()
                     statusSyncCustomerToBK.postValue(response.body()?.data)
                 } else {
-                    Toast.makeText(h, mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response).toString(), Toast.LENGTH_LONG).show()
                     statusSyncCustomerToBK.postValue(null)
                 }
             }
