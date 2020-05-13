@@ -60,10 +60,7 @@
             android:name=".view.ui.sales.AddProductSalesActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.sales.AddSalesActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.AddProductActivity" />
+
         <activity
             android:name=".view.ui.gr.DetailGoodReceivedActivity"
             android:parentActivityName=".view.MainActivity"

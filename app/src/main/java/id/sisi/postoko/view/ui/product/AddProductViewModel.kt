@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.addproduct
+package id.sisi.postoko.view.ui.product
 
 import androidx.lifecycle.ViewModel
 

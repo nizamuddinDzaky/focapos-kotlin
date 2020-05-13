@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.utils.extensions.toAlias
 import id.sisi.postoko.utils.extensions.toUpper
 import id.sisi.postoko.utils.extensions.visibleOrGone
 import kotlinx.android.synthetic.main.list_customer_price_group.view.*
@@ -39,7 +40,7 @@ class ListCustomerCGToCartAdapter<T>(
                     val name = "${value.customer_company} (${value.customer_name})"
                     itemView.tv_customer_price_group_item_1?.text = name
                     itemView.tv_customer_price_group_item_2?.text = value.address
-                    itemView.tv_alias_customer?.text = value.customer_company
+                    itemView.tv_alias_customer?.text = value.customer_company.toAlias()
                     itemView.setOnClickListener {
                         adapter.addCustomerToCart(value)
                     }

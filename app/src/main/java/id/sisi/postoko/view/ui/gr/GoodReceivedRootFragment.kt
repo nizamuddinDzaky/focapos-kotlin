@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.view.AddProductActivity
+import id.sisi.postoko.view.ui.product.AddProductActivity
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.GoodReceivedPagerAdapter
 import kotlinx.android.synthetic.main.fragment_root_good_received.*
