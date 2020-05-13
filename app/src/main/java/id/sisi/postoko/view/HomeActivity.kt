@@ -239,6 +239,7 @@ class HomeActivity : BaseActivity() {
 
             viewCustomerViewModel.getSyncCustomerToBK().observe(this, Observer {
                 progressBar.dialog.dismiss()
+                Toast.makeText(this, ""+it, Toast.LENGTH_LONG).show()
                 if (it != null) {
                     Toast.makeText(this, "Sinkron Sukses, Total pelanggan berhasil disinkron : "+it.total_customer_data, Toast.LENGTH_LONG).show()
                 }else{
@@ -246,7 +247,7 @@ class HomeActivity : BaseActivity() {
                 }
             })
 
-            viewCustomerViewModel.regSyncCustomerToBK()
+            viewCustomerViewModel.regSyncCustomerToBK(this)
         }
 
         dialog.show()

@@ -78,9 +78,6 @@ interface ApiServices {
     @GET("api/v1/distributor/auth/profile")
     fun getProfile(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProfile>>
 
-    @POST("api/v1/distributor/Customers/sync_customer_to_bk")
-    fun getSyncCustomerToBK(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataSyncCustomerToBK>>
-
     @PUT("api/v1/distributor/auth/update_profile")
     fun putProfile(
         @HeaderMap headerMap: Map<String, String>,
@@ -261,6 +258,12 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
+
+    @POST("api/v1/distributor/Customers/sync_customer_to_bk")
+    fun postSyncCustomerToBK(
+        @HeaderMap headerMap: Map<String, String>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataSyncCustomerToBK>>
 
     @PUT("api/v1/distributor/customers/update_customer_group")
     fun putEditCustomerGroup(
