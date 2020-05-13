@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.customer
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_CUSTOMER
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.tryMe
+import id.sisi.postoko.view.HomeActivity
 
 class CustomerViewModel : ViewModel() {
     private val customers = MutableLiveData<List<Customer>?>()
@@ -46,18 +48,20 @@ class CustomerViewModel : ViewModel() {
     }
 
     fun regSyncCustomerToBK() {
+        var body: Map<String, Any?> = mutableMapOf()
+
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        ApiServices.getInstance()?.getSyncCustomerToBK(headers)?.exe(
+        ApiServices.getInstance()?.postSyncCustomerToBK(headers, body)?.exe(
             onFailure = { _, _ ->
+                isExecute.postValue(false)
                 statusSyncCustomerToBK.postValue(null)
             },
             onResponse = { _, response ->
                 isExecute.postValue(false)
+
                 if (response.isSuccessful) {
-                    tryMe {
-                        statusSyncCustomerToBK.postValue(response.body()?.data)
-                    }
+                    statusSyncCustomerToBK.postValue(response.body()?.data)
                 } else {
                     statusSyncCustomerToBK.postValue(null)
                 }

@@ -76,6 +76,15 @@ class HomeActivity : BaseActivity() {
         })
         viewModelCustomer.requestDetailCustomer(2)
 
+        viewCustomerViewModel.getSyncCustomerToBK().observe(this, Observer {
+            progressBar.dialog.dismiss()
+            if (it != null) {
+                Toast.makeText(this, "Sinkron Sukses, Total pelanggan berhasil disinkron : "+it.total_customer_data, Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(this, "Post Sync customer to bk failed because data store active not found!", Toast.LENGTH_LONG).show()
+            }
+        })
+
         //Update available
         val appUpdater = AppUpdater(this)
         appUpdater.setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG)
@@ -236,16 +245,6 @@ class HomeActivity : BaseActivity() {
         dialog.tv_syncron.setOnClickListener {
             dialog.dismiss()
             progressBar.show(this, "Silakan tunggu...")
-
-            viewCustomerViewModel.getSyncCustomerToBK().observe(this, Observer {
-                progressBar.dialog.dismiss()
-                if (it != null) {
-                    Toast.makeText(this, "Sinkron Sukses, Total pelanggan berhasil disinkron : "+it.total_customer_data, Toast.LENGTH_LONG).show()
-                }else{
-                    Toast.makeText(this, "Sinkron Gagal, Solahkan Coba Lagi", Toast.LENGTH_LONG).show()
-                }
-            })
-
             viewCustomerViewModel.regSyncCustomerToBK()
         }
 
