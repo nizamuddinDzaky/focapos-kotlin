@@ -9,6 +9,7 @@
     <string name="txt_sign_up">Daftar</string>
     <string name="txt_copyright">Ⓒ 2020 PT. SISI, All Rights Reserved.</string>
     <string name="txt_purchase">Pemesanan</string>
+    <string name="txt_sale_list">Data Pemesanan</string>
     <string name="txt_detail_sales_booking">Detail Penjualan</string>
     <string name="txt_pembayaran">Pembayaran</string>
     <string name="txt_pengiriman">Pengiriman</string>
@@ -312,4 +313,8 @@
     <string name="txt_bad">Buruk</string>
     <string name="txt_good">Baik</string>
     <string name="txt_not_yet_sent">Belum Terkirim</string>
+    <string name="title_activity_add_sale">AddSaleActivity</string>
+    <string name="txt_add_sale">Menambah Pesanan</string>
+    <string name="txt_continue">Lanjutkan</string>
+    <string name="title_activity_add_item_add_sale">AddItemAddSaleActivity</string>
 </resources>

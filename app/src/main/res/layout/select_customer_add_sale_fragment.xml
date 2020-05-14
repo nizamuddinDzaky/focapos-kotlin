@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#fff"
+            app:navigationIcon="@drawable/back_arrow_foreground"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/txt_add_sale"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#676767"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="20sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="@dimen/et_top_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/txt_choose_date"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="@dimen/margin_30"
+                        android:layout_height="@dimen/margin_30">
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/ic_calendar" />
+                    </RelativeLayout>
+                    <EditText
+                        android:id="@+id/et_date_sale"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:importantForAutofill="no"
+                        android:inputType="none"
+                        android:clickable="true"
+                        android:focusable="false"
+                        tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/txt_warehouse"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="@dimen/margin_30"
+                        android:layout_height="@dimen/margin_30">
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/warehouse" />
+                    </RelativeLayout>
+                    <Spinner
+                        android:id="@+id/sp_warehouse"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/txt_customer"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="@dimen/margin_30"
+                        android:layout_height="@dimen/margin_30">
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/toko" />
+                    </RelativeLayout>
+                    <Spinner
+                        android:id="@+id/sp_customer"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_action_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_bottom_sheet"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_marginLeft="@dimen/et_top_margin"
+            android:layout_marginRight="@dimen/et_top_margin"
+            android:background="@color/main_green"
+            android:text="@string/txt_continue"
+            android:textAllCaps="false"
+            android:layout_alignParentBottom="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
