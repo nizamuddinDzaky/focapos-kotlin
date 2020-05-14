@@ -77,10 +77,12 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
 
     private fun setupDataCustomer(/*loadNew: Boolean = false*/) {
         /*if (loadNew) {*/
+        progressBar.show(this, "Silakan tunggu...")
             vmPriceGroup.getListCustomers().observe(this, Observer {
                 firstListCustomer = it ?: listOf()
                 adapterCustomer.updateMasterData(firstListCustomer)
                 setupDataCart()
+                progressBar.dialog.dismiss()
             })
             vmPriceGroup.getListCustomerPriceGroup(priceGroup?.id.toString())
         /*}else{

@@ -74,10 +74,12 @@ class AddCustomerToCustomerGoupActivity : BaseActivity() {
 
     private fun setupDataCustomer(/*loadNew: Boolean = false*/) {
         /*if (loadNew) {*/
+        progressBar.show(this, "Silakan tunggu...")
             vmCustomerGroup.getListCustomers().observe(this, Observer {
                 firstListCustomer = it ?: listOf()
                 adapterCustomer.updateMasterData(firstListCustomer)
                 setupDataCart()
+                progressBar.dialog.dismiss()
             })
             vmCustomerGroup.getListCustomerCustomerGroup(customerGroup.id)
         /*}else{

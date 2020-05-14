@@ -54,7 +54,6 @@ class MasterDataFragment : Fragment() {
         }else if(requestCode == RC_ADD_CUSTOMER_GROUP){
             main_view_pager.setCurrentItem(1)
         }
-        logE("reqcode : ${(main_view_pager?.adapter as? HomePagerAdapter)?.getCurrentFragment()}")
 
         (main_view_pager?.adapter as? HomePagerAdapter)?.getCurrentFragment()
             ?.onActivityResult(requestCode, resultCode, data)

@@ -12,6 +12,7 @@ import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.SalesPagerAdapter
+import id.sisi.postoko.view.ui.addsales.AddSaleActivity
 import kotlinx.android.synthetic.main.fragment_root_sales.*
 
 
@@ -30,7 +31,7 @@ class SalesRootFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         fb_add_transaction?.setOnClickListener {
-            /*startActivityForResult(Intent(this.context, AddSalesActivity::class.java), 2020)*/
+            startActivityForResult(Intent(this.context, AddSaleActivity::class.java), 2020)
         }
 
 
