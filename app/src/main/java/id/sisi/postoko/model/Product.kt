@@ -64,7 +64,8 @@ data class Product(
 //    val thumb_image: String,
 //    val track_quantity: String,
 //    val type: String,
-//    val unit: String,
+    var unit: String? = null,
+    var sale_qty: Int = 0,
 //    val uuid: Any,
 //    val uuid_app: Any,
 //    val warehouse: Any,
@@ -79,5 +80,6 @@ data class Product(
     var priceGroup_id: Int? = null
     /*=======*/
 ) : Parcelable {
+    @IgnoredOnParcel
     var isCollapse = false
 }

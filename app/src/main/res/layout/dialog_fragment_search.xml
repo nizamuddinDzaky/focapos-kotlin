@@ -8,8 +8,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sv_search_master"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:id="@+id/rv_list_search_master" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutMaster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:id="@+id/rv_list_search_master" />
+            <include layout="@layout/failed_load_data" />
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 </LinearLayout>

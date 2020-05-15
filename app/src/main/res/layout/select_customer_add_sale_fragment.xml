@@ -108,10 +108,16 @@
                             android:layout_alignParentBottom="true"
                             android:background="@drawable/warehouse" />
                     </RelativeLayout>
-                    <Spinner
+                    <EditText
                         android:id="@+id/sp_warehouse"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:importantForAutofill="no"
+                        android:autofillHints="nothing"
+                        android:inputType="text"
+                        android:clickable="true"
+                        android:focusable="false"
+                        tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
                         style="@style/Widget.AppCompat.Spinner.Underlined"/>
                 </LinearLayout>
             </LinearLayout>
@@ -140,10 +146,16 @@
                             android:layout_alignParentBottom="true"
                             android:background="@drawable/toko" />
                     </RelativeLayout>
-                    <Spinner
+                    <EditText
                         android:id="@+id/sp_customer"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:importantForAutofill="no"
+                        android:autofillHints="nothing"
+                        android:inputType="text"
+                        android:clickable="true"
+                        android:focusable="false"
+                        tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
                         style="@style/Widget.AppCompat.Spinner.Underlined"/>
                 </LinearLayout>
             </LinearLayout>

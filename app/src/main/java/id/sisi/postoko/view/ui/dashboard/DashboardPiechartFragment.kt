@@ -23,6 +23,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.MPPointF
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListLegendDashboardAdapter
+import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
@@ -42,6 +43,24 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
     private var listStatus: ArrayList<String> = arrayListOf("Cancel", "Sukses", " Pending")
     private var listImage: ArrayList<Int> = arrayListOf(R.drawable.circle_cancel, R.drawable.circle_sukses, R.drawable.circle_pending)
     private var listJumlah: ArrayList<String> = arrayListOf()
+
+    private var warehouse: Warehouse = Warehouse(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Semua Gudang",
+        "",
+        "",
+        "",
+        "",
+        "")
 //    private var idWarehouse: String? = null
     private var totClosed: Double = 0.0
     private var totPending: Double = 0.0
@@ -89,7 +108,7 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
         SimpleDateFormat("MM")
         SimpleDateFormat("MMMM")
         l_filter_warehouse.setOnClickListener{
-            val dialogFragment = WarehouseDialogFragment()
+            val dialogFragment = WarehouseDialogFragment(header = warehouse)
             dialogFragment.listener = {
                 (parentFragment as DashboardFragment).idWarehouse =it.id
                 (parentFragment as DashboardFragment).warehouseName =it.name

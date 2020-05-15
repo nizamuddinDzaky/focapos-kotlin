@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListSearchDialogFragmentAdapter
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.customer.CustomerViewModel
 import kotlinx.android.synthetic.main.dialog_fragment_search.*
+import kotlinx.android.synthetic.main.failed_load_data.*
 
 class FragmentSearchCustomer : DialogFragment() {
     private lateinit var viewModel: CustomerViewModel
@@ -22,16 +25,6 @@ class FragmentSearchCustomer : DialogFragment() {
     var listCustomer: List<Customer>? = arrayListOf()
     var listener: (Customer) -> Unit = {}
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        if (arguments != null) {
-            if (arguments?.getBoolean("notAlertDialog")!!) {
-                return super.onCreateDialog(savedInstanceState)
-            }
-        }
-        val builder = AlertDialog.Builder(activity)
-
-        return builder.create()
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,10 +35,28 @@ class FragmentSearchCustomer : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
+
+        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            swipeRefreshLayoutMaster?.isRefreshing = it
+        })
+
         viewModel.getListCustomers().observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 listCustomer = it
                 setupUI(it)
+            }
+
+            if (it?.size ?: 0 == 0) {
+                layout_status_progress?.visible()
+                rv_list_search_master?.gone()
+                val status = when(it?.size) {
+                    0 -> "Belum ada pembayaran"
+                    else -> "Gagal Memuat Data"
+                }
+                tv_status_progress?.text = status
+            } else {
+                layout_status_progress?.gone()
+                rv_list_search_master?.visible()
             }
         })
         viewModel.getListCustomer()
@@ -70,24 +81,15 @@ class FragmentSearchCustomer : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        var setFullScreen = false
-        if (arguments != null) {
-            setFullScreen = requireNotNull(arguments?.getBoolean("fullScreen"))
-        }
-        if (setFullScreen)
-            setStyle(STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
-
-    }
-
     private fun dismissDialog() {
         this.dismiss()
     }
 
     private fun setupUI(it: List<Customer>) {
         setupRecycleView(it)
+        swipeRefreshLayoutMaster?.setOnRefreshListener {
+            viewModel.getListCustomer()
+        }
     }
 
     private fun startSearchData(query: String) {
