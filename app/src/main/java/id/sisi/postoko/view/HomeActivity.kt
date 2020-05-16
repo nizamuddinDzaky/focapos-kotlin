@@ -236,13 +236,13 @@ class HomeActivity : BaseActivity() {
         val dialog = Dialog(this, R.style.MyCustomDialogFullScreen)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_syncron_master_customer)
-        dialog.tv_message.setText(Html.fromHtml("Anda yakin akan melakukan sinkron data pelanggan?"))
+        dialog.tv_message.setText(Html.fromHtml(getString(R.string.txt_notif_syn_to_bk)))
 
-        dialog.tv_batal.setOnClickListener {
+        dialog.tv_cancel.setOnClickListener {
             dialog.dismiss()
         }
 
-        dialog.tv_syncron.setOnClickListener {
+        dialog.tv_sure.setOnClickListener {
             dialog.dismiss()
             progressBar.show(this, "Silakan tunggu...")
             viewCustomerViewModel.regSyncCustomerToBK()

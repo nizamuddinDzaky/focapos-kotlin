@@ -4,18 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemAddSaleAdapter
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.helper.findSaleFragmentByTag
-import id.sisi.postoko.view.ui.product.ProductViewModel
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
 import id.sisi.postoko.view.ui.warehouse.WarehouseDialogFragment
 import kotlinx.android.synthetic.main.add_item_add_sale_fragment.*
@@ -27,13 +21,16 @@ class AddItemAddSaleFragment: Fragment() {
     private lateinit var adapter: ListItemAddSaleAdapter
     private var expanded: Boolean = true
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = null
-        (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
         return inflater.inflate(R.layout.add_item_add_sale_fragment, container, false)
     }
 
@@ -92,9 +89,9 @@ class AddItemAddSaleFragment: Fragment() {
             }
         }
 
-        toolbar.setNavigationOnClickListener {
+       /* toolbar.setNavigationOnClickListener {
             (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(SelectCustomerFragment.TAG))
-        }
+        }*/
 
         sv_item.setOnClickListener {
             sv_item?.onActionViewExpanded()
@@ -116,6 +113,8 @@ class AddItemAddSaleFragment: Fragment() {
             }
 
         })
+
+
     }
 
     private fun startSearchData(query: String) {
@@ -143,9 +142,12 @@ class AddItemAddSaleFragment: Fragment() {
 
     private fun showPopUp(product: Product) {
         val dialogFragment = ItemAddSaleDialogFragment(product)
-        dialogFragment.listener={
-            val index = listProduct.indexOf(it)
-            logE("saleItem = ${listProduct.get(index)}")
+        dialogFragment.listenerAdd={
+            (activity as AddSaleActivity?)?.setUpBadge()
+        }
+        dialogFragment.listenerRemove = {prod ->
+            logE("waw")
+            (activity as AddSaleActivity?)?.setUpBadge()
         }
         dialogFragment.show(childFragmentManager, ItemAddSaleDialogFragment(product).tag)
     }

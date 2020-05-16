@@ -27,7 +27,7 @@ class SelectCustomerFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = null
-        (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
+        /*(activity as AppCompatActivity?)?.setSupportActionBar(toolbar)*/
         return inflater.inflate(R.layout.select_customer_add_sale_fragment, container, false)
     }
 
@@ -107,9 +107,9 @@ class SelectCustomerFragment: Fragment() {
             dpd?.show()
         }
 
-        toolbar.setNavigationOnClickListener {
+        /*toolbar.setNavigationOnClickListener {
             (activity as AddSaleActivity?)?.finish()
-        }
+        }*/
 
         btn_action_submit.setOnClickListener {
 

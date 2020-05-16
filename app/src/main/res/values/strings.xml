@@ -318,4 +318,8 @@
     <string name="txt_continue">Lanjutkan</string>
     <string name="title_activity_add_item_add_sale">AddItemAddSaleActivity</string>
     <string name="txt_add_to_cart">Tambah Ke Keranjang</string>
+    <string name="txt_cart">Keranjang</string>
+    <string name="txt_action_sure">Yakin</string>
+    <string name="txt_notif_remove_cart">Anda yakin akan menghapus barang dari keranjang?</string>
+    <string name="txt_notif_syn_to_bk">Anda yakin akan melakukan sinkron data pelanggan?</string>
 </resources>

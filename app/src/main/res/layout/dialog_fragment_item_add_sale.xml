@@ -104,4 +104,18 @@
         android:fontFamily="@font/roboto_regular"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/btn_remove_to_cart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_bottom_sheet"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/et_top_margin"
+        android:layout_marginRight="@dimen/et_top_margin"
+        android:background="@color/main_red"
+        android:text="@string/txt_add_to_cart"
+        android:textAllCaps="false"
+        android:fontFamily="@font/roboto_regular"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/white" />
 </LinearLayout>

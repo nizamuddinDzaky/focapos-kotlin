@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/et_top_margin"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/et_top_margin"
+            android:layout_marginLeft="@dimen/et_top_margin"
+            android:src="@drawable/back_arrow_foreground"
+            android:contentDescription="@string/txt_image_avatar"/>
+
+        <TextView
+            android:id="@+id/tv_title_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/txt_cart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#676767"
+            android:fontFamily="@font/roboto_bold" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_cart_sale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_marginTop="@dimen/et_top_margin"/>
+</LinearLayout>

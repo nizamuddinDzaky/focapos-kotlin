@@ -82,4 +82,6 @@ data class Product(
 ) : Parcelable {
     @IgnoredOnParcel
     var isCollapse = false
+    @IgnoredOnParcel
+    var isSelected = false
 }
