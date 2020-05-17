@@ -28,13 +28,14 @@ class ListCartAddSaleAdapter(
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        holder.bind(listCart?.get(position), listenerProduct)
+        holder.bind(listCart?.get(position), listenerProduct, position)
     }
 
     class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(
             product: Product?,
-            listenerProduct: OnClickListenerInterface?
+            listenerProduct: OnClickListenerInterface?,
+            position: Int
         ) {
             itemView.tv_product_name.text = product?.name
             itemView.tv_product_price.text = product?.price?.toCurrencyID()
@@ -49,6 +50,10 @@ class ListCartAddSaleAdapter(
             }
             itemView.iv_delete.setOnClickListener {
                 listenerProduct?.onClickDelete(product)
+            }
+
+            itemView.tv_edit.setOnClickListener {
+                listenerProduct?.onClickEdit(product)
             }
         }
     }
@@ -74,5 +79,6 @@ class ListCartAddSaleAdapter(
         fun onClickPlus(product: Product?)
         fun onClickMinus(product: Product?)
         fun onClickDelete(product: Product?)
+        fun onClickEdit(product: Product?)
     }
 }

@@ -3,7 +3,6 @@ package id.sisi.postoko.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
@@ -12,8 +11,8 @@ import id.sisi.postoko.utils.extensions.toCurrencyID
 import kotlinx.android.synthetic.main.list_item_add_sale.view.*
 
 class ListItemAddSaleAdapter(
-    private var listProduct: List<Product>? = arrayListOf(),
-    private var fragmentActivity: FragmentActivity? = null) : RecyclerView.Adapter<ListItemAddSaleAdapter.ProductViewHolder>() {
+    private var listProduct: List<Product>? = arrayListOf()
+) : RecyclerView.Adapter<ListItemAddSaleAdapter.ProductViewHolder>() {
 
     var listener: (Product) -> Unit = {}
 
@@ -33,7 +32,10 @@ class ListItemAddSaleAdapter(
     }
 
     class ProductViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(product: Product?, listener: (Product) -> Unit = {}) {
+        fun bind(
+            product: Product?,
+            listener: (Product) -> Unit = {}
+        ) {
 
             val price = "${product?.price?.toCurrencyID()}/${product?.unit_name}"
             itemView.tv_product_name?.text = product?.name
@@ -47,5 +49,6 @@ class ListItemAddSaleAdapter(
 
     fun updateData(newData: List<Product>){
         listProduct = newData
+        notifyDataSetChanged()
     }
 }

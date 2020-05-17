@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/colorBackground">
 
@@ -42,6 +43,6 @@
         android:id="@+id/rv_cart_sale"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:layout_marginTop="@dimen/et_top_margin"/>
+        android:layout_marginTop="@dimen/et_top_margin"
+        tools:listitem="@layout/list_cart_add_sale"/>
 </LinearLayout>

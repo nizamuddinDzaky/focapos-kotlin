@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
-import id.sisi.postoko.adapter.ListItemAddSaleAdapter
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
 import id.sisi.postoko.view.ui.warehouse.WarehouseDialogFragment
 import kotlinx.android.synthetic.main.add_item_add_sale_fragment.*
@@ -18,7 +17,6 @@ import kotlinx.android.synthetic.main.add_item_add_sale_fragment.*
 class AddItemAddSaleFragment: Fragment() {
 
     private var listProduct: List<Product> = arrayListOf()
-    private lateinit var adapter: ListItemAddSaleAdapter
     private var expanded: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,7 +112,10 @@ class AddItemAddSaleFragment: Fragment() {
 
         })
 
+        btn_action_submit.setOnClickListener {
 
+            (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(PaymentAddSaleFragment.TAG))
+        }
     }
 
     private fun startSearchData(query: String) {
@@ -130,7 +131,7 @@ class AddItemAddSaleFragment: Fragment() {
     }
 
     private fun setupRecycleView(listProduct: List<Product>) {
-        adapter = ListItemAddSaleAdapter()
+        val adapter = (activity as AddSaleActivity).adapter
         adapter.updateData(listProduct)
         adapter.listener={product ->
             showPopUp(product)
@@ -141,15 +142,14 @@ class AddItemAddSaleFragment: Fragment() {
     }
 
     private fun showPopUp(product: Product) {
-        val dialogFragment = ItemAddSaleDialogFragment(product)
+        val dialogFragment = AddItemSaleDialogFragment(product)
         dialogFragment.listenerAdd={
             (activity as AddSaleActivity?)?.setUpBadge()
         }
-        dialogFragment.listenerRemove = {prod ->
-            logE("waw")
+        dialogFragment.listenerRemove = {
             (activity as AddSaleActivity?)?.setUpBadge()
         }
-        dialogFragment.show(childFragmentManager, ItemAddSaleDialogFragment(product).tag)
+        dialogFragment.show(childFragmentManager, AddItemSaleDialogFragment(product).tag)
     }
 
     companion object {

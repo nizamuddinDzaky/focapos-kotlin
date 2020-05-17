@@ -22,9 +22,11 @@ import kotlinx.android.synthetic.main.dialog_syncron_master_customer.*
 import kotlinx.android.synthetic.main.fragment_bottom_cart_add_sale.*
 
 class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSaleAdapter.OnClickListenerInterface {
-
+    var position: Int? = null
     private lateinit var adapterCart: ListCartAddSaleAdapter
     private var listProduct: List<Product> = arrayListOf()
+    var listener: () -> Unit = {}
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog =  super.onCreateDialog(savedInstanceState)
         dialog.setOnShowListener { dialogInterface ->
@@ -43,18 +45,20 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         (activity as AddSaleActivity?)?.listProdcut.let {
             if (it != null) {
                 listProduct = it
                 setupData()
             }
         }
+        logE("wahaiii")
 
+        btn_close.setOnClickListener {
+            this.dismiss()
+        }
     }
 
-    private fun setupData() {
+    fun setupData() {
         setupDataCart()
         rv_cart_sale?.layoutManager = LinearLayoutManager(this.context)
         rv_cart_sale?.setHasFixedSize(false)
@@ -93,6 +97,15 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
         removeItemCart(product)
     }
 
+    override fun onClickEdit(product: Product?) {
+        position = listProduct.indexOf(product)
+
+        BottomSheetUpdateItemAddSaleFragment.show(
+            childFragmentManager,
+            position ?: 0
+        )
+    }
+
     private fun removeItemCart(product: Product?) {
         val dialog = context?.let { Dialog(it, R.style.MyCustomDialogFullScreen) }
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -114,14 +127,21 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        (activity as AddSaleActivity?)?.setUpBadge()
+        /*(activity as AddSaleActivity?)?.setUpBadge()*/
+        listener()
+//        (parentFragment as AddItemAddSaleFragment).updateRecycleView()
     }
 
     companion object {
+        var listener: () -> Unit = {}
         fun show(
             fragmentManager: FragmentManager
         ) {
+
             val bottomSheetFragment = BottomSheetCartAddSaleFragment()
+            bottomSheetFragment.listener={
+                listener()
+            }
             bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
         }
     }

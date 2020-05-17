@@ -17,7 +17,7 @@ import id.sisi.postoko.utils.extensions.toCurrencyID
 import kotlinx.android.synthetic.main.dialog_fragment_item_add_sale.*
 import kotlinx.android.synthetic.main.dialog_syncron_master_customer.*
 
-class ItemAddSaleDialogFragment(var product: Product): DialogFragment() {
+class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +50,7 @@ class ItemAddSaleDialogFragment(var product: Product): DialogFragment() {
         }
 
         btn_remove_to_cart.setOnClickListener {
-            removeItemCart(product, this)
+            removeItemCart(product)
         }
 
         btn_add_to_cart.setOnClickListener {
@@ -60,7 +60,7 @@ class ItemAddSaleDialogFragment(var product: Product): DialogFragment() {
         }
     }
 
-    private fun removeItemCart(product: Product, dialogFragment: ItemAddSaleDialogFragment) {
+    private fun removeItemCart(product: Product) {
         val dialog = context?.let { Dialog(it, R.style.MyCustomDialogFullScreen) }
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.setContentView(R.layout.dialog_syncron_master_customer)
@@ -74,8 +74,8 @@ class ItemAddSaleDialogFragment(var product: Product): DialogFragment() {
             product.sale_qty = 0
             product.isSelected = false
             dialog.dismiss()
-            dialogFragment.listenerRemove(product)
-            dialogFragment.dismiss()
+            listenerRemove(product)
+            this.dismiss()
         }
         dialog?.show()
     }
