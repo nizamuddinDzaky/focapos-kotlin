@@ -4,11 +4,9 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -16,9 +14,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListCartAddSaleAdapter
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.MyAlert
 import id.sisi.postoko.utils.extensions.setupFullHeight
-import kotlinx.android.synthetic.main.dialog_syncron_master_customer.*
+import id.sisi.postoko.utils.extensions.toCurrencyID
 import kotlinx.android.synthetic.main.fragment_bottom_cart_add_sale.*
 
 class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSaleAdapter.OnClickListenerInterface {
@@ -26,6 +24,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
     private lateinit var adapterCart: ListCartAddSaleAdapter
     private var listProduct: List<Product> = arrayListOf()
     var listener: () -> Unit = {}
+    private val alert = MyAlert()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog =  super.onCreateDialog(savedInstanceState)
@@ -51,11 +50,15 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
                 setupData()
             }
         }
-        logE("wahaiii")
+        setUpTotal()
 
         btn_close.setOnClickListener {
             this.dismiss()
         }
+    }
+
+    private fun setUpTotal(){
+        tv_total_add_sale.text = (activity as AddSaleActivity).getTotal().toCurrencyID()
     }
 
     fun setupData() {
@@ -79,6 +82,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
     override fun onClickPlus(product: Product?) {
         val index = listProduct.indexOf(product)
         listProduct[index].sale_qty = listProduct[index].sale_qty.plus(1)
+        setUpTotal()
         adapterCart.notifyDataSetChanged()
     }
 
@@ -91,6 +95,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
         }else{
             removeItemCart(product)
         }
+        setUpTotal()
     }
 
     override fun onClickDelete(product: Product?) {
@@ -107,29 +112,18 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
     }
 
     private fun removeItemCart(product: Product?) {
-        val dialog = context?.let { Dialog(it, R.style.MyCustomDialogFullScreen) }
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog?.setContentView(R.layout.dialog_syncron_master_customer)
-        dialog?.tv_message?.text = Html.fromHtml(getString(R.string.txt_notif_remove_cart))
-
-        dialog?.tv_cancel?.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialog?.tv_sure?.setOnClickListener {
+        alert.confirmation(getString(R.string.txt_notif_remove_cart),context)
+        alert.listener={
             product?.sale_qty = 0
             product?.isSelected = false
             product?.let { prod -> adapterCart.removeData(prod) }
-            dialog.dismiss()
+            setUpTotal()
         }
-        dialog?.show()
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        /*(activity as AddSaleActivity?)?.setUpBadge()*/
         listener()
-//        (parentFragment as AddItemAddSaleFragment).updateRecycleView()
     }
 
     companion object {

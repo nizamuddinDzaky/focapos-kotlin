@@ -59,14 +59,14 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:buttonTint="#B20838"
+                android:buttonTint="@color/main_red"
                 android:text="@string/txt_status_pending"
                 android:fontFamily="@font/roboto_regular"
                 tools:targetApi="lollipop" />
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:buttonTint="#B20838"
+                android:buttonTint="@color/main_red"
                 android:text="@string/txt_ordered"
                 android:fontFamily="@font/roboto_regular"
                 tools:targetApi="lollipop" />
@@ -150,33 +150,36 @@
                 android:layout_centerVertical="true"
                 android:orientation="horizontal"
                 tools:ignore="RelativeOverlap">
+
                 <TextView
                     android:id="@+id/tv_edit_sale_note"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/roboto_regular"
-                    android:textColor="@color/text_grey"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/txt_edit"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/main_red"
                     tools:ignore="RelativeOverlap" />
+
                 <TextView
                     android:id="@+id/tv_add_sale_note"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/roboto_regular"
-                    android:textColor="@color/text_grey"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/txt_add"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/main_red"
                     tools:ignore="RelativeOverlap" />
             </LinearLayout>
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_sale_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@string/txt_sale_note"
             android:textColor="@color/text_grey"
-            android:fontFamily="@font/roboto_regular"/>
+            android:fontFamily="@font/roboto_italic"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -197,32 +200,48 @@
                 android:layout_centerVertical="true"
                 android:orientation="horizontal"
                 tools:ignore="RelativeOverlap">
+
                 <TextView
                     android:id="@+id/tv_edit_employee_note"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/main_red"
                     android:fontFamily="@font/roboto_regular"
-                    android:textColor="@color/text_grey"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/txt_edit"
-                    tools:ignore="RelativeOverlap" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    tools:ignore="RelativeOverlap"
+                    tools:targetApi="lollipop" />
+
                 <TextView
                     android:id="@+id/tv_add_employee_note"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/main_red"
                     android:fontFamily="@font/roboto_regular"
-                    android:textColor="@color/text_grey"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/txt_add"
-                    tools:ignore="RelativeOverlap" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    tools:ignore="RelativeOverlap"
+                    tools:targetApi="lollipop" />
             </LinearLayout>
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_employee_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@string/txt_sale_note"
             android:textColor="@color/text_grey"
-            android:fontFamily="@font/roboto_regular"/>
+            android:fontFamily="@font/roboto_italic"/>
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_action_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_bottom_sheet"
+        android:background="@color/main_green"
+        android:text="@string/txt_continue"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/et_top_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

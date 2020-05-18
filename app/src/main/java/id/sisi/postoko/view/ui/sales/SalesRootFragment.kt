@@ -1,12 +1,9 @@
 package id.sisi.postoko.view.ui.sales
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone

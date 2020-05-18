@@ -322,4 +322,10 @@
     <string name="txt_action_sure">Yakin</string>
     <string name="txt_notif_remove_cart">Anda yakin akan menghapus barang dari keranjang?</string>
     <string name="txt_notif_syn_to_bk">Anda yakin akan melakukan sinkron data pelanggan?</string>
+    <string name="txt_alert_item_sale">Silahkan Pilih Item Terlebih Dahulu</string>
+    <string name="txt_oke">Oke</string>
+    <string name="txt_not_set_note">Belum ada catatan</string>
+    <string name="txt_alert_id_customer">Silahkan Pilih Pelanggan</string>
+    <string name="txt_alert_id_warehouse">Silahkan Pilih Gudang</string>
+    <string name="txt_alert_must_more_than_one">Item tidak boleh kurang dari 1</string>
 </resources>

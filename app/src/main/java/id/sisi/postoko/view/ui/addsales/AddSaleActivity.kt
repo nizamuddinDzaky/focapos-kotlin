@@ -3,22 +3,23 @@ package id.sisi.postoko.view.ui.addsales
 
 import android.os.Bundle
 import android.view.Menu
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemAddSaleAdapter
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.extensions.add
-import id.sisi.postoko.utils.extensions.remove
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.AddSaleFragment
 import id.sisi.postoko.utils.helper.createFragment
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import id.sisi.postoko.utils.helper.getTag
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.ui.product.ProductViewModel
+import id.sisi.postoko.view.ui.sales.AddSalesViewModel
 import kotlinx.android.synthetic.main.activity_add_sale.*
-import kotlinx.android.synthetic.main.custom_action_item_layout.*
 
 
 class AddSaleActivity : BaseActivity() {
@@ -28,10 +29,18 @@ class AddSaleActivity : BaseActivity() {
     var idCustomer: String? = null
     var customerName: String? = null
     var currentFragmentTag: String? = null
+    var saleNote: String? = null
+    var employeeNote: String? = null
+    var status: String? = null
+    var discount: String? = null
+    var shipment_price: String? = null
+    var payment_term: String? = null
+    var date: String? = null
+
     lateinit var adapter: ListItemAddSaleAdapter
     private lateinit var vmProduct: ProductViewModel
     var listProdcut: List<Product> = arrayListOf()
-
+    lateinit var vmAddSale: AddSalesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +57,23 @@ class AddSaleActivity : BaseActivity() {
                 listProdcut=it
             }
         })
+
+        vmAddSale = ViewModelProvider(
+            this
+        ).get(AddSalesViewModel::class.java)
+        vmAddSale.getIsExecute().observe(this, Observer {
+            if (it) {
+                logE("progress")
+            } else {
+                logE("done")
+            }
+        })
+
+        vmAddSale.getMessage().observe(this, Observer {
+            it?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun initFragment(savedInstanceState: Bundle?) {
@@ -57,8 +83,8 @@ class AddSaleActivity : BaseActivity() {
     fun switchFragment(fragment: AddSaleFragment): Boolean{
         return findFragment(fragment).let {
             if (it.isAdded) return false
-            supportFragmentManager.remove() // Extension function
-            supportFragmentManager.add(it, fragment.getTag()) // Extension function
+            supportFragmentManager.detach() // Extension function
+            supportFragmentManager.attach(it, fragment.getTag()) // Extension function
             supportFragmentManager.executePendingTransactions()
         }
     }
@@ -70,10 +96,24 @@ class AddSaleActivity : BaseActivity() {
 
     fun setUpBadge(){
         val totalSelected = countItemSelected()
-        cart_badge.text = totalSelected.toString()
+        findViewById<TextView>(R.id.cart_badge).text = totalSelected.toString()
     }
 
-    private fun countItemSelected(): Int{
+    fun getTotal(): Double{
+        var total = 0.0
+        listProdcut.forEach { product ->
+            if (product.isSelected)
+                total += (product.sale_qty * product.price)
+        }
+        return total
+    }
+
+    private fun setUpTotal(){
+        if (findViewById<TextView>(R.id.tv_total_add_sale) != null)
+            findViewById<TextView>(R.id.tv_total_add_sale).text = getTotal().toCurrencyID()
+    }
+
+    fun countItemSelected(): Int{
         var totalSelected = 0
         listProdcut.forEach { product ->
             if (product.isSelected)
@@ -88,11 +128,13 @@ class AddSaleActivity : BaseActivity() {
         val menuItem = menu?.findItem(R.id.action_cart)
 
         val actionView = menuItem?.actionView
+        actionView?.rootView?.findViewById<TextView>(R.id.cart_badge)?.text = countItemSelected().toString()
         actionView?.setOnClickListener {
             val bottomSheetCartAddSaleFragment = BottomSheetCartAddSaleFragment
             bottomSheetCartAddSaleFragment.show(supportFragmentManager)
             bottomSheetCartAddSaleFragment.listener={
                 setUpBadge()
+                setUpTotal()
                 adapter.notifyDataSetChanged()
             }
         }

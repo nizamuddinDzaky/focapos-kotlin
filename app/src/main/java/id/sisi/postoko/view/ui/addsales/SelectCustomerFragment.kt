@@ -3,13 +3,13 @@ package id.sisi.postoko.view.ui.addsales
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
+import id.sisi.postoko.utils.MyAlert
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
@@ -31,6 +31,8 @@ class SelectCustomerFragment: Fragment() {
         return inflater.inflate(R.layout.select_customer_add_sale_fragment, container, false)
     }
 
+    private val alert = MyAlert()
+
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,7 +52,6 @@ class SelectCustomerFragment: Fragment() {
                 (activity as AddSaleActivity?)?.idWarehouse = warehouse.id
                 (activity as AddSaleActivity?)?.warehouseName = warehouse.name
                 sp_warehouse.setText(warehouse.name)
-                Toast.makeText(context, "${(activity as AddSaleActivity?)?.idWarehouse}", Toast.LENGTH_SHORT).show()
             }
             dialogFragment.show(childFragmentManager, WarehouseDialogFragment().tag)
         }
@@ -61,7 +62,6 @@ class SelectCustomerFragment: Fragment() {
                 (activity as AddSaleActivity?)?.idCustomer = customer.id
                 (activity as AddSaleActivity?)?.customerName = customer.company
                 sp_customer.setText(customer.company)
-                Toast.makeText(context, "${(activity as AddSaleActivity?)?.idCustomer}", Toast.LENGTH_SHORT).show()
             }
             dialogFragment.show(childFragmentManager, FragmentSearchCustomer().tag)
         }
@@ -70,7 +70,7 @@ class SelectCustomerFragment: Fragment() {
         val currentDate = sdf.format(Date())
         et_date_sale?.setText(currentDate.toDisplayDate())
         et_date_sale?.hint = currentDate.toDisplayDate()
-        et_date_sale?.tag = currentDate
+        (activity as AddSaleActivity).date = currentDate
         et_date_sale.setOnClickListener {
             val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val date = if (et_date_sale.tag == null) {
@@ -96,7 +96,7 @@ class SelectCustomerFragment: Fragment() {
                         parseDate?.let {
                             val selectedDate = inputDateFormat.format(parseDate)
                             et_date_sale.setText(selectedDate.toDisplayDate())
-                            et_date_sale?.tag = selectedDate
+                            (activity as AddSaleActivity).date = selectedDate
                         }
                     },
                     year,
@@ -107,13 +107,14 @@ class SelectCustomerFragment: Fragment() {
             dpd?.show()
         }
 
-        /*toolbar.setNavigationOnClickListener {
-            (activity as AddSaleActivity?)?.finish()
-        }*/
-
         btn_action_submit.setOnClickListener {
-
-            (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(AddItemAddSaleFragment.TAG))
+            if (TextUtils.isEmpty((activity as AddSaleActivity?)?.idCustomer)){
+                alert.alert(getString(R.string.txt_alert_id_customer), context)
+            }else if (TextUtils.isEmpty((activity as AddSaleActivity?)?.idWarehouse)){
+                alert.alert(getString(R.string.txt_alert_id_warehouse), context)
+            }else{
+                (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(AddItemAddSaleFragment.TAG))
+            }
         }
     }
 
