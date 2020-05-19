@@ -10,7 +10,7 @@ import androidx.appcompat.widget.PopupMenu
 class MyPopupMenu(
     view: View,
     listMenu: MutableList<String>,
-    listAction: MutableList<() -> Unit>,
+    listAction: MutableList<() -> Unit?>,
     onDismiss: () -> Unit = {},
     firstInit: () -> Unit = {},
     var highlight: View? = null

@@ -45,7 +45,7 @@ class ListPaymentAdapter(
                 itemView.tv_payment_type.text = itemView.context.getText(it.paid_by.toDisplayPaymentType())
             }
             itemView.btn_menu_more.setOnClickListener {
-                val listAction: MutableList<() -> Unit> = mutableListOf({listenerEdit(payment)})
+                val listAction: MutableList<() -> Unit?> = mutableListOf({listenerEdit(payment)})
                 val listMenu: MutableList<String> = mutableListOf(itemView.context.getString(R.string.txt_edit))
                 MyPopupMenu(
                     it,

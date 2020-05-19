@@ -20,18 +20,17 @@ import id.sisi.postoko.utils.KEY_DATA_DELIVERY
 import id.sisi.postoko.utils.KEY_ID_DELIVERY
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
-import id.sisi.postoko.view.ui.sales.SaleBookingFactory
 import id.sisi.postoko.view.ui.sales.SaleBookingViewModel
 import id.sisi.postoko.view.ui.sales.SaleStatus
 import kotlinx.android.synthetic.main.failed_load_data.*
 import kotlinx.android.synthetic.main.pengiriman_fragment.*
 import java.util.*
 
-class DeliveryFragment : Fragment() {
+class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterface {
 
-    private lateinit var vmSale: SaleBookingViewModel
     private lateinit var viewModel: DeliveryViewModel
     private lateinit var adapter: ListPengirimanAdapter
     private var sale: Sales? = null
@@ -55,16 +54,16 @@ class DeliveryFragment : Fragment() {
         setupUI()
 
 
-        vmSale = ViewModelProvider(
+        /*vmSale = ViewModelProvider(
             this,
             SaleBookingFactory(idSalesBooking)
-        ).get(SaleBookingViewModel::class.java)
+        ).get(SaleBookingViewModel::class.java)*/
 
-        vmSale.getDetailSale().observe(viewLifecycleOwner, Observer {
+        (activity as DetailSalesBookingActivity).vmSale.getDetailSale().observe(viewLifecycleOwner, Observer {
             setUpSale(it)
         })
 
-        vmSale.requestDetailSale()
+        (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
         viewModel = ViewModelProvider(
             this,
             DeliveryFactory(idSalesBooking)
@@ -87,6 +86,40 @@ class DeliveryFragment : Fragment() {
                 rv_list_item_pengiriman?.visible()
             }
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        fb_add_transaction?.setOnClickListener {
+//
+            if (sale?.sale_status == SaleStatus.RESERVED.toString().toLowerCase(Locale.ROOT)) {
+                showBottomSheetAddDelivery(idSalesBooking)
+            }else{
+                Toast.makeText(context, "Maaf Sale Belum Disetujui", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onClickDetail(delivery: Delivery) {
+        showBottomSheetDetailDelivery(delivery)
+    }
+
+    override fun onClickEdit(delivery: Delivery) {
+        val bottomSheetFragment = BottomSheetEditDeliveryFragment()
+        val bundle = Bundle()
+        bundle.putString(KEY_ID_DELIVERY, delivery.id)
+        logE("deliv : $delivery")
+        bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+    }
+
+    override fun onClickDelete(position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun refreshDataSale() {
+        (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
     }
 
     private fun setUpSale(it: Sales?) {
@@ -114,7 +147,8 @@ class DeliveryFragment : Fragment() {
     }
 
     private fun setupRecycleView() {
-        adapter = ListPengirimanAdapter {showBottomSheetDetailDelivery(it)}
+        adapter = ListPengirimanAdapter()
+        adapter.listenerItem = this
         rv_list_item_pengiriman?.layoutManager = LinearLayoutManager(this.context)
         rv_list_item_pengiriman?.setHasFixedSize(false)
         rv_list_item_pengiriman?.adapter = adapter
@@ -148,26 +182,11 @@ class DeliveryFragment : Fragment() {
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        fb_add_transaction?.setOnClickListener {
-//
-            if (sale?.sale_status == SaleStatus.RESERVED.toString().toLowerCase(Locale.ROOT)) {
-                showBottomSheetAddDelivery(idSalesBooking)
-            }else{
-                Toast.makeText(context, "Maaf Sale Belum Disetujui", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    fun refreshDataSale() {
-        vmSale.requestDetailSale()
-    }
-
     companion object {
         val TAG: String = DeliveryFragment::class.java.simpleName
         fun newInstance() =
             DeliveryFragment()
     }
+
+
 }

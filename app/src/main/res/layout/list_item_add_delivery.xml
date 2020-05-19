@@ -137,11 +137,11 @@
                 android:background="@drawable/bottom_line">
 
                 <ImageView
-                    android:id="@+id/iv_add_product_delivery"
+                    android:id="@+id/iv_remove_product_delivery"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:contentDescription="@string/txt_image_plus"
-                    android:src="@drawable/plus" />
+                    android:contentDescription="@string/txt_image_minus"
+                    android:src="@drawable/minus" />
 
                 <TextView
                     android:id="@+id/tv_sale_item_qty"
@@ -155,13 +155,12 @@
                     android:textColor="#666666"
                     android:textSize="15sp"
                     tools:text="200" />
-
                 <ImageView
-                    android:id="@+id/iv_remove_product_delivery"
+                    android:id="@+id/iv_add_product_delivery"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:contentDescription="@string/txt_image_minus"
-                    android:src="@drawable/minus" />
+                    android:contentDescription="@string/txt_image_plus"
+                    android:src="@drawable/plus" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
