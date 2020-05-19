@@ -73,7 +73,7 @@ class ProductFragment : BaseFragment() {
     private fun startSearchData(query: String) {
         listProdcut?.let {
             val listSearchResult = listProdcut!!.filter {
-                it.product_name?.contains(query, true)!!
+                it.name?.contains(query, true)!!
             }
             setupUI(listSearchResult)
         }

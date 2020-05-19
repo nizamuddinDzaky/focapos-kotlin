@@ -1,47 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.ui.addsales.AddItemAddSaleActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="#fff"
-            app:navigationIcon="@drawable/back_arrow_foreground"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/txt_add_sale"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#676767"
-                android:fontFamily="@font/roboto_bold"
-                android:textSize="20sp" />
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/colorBackground"
+    android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:layout_above="@+id/layout_3"
+            android:layout_alignParentTop="true"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:id="@+id/layout_1"
@@ -49,10 +18,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/standard_margin"
-                android:layout_marginTop="@dimen/et_top_margin"
-
                 android:background="@android:color/white">
                 <LinearLayout
+                    android:id="@+id/layout_click_expandable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -89,116 +57,145 @@
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
-                <LinearLayout
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/expandable_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/et_top_margin"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:background="#fff"
+                    app:el_duration="300"
+                    app:el_expanded="false"
+                    app:el_parallax="0.5">
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="@dimen/et_top_margin"
-                        android:paddingRight="@dimen/et_top_margin"
-                        android:layout_weight="1">
-                        <TextView
+                        android:layout_marginTop="@dimen/et_top_margin"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/txt_warehouse"/>
-                        <Spinner
-                            android:id="@+id/sp_warehouse"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            style="@style/Widget.AppCompat.Spinner.Underlined"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1"
-                        android:paddingLeft="@dimen/et_top_margin"
-                        android:paddingRight="@dimen/et_top_margin">
-                        <TextView
+                            android:orientation="vertical"
+                            android:paddingLeft="@dimen/et_top_margin"
+                            android:paddingRight="@dimen/et_top_margin"
+                            android:layout_weight="1">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txt_warehouse"/>
+                            <EditText
+                                android:id="@+id/sp_warehouse"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:importantForAutofill="no"
+                                android:autofillHints="nothing"
+                                android:inputType="text"
+                                android:clickable="true"
+                                android:focusable="false"
+                                tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"/>
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/txt_customer"/>
-                        <Spinner
-                            android:id="@+id/sp_customer"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            style="@style/Widget.AppCompat.Spinner.Underlined"/>
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:paddingLeft="@dimen/et_top_margin"
+                            android:paddingRight="@dimen/et_top_margin">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txt_customer"/>
+                            <EditText
+                                android:id="@+id/sp_customer"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:importantForAutofill="no"
+                                android:autofillHints="nothing"
+                                android:inputType="text"
+                                android:clickable="true"
+                                android:focusable="false"
+                                tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"/>
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+                </net.cachapa.expandablelayout.ExpandableLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layout_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/et_top_margin"
                 android:background="@android:color/white"
-                >
+                android:orientation="vertical"
+                android:padding="@dimen/standard_margin">
+
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/sv_item"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:background="#eee" />
+
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_item_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/et_top_margin"
                     tools:itemCount="10"
-                    tools:listitem="@layout/list_item_master"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/standard_margin"
-                android:layout_marginTop="@dimen/et_top_margin"
-
-                android:background="@android:color/white">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txt_total"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:layout_weight="1">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total"/>
-
-                    </LinearLayout>
-                </LinearLayout>
-                <Button
-                    android:id="@+id/btn_action_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/button_height_bottom_sheet"
-                    android:background="@color/main_green"
-                    android:text="@string/txt_continue"
-                    android:textAllCaps="false"
-                    android:layout_marginTop="@dimen/et_top_margin"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@android:color/white" />
+                    tools:listitem="@layout/list_item_master" />
             </LinearLayout>
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <LinearLayout
+        android:id="@+id/layout_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/et_top_margin"
+
+        android:background="@android:color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/txt_total" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_total_add_sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/txt_nol_total_rupiah" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_action_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_bottom_sheet"
+            android:background="@color/main_green"
+            android:text="@string/txt_continue"
+            android:textAllCaps="false"
+            android:layout_marginTop="@dimen/et_top_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</RelativeLayout>

@@ -10,6 +10,16 @@ fun FragmentManager.detach() {
     }
 }
 
+fun FragmentManager.remove(){
+    findFragmentById(R.id.main_container)?.also {
+        beginTransaction().remove(it).commit()
+    }
+}
+
+fun FragmentManager.add(fragment: Fragment, tag: String){
+    beginTransaction().add(R.id.main_container, fragment, tag).commit()
+}
+
 fun FragmentManager.attach(fragment: Fragment, tag: String) {
     if (fragment.isDetached) {
         beginTransaction().attach(fragment).commit()

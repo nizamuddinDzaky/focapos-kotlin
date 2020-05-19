@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Html
 import android.view.MenuItem
 import android.view.Window
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -29,8 +28,7 @@ import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.sales.SaleStatus
 //import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home3.*
-import kotlinx.android.synthetic.main.content_detail_customer.*
-import kotlinx.android.synthetic.main.dialog_syncron_master_customer.*
+import kotlinx.android.synthetic.main.dialog_alert_confirmation.*
 
 
 class HomeActivity : BaseActivity() {
@@ -235,14 +233,14 @@ class HomeActivity : BaseActivity() {
     fun syncMasterCustomer(){
         val dialog = Dialog(this, R.style.MyCustomDialogFullScreen)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_syncron_master_customer)
-        dialog.tv_message.setText(Html.fromHtml("Anda yakin akan melakukan sinkron data pelanggan?"))
+        dialog.setContentView(R.layout.dialog_alert_confirmation)
+        dialog.tv_message.setText(Html.fromHtml(getString(R.string.txt_notif_syn_to_bk)))
 
-        dialog.tv_batal.setOnClickListener {
+        dialog.tv_cancel.setOnClickListener {
             dialog.dismiss()
         }
 
-        dialog.tv_syncron.setOnClickListener {
+        dialog.tv_sure.setOnClickListener {
             dialog.dismiss()
             progressBar.show(this, "Silakan tunggu...")
             viewCustomerViewModel.regSyncCustomerToBK()

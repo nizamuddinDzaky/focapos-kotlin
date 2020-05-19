@@ -1,5 +1,7 @@
 package id.sisi.postoko.view.sales
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
@@ -143,5 +145,14 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
     companion object {
         fun newInstance() =
             SBFragment()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (::viewModel.isInitialized) {
+                viewModel.requestRefreshNoFilter()
+            }
+        }
     }
 }

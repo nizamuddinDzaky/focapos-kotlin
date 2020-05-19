@@ -16,7 +16,7 @@ data class Product(
 //    val cf4: String,
 //    val cf5: String,
 //    val cf6: String,
-    val code: String,
+    var code: String,
 //    val company_id: String,
 //    val cost: String,
 //    val credit_price: String,
@@ -31,7 +31,7 @@ data class Product(
 //    val item_id: String,
 //    val mtid: Any,
     val name: String,
-    val price: Int,
+    var price: Int,
 //
 //    val price_public: String,
 //    val product_details: String,
@@ -59,12 +59,14 @@ data class Product(
 //    val supplier5: String,
 //    val supplier5_part_no: String,
 //    val supplier5price: Any,
-//    val tax_method: Any,
-//    val tax_rate: Any,
+    var tax_method: Int = 0,
+    var tax_rate: Int = 0,
 //    val thumb_image: String,
 //    val track_quantity: String,
 //    val type: String,
-//    val unit: String,
+    var unit: String? = null,
+    var sale_qty: Int = 0,
+    var discount : Int = 0,
 //    val uuid: Any,
 //    val uuid_app: Any,
 //    val warehouse: Any,
@@ -79,5 +81,8 @@ data class Product(
     var priceGroup_id: Int? = null
     /*=======*/
 ) : Parcelable {
+    @IgnoredOnParcel
     var isCollapse = false
+    @IgnoredOnParcel
+    var isSelected = false
 }
