@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListDetailSalesBookingAdapter
@@ -17,7 +16,6 @@ import kotlinx.android.synthetic.main.detail_sales_booking_fragment.*
 
 class DetailSalesBookingFragment : Fragment() {
 
-    private lateinit var viewModel: SaleBookingViewModel
     private lateinit var adapter: ListDetailSalesBookingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,32 +34,26 @@ class DetailSalesBookingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
-
         setupUI()
 
         tv_copy.setOnClickListener {
             tv_sale_detail_reference_no.text.toString().copyText(activity)
         }
 
-        viewModel = ViewModelProvider(
-            this,
-            SaleBookingFactory(idSalesBooking)
-        ).get(SaleBookingViewModel::class.java)
 
-        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+        (activity as DetailSalesBookingActivity).vmSale.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutDetailSales?.isRefreshing = it
         })
 
-        viewModel.getDetailSale().observe(viewLifecycleOwner, Observer {
+        (activity as DetailSalesBookingActivity).vmSale.getDetailSale().observe(viewLifecycleOwner, Observer {
             setupDetailSale(it)
             it?.let {
-                viewModel.requestDetailCustomer(it.customer_id)
-                viewModel.requestDetailWarehouse(it.warehouse_id)
-                viewModel.requestDetailSupplier(it.biller_id)
+                (activity as DetailSalesBookingActivity).vmSale.requestDetailCustomer(it.customer_id)
+                (activity as DetailSalesBookingActivity).vmSale.requestDetailWarehouse(it.warehouse_id)
+                (activity as DetailSalesBookingActivity).vmSale.requestDetailSupplier(it.biller_id)
             }
         })
-        viewModel.getDetailCustomer().observe(viewLifecycleOwner, Observer {
+        (activity as DetailSalesBookingActivity).vmSale.getDetailCustomer().observe(viewLifecycleOwner, Observer {
             val address = listOf(it?.region, it?.state, it?.country)
             (activity as? DetailSalesBookingActivity)?.tempCustomer = it
             tv_detail_sbo_customer_name?.text = it?.name
@@ -71,15 +63,14 @@ class DetailSalesBookingFragment : Fragment() {
             tv_detail_sbo_customer_address_1?.goneIfEmptyOrNull()
             tv_detail_sbo_customer_address_2?.goneIfEmptyOrNull()
         })
-        viewModel.getDetailWarehouse().observe(viewLifecycleOwner, Observer {
+        (activity as DetailSalesBookingActivity).vmSale.getDetailWarehouse().observe(viewLifecycleOwner, Observer {
             tv_detail_sbo_warehouse_name?.text = it?.name
             tv_detail_sbo_warehouse_address_1?.text = it?.address
-//            tv_detail_sbo_warehouse_address_2?.text = it?.address
             tv_detail_sbo_warehouse_name?.goneIfEmptyOrNull()
             tv_detail_sbo_warehouse_address_1?.goneIfEmptyOrNull()
             tv_detail_sbo_warehouse_address_2?.goneIfEmptyOrNull()
         })
-        viewModel.getDetailSupplier().observe(viewLifecycleOwner, Observer {
+        (activity as DetailSalesBookingActivity).vmSale.getDetailSupplier().observe(viewLifecycleOwner, Observer {
             tv_detail_sbo_supplier_name?.text = it?.name
             tv_detail_sbo_supplier_address_1?.text = it?.address
             tv_detail_sbo_supplier_address_2?.text = it?.state
@@ -87,7 +78,7 @@ class DetailSalesBookingFragment : Fragment() {
             tv_detail_sbo_supplier_address_1?.goneIfEmptyOrNull()
             tv_detail_sbo_supplier_address_2?.goneIfEmptyOrNull()
         })
-        viewModel.requestDetailSale()
+        (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -98,7 +89,7 @@ class DetailSalesBookingFragment : Fragment() {
     private fun setupUI() {
         setupRecycleView()
         swipeRefreshLayoutDetailSales?.setOnRefreshListener {
-            viewModel.requestDetailSale()
+            (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
         }
     }
 
@@ -128,9 +119,9 @@ class DetailSalesBookingFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (::viewModel.isInitialized) {
-                viewModel.requestDetailSale()
-            }
+            /*if (::viewModel.isInitialized) {*/
+                (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
+            /*}*/
         }
     }
     companion object {

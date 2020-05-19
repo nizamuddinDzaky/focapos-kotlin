@@ -44,7 +44,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     private lateinit var viewModel: AddDeliveryViewModel
     private lateinit var viewModelCustomer: MasterDetailViewModel
     var listener: () -> Unit = {}
-    private lateinit var adapter: ListItemDeliveryAdapter
+    private lateinit var adapter: ListItemDeliveryAdapter<SaleItem>
     private var customer: Customer? = null
     private var sale: Sales? = null
     private var listSaleItems  = ArrayList<SaleItem>()
@@ -69,7 +69,6 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             et_add_delivery_customer_name?.setText(customer?.name)
             et_add_delivery_customer_address?.setText(customer?.address)
         }
-        logE("customer delivery : $customer")
         for (x in 0 until sale?.saleItems?.size!!){
             sale?.saleItems?.get(x)?.let {
                 it.quantity = it.quantity?.minus(it.sent_quantity)

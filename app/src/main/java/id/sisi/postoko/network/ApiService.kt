@@ -60,6 +60,13 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
+    @PUT("api/v1/distributor/sales_booking/edit_deliveries_booking")
+    fun putEditDeliv(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataProfile>>
+
     @GET("api/Local/list_province")
     fun getProvince(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<List<DataDaerah>>>
 

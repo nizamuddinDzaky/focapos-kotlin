@@ -101,6 +101,7 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/rbtn_packing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/radio_button"
@@ -110,6 +111,7 @@
                         tools:targetApi="lollipop" />
 
                     <RadioButton
+                        android:id="@+id/rbtn_delivering"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
@@ -119,6 +121,7 @@
                         tools:targetApi="lollipop" />
 
                     <RadioButton
+                        android:id="@+id/rbtn_delivered"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:fontFamily="@font/roboto_regular"

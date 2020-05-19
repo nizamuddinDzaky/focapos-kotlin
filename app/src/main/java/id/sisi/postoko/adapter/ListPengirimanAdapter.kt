@@ -19,10 +19,10 @@ import kotlinx.android.synthetic.main.list_item_pengiriman.view.*
 import java.util.*
 
 class ListPengirimanAdapter(
-    private var deliveries: List<Delivery>? = listOf(),
-    var listener: (Delivery?) -> Unit = {}
+    private var deliveries: List<Delivery>? = listOf()
 ) : RecyclerView.Adapter<ListPengirimanAdapter.ProductViewHolder>() {
 
+    var listenerItem: OnClickListenerInterface? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view =
             LayoutInflater.from(parent.context)
@@ -36,17 +36,18 @@ class ListPengirimanAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(deliveries?.get(position), listener)
+        holder.bind(deliveries?.get(position), listenerItem)
     }
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(
             delivery: Delivery?,
-            listener: (Delivery?) -> Unit
+            listenerItem:OnClickListenerInterface?
         ) {
 
             delivery?.let {
+                logE("$it")
                 itemView.tv_delivery_date?.text = it.date.toDisplayDate()
                 itemView.tv_delivery_sales_order_number?.text = it.sale_reference_no
                 itemView.tv_delivery_delivery_order_number?.text = it.do_reference_no
@@ -62,20 +63,17 @@ class ListPengirimanAdapter(
             }
 
             itemView.btn_menu_more.setOnClickListener {
-                val listAction: MutableList<() -> Unit>
+                val listAction: MutableList<() -> Unit?>
                 val listMenu: MutableList<String>
                 if (delivery?.status == DeliveryStatus.PACKING.toString().toLowerCase(Locale.ROOT)
                     || delivery?.status == DeliveryStatus.DELIVERING.toString().toLowerCase(Locale.ROOT)){
                     listAction = mutableListOf(
                         {
-                            listener(delivery)
+                            listenerItem?.onClickDetail(delivery)
+                            /*listener(delivery)*/
                         },
                         {
-                            Toast.makeText(
-                                itemView.context,
-                                itemView.context.getString(R.string.txt_edit_delivery),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            listenerItem?.onClickEdit(delivery)
                         }
                     )
                     listMenu = mutableListOf(
@@ -90,13 +88,8 @@ class ListPengirimanAdapter(
                     ).show()
                 }else if (delivery?.status == DeliveryStatus.DELIVERED.toString().toLowerCase(Locale.ROOT)){
                     listAction = mutableListOf(
-                        { listener(delivery) },
                         {
-                            Toast.makeText(
-                                itemView.context,
-                                itemView.context.getString(R.string.txt_edit_delivery) ,
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            listenerItem?.onClickDetail(delivery)
                         },
                         {
                             Toast.makeText(
@@ -108,7 +101,6 @@ class ListPengirimanAdapter(
                     )
                     listMenu = mutableListOf(
                         itemView.context.getString(R.string.txt_see_detail),
-                        itemView.context.getString(R.string.txt_edit_delivery) ,
                         itemView.context.getString(R.string.txt_return_delivery)
                     )
                     MyPopupMenu(
@@ -121,7 +113,7 @@ class ListPengirimanAdapter(
                 }else if (delivery?.status == DeliveryStatus.RETURNED.toString().toLowerCase(Locale.ROOT)){
                     listAction = mutableListOf(
                         {
-                            listener(delivery)
+                            listenerItem?.onClickDetail(delivery)
                         }
                     )
                     listMenu = mutableListOf(
@@ -143,6 +135,13 @@ class ListPengirimanAdapter(
 
     fun updateData(newData: List<Delivery>?) {
         deliveries = newData
+        logE("data : $deliveries")
         notifyDataSetChanged()
+    }
+
+    interface OnClickListenerInterface {
+        fun onClickDetail(delivery: Delivery)
+        fun onClickEdit(delivery: Delivery)
+        fun onClickDelete(position: Int)
     }
 }

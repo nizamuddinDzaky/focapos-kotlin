@@ -139,6 +139,7 @@ class PaymentFragment : Fragment(){
             bottomSheetFragment.arguments = bundle
             bottomSheetFragment.listener = {
                 viewModel.getListPayment()
+                (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
             }
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
 //        }
