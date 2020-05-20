@@ -1,6 +1,5 @@
 package id.sisi.postoko.view.ui.sales
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,15 +7,12 @@ import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.KEY_TAG_SALES_ROOT_FRAGMENT
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.ui.delivery.DeliveryStatus
 import kotlinx.android.synthetic.main.detail_good_received_activity.*
 import java.util.*
 import kotlin.collections.ArrayList
-import androidx.lifecycle.Observer
 
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -26,6 +22,7 @@ class DetailSalesBookingActivity : BaseActivity() {
     var idSalesBooking: Int = 0
     var tempSale: Sales? = null
     var tempCustomer: Customer? = null
+    private var alert = MyAlert()
     lateinit var vmSale: SaleBookingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,17 +54,12 @@ class DetailSalesBookingActivity : BaseActivity() {
         return when (item.itemId) {
             R.id.menu_edit_sale -> {
                 val result = validationActionEditSale()
-                if (!(result["type"] as Boolean)) {
-                    AlertDialog.Builder(this@DetailSalesBookingActivity)
-                        .setTitle("Alert")
-                        .setMessage(result["message"] as String)
-                        .setPositiveButton(android.R.string.ok) { _, _ ->
-                        }
-                        .show()
+                if (!(result[KEY_VALIDATION_REST] as Boolean)) {
+                    alert.alert(result[KEY_MESSAGE] as String, this)
                 } else {
                     val intent = Intent(this, EditSaleActivity::class.java)
-                    intent.putExtra("sale", tempSale)
-                    intent.putParcelableArrayListExtra("sale_items",
+                    intent.putExtra(KEY_SALE, tempSale)
+                    intent.putParcelableArrayListExtra(KEY_SALE_ITEM,
                         tempSale?.saleItems?.let { ArrayList(it) })
                     startActivityForResult(intent, 1)
                 }
@@ -87,7 +79,7 @@ class DetailSalesBookingActivity : BaseActivity() {
         var message = ""
         var cek = true
         if (tempSale?.sale_status == SaleStatus.values()[1].name.toLowerCase(Locale.getDefault())) {
-            message += "- Status sale reseved\n"
+            message += "- ${getString(R.string.txt_sale_reserved)}\n"
             cek = false
         }
         if (deliverStatusSale.toLowerCase(Locale.ROOT) != DeliveryStatus.PENDING.toString()
@@ -95,9 +87,9 @@ class DetailSalesBookingActivity : BaseActivity() {
                     Locale.ROOT
                 )
         ) {
-            message += "- Terdapat Delivery\n"
+            message += "- ${getString(R.string.txt_alert_sale_has_delivery)}\n"
             cek = false
         }
-        return mapOf("message" to message, "type" to cek)
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 }

@@ -43,7 +43,7 @@ class BottomSheetUpdateItemAddSaleFragment: BottomSheetDialogFragment() {
 
         index = arguments?.getInt(KEY_INDEX_ITEM_ADD_SALE) ?: 0
 
-        listProduct = (activity as AddSaleActivity).listProdcut
+        listProduct = (activity as AddSaleActivity).listProduct
         val product = listProduct[index]
         setupUI(product)
 

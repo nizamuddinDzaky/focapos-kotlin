@@ -66,7 +66,7 @@ class AddItemAddSaleFragment: Fragment() {
             dialogFragment.show(childFragmentManager, FragmentSearchCustomer().tag)
         }
 
-        (activity as AddSaleActivity?)?.listProdcut.let {
+        (activity as AddSaleActivity?)?.listProduct.let {
             if (it != null) {
                 listProduct = it
                 setupUI(it)

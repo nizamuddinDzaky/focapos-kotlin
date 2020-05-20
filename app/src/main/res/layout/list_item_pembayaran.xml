@@ -26,6 +26,7 @@
             android:fontFamily="@font/roboto_bold"
             tools:ignore="RtlHardcoded" />-->
         <LinearLayout
+            android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -67,7 +68,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginLeft="@dimen/margin_6"
-                    android:layout_marginRight="@dimen/margin_6">
+                    android:layout_marginRight="@dimen/margin_6"
+                    android:baselineAligned="false">
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -100,7 +102,6 @@
                             android:id="@+id/tv_payment_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0"
                             android:drawableStart="@drawable/ic_time"
                             android:drawableLeft="@drawable/ic_time"
                             android:padding="@dimen/margin_5"

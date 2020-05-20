@@ -64,7 +64,7 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
 
     private fun removeItemCart(product: Product) {
         alert.confirmation(getString(R.string.txt_notif_remove_cart),context)
-        alert.listener={
+        alert.listenerPositif={
             product.sale_qty = 0
             product.isSelected = false
             listenerRemove(product)

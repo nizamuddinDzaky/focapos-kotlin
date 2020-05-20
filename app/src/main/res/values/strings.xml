@@ -329,4 +329,11 @@
     <string name="txt_alert_id_warehouse">Silahkan Pilih Gudang</string>
     <string name="txt_alert_must_more_than_one">Item tidak boleh kurang dari 1</string>
     <string name="txt_alert_out_of_qty">Qty Melebihi</string>
+    <string name="txt_please_wait">Silahkan Tunggu…</string>
+    <string name="txt_overpayment">Pembayaran Melebihi</string>
+    <string name="txt_no_attachment">Tidak Ada lampiran</string>
+    <string name="txt_are_you_sure">Apakah Anda Yakin ?</string>
+    <string name="txt_sale_reserved">Sale telah di pesan</string>
+    <string name="txt_alert_sale_has_delivery">Telah Dilakukan Delivery</string>
+    <string name="txt_alert_duplcate_item">Item Telah Dipilih</string>
 </resources>

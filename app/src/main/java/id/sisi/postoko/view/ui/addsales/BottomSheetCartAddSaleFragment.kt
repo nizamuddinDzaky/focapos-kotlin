@@ -44,7 +44,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AddSaleActivity?)?.listProdcut.let {
+        (activity as AddSaleActivity?)?.listProduct.let {
             if (it != null) {
                 listProduct = it
                 setupData()
@@ -113,7 +113,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
 
     private fun removeItemCart(product: Product?) {
         alert.confirmation(getString(R.string.txt_notif_remove_cart),context)
-        alert.listener={
+        alert.listenerPositif={
             product?.sale_qty = 0
             product?.isSelected = false
             product?.let { prod -> adapterCart.removeData(prod) }

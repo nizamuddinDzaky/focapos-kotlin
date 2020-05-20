@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.view.get
@@ -21,11 +22,13 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemDeliveryAdapter
 import id.sisi.postoko.model.DeliveryItem
 import id.sisi.postoko.utils.KEY_ID_DELIVERY
+import id.sisi.postoko.utils.KEY_MESSAGE
+import id.sisi.postoko.utils.KEY_VALIDATION_REST
 import id.sisi.postoko.utils.MyAlert
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 import java.text.SimpleDateFormat
@@ -63,15 +66,15 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
 
         tv_title_bottom_sheet.text = getString(R.string.txt_edit_delivery)
         vmDelivery = ViewModelProvider(this).get(DeliveryDetailViewModel::class.java)
-        var idRadioGroupStatusDeliv = 0
-        vmDelivery.getDetailDelivery().observe(viewLifecycleOwner, Observer {deliv ->
-            deliv?.let { it ->
+        var idRadioGroupStatusDelivery = 0
+        vmDelivery.getDetailDelivery().observe(viewLifecycleOwner, Observer {delivery->
+            delivery?.let { it ->
                 val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                 val currentDate = sdf.parse(it.date)
-                val strCurentDate = sdf.format(currentDate)
-                et_add_delivery_date.setText(strCurentDate.toDisplayDate())
-                et_add_delivery_date.hint = strCurentDate.toDisplayDate()
-                et_add_delivery_date.tag = strCurentDate
+                val strCurrentDate = sdf.format(currentDate)
+                et_add_delivery_date.setText(strCurrentDate.toDisplayDate())
+                et_add_delivery_date.hint = strCurrentDate.toDisplayDate()
+                et_add_delivery_date.tag = strCurrentDate
                 et_add_delivery_reference_no.setText(it.do_reference_no)
                 et_add_delivery_sales_ref.setText(it.sale_reference_no)
                 et_add_delivery_delivered_by.setText(it.delivered_by)
@@ -82,9 +85,9 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
 
                 deliveryItems = it.deliveryItems
 
-                deliveryItemsTemp = deliveryItems?.map {deliv ->
+                deliveryItemsTemp = deliveryItems?.map {delivery ->
                     return@map mutableMapOf(
-                        "sent_quantity" to deliv.quantity_sent
+                        "sent_quantity" to delivery.quantity_sent
                     )
                 }
 
@@ -96,7 +99,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                             Locale.getDefault()
                         )
                     if (DeliveryStatus.values()[i].name.toLowerCase(Locale.getDefault()) == it.status) {
-                        idRadioGroupStatusDeliv = i
+                        idRadioGroupStatusDelivery = i
                     }
                 }
 
@@ -104,7 +107,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                     rbtn_packing.gone()
                 }
 
-                rg_add_delivery_status?.check(rg_add_delivery_status?.get(idRadioGroupStatusDeliv)?.id ?: 0)
+                rg_add_delivery_status?.check(rg_add_delivery_status?.get(idRadioGroupStatusDelivery)?.id ?: 0)
             }
         })
 
@@ -114,10 +117,12 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         }
 
         vmDelivery.getIsExecute().observe(viewLifecycleOwner, Observer {
-            if (it) {
-                logE("progress")
+            if (it && !progressBar.isShowing()) {
+                context?.let { c ->
+                    progressBar.show(c, getString(R.string.txt_please_wait))
+                }
             } else {
-                logE("done")
+                progressBar.dialog.dismiss()
             }
         })
 
@@ -171,15 +176,25 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
             dpd?.show()
         }
 
+        val mandatory = listOf<EditText>(
+            et_add_delivery_date,
+            et_add_delivery_sales_ref,
+            et_add_delivery_customer_name,
+            et_add_delivery_customer_address
+        )
+
         btn_confirmation_add_delivery.setOnClickListener {
-            actionUpdateDeliv()
+            if (!mandatory.validation()) {
+                return@setOnClickListener
+            }
+            actionUpdateDelivery()
         }
     }
 
-    private fun actionUpdateDeliv() {
+    private fun actionUpdateDelivery() {
         val rest =  validationFormUpdateDelivery()
-        if (rest["type"] as Boolean) {
-            context?.let { progressBar.show(it, "Silakan tunggu...") }
+        if (rest[KEY_VALIDATION_REST] as Boolean) {
+
             val deliItems = deliveryItems?.map {
                 return@map mutableMapOf(
                     "delivery_items_id" to it.id.toString(),
@@ -198,11 +213,10 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                 "products" to deliItems
             )
             vmDelivery.putEditDeliv(body, idDelivery) {
-                progressBar.dialog.dismiss()
                 this.dismiss()
             }
         }else{
-            alert.alert("sorry", context)
+            alert.alert(rest[KEY_MESSAGE] as String, context)
         }
     }
 
@@ -210,10 +224,10 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         var message = ""
         var cek = true
         if ((deliveryItems?.size ?: listOf<DeliveryItem>().size) < 1){
-            message += "- Product Item Tidak Boleh Kosong\n"
+            message += "- ${getString(R.string.txt_alert_item_sale)}\n"
             cek = false
         }
-        return mapOf("message" to message, "type" to cek)
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 
     private fun setUpUI(deliveryItems: List<DeliveryItem>?) {

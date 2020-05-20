@@ -2,27 +2,25 @@ package id.sisi.postoko.view.ui.sales
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.DatePickerDialog
-import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.view.get
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.model.*
-import id.sisi.postoko.network.NetworkResponse
-import id.sisi.postoko.utils.MySpinnerAdapter
-import id.sisi.postoko.utils.NumberSeparator
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
@@ -47,7 +45,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private var listWarehouse: List<Warehouse> = ArrayList()
     private lateinit var viewModel: AddSalesViewModel
     private val progressBar = CustomProgressBar()
-
+    private var alert = MyAlert()
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,16 +55,30 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
 
         supportActionBar?.title = null
         val bundle = intent.extras
-        sale = bundle?.getParcelable("sale")!!
-        saleItem = bundle.getParcelableArrayList("sale_items")
+        sale = bundle?.getParcelable(KEY_SALE)
+        saleItem = bundle?.getParcelableArrayList(KEY_SALE_ITEM)
 
         viewModel = ViewModelProvider(
             this
         ).get(AddSalesViewModel::class.java)
 
+        viewModel.getIsExecute().observe(this, Observer {
+            if (it) {
+                progressBar.show(this, getString(R.string.txt_please_wait))
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+
+        viewModel.getMessage().observe(this, Observer {
+            it?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.parse(sale?.date)
-        val strCurentDate = sdf.format(currentDate)
+        val strCurrentDate = sdf.format(currentDate)
         var idRadioGroupStatusSale = 0
         et_discount_edit_sale.addTextChangedListener(NumberSeparator(et_discount_edit_sale))
         et_shipping_edit_sale.addTextChangedListener(NumberSeparator(et_shipping_edit_sale))
@@ -82,9 +94,9 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         et_note_edit_sale.setText(sale?.note.toString())
         et_staff_note_edit_sale.setText(sale?.staff_note.toString())
 
-        et_date_edit_sale?.setText(strCurentDate.toDisplayDate())
-        et_date_edit_sale?.hint = strCurentDate.toDisplayDate()
-        et_date_edit_sale?.tag = strCurentDate
+        et_date_edit_sale?.setText(strCurrentDate.toDisplayDate())
+        et_date_edit_sale?.hint = strCurrentDate.toDisplayDate()
+        et_date_edit_sale?.tag = strCurrentDate
         et_date_edit_sale.setOnClickListener {
 
             val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -150,22 +162,13 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
 
         et_customer_edit_sale.setOnClickListener { _ ->
             val dialogFragment = FragmentSearchCustomer()
+            val ft = supportFragmentManager.beginTransaction()
             dialogFragment.listener = {
                 customer = it
                 idCustomer = it.id
                 et_customer_edit_sale.setText(it.company)
             }
-
-            val bundle = Bundle()
-            bundle.putBoolean("notAlertDialog", true)
-            dialogFragment.arguments = bundle
-            val ft = supportFragmentManager.beginTransaction()
-            val prev = supportFragmentManager.findFragmentByTag("dialog")
-            if (prev != null) {
-                ft.remove(prev)
-            }
-            ft.addToBackStack(null)
-            dialogFragment.show(ft, "dialog")
+            dialogFragment.show(ft, FragmentSearchCustomer().tag)
         }
 
         btn_add_product_edit_sale.setOnClickListener {
@@ -189,7 +192,14 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         rg_status_edit_sale?.check(rg_status_edit_sale?.get(idRadioGroupStatusSale)?.id ?: 0)
         saleItem?.let { setupRecycleView(it) }
 
+        val mandatory = listOf<EditText>(
+            et_date_edit_sale
+        )
+
         btn_confirmation_edit_sale.setOnClickListener {
+            if (!mandatory.validation()) {
+                return@setOnClickListener
+            }
             actionEditSale()
         }
     }
@@ -222,20 +232,17 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         val quantity = saleItem?.get(position)?.quantity?.minus(1.0)
         if (quantity != null) {
             if (quantity < 1) {
-                AlertDialog.Builder(this@EditSaleActivity)
-                    .setTitle("Konfirmasi")
-                    .setMessage("Apakah yakin ?")
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
-                        saleItem?.get(position)?.quantity = quantity
-                        saleItem?.removeAt(position)
-                        adapter.notifyDataSetChanged()
-                        sumTotal()
-                    }
-                    .setNegativeButton(android.R.string.cancel) { _, _ ->
-                        adapter.notifyDataSetChanged()
-                        sumTotal()
-                    }
-                    .show()
+                alert.confirmation(getString(R.string.txt_are_you_sure), this)
+                alert.listenerPositif = {
+                    saleItem?.get(position)?.quantity = quantity
+                    saleItem?.removeAt(position)
+                    adapter.notifyDataSetChanged()
+                    sumTotal()
+                }
+                alert.listenerNegatif = {
+                    adapter.notifyDataSetChanged()
+                    sumTotal()
+                }
             } else {
                 saleItem?.get(position)?.quantity = quantity
                 saleItem?.get(position)?.subtotal =
@@ -249,38 +256,16 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
 
     override fun onClickEdit(saleItem: SaleItem, position: Int) {
         val intent = Intent(this, EditProductSalesActivity::class.java)
-        intent.putExtra("sale_item", saleItem)
+        intent.putExtra(KEY_SALE_ITEM, saleItem)
         intent.putExtra("position", position)
         startActivityForResult(intent, 2)
     }
 
     override fun onBackPressed() {
-        AlertDialog.Builder(this@EditSaleActivity)
-            .setTitle("Konfirmasi")
-            .setMessage("Apakah yakin ?")
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                super.onBackPressed()
-            }
-            .setNegativeButton(android.R.string.cancel) { _, _ ->
-
-            }
-            .show()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            AlertDialog.Builder(this@EditSaleActivity)
-                .setTitle("Konfirmasi")
-                .setMessage("Apakah yakin ?")
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    super.onBackPressed()
-                }
-                .setNegativeButton(android.R.string.cancel) { _, _ ->
-
-                }
-                .show()
+        alert.confirmation(getString(R.string.txt_are_you_sure), this)
+        alert.listenerPositif = {
+            super.onBackPressed()
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setupRecycleView(it: List<SaleItem>) {
@@ -304,7 +289,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     }
 
     private fun setDataFromAddProduct(data: Intent) {
-        val product = data.getParcelableExtra<Product>("product_result") ?: return
+        val product = data.getParcelableExtra<Product>(KEY_SALE_ITEM) ?: return
         val si = SaleItem()
         si.product_id = product.id.toInt()
         si.product_code = product.code
@@ -322,12 +307,12 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         if (cek)
             saleItem!!.add(si)
         else
-            Toast.makeText(this, "Produk sama bro", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.txt_alert_duplcate_item), Toast.LENGTH_SHORT).show()
         setupRecycleView(saleItem!!)
     }
 
     private fun setDataFromUpdateProduct(data: Intent, position: Int) {
-        val si = data.getParcelableExtra<SaleItem>("new_sale_item")
+        val si = data.getParcelableExtra<SaleItem>(KEY_SALE_ITEM)
         saleItem?.let {
             saleItem?.get(position)?.quantity = si.quantity
             saleItem?.get(position)?.discount = si.discount
@@ -338,9 +323,8 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     }
 
     private fun actionEditSale() {
-        val numbersMap = validationFormAddSale()
-        if (numbersMap["type"] as Boolean) {
-            progressBar.show(this, "Silakan tunggu...")
+        val validation = validationFormAddSale()
+        if (validation["type"] as Boolean) {
             val saleItems = saleItem?.map {
                 return@map mutableMapOf(
                     "product_id" to it.product_id.toString(),
@@ -364,45 +348,28 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             sale?.id?.let { viewModel.setIdSalesBooking(it) }
             viewModel.postEditSale(body) {
                 progressBar.dialog.dismiss()
-                Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    val returnIntent = Intent()
-                    returnIntent.putExtra("sale_status", rg_status_edit_sale.tag.toString())
-                    setResult(Activity.RESULT_OK, returnIntent)
-                    finish()
-                }
+                val returnIntent = Intent()
+                returnIntent.putExtra("sale_status", rg_status_edit_sale.tag.toString())
+                setResult(Activity.RESULT_OK, returnIntent)
+                finish()
             }
         } else {
-            AlertDialog.Builder(this@EditSaleActivity)
-                .setTitle("Konfirmasi")
-                .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
+            alert.alert(validation[KEY_MESSAGE] as String, this)
         }
     }
 
     private fun validationFormAddSale(): Map<String, Any?> {
         var message = ""
         var cek = true
-        if (saleItem?.size!! < 1) {
-            message += "- Product Item Tidak Boleh Kosong\n"
+        if ((saleItem?.size ?: 0) < 1) {
+            message += "- ${getString(R.string.txt_alert_item_sale)}\n"
             cek = false
         }
         if (idCustomer == null) {
-            message += "- Customer Tidak Boleh Kosong\n"
+            message += "- ${getString(R.string.txt_alert_id_customer)}\n"
             cek = false
         }
 
-        if (rg_status_edit_sale?.tag?.toString() == "") {
-            message += "- Sale Status Tidak Boleh Kosong\n"
-            cek = false
-        }
-        if (et_date_edit_sale?.text?.toString() == "") {
-            message += "- Date Tidak Boleh Kosong"
-            cek = false
-        }
-
-        return mapOf("message" to message, "type" to cek)
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 }

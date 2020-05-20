@@ -60,7 +60,8 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
         ).get(SaleBookingViewModel::class.java)*/
 
         (activity as DetailSalesBookingActivity).vmSale.getDetailSale().observe(viewLifecycleOwner, Observer {
-            setUpSale(it)
+            if (it != null)
+                setUpSale(it)
         })
 
         (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
@@ -119,13 +120,14 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
     }
 
     fun refreshDataSale() {
+        logE("asds")
         (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
     }
 
     private fun setUpSale(it: Sales?) {
         sale = it
         listSaleItems = arrayListOf()
-        for (x in 0 until sale?.saleItems?.size!!){
+        for (x in 0 until (sale?.saleItems?.size ?: 0)){
             if (sale?.saleItems!![x].quantity!! > sale?.saleItems!![x].sent_quantity){
                 sale?.saleItems?.get(x)?.let { listSaleItems.add(it) }
             }

@@ -11,12 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemAddSaleAdapter
 import id.sisi.postoko.model.Product
+import id.sisi.postoko.utils.MyAlert
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.AddSaleFragment
 import id.sisi.postoko.utils.helper.createFragment
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import id.sisi.postoko.utils.helper.getTag
 import id.sisi.postoko.view.BaseActivity
+import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.product.ProductViewModel
 import id.sisi.postoko.view.ui.sales.AddSalesViewModel
 import kotlinx.android.synthetic.main.activity_add_sale.*
@@ -33,15 +35,15 @@ class AddSaleActivity : BaseActivity() {
     var employeeNote: String? = null
     var status: String? = null
     var discount: String? = null
-    var shipment_price: String? = null
-    var payment_term: String? = null
+    var shipmentPrice: String? = null
+    var paymentTerm: String? = null
     var date: String? = null
-
+    private val progressBar = CustomProgressBar()
     lateinit var adapter: ListItemAddSaleAdapter
     private lateinit var vmProduct: ProductViewModel
-    var listProdcut: List<Product> = arrayListOf()
+    var listProduct: List<Product> = arrayListOf()
     lateinit var vmAddSale: AddSalesViewModel
-
+    private var alert = MyAlert()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sale)
@@ -54,7 +56,7 @@ class AddSaleActivity : BaseActivity() {
         vmProduct = ViewModelProvider(this).get(ProductViewModel::class.java)
         vmProduct.getListProducts().observe(this, Observer {
             if (it != null) {
-                listProdcut=it
+                listProduct=it
             }
         })
 
@@ -63,9 +65,9 @@ class AddSaleActivity : BaseActivity() {
         ).get(AddSalesViewModel::class.java)
         vmAddSale.getIsExecute().observe(this, Observer {
             if (it) {
-                logE("progress")
+                progressBar.show(this, getString(R.string.txt_please_wait))
             } else {
-                logE("done")
+                progressBar.dialog.dismiss()
             }
         })
 
@@ -101,7 +103,7 @@ class AddSaleActivity : BaseActivity() {
 
     fun getTotal(): Double{
         var total = 0.0
-        listProdcut.forEach { product ->
+        listProduct.forEach { product ->
             if (product.isSelected)
                 total += (product.sale_qty * product.price)
         }
@@ -115,7 +117,7 @@ class AddSaleActivity : BaseActivity() {
 
     fun countItemSelected(): Int{
         var totalSelected = 0
-        listProdcut.forEach { product ->
+        listProduct.forEach { product ->
             if (product.isSelected)
                 totalSelected ++
         }
@@ -145,7 +147,12 @@ class AddSaleActivity : BaseActivity() {
         when(currentFragmentTag){
             PaymentAddSaleFragment.TAG -> switchFragment(findSaleFragmentByTag(AddItemAddSaleFragment.TAG))
             AddItemAddSaleFragment.TAG -> switchFragment(findSaleFragmentByTag(SelectCustomerFragment.TAG))
-            SelectCustomerFragment.TAG -> super.onBackPressed()
+            SelectCustomerFragment.TAG -> {
+                alert.confirmation(getString(R.string.txt_are_you_sure), this)
+                alert.listenerPositif ={
+                    super.onBackPressed()
+                }
+            }
         }
     }
 }

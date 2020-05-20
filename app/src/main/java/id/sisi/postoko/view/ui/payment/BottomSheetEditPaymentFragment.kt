@@ -2,43 +2,39 @@ package id.sisi.postoko.view.ui.payment
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Payment
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.network.NetworkResponse
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.NumberSeparator
-import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_payment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
-//    private val numberSparator id.sisi.postoko.utils.NumberSeparator()
+
     private var sales: Sales? = null
     private lateinit var payment: Payment
     private var mustPaid: Double = 0.0
     lateinit var viewModel: AddPaymentViewModel
     private val progressBar = CustomProgressBar()
     var listener: () -> Unit = {}
-
+    private var alert = MyAlert()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,8 +45,6 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        /*val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())*/
 
         et_add_payment_total.addTextChangedListener(NumberSeparator(et_add_payment_total))
         sales = arguments?.getParcelable("sale")
@@ -64,9 +58,25 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
             et_add_payment_date?.tag = it.date
             et_add_payment_total.setText(it.amount.toInt().toString())
             et_add_payment_note.setText(it.note)
-            mustPaid = mustPaid + it.amount
+            mustPaid += it.amount
         }
         viewModel = ViewModelProvider(this, AddPaymentFactory(idSalesBooking)).get(AddPaymentViewModel::class.java)
+
+        viewModel.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.getIsExecute().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if (it) {
+                context?.let {c ->
+                    progressBar.show(c, getString(R.string.txt_please_wait))
+                }
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
 
         et_add_payment_date.setOnClickListener {
 
@@ -111,38 +121,31 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
             this.dismiss()
         }
 
+        val mandatory = listOf<EditText>(et_add_payment_total)
+
         btn_confirmation_add_payment?.setOnClickListener {
+            if (!mandatory.validation()) {
+                return@setOnClickListener
+            }
             actionAddPayment()
         }
     }
 
     private fun actionAddPayment() {
-        logE("total : $mustPaid")
-        val numbersMap = validationFormAddPayment()
-        if (numbersMap["type"] as Boolean) {
-            context?.let { progressBar.show(it, "Silakan tunggu...") }
+        val validation = validationFormAddPayment()
+        if (validation[KEY_VALIDATION_REST]as Boolean) {
 
             val body = mutableMapOf(
                 "date" to (et_add_payment_date?.tag?.toString() ?: ""),
                 "amount_paid" to (et_add_payment_total?.tag?.toString() ?: "0"),
                 "note" to (et_add_payment_note?.text?.toString() ?: "")
             )
-            logE("nizamuddin $body")
             viewModel.putEditayment(body, payment.id) {
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    listener()
-                    this.dismiss()
-                }
-                Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
-                progressBar.dialog.dismiss()
+                listener()
+                this.dismiss()
             }
         }else{
-            AlertDialog.Builder(context)
-                .setTitle("Konfirmasi")
-                .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
+            alert.alert(validation[KEY_MESSAGE] as String, context)
         }
     }
 
@@ -150,43 +153,19 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
         var message = ""
         var cek = true
         if (et_add_payment_total.tag.toString().toDouble() > mustPaid){
-            message += "- Payment Melebihi\n"
+            message += "${getString(R.string.txt_overpayment)} $mustPaid \n"
             cek = false
         }
-
-        if (et_add_payment_total.text.toString() == ""){
-            message += "- Payment Tidak Boleh Kosong\n"
-            cek = false
-        }
-        return mapOf("message" to message, "type" to cek)
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog =  super.onCreateDialog(savedInstanceState)
         dialog.setOnShowListener { dialogInterface ->
             val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            setupFullHeight(bottomSheetDialog)
+            bottomSheetDialog.setupFullHeight(context as Activity)
         }
         return dialog
     }
 
-    private fun setupFullHeight(bottomSheetDialog: BottomSheetDialog) {
-        val bottomSheet =
-            bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
-        val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from<FrameLayout?>(bottomSheet!!)
-        val layoutParams = bottomSheet.layoutParams
-        val windowHeight = getWindowHeight()
-        if (layoutParams != null) {
-            layoutParams.height = windowHeight
-        }
-        bottomSheet.layoutParams = layoutParams
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    private fun getWindowHeight(): Int { // Calculate window height for fullscreen use
-        val displayMetrics = DisplayMetrics()
-        (context as Activity?)!!.windowManager.defaultDisplay
-            .getMetrics(displayMetrics)
-        return displayMetrics.heightPixels
-    }
 }

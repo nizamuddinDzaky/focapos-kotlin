@@ -108,12 +108,16 @@ class SelectCustomerFragment: Fragment() {
         }
 
         btn_action_submit.setOnClickListener {
-            if (TextUtils.isEmpty((activity as AddSaleActivity?)?.idCustomer)){
-                alert.alert(getString(R.string.txt_alert_id_customer), context)
-            }else if (TextUtils.isEmpty((activity as AddSaleActivity?)?.idWarehouse)){
-                alert.alert(getString(R.string.txt_alert_id_warehouse), context)
-            }else{
-                (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(AddItemAddSaleFragment.TAG))
+            when {
+                TextUtils.isEmpty((activity as AddSaleActivity?)?.idCustomer) -> {
+                    alert.alert(getString(R.string.txt_alert_id_customer), context)
+                }
+                TextUtils.isEmpty((activity as AddSaleActivity?)?.idWarehouse) -> {
+                    alert.alert(getString(R.string.txt_alert_id_warehouse), context)
+                }
+                else -> {
+                    (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(AddItemAddSaleFragment.TAG))
+                }
             }
         }
     }

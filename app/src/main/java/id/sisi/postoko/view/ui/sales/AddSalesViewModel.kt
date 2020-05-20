@@ -7,12 +7,10 @@ import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.BaseResponse
 import id.sisi.postoko.model.DataLogin
 import id.sisi.postoko.network.ApiServices
-import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.TXT_CONNECTION_FAILED
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 import id.sisi.postoko.utils.helper.json2obj
 
@@ -30,47 +28,50 @@ class AddSalesViewModel : ViewModel() {
                 message.postValue(TXT_CONNECTION_FAILED)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
-                logE("nizamuddin :"+response.toString())
                 if (response.isSuccessful) {
                     tryMe {
-                        listener()
                         message.postValue(response.body()?.message)
+                        listener()
                     }
-                    isExecute.postValue(true)
                 } else {
+                    isExecute.postValue(false)
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
                     message.postValue(errorResponse?.message)
+                    listener()
                 }
             }
         )
     }
 
-    fun postEditSale(body: Map<String, Any?>, listener: (Map<String, Any>) -> Unit) {
+    fun postEditSale(body: Map<String, Any?>, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_SALES_BOOKING to idSalesBooking.toString())
-//        logE("nizamuddin : $idSalesBooking")
         ApiServices.getInstance()?.putEditSales(headers, params, body)?.exe(
             onFailure = { _, _ ->
-                listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal"))
-                isExecute.postValue(true)
+                isExecute.postValue(false)
+                message.postValue(TXT_CONNECTION_FAILED)
             },
             onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
-                    listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.message()))
+                    tryMe {
+                        message.postValue(response.body()?.message)
+                        listener()
+                    }
                 } else {
-                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.message()))
-                    isExecute.postValue(true)
+                    isExecute.postValue(false)
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    message.postValue(errorResponse?.message)
+                    listener()
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-        isExecute.postValue(true)
         return isExecute
     }
 

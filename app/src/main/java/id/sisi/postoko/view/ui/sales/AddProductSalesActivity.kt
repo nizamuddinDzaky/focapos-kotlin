@@ -4,13 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListAddProductOnAddSalesAdapter
 import id.sisi.postoko.model.Product
+import id.sisi.postoko.utils.KEY_SALE_ITEM
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.ui.product.ProductViewModel
 import kotlinx.android.synthetic.main.activity_add_product_sales.*
@@ -35,18 +35,8 @@ class AddProductSalesActivity : BaseActivity() {
                 setupUI(it)
             }
         })
-        tv_search_product_add_sales.setOnClickListener {
-            tv_search_product_add_sales.visibility = View.GONE
-            sv_search_product_add_sales.visibility = View.VISIBLE
-            ll_search_product_add_sales.visibility = View.GONE
+        sv_search_product_add_sales.setOnClickListener {
             sv_search_product_add_sales?.onActionViewExpanded()
-        }
-
-        sv_search_product_add_sales.setOnCloseListener {
-            tv_search_product_add_sales.visibility = View.VISIBLE
-            sv_search_product_add_sales.visibility = View.GONE
-            ll_search_product_add_sales.visibility = View.VISIBLE
-            true
         }
 
         sv_search_product_add_sales.setOnQueryTextListener(object :
@@ -86,9 +76,8 @@ class AddProductSalesActivity : BaseActivity() {
         adapter = ListAddProductOnAddSalesAdapter()
         adapter.updateMasterData(it)
         adapter.listenerProductAdapter = {
-
             val returnIntent = Intent()
-            returnIntent.putExtra("product_result", it)
+            returnIntent.putExtra(KEY_SALE_ITEM, it)
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
         }

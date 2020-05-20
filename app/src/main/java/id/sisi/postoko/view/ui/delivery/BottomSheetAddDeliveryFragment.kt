@@ -2,23 +2,20 @@ package id.sisi.postoko.view.ui.delivery
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
@@ -26,13 +23,14 @@ import id.sisi.postoko.adapter.ListItemDeliveryAdapter
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_DATA_DELIVERY
-import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.KEY_MESSAGE
+import id.sisi.postoko.utils.KEY_VALIDATION_REST
+import id.sisi.postoko.utils.MyAlert
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
-import id.sisi.postoko.view.ui.MasterDetailViewModel
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,13 +40,14 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
 
     private val progressBar = CustomProgressBar()
     private lateinit var viewModel: AddDeliveryViewModel
-    private lateinit var viewModelCustomer: MasterDetailViewModel
     var listener: () -> Unit = {}
     private lateinit var adapter: ListItemDeliveryAdapter<SaleItem>
     private var customer: Customer? = null
     private var sale: Sales? = null
     private var listSaleItems  = ArrayList<SaleItem>()
     private var saleItemTemp: List<MutableMap<String, Double?>>? =  mutableListOf()
+    private var alert = MyAlert()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -88,10 +87,18 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             AddDeliveryFactory(sale?.id ?: 0)
         ).get(AddDeliveryViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
-            if (it) {
-                logE("progress")
+            if (it && !progressBar.isShowing()) {
+                context?.let { c ->
+                    progressBar.show(c, getString(R.string.txt_please_wait))
+                }
             } else {
-                logE("done")
+                progressBar.dialog.dismiss()
+            }
+        })
+
+        viewModel.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -155,7 +162,17 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         rv_list_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_data?.setHasFixedSize(false)
         rv_list_data?.adapter = adapter
+
+        val mandatory = listOf<EditText>(
+            et_add_delivery_date,
+            et_add_delivery_sales_ref,
+            et_add_delivery_customer_name,
+            et_add_delivery_customer_address
+        )
         btn_confirmation_add_delivery?.setOnClickListener {
+            if (!mandatory.validation()) {
+                return@setOnClickListener
+            }
             actionAddDelivery()
         }
 
@@ -187,15 +204,13 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        /*(activity as? ProfileActivity)?.refreshData(mViewModel.getIsSuccessUpdatee().value)*/
         (parentFragment as DeliveryFragment).refreshDataSale()
     }
 
     private fun actionAddDelivery() {
 
-        val numbersMap =  validationFormAddDelivery()
-        if (numbersMap["type"] as Boolean) {
-            context?.let { progressBar.show(it, "Silakan tunggu...") }
+        val validation =  validationFormAddDelivery()
+        if (validation[KEY_VALIDATION_REST] as Boolean) {
             val saleItems = listSaleItems.map {
                 return@map mutableMapOf(
                     "sale_items_id" to it.id.toString(),
@@ -215,20 +230,11 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 "note" to (et_add_delivery_note?.text?.toString() ?: "")
             )
             viewModel.postAddDelivery(body) {
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    listener()
-                    this.dismiss()
-                }
-                Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
-                progressBar.dialog.dismiss()
+                listener()
+                this.dismiss()
             }
         }else{
-            AlertDialog.Builder(context)
-                .setTitle("Konfirmasi")
-                .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
+            alert.alert(validation[KEY_MESSAGE] as String, context)
         }
     }
 
@@ -236,23 +242,17 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         var message = ""
         var cek = true
         if (listSaleItems.size < 1){
-            message += "- Product Item Tidak Boleh Kosong\n"
+            message += "- ${getString(R.string.txt_alert_item_sale)}\n"
             cek = false
         }
-        return mapOf("message" to message, "type" to cek)
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 
     override fun onClickPlus(qty: Double, position: Int) {
         val quantity = listSaleItems[position].quantity?.plus(1)
         if (quantity != null) {
-            logE("${saleItemTemp?.get(position)?.get("sent_quantity")}")
-            if (quantity > saleItemTemp?.get(position)?.get("sent_quantity")!!){
-                AlertDialog.Builder(context)
-                    .setTitle("Konfirmasi")
-                    .setMessage("Quantity Melebihi yang di Pesan")
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
-                    }
-                    .show()
+            if (quantity > (saleItemTemp?.get(position)?.get("sent_quantity") ?: 0.0)){
+                alert.alert(getString(R.string.txt_alert_out_of_qty), context)
             }else{
                 listSaleItems[position].quantity = quantity
                 adapter.notifyDataSetChanged()
@@ -264,18 +264,15 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         val quantity = listSaleItems[position].quantity?.minus(1.0)
         if (quantity != null) {
             if (quantity < 1){
-                AlertDialog.Builder(context)
-                    .setTitle("Konfirmasi")
-                    .setMessage("Apakah yakin ?")
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
-                        listSaleItems[position].quantity = quantity
-                        listSaleItems.removeAt(position)
-                        adapter.notifyDataSetChanged()
-                    }
-                    .setNegativeButton(android.R.string.cancel) { _, _ ->
-                        adapter.notifyDataSetChanged()
-                    }
-                    .show()
+                alert.confirmation(getString(R.string.txt_are_you_sure), context)
+                alert.listenerPositif = {
+                    listSaleItems[position].quantity = quantity
+                    listSaleItems.removeAt(position)
+                    adapter.notifyDataSetChanged()
+                }
+                alert.listenerNegatif = {
+                    adapter.notifyDataSetChanged()
+                }
             }else{
                 listSaleItems[position].quantity = quantity
                 listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
@@ -285,16 +282,13 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     }
 
     override fun onClickDelete(position: Int) {
-        AlertDialog.Builder(context)
-            .setTitle("Konfirmasi")
-            .setMessage("Apakah yakin ?")
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                listSaleItems.removeAt(position)
-                adapter.notifyDataSetChanged()
-            }
-            .setNegativeButton(android.R.string.cancel) { _, _ ->
-                adapter.notifyDataSetChanged()
-            }
-            .show()
+        alert.confirmation(getString(R.string.txt_are_you_sure), context)
+        alert.listenerPositif = {
+            listSaleItems.removeAt(position)
+            adapter.notifyDataSetChanged()
+        }
+        alert.listenerNegatif = {
+            adapter.notifyDataSetChanged()
+        }
     }
 }
