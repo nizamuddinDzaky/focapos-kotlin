@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/et_top_margin"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/et_top_margin"
+            android:layout_marginLeft="@dimen/et_top_margin"
+            android:src="@drawable/back_arrow_foreground"
+            android:contentDescription="@string/txt_image_avatar"/>
+
+        <TextView
+            android:id="@+id/tv_title_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/txt_return_delivery"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#676767"
+            android:fontFamily="@font/roboto_bold" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/bs_bottom_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawableLeft="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:focusable="false"
+                    android:importantForAutofill="no"
+                    android:inputType="date"
+                    tools:ignore="KeyboardInaccessibleWidget,LabelFor"
+                    tools:targetApi="lollipop" />
+
+            </LinearLayout>
+
+
+
+            <!--
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/et_top_margin">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Referensi Nomor Pengiriman"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/colorNotSelect"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/et_add_delivery_reference_no"
+                                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                                android:hint="SALE/2020/02/0001"
+                                android:drawablePadding="@dimen/et_top_margin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+            -->
+
+            <LinearLayout
+                android:id="@+id/layout_ref_do"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_delivery_reference_numbers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_reference_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/file"
+                    android:drawableLeft="@drawable/file"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/txt_hint_example_sales_number"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:targetApi="lollipop"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_sales_reference_numbers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_sales_ref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/file"
+                    android:drawableLeft="@drawable/file"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/txt_hint_example_sales_number"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:targetApi="lollipop"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_customer_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_customer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_warehouse"
+                    android:drawableLeft="@drawable/ic_warehouse"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusableInTouchMode="false"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="lollipop" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_customer_address"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_customer_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/mark_1"
+                    android:drawableLeft="@drawable/mark_1"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="none"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="lollipop" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/et_top_margin"
+                android:background="@color/colorNotSelect" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/et_top_margin"
+                    android:clipToPadding="false"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/list_item_add_delivery" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_attachment"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/square_dash"
+                    android:layout_marginBottom="@dimen/et_top_margin"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:ignore="UselessParent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="@dimen/et_top_margin"
+                            tools:ignore="UselessParent">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/text_blue"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="@string/txt_search_for"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="@string/txt_upload_file"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_note"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="text"
+                    android:maxLines="5"
+                    android:minLines="3"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:text="Tunai"
+                    tools:ignore="LabelFor"
+                    tools:targetApi="lollipop" />
+
+                <Button
+                    android:id="@+id/btn_confirmation"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height_bottom_sheet"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginLeft="@dimen/et_top_margin"
+                    android:layout_marginRight="@dimen/et_top_margin"
+                    android:background="@color/main_green"
+                    android:text="@string/txt_action_send_it"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

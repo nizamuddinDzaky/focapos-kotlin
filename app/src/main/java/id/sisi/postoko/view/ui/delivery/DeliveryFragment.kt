@@ -108,15 +108,24 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
 
     override fun onClickEdit(delivery: Delivery) {
         val bottomSheetFragment = BottomSheetEditDeliveryFragment()
+        bottomSheetFragment.listener = {
+            viewModel.getListDelivery()
+        }
         val bundle = Bundle()
         bundle.putString(KEY_ID_DELIVERY, delivery.id)
-        logE("deliv : $delivery")
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
-    override fun onClickDelete(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onClickReturn(delivery: Delivery) {
+        val bottomSheetFragment = BottomSheetReturnDeliveryFragment()
+        /*bottomSheetFragment.listener = {
+            viewModel.getListDelivery()
+        }*/
+        val bundle = Bundle()
+        bundle.putString(KEY_ID_DELIVERY, delivery.id)
+        bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     fun refreshDataSale() {
