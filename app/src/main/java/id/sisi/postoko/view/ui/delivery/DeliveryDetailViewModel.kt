@@ -10,7 +10,6 @@ import id.sisi.postoko.model.Delivery
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.exe
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 import id.sisi.postoko.utils.helper.json2obj
 
@@ -50,7 +49,7 @@ class DeliveryDetailViewModel : ViewModel() {
         ApiServices.getInstance()?.putEditDeliv(headers, params, body)?.exe(
             onFailure = { _, _ ->
                 message.postValue(TXT_CONNECTION_FAILED)
-                isExecute.postValue(true)
+                isExecute.postValue(false)
             },
             onResponse = { _, response ->
                 isExecute.postValue(false)
@@ -75,7 +74,7 @@ class DeliveryDetailViewModel : ViewModel() {
         ApiServices.getInstance()?.postReturnDeliv(headers, params, body)?.exe(
             onFailure = { _, _ ->
                 message.postValue(TXT_CONNECTION_FAILED)
-                isExecute.postValue(true)
+                isExecute.postValue(false)
             },
             onResponse = { _, response ->
                 isExecute.postValue(false)

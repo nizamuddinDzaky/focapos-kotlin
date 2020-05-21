@@ -31,7 +31,6 @@ class ProfileActivity : BaseActivity() {
 
 
         mViewModel.getIsExecute().observe(this, Observer {
-            logE("$it")
             swipeRefreshLayout?.isRefreshing = it
         })
 
