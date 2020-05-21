@@ -39,7 +39,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
     private var saleId = "0"
     private val progressBar = CustomProgressBar()
     private var deliveryItems: List<DeliveryItem>? = arrayListOf()
-
+    var listener: () -> Unit = {}
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -172,7 +172,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 "products" to delItems
             )
             vmDelivery.postReturnDeliv(body, idDelivery) {
-                /*listener()*/
+                listener()
                 this.dismiss()
             }
         }else{

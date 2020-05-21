@@ -119,9 +119,9 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
 
     override fun onClickReturn(delivery: Delivery) {
         val bottomSheetFragment = BottomSheetReturnDeliveryFragment()
-        /*bottomSheetFragment.listener = {
+        bottomSheetFragment.listener = {
             viewModel.getListDelivery()
-        }*/
+        }
         val bundle = Bundle()
         bundle.putString(KEY_ID_DELIVERY, delivery.id)
         bottomSheetFragment.arguments = bundle
