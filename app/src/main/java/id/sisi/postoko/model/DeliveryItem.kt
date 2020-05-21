@@ -1,6 +1,7 @@
 package id.sisi.postoko.model
 
 import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -29,4 +30,7 @@ data class DeliveryItem (
     var delivery_items_id: Int? = 0,
     var all_sent_qty: Double? = 0.0,
     var warehouse_id: Int? = 0
-) : Parcelable
+)  : Parcelable {
+    @IgnoredOnParcel
+    var tempDelivQty = this.quantity_sent
+}

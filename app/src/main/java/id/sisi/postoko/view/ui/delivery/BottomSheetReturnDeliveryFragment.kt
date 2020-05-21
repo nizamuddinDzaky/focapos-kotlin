@@ -4,15 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.RadioButton
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,94 +22,59 @@ import id.sisi.postoko.utils.KEY_ID_DELIVERY
 import id.sisi.postoko.utils.KEY_MESSAGE
 import id.sisi.postoko.utils.KEY_VALIDATION_REST
 import id.sisi.postoko.utils.MyAlert
-import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_return_delivery.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDeliveryAdapter.OnClickListenerInterface {
+class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDeliveryAdapter.OnClickListenerInterface {
 
+    private var alert = MyAlert()
     private lateinit var adapter: ListItemDeliveryAdapter<DeliveryItem>
     private lateinit var vmDelivery: DeliveryDetailViewModel
-    private var deliveryItems: List<DeliveryItem>? = arrayListOf()
-    private val alert = MyAlert()
     private var idDelivery = ""
-    var listener: () -> Unit = {}
+    private var saleId = "0"
     private val progressBar = CustomProgressBar()
+    private var deliveryItems: List<DeliveryItem>? = arrayListOf()
+    var listener: () -> Unit = {}
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_bottom_sheet_add_delivery, container, false)
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog =  super.onCreateDialog(savedInstanceState)
-        dialog.setOnShowListener { dialogInterface ->
-            val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            bottomSheetDialog.setupFullHeight(context as Activity)
-        }
-        return dialog
+        return inflater.inflate(R.layout.fragment_bottom_sheet_return_delivery, container, false)
     }
 
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tv_title_bottom_sheet.text = getString(R.string.txt_edit_delivery)
         vmDelivery = ViewModelProvider(this).get(DeliveryDetailViewModel::class.java)
-        var idRadioGroupStatusDelivery = 0
+
         vmDelivery.getDetailDelivery().observe(viewLifecycleOwner, Observer {delivery->
             delivery?.let { it ->
-                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                val currentDate = sdf.parse(it.date)
-                val strCurrentDate = sdf.format(currentDate)
-                et_add_delivery_date.setText(strCurrentDate.toDisplayDate())
-                et_add_delivery_date.hint = strCurrentDate.toDisplayDate()
-                et_add_delivery_date.tag = strCurrentDate
-                et_add_delivery_reference_no.setText(it.do_reference_no)
-                et_add_delivery_sales_ref.setText(it.sale_reference_no)
-                et_add_delivery_delivered_by.setText(it.delivered_by)
-                et_add_delivery_received_by.setText(it.received_by)
-                et_add_delivery_customer_name.setText(it.customer)
-                et_add_delivery_customer_name.setText(it.customer)
-                et_add_delivery_customer_address.setText(it.address)
+
+                et_reference_no.setText(it.do_reference_no)
+                et_sales_ref.setText(it.sale_reference_no)
+                et_customer_address.setText(it.address)
+                et_customer_name.setText(it.customer)
 
                 deliveryItems = it.deliveryItems
+                saleId = it.sale_id
 
                 deliveryItems?.forEach {delivery ->
                     delivery.tempDelivQty = delivery.quantity_sent
                 }
-
                 setUpUI(it.deliveryItems)
-
-                for (i in 0 until (rg_add_delivery_status?.childCount ?: 0)) {
-                    (rg_add_delivery_status?.get(i) as? RadioButton)?.tag =
-                        DeliveryStatus.values()[i].name.toLowerCase(
-                            Locale.getDefault()
-                        )
-                    if (DeliveryStatus.values()[i].name.toLowerCase(Locale.getDefault()) == it.status) {
-                        idRadioGroupStatusDelivery = i
-                    }
-                }
-
-                if (it.status.equals(DeliveryStatus.DELIVERING.toString(), true)){
-                    rbtn_packing.gone()
-                }
-
-                rg_add_delivery_status?.check(rg_add_delivery_status?.get(idRadioGroupStatusDelivery)?.id ?: 0)
             }
         })
-
-        rg_add_delivery_status?.setOnCheckedChangeListener { radioGroup, i ->
-            val radioButton = radioGroup.findViewById<RadioButton>(i)
-            rg_add_delivery_status?.tag = radioButton.tag
-        }
+        vmDelivery.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        })
 
         vmDelivery.getIsExecute().observe(viewLifecycleOwner, Observer {
             if (it && !progressBar.isShowing()) {
@@ -124,25 +86,23 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
             }
         })
 
-        vmDelivery.getMessage().observe(viewLifecycleOwner, Observer {
-            it?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-            }
-        })
-
         arguments?.getString(KEY_ID_DELIVERY)?.let {
             vmDelivery.requestDetailDelivery(it.toInt())
             idDelivery = it
         }
 
-        et_add_delivery_date.setOnClickListener {
-
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val currentDate = sdf.format(Date())
+        et_date?.setText(currentDate.toDisplayDate())
+        et_date?.hint = currentDate.toDisplayDate()
+        et_date?.tag = currentDate
+        et_date.setOnClickListener {
             val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
-            val date = if (et_add_delivery_date.tag == null){
+            val date = if (et_date.tag == null){
                 inputDateFormat.format(Date())
             }else{
-                et_add_delivery_date.tag.toString() + " 00:00:00"
+                et_date.tag.toString() + " 00:00:00"
             }
             val resultDate = inputDateFormat.parse(date)
             val calendar: Calendar = GregorianCalendar()
@@ -161,8 +121,8 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                             inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
                         parseDate?.let {
                             val selectedDate = inputDateFormat.format(parseDate)
-                            et_add_delivery_date.setText(selectedDate.toDisplayDate())
-                            et_add_delivery_date?.tag = selectedDate
+                            et_date.setText(selectedDate.toDisplayDate())
+                            et_date?.tag = selectedDate
 
                         }
                     },
@@ -175,42 +135,43 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         }
 
         val mandatory = listOf<EditText>(
-            et_add_delivery_date,
-            et_add_delivery_sales_ref,
-            et_add_delivery_customer_name,
-            et_add_delivery_customer_address
+            et_date,
+            et_sales_ref,
+            et_customer_name,
+            et_reference_no
         )
 
-        btn_confirmation_add_delivery.setOnClickListener {
+        btn_confirmation.setOnClickListener {
             if (!mandatory.validation()) {
                 return@setOnClickListener
             }
-            actionUpdateDelivery()
+            actionReturnDelivery()
         }
     }
 
-    private fun actionUpdateDelivery() {
-        val rest =  validationFormUpdateDelivery()
+    private fun actionReturnDelivery() {
+        val rest =  validationFormReturnDelivery()
         if (rest[KEY_VALIDATION_REST] as Boolean) {
 
-            val deliItems = deliveryItems?.map {
+            val delItems = deliveryItems?.map {
                 return@map mutableMapOf(
                     "delivery_items_id" to it.id.toString(),
-                    "sent_quantity" to it.quantity_sent.toString()
+                    "return_quantity" to it.quantity_sent.toString(),
+                    "delivered_quantity" to it.tempDelivQty.toString()
                 )
             }
 
             val body = mutableMapOf(
-                "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
-                "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
-                "address" to (et_add_delivery_customer_address?.text?.toString() ?: ""),
-                "status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
-                "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
-                "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
-                "note" to (et_add_delivery_note?.text?.toString() ?: ""),
-                "products" to deliItems
+                "date" to (et_date?.tag?.toString() ?: ""),
+                "customer" to (et_customer_name?.text?.toString() ?: ""),
+                "address" to (et_customer_address?.text?.toString() ?: ""),
+                "sale_id" to (saleId),
+                "sale_reference_no" to (et_sales_ref?.text?.toString() ?: ""),
+                "do_reference_no" to (et_reference_no?.text?.toString() ?: ""),
+                "note" to (et_note?.text?.toString() ?: ""),
+                "products" to delItems
             )
-            vmDelivery.putEditDeliv(body, idDelivery) {
+            vmDelivery.postReturnDeliv(body, idDelivery) {
                 listener()
                 this.dismiss()
             }
@@ -219,7 +180,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         }
     }
 
-    private fun validationFormUpdateDelivery(): Map<String, Any?> {
+    private fun validationFormReturnDelivery(): Map<String, Any?> {
         var message = ""
         var cek = true
         if ((deliveryItems?.size ?: listOf<DeliveryItem>().size) < 1){
@@ -236,6 +197,15 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         rv_list_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_data?.setHasFixedSize(false)
         rv_list_data?.adapter = adapter
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog =  super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            bottomSheetDialog.setupFullHeight(context as Activity)
+        }
+        return dialog
     }
 
     override fun onClickPlus(qty: Double, position: Int) {
@@ -265,12 +235,6 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
     }
 
     override fun onClickDelete(position: Int) {
-
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        (parentFragment as DeliveryFragment).refreshDataSale()
-    }
-
-
 }

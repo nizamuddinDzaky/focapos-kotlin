@@ -68,6 +68,31 @@ class DeliveryDetailViewModel : ViewModel() {
         )
     }
 
+    fun postReturnDeliv(body: MutableMap<String, Any?>, idDelivery: String, listener: () -> Unit) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_DELIVERY_BOOKING to idDelivery)
+        ApiServices.getInstance()?.postReturnDeliv(headers, params, body)?.exe(
+            onFailure = { _, _ ->
+                message.postValue(TXT_CONNECTION_FAILED)
+                isExecute.postValue(true)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    tryMe {
+                        message.postValue(response.body()?.message)
+                        listener()
+                    }
+                } else {
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    message.postValue(errorResponse?.message)
+                }
+            }
+        )
+    }
+
     internal fun getIsExecute(): LiveData<Boolean> {
         isExecute.postValue(true)
         return isExecute

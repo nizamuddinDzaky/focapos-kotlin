@@ -60,6 +60,13 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
+    @POST("api/v1/distributor/sales_booking/add_return_deliveries")
+    fun postReturnDeliv(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf(),
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
     @PUT("api/v1/distributor/sales_booking/edit_deliveries_booking")
     fun putEditDeliv(
         @HeaderMap headerMap: Map<String, String>,
@@ -288,9 +295,9 @@ interface ApiServices {
     companion object {
         private var retrofit: Retrofit? = null
 
-        private const val BASE_URL: String = "https://qp.forca.id/"
+//        private const val BASE_URL: String = "https://qp.forca.id/"
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-        //private const val BASE_URL: String = "http://10.15.4.102:9090/"
+        private const val BASE_URL: String = "http://10.15.4.102:9090/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {

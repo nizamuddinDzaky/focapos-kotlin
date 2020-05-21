@@ -70,7 +70,6 @@ class ListPengirimanAdapter(
                     listAction = mutableListOf(
                         {
                             listenerItem?.onClickDetail(delivery)
-                            /*listener(delivery)*/
                         },
                         {
                             listenerItem?.onClickEdit(delivery)
@@ -92,11 +91,7 @@ class ListPengirimanAdapter(
                             listenerItem?.onClickDetail(delivery)
                         },
                         {
-                            Toast.makeText(
-                                itemView.context,
-                                itemView.context.getString(R.string.txt_return_delivery),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            listenerItem?.onClickReturn(delivery)
                         }
                     )
                     listMenu = mutableListOf(
@@ -135,13 +130,12 @@ class ListPengirimanAdapter(
 
     fun updateData(newData: List<Delivery>?) {
         deliveries = newData
-        logE("data : $deliveries")
         notifyDataSetChanged()
     }
 
     interface OnClickListenerInterface {
         fun onClickDetail(delivery: Delivery)
         fun onClickEdit(delivery: Delivery)
-        fun onClickDelete(position: Int)
+        fun onClickReturn(delivery: Delivery)
     }
 }
