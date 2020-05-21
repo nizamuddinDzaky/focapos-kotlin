@@ -5,76 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorBackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.ui.sales.AddProductSalesActivity"
     tools:showIn="@layout/activity_add_product_sales">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:background="@android:color/white"
+        android:layout_marginBottom="@dimen/et_top_margin"
+        android:layout_marginTop="@dimen/et_top_margin"
+        app:cardCornerRadius="4dp">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:baselineAligned="false"
-            tools:ignore="UselessParent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_10">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:orientation="vertical"
-                tools:ignore="NestedWeights">
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/sv_search_product_add_sales"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#eee" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:ignore="UselessParent">
-
-                    <TextView
-                        android:id="@+id/tv_search_product_add_sales"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:background="@drawable/my_button_bg"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/margin_20"
-                        android:text="@string/txt_search_product"
-                        android:paddingStart="@dimen/margin_20"
-                        tools:ignore="RtlSymmetry" />
-
-                    <androidx.appcompat.widget.SearchView
-                        android:id="@+id/sv_search_product_add_sales"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:background="@drawable/my_button_bg"
-                        android:visibility="gone" />
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_search_product_add_sales"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/my_button_bg"
-                    android:src="@drawable/plus_icon_foreground"
-                    android:contentDescription="@string/txt_image_search_product" />
-            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list_product_add_sale"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        tools:listitem="@layout/list_item_product_add_sales"/>
 </LinearLayout>

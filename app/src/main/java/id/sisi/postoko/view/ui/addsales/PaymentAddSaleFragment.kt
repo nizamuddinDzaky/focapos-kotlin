@@ -19,7 +19,6 @@ import id.sisi.postoko.utils.KEY_SALE
 import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.visible
-import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.sales.SaleStatus
 import kotlinx.android.synthetic.main.dialog_fragment_free_text_add_sale.*
 import kotlinx.android.synthetic.main.payment_add_sale_fragment.*
@@ -44,7 +43,7 @@ class PaymentAddSaleFragment: Fragment() {
 
     private var saleNote: String? = null
     private var employeeNote: String? = null
-    private val progressBar = CustomProgressBar()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -100,9 +99,8 @@ class PaymentAddSaleFragment: Fragment() {
         }
 
         btn_action_submit.setOnClickListener {
-            context?.let { it1 -> progressBar.show(it1, "Silakan tunggu...") }
             val listSelected = ArrayList<Product>()
-            (activity as AddSaleActivity).listProdcut.forEach {
+            (activity as AddSaleActivity).listProduct.forEach {
                 if (it.isSelected)
                     listSelected.add(it)
             }
@@ -130,24 +128,11 @@ class PaymentAddSaleFragment: Fragment() {
 
             (activity as AddSaleActivity).vmAddSale.postAddSales(body){
                 val returnIntent = Intent()
-                progressBar.dialog.dismiss()
+
                 returnIntent.putExtra("sale_status", rg_status_add_sale.tag.toString())
                 (activity as AddSaleActivity).setResult(Activity.RESULT_OK, returnIntent)
                 (activity as AddSaleActivity).finish()
             }
-
-            progressBar.dialog.dismiss()
-
-            /*viewModel.postAddSales(body) {
-                progressBar.dialog.dismiss()
-
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    val returnIntent = Intent()
-                    returnIntent.putExtra("sale_status", rg_status_add_sale.tag.toString())
-                    setResult(Activity.RESULT_OK, returnIntent)
-                    finish()
-                }
-            }*/
         }
     }
 
@@ -158,13 +143,13 @@ class PaymentAddSaleFragment: Fragment() {
         }
 
         et_shipping_add_sale.addTextChangedListener(NumberSeparator(et_shipping_add_sale))
-        if (TextUtils.isEmpty((activity as AddSaleActivity).shipment_price)){
-            et_shipping_add_sale.setText((activity as AddSaleActivity).shipment_price)
+        if (TextUtils.isEmpty((activity as AddSaleActivity).shipmentPrice)){
+            et_shipping_add_sale.setText((activity as AddSaleActivity).shipmentPrice)
         }
 
         et_payment_term_add_sale.addTextChangedListener(NumberSeparator(et_payment_term_add_sale))
-        if (TextUtils.isEmpty((activity as AddSaleActivity).payment_term)){
-            et_payment_term_add_sale.setText((activity as AddSaleActivity).payment_term)
+        if (TextUtils.isEmpty((activity as AddSaleActivity).paymentTerm)){
+            et_payment_term_add_sale.setText((activity as AddSaleActivity).paymentTerm)
         }
 
         for (i in 0 until (rg_status_add_sale?.childCount ?: 0)) {

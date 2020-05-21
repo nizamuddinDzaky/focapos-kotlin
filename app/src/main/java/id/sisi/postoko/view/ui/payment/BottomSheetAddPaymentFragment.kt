@@ -2,29 +2,25 @@ package id.sisi.postoko.view.ui.payment
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.network.NetworkResponse
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.NumberSeparator
-
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_payment.*
 import java.text.SimpleDateFormat
@@ -32,13 +28,12 @@ import java.util.*
 
 class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     private val progressBar = CustomProgressBar()
-    /*private val numberSparator = id.sisi.postoko.utils.NumberSeparator()*/
     lateinit var viewModel: AddPaymentViewModel
     var listener: () -> Unit = {}
     private var sales: Sales? = null
     private var mustPaid: Double = 0.0
     private var isCheckedCash = false
-
+    private var alert = MyAlert()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,10 +67,19 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             AddPaymentFactory(idSalesBooking)
         ).get(AddPaymentViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            logE("progress : $it")
             if (it) {
-                logE("progress")
+                context?.let {c ->
+                    progressBar.show(c, getString(R.string.txt_please_wait))
+                }
             } else {
-                logE("done")
+                progressBar.dialog.dismiss()
+            }
+        })
+
+        viewModel.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -125,8 +129,11 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             dpd?.show()
         }
         et_add_payment_total.addTextChangedListener(NumberSeparator(et_add_payment_total))
-        /*et_add_payment_total.addTextChangedListener(numberSparator.onTextChangedListener(et_add_payment_total))*/
         btn_confirmation_add_payment?.setOnClickListener {
+            val mandatory = listOf<EditText>(et_add_payment_total)
+            if (!mandatory.validation()){
+                return@setOnClickListener
+            }
             actionAddPayment()
         }
 
@@ -144,30 +151,19 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     }
 
     private fun actionAddPayment() {
-        val numbersMap = validationFormAddPayment()
-        if (numbersMap["type"] as Boolean) {
-            context?.let { progressBar.show(it, "Silakan tunggu...") }
-
+        val validation = validationFormAddPayment()
+        if (validation[KEY_VALIDATION_REST] as Boolean) {
             val body = mutableMapOf(
                 "date" to (et_add_payment_date?.tag?.toString() ?: ""),
                 "amount_paid" to (et_add_payment_total?.tag?.toString() ?: "0"),
                 "note" to (et_add_payment_note?.text?.toString() ?: "")
             )
             viewModel.postAddPayment(body) {
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    listener()
-                    this.dismiss()
-                }
-                Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
-                progressBar.dialog.dismiss()
+                listener()
+                this.dismiss()
             }
         }else{
-            AlertDialog.Builder(context)
-                .setTitle("Konfirmasi")
-                .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
+            alert.alert(validation[KEY_MESSAGE] as String, context)
         }
     }
 
@@ -175,14 +171,9 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
         var message = ""
         var cek = true
         if (et_add_payment_total.tag.toString().toDouble() > mustPaid){
-            message += "- Payment Melebihi\n"
+            message += "${getString(R.string.txt_overpayment)} $mustPaid \n"
             cek = false
         }
-
-        if (et_add_payment_total.text.toString() == ""){
-            message += "- Payment Tidak Boleh Kosong\n"
-            cek = false
-        }
-        return mapOf("message" to message, "type" to cek)
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 }

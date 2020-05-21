@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Payment
 import id.sisi.postoko.utils.MyPopupMenu
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.toDisplayPaymentType
 import kotlinx.android.synthetic.main.list_item_pembayaran.view.*
+
 
 class ListPaymentAdapter(
     private var payments: List<Payment>? = listOf(),
@@ -56,10 +56,13 @@ class ListPaymentAdapter(
             }
             itemView.tv_attachment.setOnClickListener {
                 if (payment?.attachment == null){
-                    Toast.makeText(itemView.context, "Tidak Ada lampiran", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(itemView.context, itemView.context.getString(R.string.txt_no_attachment), Toast.LENGTH_SHORT).show()
                 }else{
                     listener(payment.attachment)
                 }
+            }
+            itemView.main_layout.setOnClickListener {
+                itemView.btn_menu_more?.performClick()
             }
         }
     }

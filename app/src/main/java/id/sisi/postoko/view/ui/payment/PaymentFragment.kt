@@ -47,8 +47,8 @@ class PaymentFragment : Fragment(){
         })
         viewModel.getListPayments().observe(viewLifecycleOwner, Observer {
             adapter.updateData(it)
-            totalPaid = sumTotalPaid(it)
             if (it?.size ?: 0 == 0) {
+                totalPaid = sumTotalPaid(it)
                 layout_status_progress?.visible()
                 rv_list_item_pembayaran?.gone()
                 val status = when(it?.size) {
@@ -66,7 +66,7 @@ class PaymentFragment : Fragment(){
 
     override fun onResume() {
         val sale = (activity as? DetailSalesBookingActivity)?.tempSale
-        if(sale?.paid!! >= sale.grand_total){
+        if((sale?.paid ?: 0.0) >= (sale?.grand_total ?: 0.0)){
             fb_add_transaction.gone()
         }else{
             fb_add_transaction.visible()
@@ -76,8 +76,8 @@ class PaymentFragment : Fragment(){
 
     private fun sumTotalPaid(it: List<Payment>?): Double {
         var paid = 0.0
-        for (x in 0 until it?.size!!){
-            paid += it[x].amount
+        for (x in 0 until (it?.size ?: 0)){
+            paid += it?.get(x)?.amount ?: 0.0
         }
         return paid
     }

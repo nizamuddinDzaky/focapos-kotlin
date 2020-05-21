@@ -10,7 +10,8 @@ import kotlinx.android.synthetic.main.dialog_alert_confirmation.*
 
 class MyAlert() {
 
-    var listener: () -> Unit = {}
+    var listenerPositif: () -> Unit = {}
+    var listenerNegatif: () -> Unit = {}
 
     fun alert(message: String, activity: Context?){
         val dialog = activity?.let { Dialog(it, R.style.MyCustomDialogFullScreen) }
@@ -32,11 +33,12 @@ class MyAlert() {
         dialog?.setContentView(R.layout.dialog_alert_confirmation)
         dialog?.tv_message?.text = Html.fromHtml(message)
         dialog?.tv_cancel?.setOnClickListener {
+            listenerNegatif()
             dialog.dismiss()
         }
 
         dialog?.tv_sure?.setOnClickListener {
-            listener()
+            listenerPositif()
             dialog.dismiss()
         }
         dialog?.show()

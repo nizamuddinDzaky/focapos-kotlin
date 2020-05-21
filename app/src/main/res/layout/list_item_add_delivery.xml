@@ -146,7 +146,7 @@
                 <TextView
                     android:id="@+id/tv_sale_item_qty"
                     android:layout_width="wrap_content"
-                    android:layout_height="24dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="@dimen/et_top_margin"
                     android:layout_marginLeft="@dimen/et_top_margin"
                     android:layout_marginEnd="@dimen/et_top_margin"
@@ -155,9 +155,10 @@
                     android:textColor="#666666"
                     android:textSize="15sp"
                     tools:text="200" />
+
                 <ImageView
                     android:id="@+id/iv_add_product_delivery"
-                    android:layout_width="20dp"
+                    android:layout_width="19dp"
                     android:layout_height="20dp"
                     android:contentDescription="@string/txt_image_plus"
                     android:src="@drawable/plus" />
