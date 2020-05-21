@@ -15,7 +15,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.User
-import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.daerah.DaerahViewModel
@@ -29,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_persona
 class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
     private lateinit var profileType: ProfileType
     private lateinit var mViewModel: ProfileViewModel
-    private lateinit var mViewModelDaerah: DaerahViewModel
+    private lateinit var mViewModelRegion: DaerahViewModel
     private var tempUser: User? = null
     private val progressBar = CustomProgressBar()
     private var provinceList: Array<String> = arrayOf()
@@ -75,6 +74,22 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         tempUser?.let { updateUI(it) }
+
+        mViewModel.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        mViewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            if (it && !progressBar.isShowing()) {
+                context?.let { c ->
+                    progressBar.show(c, getString(R.string.txt_please_wait))
+                }
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
 
         view.findViewById<ImageView>(R.id.btn_close)?.setOnClickListener {
             dismiss()
@@ -132,7 +147,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
                 et_profile_address?.setText(user.address)
                 et_profile_postal_code?.setText(user.companyData?.postal_code)
 
-                setUpSpinnerDaerah(user)
+                setUpSpinnerRegion(user)
 
             }
             ProfileType.COMPANY -> {
@@ -153,31 +168,31 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setUpSpinnerDaerah(user: User) {
-        mViewModelDaerah = ViewModelProvider(this).get(DaerahViewModel::class.java)
+    private fun setUpSpinnerRegion(user: User) {
+        mViewModelRegion = ViewModelProvider(this).get(DaerahViewModel::class.java)
 
-        mViewModelDaerah.getAllProvince().observe(requireActivity(), Observer {
-            it?.let {listDataDaerah ->
-                provinceList = listDataDaerah.map {dataDaerah ->
-                    return@map dataDaerah.province_name ?: ""
+        mViewModelRegion.getAllProvince().observe(requireActivity(), Observer {
+            it?.let {listDataRegion ->
+                provinceList = listDataRegion.map {dataRegion ->
+                    return@map dataRegion.province_name ?: ""
                 }.toTypedArray()
             }
             setUIProvince(user)
         })
 
-        mViewModelDaerah.getAllCity().observe(requireActivity(), Observer {
-            it?.let {listDataDaerah ->
-                cityList = listDataDaerah.map {dataDaerah ->
-                    return@map dataDaerah.kabupaten_name ?: ""
+        mViewModelRegion.getAllCity().observe(requireActivity(), Observer {
+            it?.let {listDataRegion ->
+                cityList = listDataRegion.map {dataRegion ->
+                    return@map dataRegion.kabupaten_name ?: ""
                 }.toTypedArray()
             }
             setUICity(user)
         })
 
-        mViewModelDaerah.getAllStates().observe(requireActivity(), Observer {
-            it?.let {listDataDaerah ->
-                villageList = listDataDaerah.map {dataDaerah ->
-                    return@map dataDaerah.kecamatan_name ?: ""
+        mViewModelRegion.getAllStates().observe(requireActivity(), Observer {
+            it?.let {listDataRegion ->
+                villageList = listDataRegion.map {dataRegion ->
+                    return@map dataRegion.kecamatan_name ?: ""
                 }.toTypedArray()
             }
             setUIStates(user)
@@ -186,7 +201,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         spinner_profile_province.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                mViewModelDaerah.getCity(provinceList[position])
+                mViewModelRegion.getCity(provinceList[position])
                 countrySelected = provinceList[position]
             }
         }
@@ -194,7 +209,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         spinner_profile_city.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                mViewModelDaerah.getStates(cityList[position])
+                mViewModelRegion.getStates(cityList[position])
                 citySelected = cityList[position]
             }
         }
@@ -206,7 +221,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
             }
         }
 
-        mViewModelDaerah.getProvince()
+        mViewModelRegion.getProvince()
     }
 
     private fun submitForm() {
@@ -215,7 +230,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
             MyToast.make(context).showErrorL(getString(R.string.txt_error_try_again_later))
             return
         }
-        context?.let { progressBar.show(it, "Silakan tunggu...") }
+
         when (profileType) {
             ProfileType.ADDRESS -> {
                 body = mutableMapOf(
@@ -257,18 +272,14 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
             }
         }
         mViewModel.putUserProfile(body, tempUser?.id?.toString()!!){
-            progressBar.dialog.dismiss()
-            Toast.makeText(context, "${it["message"]}", Toast.LENGTH_SHORT).show()
-            if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                (activity as? ProfileActivity)?.refreshData(true)
-                this.dismiss()
-            }
+            (activity as? ProfileActivity)?.refreshData(true)
+            this.dismiss()
         }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        (activity as? ProfileActivity)?.refreshData(mViewModel.getIsSuccessUpdatee().value)
+        (activity as? ProfileActivity)?.refreshData(mViewModel.getIsSuccessUpdate().value)
     }
 
     companion object {

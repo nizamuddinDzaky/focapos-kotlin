@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
@@ -43,6 +44,22 @@ class BottomSheetForgetPasswordFragment : BottomSheetDialogFragment() {
             typeface.typeFace("robot_font/Roboto-Italic.ttf",tv_helper_email,it)
         }
 
+        vmProfile.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        vmProfile.getIsExecute().observe(viewLifecycleOwner, Observer {
+            if (it && !progressBar.isShowing()) {
+                context?.let { c ->
+                    progressBar.show(c, getString(R.string.txt_please_wait))
+                }
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+
         btn_action_submit.setOnClickListener {
             actionForgetPassword()
         }
@@ -56,17 +73,12 @@ class BottomSheetForgetPasswordFragment : BottomSheetDialogFragment() {
         val email = et_email?.text
 
         if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && email?.length!! > 0 ){
-            context?.let { progressBar.show(it, "Silakan tunggu...") }
             val body: MutableMap<String, Any> = mutableMapOf(
                 "email" to (et_email?.text?.toString() ?: "")
             )
 
             vmProfile.postResetPassword(body){
-                progressBar.dialog.dismiss()
-                Toast.makeText(context, ""+it["message"], Toast.LENGTH_SHORT).show()
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    dismiss()
-                }
+                dismiss()
             }
         }
     }

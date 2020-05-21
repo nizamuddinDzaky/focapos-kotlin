@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -51,6 +52,22 @@ class BottomSheetChangePassword: BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mViewModel.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        mViewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            if (it && !progressBar.isShowing()) {
+                context?.let { c ->
+                    progressBar.show(c, getString(R.string.txt_please_wait))
+                }
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+
         view.findViewById<ImageView>(R.id.btn_close)?.setOnClickListener {
             dismiss()
         }
@@ -67,19 +84,14 @@ class BottomSheetChangePassword: BottomSheetDialogFragment() {
             MyToast.make(context).showErrorL(getString(R.string.txt_error_try_again_later))
             return
         }
-        context?.let { progressBar.show(it, "Silakan tunggu...") }
         val body = mutableMapOf(
             "old_password" to (et_current_password?.text?.toString() ?: ""),
             "new_password" to (et_new_password?.text?.toString() ?: ""),
             "new_password_confirm" to (et_confirm_new_password?.text?.toString() ?: "")
         )
         mViewModel.putChangePassword(body){
-            progressBar.dialog.dismiss()
-            Toast.makeText(context, "${it["message"]}", Toast.LENGTH_SHORT).show()
-            if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                (activity as? ProfileActivity)?.refreshData(true)
-                this.dismiss()
-            }
+            (activity as? ProfileActivity)?.refreshData(true)
+            this.dismiss()
         }
     }
 

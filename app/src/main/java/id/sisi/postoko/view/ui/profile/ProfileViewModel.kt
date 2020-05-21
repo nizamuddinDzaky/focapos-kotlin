@@ -4,39 +4,46 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
+import id.sisi.postoko.model.BaseResponse
+import id.sisi.postoko.model.DataLogin
 import id.sisi.postoko.model.User
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_USER
+import id.sisi.postoko.utils.TXT_CONNECTION_FAILED
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
+import id.sisi.postoko.utils.helper.json2obj
 
 class ProfileViewModel : ViewModel() {
     private val user = MutableLiveData<User?>()
     private var isExecute = MutableLiveData<Boolean>()
     private var isSuccessUpdate = MutableLiveData<Boolean>()
+    private var message = MutableLiveData<String?>()
 
 //    init {
 //        getUserProfile()
 //    }
 
-    fun postResetPassword(body: Map<String, Any?>, listener: (Map<String, Any?>) -> Unit) {
+    fun postResetPassword(body: Map<String, Any?>, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.postResetPassword(headers, body)?.exe(
             onFailure = { _, _ ->
-                listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal"))
-                isExecute.postValue(true)
+                message.postValue(TXT_CONNECTION_FAILED)
+                isExecute.postValue(false)
             },
             onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
-                    listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.body()?.message))
+                    message.postValue(response.body()?.message)
+                    listener()
                 } else {
-                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.body()?.message))
-                    isExecute.postValue(true)
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    message.postValue(errorResponse?.message)
                 }
             }
         )
@@ -65,17 +72,18 @@ class ProfileViewModel : ViewModel() {
         )
     }
 
-    fun putUserProfile(body: MutableMap<String, String>, idUser: String, listener: (Map<String, Any>) -> Unit) {
+    fun putUserProfile(body: MutableMap<String, String>, idUser: String, listener: () -> Unit) {
+        isExecute.postValue(true)
         if (body.isEmpty()) {
             logE("body is empty, force cancel call api.")
             return
         }
-        isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_USER to idUser)
         ApiServices.getInstance()?.putProfile(headers, params, body)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
+                message.postValue(TXT_CONNECTION_FAILED)
                 user.postValue(null)
             },
             onResponse = { _, response ->
@@ -86,17 +94,19 @@ class ProfileViewModel : ViewModel() {
                         newUser?.companyData = response.body()?.data?.company
                         user.postValue(newUser)
                         isSuccessUpdate.postValue(true)
-                        listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.message()))
+                        message.postValue(response.body()?.message)
+                        listener()
                     }
                 } else {
-                    isExecute.postValue(true)
-                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.message()))
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    message.postValue(errorResponse?.message)
                 }
             }
         )
     }
 
-    fun putChangePassword(body: MutableMap<String, String>, listener: (Map<String, Any?>) -> Unit) {
+    fun putChangePassword(body: MutableMap<String, String>, listener: () -> Unit) {
         if (body.isEmpty()) {
             logE("body is empty, force cancel call api.")
             return
@@ -107,7 +117,7 @@ class ProfileViewModel : ViewModel() {
             onFailure = { _, _ ->
                 isExecute.postValue(false)
                 user.postValue(null)
-                listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "Network error"))
+                listener()
             },
             onResponse = { _, response ->
                 isExecute.postValue(false)
@@ -117,25 +127,27 @@ class ProfileViewModel : ViewModel() {
                         newUser?.companyData = response.body()?.data?.company
                         user.postValue(newUser)
                         isSuccessUpdate.postValue(true)
-
-                        listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.body()?.message))
+                        message.postValue(TXT_CONNECTION_FAILED)
+                        listener()
                     }
                 } else {
-
-                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.body()?.message))
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    message.postValue(errorResponse?.message)
                 }
             }
         )
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {
-
         return isExecute
     }
 
-    internal fun getIsSuccessUpdatee() = isSuccessUpdate
+    internal fun getIsSuccessUpdate() = isSuccessUpdate
 
     internal fun getUser(): LiveData<User?> {
         return user
     }
+
+    internal fun getMessage() = message
 }
