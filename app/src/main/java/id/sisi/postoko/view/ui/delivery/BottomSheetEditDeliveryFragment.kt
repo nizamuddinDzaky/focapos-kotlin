@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,11 +25,8 @@ import id.sisi.postoko.model.DeliveryItem
 import id.sisi.postoko.utils.KEY_ID_DELIVERY
 import id.sisi.postoko.utils.KEY_MESSAGE
 import id.sisi.postoko.utils.KEY_VALIDATION_REST
-import id.sisi.postoko.utils.MyAlert
-import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.setupFullHeight
-import id.sisi.postoko.utils.extensions.toDisplayDate
-import id.sisi.postoko.utils.extensions.validation
+import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 import java.text.SimpleDateFormat
@@ -40,7 +38,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
     private lateinit var adapter: ListItemDeliveryAdapter<DeliveryItem>
     private lateinit var vmDelivery: DeliveryDetailViewModel
     private var deliveryItems: List<DeliveryItem>? = arrayListOf()
-    private val alert = MyAlert()
+    private val alert = MyDialog()
     private var idDelivery = ""
     var listener: () -> Unit = {}
     private val progressBar = CustomProgressBar()
@@ -82,6 +80,8 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                 et_add_delivery_customer_name.setText(it.customer)
                 et_add_delivery_customer_name.setText(it.customer)
                 et_add_delivery_customer_address.setText(it.address)
+
+                setUpNote(it.note)
 
                 deliveryItems = it.deliveryItems
 
@@ -191,6 +191,32 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         btn_close.setOnClickListener {
             this.dismiss()
         }
+
+        tv_add_note.setOnClickListener {
+            alert.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            alert.listenerPositifNote = {
+                setUpNote(it)
+            }
+        }
+
+        tv_edit_note.setOnClickListener {
+            alert.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            alert.listenerPositifNote = {
+                setUpNote(it)
+            }
+        }
+    }
+
+    private fun setUpNote(note: String) {
+        if (TextUtils.isEmpty(note)){
+            tv_add_note.visible()
+            tv_edit_note.gone()
+            tv_note.text = getString(R.string.txt_not_set_note)
+        }else{
+            tv_add_note.gone()
+            tv_edit_note.visible()
+            tv_note.text = note
+        }
     }
 
     private fun actionUpdateDelivery() {
@@ -211,7 +237,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                 "status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
                 "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
                 "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
-                "note" to (et_add_delivery_note?.text?.toString() ?: ""),
+                "note" to (tv_note.text.toString()),
                 "products" to deliItems
             )
             vmDelivery.putEditDeliv(body, idDelivery) {

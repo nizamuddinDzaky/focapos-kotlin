@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.MyAlert
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.toAlias
 import id.sisi.postoko.utils.extensions.toCurrencyID
@@ -24,7 +24,7 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
     }
     var listenerAdd: (Product) -> Unit = {}
     var listenerRemove: (Product) -> Unit = {}
-    private val alert = MyAlert()
+    private val alert = MyDialog()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -33,7 +33,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     private var sales: Sales? = null
     private var mustPaid: Double = 0.0
     private var isCheckedCash = false
-    private var alert = MyAlert()
+    private var alert = MyDialog()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

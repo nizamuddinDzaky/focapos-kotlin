@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
-import id.sisi.postoko.utils.MyAlert
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
@@ -31,7 +31,7 @@ class SelectCustomerFragment: Fragment() {
         return inflater.inflate(R.layout.select_customer_add_sale_fragment, container, false)
     }
 
-    private val alert = MyAlert()
+    private val alert = MyDialog()
 
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

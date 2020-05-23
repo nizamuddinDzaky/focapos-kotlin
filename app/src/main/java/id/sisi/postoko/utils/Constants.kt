@@ -36,6 +36,7 @@ const val KEY_ID_PRICE_GROUP = "id_price_group"
 const val KEY_ID_PAYMENT = "id_payments"
 const val KEY_ID_CUSTOMER_GROUP = "id_customer_group"
 const val TXT_CONNECTION_FAILED = "Gagal tersambung, cek koneksi."
+const val TXT_URL_NOT_FOUND = "Gagal tersambung, cek koneksi."
 const val KEY_VALIDATION_REST = "validation"
 const val KEY_MESSAGE = "message"
 const val ROLE_SUPER_ADMIN = 2

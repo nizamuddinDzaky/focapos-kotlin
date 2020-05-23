@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.payment
 
+import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,10 +8,7 @@ import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.BaseResponse
 import id.sisi.postoko.model.DataLogin
 import id.sisi.postoko.network.ApiServices
-import id.sisi.postoko.utils.KEY_FORCA_TOKEN
-import id.sisi.postoko.utils.KEY_ID_PAYMENT
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.TXT_CONNECTION_FAILED
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.helper.json2obj
 
@@ -35,8 +33,10 @@ class AddPaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
                 } else {
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
-                    message.postValue(errorResponse?.message)
-                    listener()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
@@ -61,8 +61,10 @@ class AddPaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
                 } else {
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
-                    message.postValue(errorResponse?.message)
-                    listener()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )

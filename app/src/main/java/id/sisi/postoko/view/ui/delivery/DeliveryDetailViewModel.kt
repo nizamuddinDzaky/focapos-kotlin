@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.delivery
 
+import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import id.sisi.postoko.model.Delivery
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.exe
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 import id.sisi.postoko.utils.helper.json2obj
 
@@ -61,7 +63,10 @@ class DeliveryDetailViewModel : ViewModel() {
                 } else {
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
-                    message.postValue(errorResponse?.message)
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
@@ -79,14 +84,19 @@ class DeliveryDetailViewModel : ViewModel() {
             onResponse = { _, response ->
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
+                    logE("qwe")
                     tryMe {
+                        logE("waw")
                         message.postValue(response.body()?.message)
                         listener()
                     }
                 } else {
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
-                    message.postValue(errorResponse?.message)
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )

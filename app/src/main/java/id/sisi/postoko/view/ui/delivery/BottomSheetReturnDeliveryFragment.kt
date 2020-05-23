@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +22,8 @@ import id.sisi.postoko.model.DeliveryItem
 import id.sisi.postoko.utils.KEY_ID_DELIVERY
 import id.sisi.postoko.utils.KEY_MESSAGE
 import id.sisi.postoko.utils.KEY_VALIDATION_REST
-import id.sisi.postoko.utils.MyAlert
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.setupFullHeight
-import id.sisi.postoko.utils.extensions.toDisplayDate
-import id.sisi.postoko.utils.extensions.validation
+import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_return_delivery.*
 import java.text.SimpleDateFormat
@@ -33,7 +31,7 @@ import java.util.*
 
 class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDeliveryAdapter.OnClickListenerInterface {
 
-    private var alert = MyAlert()
+    private var alert = MyDialog()
     private lateinit var adapter: ListItemDeliveryAdapter<DeliveryItem>
     private lateinit var vmDelivery: DeliveryDetailViewModel
     private var idDelivery = ""
@@ -61,6 +59,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 et_sales_ref.setText(it.sale_reference_no)
                 et_customer_address.setText(it.address)
                 et_customer_name.setText(it.customer)
+                setUpNote(it.note)
 
                 deliveryItems = it.deliveryItems
                 saleId = it.sale_id
@@ -151,6 +150,20 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
         btn_close.setOnClickListener {
             this.dismiss()
         }
+
+        tv_add_note.setOnClickListener {
+            alert.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            alert.listenerPositifNote = {
+                setUpNote(it)
+            }
+        }
+
+        tv_edit_note.setOnClickListener {
+            alert.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            alert.listenerPositifNote = {
+                setUpNote(it)
+            }
+        }
     }
 
     private fun actionReturnDelivery() {
@@ -172,7 +185,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 "sale_id" to (saleId),
                 "sale_reference_no" to (et_sales_ref?.text?.toString() ?: ""),
                 "do_reference_no" to (et_reference_no?.text?.toString() ?: ""),
-                "note" to (et_note?.text?.toString() ?: ""),
+                "note" to (tv_note?.text?.toString() ?: ""),
                 "products" to delItems
             )
             vmDelivery.postReturnDeliv(body, idDelivery) {
@@ -181,6 +194,18 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
             }
         }else{
             alert.alert(rest[KEY_MESSAGE] as String, context)
+        }
+    }
+
+    private fun setUpNote(note: String) {
+        if (TextUtils.isEmpty(note)){
+            tv_add_note.visible()
+            tv_edit_note.gone()
+            tv_note.text = getString(R.string.txt_not_set_note)
+        }else{
+            tv_add_note.gone()
+            tv_edit_note.visible()
+            tv_note.text = note
         }
     }
 

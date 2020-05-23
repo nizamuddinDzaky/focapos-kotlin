@@ -45,7 +45,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private var listWarehouse: List<Warehouse> = ArrayList()
     private lateinit var viewModel: AddSalesViewModel
     private val progressBar = CustomProgressBar()
-    private var alert = MyAlert()
+    private var alert = MyDialog()
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {

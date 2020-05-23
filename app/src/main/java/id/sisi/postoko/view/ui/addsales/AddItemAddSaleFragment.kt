@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.MyAlert
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
@@ -19,7 +19,7 @@ class AddItemAddSaleFragment: Fragment() {
 
     private var listProduct: List<Product> = arrayListOf()
     private var expanded: Boolean = true
-    private val alert = MyAlert()
+    private val alert = MyDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
