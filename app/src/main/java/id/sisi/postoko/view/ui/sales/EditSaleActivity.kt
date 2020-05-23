@@ -324,7 +324,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
 
     private fun actionEditSale() {
         val validation = validationFormAddSale()
-        if (validation["type"] as Boolean) {
+        if (validation[KEY_VALIDATION_REST] as Boolean) {
             val saleItems = saleItem?.map {
                 return@map mutableMapOf(
                     "product_id" to it.product_id.toString(),

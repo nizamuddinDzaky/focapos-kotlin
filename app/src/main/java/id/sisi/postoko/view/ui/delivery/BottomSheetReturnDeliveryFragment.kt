@@ -22,6 +22,7 @@ import id.sisi.postoko.utils.KEY_ID_DELIVERY
 import id.sisi.postoko.utils.KEY_MESSAGE
 import id.sisi.postoko.utils.KEY_VALIDATION_REST
 import id.sisi.postoko.utils.MyAlert
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.validation
@@ -63,7 +64,6 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
 
                 deliveryItems = it.deliveryItems
                 saleId = it.sale_id
-
                 deliveryItems?.forEach {delivery ->
                     delivery.tempDelivQty = delivery.quantity_sent
                 }
@@ -146,6 +146,10 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 return@setOnClickListener
             }
             actionReturnDelivery()
+        }
+
+        btn_close.setOnClickListener {
+            this.dismiss()
         }
     }
 

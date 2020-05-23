@@ -187,6 +187,10 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
             }
             actionUpdateDelivery()
         }
+
+        btn_close.setOnClickListener {
+            this.dismiss()
+        }
     }
 
     private fun actionUpdateDelivery() {
