@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.profile
 
+import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_USER
 import id.sisi.postoko.utils.TXT_CONNECTION_FAILED
+import id.sisi.postoko.utils.TXT_URL_NOT_FOUND
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
@@ -43,7 +45,10 @@ class ProfileViewModel : ViewModel() {
                 } else {
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
-                    message.postValue(errorResponse?.message)
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
@@ -100,7 +105,10 @@ class ProfileViewModel : ViewModel() {
                 } else {
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
-                    message.postValue(errorResponse?.message)
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
@@ -133,7 +141,10 @@ class ProfileViewModel : ViewModel() {
                 } else {
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
-                    message.postValue(errorResponse?.message)
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
