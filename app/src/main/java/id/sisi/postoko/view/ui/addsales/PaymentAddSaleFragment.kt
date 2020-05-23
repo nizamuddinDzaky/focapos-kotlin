@@ -16,6 +16,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.KEY_EMPLOYEE
 import id.sisi.postoko.utils.KEY_SALE
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.visible
@@ -187,7 +188,20 @@ class PaymentAddSaleFragment: Fragment() {
     }
 
     private fun showPopUpNote(title: String, saleNote: String, key: String) {
-        val dialog = context?.let { Dialog(it, R.style.MyCustomDialogFullScreen) }
+        val dialog = MyDialog()
+        dialog.note(title, saleNote, context)
+        dialog.listenerPositifNote = {
+            if (key == KEY_SALE){
+                this.saleNote = it
+                (activity as AddSaleActivity).saleNote = this.saleNote
+                setSaleNote()
+            }else if (key == KEY_EMPLOYEE){
+                this.employeeNote = it
+                (activity as AddSaleActivity).employeeNote = this.employeeNote
+                setEmployeeNote()
+            }
+        }
+        /*val dialog = context?.let { Dialog(it, R.style.MyCustomDialogFullScreen) }
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.setContentView(R.layout.dialog_fragment_free_text_add_sale)
         dialog?.tv_title_free_text?.text = title
@@ -205,9 +219,7 @@ class PaymentAddSaleFragment: Fragment() {
                 (activity as AddSaleActivity).employeeNote = this.employeeNote
                 setEmployeeNote()
             }
-            dialog.dismiss()
-        }
-        dialog?.show()
+            dialog.dismiss()*/
     }
 
     companion object {

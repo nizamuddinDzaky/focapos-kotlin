@@ -22,7 +22,7 @@ class DetailSalesBookingActivity : BaseActivity() {
     var idSalesBooking: Int = 0
     var tempSale: Sales? = null
     var tempCustomer: Customer? = null
-    private var alert = MyAlert()
+    private var alert = MyDialog()
     lateinit var vmSale: SaleBookingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemAddSaleAdapter
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.MyAlert
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.utils.helper.AddSaleFragment
 import id.sisi.postoko.utils.helper.createFragment
@@ -43,7 +43,7 @@ class AddSaleActivity : BaseActivity() {
     private lateinit var vmProduct: ProductViewModel
     var listProduct: List<Product> = arrayListOf()
     lateinit var vmAddSale: AddSalesViewModel
-    private var alert = MyAlert()
+    private var alert = MyDialog()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sale)

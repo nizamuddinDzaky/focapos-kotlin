@@ -26,10 +26,8 @@ import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_DATA_DELIVERY
 import id.sisi.postoko.utils.KEY_MESSAGE
 import id.sisi.postoko.utils.KEY_VALIDATION_REST
-import id.sisi.postoko.utils.MyAlert
-import id.sisi.postoko.utils.extensions.setupFullHeight
-import id.sisi.postoko.utils.extensions.toDisplayDate
-import id.sisi.postoko.utils.extensions.validation
+import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
 import java.text.SimpleDateFormat
@@ -46,7 +44,8 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     private var sale: Sales? = null
     private var listSaleItems  = ArrayList<SaleItem>()
     private var saleItemTemp: List<MutableMap<String, Double?>>? =  mutableListOf()
-    private var alert = MyAlert()
+    private var alert = MyDialog()
+    private var deliveryNote: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -191,6 +190,27 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         btn_close.setOnClickListener {
             this.dismiss()
         }
+
+        tv_add_note.setOnClickListener {
+            val dialog = MyDialog()
+            dialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            dialog.listenerPositifNote = {
+                tv_add_note.gone()
+                tv_edit_note.visible()
+                tv_note.text = it
+            }
+        }
+
+        tv_edit_note.setOnClickListener {
+            val dialog = MyDialog()
+            dialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            dialog.listenerPositifNote = {
+                tv_add_note.gone()
+                tv_edit_note.visible()
+                tv_note.text = it
+            }
+        }
+        /*deliveryNote*/
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -227,7 +247,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
                 "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
                 "products" to saleItems,
-                "note" to (et_add_delivery_note?.text?.toString() ?: "")
+                "note" to (tv_note.text.toString())
             )
             viewModel.postAddDelivery(body) {
                 listener()

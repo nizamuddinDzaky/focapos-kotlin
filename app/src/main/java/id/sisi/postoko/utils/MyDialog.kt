@@ -7,10 +7,14 @@ import android.view.Window
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.gone
 import kotlinx.android.synthetic.main.dialog_alert_confirmation.*
+import kotlinx.android.synthetic.main.dialog_alert_confirmation.tv_cancel
+import kotlinx.android.synthetic.main.dialog_alert_confirmation.tv_sure
+import kotlinx.android.synthetic.main.dialog_fragment_free_text_add_sale.*
 
-class MyAlert() {
+class MyDialog {
 
     var listenerPositif: () -> Unit = {}
+    var listenerPositifNote: (String) -> Unit = {}
     var listenerNegatif: () -> Unit = {}
 
     fun alert(message: String, activity: Context?){
@@ -39,6 +43,24 @@ class MyAlert() {
 
         dialog?.tv_sure?.setOnClickListener {
             listenerPositif()
+            dialog.dismiss()
+        }
+        dialog?.show()
+    }
+
+    fun note(title: String, note: String, activity: Context?){
+        val dialog = activity?.let { Dialog(it, R.style.MyCustomDialogFullScreen) }
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.setContentView(R.layout.dialog_fragment_free_text_add_sale)
+        dialog?.tv_title_free_text?.text = title
+        dialog?.ta_notes?.setText(note)
+        dialog?.tv_cancel?.setOnClickListener {
+            listenerNegatif()
+            dialog.dismiss()
+        }
+
+        dialog?.tv_sure?.setOnClickListener {
+            listenerPositifNote(dialog.ta_notes.text.toString())
             dialog.dismiss()
         }
         dialog?.show()

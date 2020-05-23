@@ -34,7 +34,7 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
     lateinit var viewModel: AddPaymentViewModel
     private val progressBar = CustomProgressBar()
     var listener: () -> Unit = {}
-    private var alert = MyAlert()
+    private var alert = MyDialog()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

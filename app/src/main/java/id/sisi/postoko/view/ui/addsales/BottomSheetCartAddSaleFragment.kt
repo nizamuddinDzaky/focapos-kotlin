@@ -14,7 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListCartAddSaleAdapter
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.MyAlert
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import kotlinx.android.synthetic.main.fragment_bottom_cart_add_sale.*
@@ -24,7 +24,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
     private lateinit var adapterCart: ListCartAddSaleAdapter
     private var listProduct: List<Product> = arrayListOf()
     var listener: () -> Unit = {}
-    private val alert = MyAlert()
+    private val alert = MyDialog()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog =  super.onCreateDialog(savedInstanceState)
