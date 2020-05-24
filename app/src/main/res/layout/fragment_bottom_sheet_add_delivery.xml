@@ -375,13 +375,18 @@
                     android:visibility="gone"
                     tools:visibility="visible"/>
 
+                <ImageView
+                    android:id="@+id/iv_file"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="@dimen/et_top_margin"/>
+
                 <LinearLayout
+                    android:id="@+id/layout_upload_file"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:background="@drawable/square_dash"
-                    android:layout_marginBottom="@dimen/et_top_margin"
-                    android:visibility="gone"
-                    tools:visibility="visible">
+                    android:layout_marginBottom="@dimen/et_top_margin">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

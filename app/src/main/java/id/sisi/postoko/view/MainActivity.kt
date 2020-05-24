@@ -121,6 +121,10 @@ class MainActivity : AppCompatActivity() {
                 prefs.passwordLogin = if (isRememberMe) password else ""
             }
         }
+        tv_sign_up.setOnClickListener {
+            val bottomSheetFragment = BottomSheetPercobaanUpload()
+            bottomSheetFragment.show(supportFragmentManager, BottomSheetPercobaanUpload().tag)
+        }
     }
 
     private fun successLogin(token: String, user: User?) {
