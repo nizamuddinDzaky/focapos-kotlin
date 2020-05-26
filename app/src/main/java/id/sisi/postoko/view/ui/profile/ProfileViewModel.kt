@@ -9,7 +9,6 @@ import id.sisi.postoko.model.BaseResponse
 import id.sisi.postoko.model.DataLogin
 import id.sisi.postoko.model.User
 import id.sisi.postoko.network.ApiServices
-import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_USER
 import id.sisi.postoko.utils.TXT_CONNECTION_FAILED

@@ -3,10 +3,7 @@ package id.sisi.postoko.network
 import android.annotation.SuppressLint
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.*
-import okhttp3.CipherSuite
-import okhttp3.ConnectionSpec
-import okhttp3.OkHttpClient
-import okhttp3.TlsVersion
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
@@ -292,10 +289,17 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataCustomerSelected>>
 
+    @POST("nizam")
+    fun postUploadFile(
+        @Part imagename: MultipartBody.Part
+    ): Call<BaseResponse<DataLogin>>
+
     companion object {
         private var retrofit: Retrofit? = null
 
-        private const val BASE_URL: String = "https://qp.forca.id/"
+//        private const val BASE_URL: String = "https://qp.forca.id/"
+        private const val BASE_URL: String = "http://192.168.1.68"
+
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
 //        private const val BASE_URL: String = "http://10.15.4.102:9090/"
 

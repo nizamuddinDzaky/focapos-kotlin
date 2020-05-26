@@ -5,7 +5,11 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,13 +27,12 @@ import id.sisi.postoko.adapter.ListItemDeliveryAdapter
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.KEY_DATA_DELIVERY
-import id.sisi.postoko.utils.KEY_MESSAGE
-import id.sisi.postoko.utils.KEY_VALIDATION_REST
-import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
+import okhttp3.MultipartBody
+import retrofit2.http.Multipart
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,7 +48,6 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     private var listSaleItems  = ArrayList<SaleItem>()
     private var saleItemTemp: List<MutableMap<String, Double?>>? =  mutableListOf()
     private var alert = MyDialog()
-    private var deliveryNote: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -210,7 +212,28 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 tv_note.text = it
             }
         }
+
+        layout_upload_file.setOnClickListener {
+            val i = Intent(
+                Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+
+            startActivityForResult(i, RC_UPLOAD_IMAGE)
+        }
         /*deliveryNote*/
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode==RC_UPLOAD_IMAGE && resultCode == Activity.RESULT_OK){
+            try {
+                iv_file.setImageURI(data?.data)
+                val mBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, data?.data)
+                iv_file.setImageBitmap(mBitmap.resizeBitmap(200))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -225,6 +248,15 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         (parentFragment as DeliveryFragment).refreshDataSale()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        /*MultipartBody.Part.createFormData()*/
     }
 
     private fun actionAddDelivery() {

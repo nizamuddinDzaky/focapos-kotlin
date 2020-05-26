@@ -1,9 +1,12 @@
 package id.sisi.postoko.utils.extensions
 
+import android.R.attr
+import android.R.attr.maxHeight
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Paint
 import android.util.DisplayMetrics
 import android.view.View
@@ -15,6 +18,7 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.sisi.postoko.R
+
 
 fun List<EditText>.validation(): Boolean {
     var result = true
@@ -86,4 +90,10 @@ fun String.copyText(activity: FragmentActivity?){
     val clip = ClipData.newPlainText("label", this)
     myClipboard.setPrimaryClip(clip)
     Toast.makeText(activity, "Copied $this", Toast.LENGTH_SHORT).show()
+}
+
+fun Bitmap.resizeBitmap(maxHeight: Int): Bitmap{
+    val ratio: Double = this.getHeight() / maxHeight.toDouble()
+    val width = (this.getWidth() / ratio).toInt()
+    return Bitmap.createScaledBitmap(this, width, maxHeight, false)
 }
