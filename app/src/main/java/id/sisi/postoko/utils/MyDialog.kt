@@ -26,6 +26,7 @@ class MyDialog {
         dialog?.tv_cancel?.gone()
         dialog?.tv_sure?.text = strOke
         dialog?.tv_sure?.setOnClickListener {
+            listenerPositif()
             dialog.dismiss()
         }
         dialog?.show()

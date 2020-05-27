@@ -337,4 +337,5 @@
     <string name="txt_alert_sale_has_delivery">Telah Dilakukan Delivery</string>
     <string name="txt_alert_duplcate_item">Item Telah Dipilih</string>
     <string name="txt_delivery_note">Catatan Pengiriman</string>
+    <string name="txt_delivered_date">Tanggal Penerimaan</string>
 </resources>

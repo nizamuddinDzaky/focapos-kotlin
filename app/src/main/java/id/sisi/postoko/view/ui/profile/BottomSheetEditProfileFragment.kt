@@ -109,7 +109,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
             R.layout.support_simple_spinner_dropdown_item,
             provinceList
         )
-
+        logE("${user.country}")
         spinner_profile_province.setSelection(provinceList.indexOf(user.country))
     }
 
@@ -234,7 +234,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
         when (profileType) {
             ProfileType.ADDRESS -> {
                 body = mutableMapOf(
-                    "province" to (citySelected ?: ""),
+                    "province" to (countrySelected ?: ""),
                     "city" to (citySelected ?: ""),
                     "state" to (stateSelected ?: ""),
                     "address" to (et_profile_address?.text?.toString() ?: ""),

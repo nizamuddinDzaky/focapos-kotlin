@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListCartAddSaleAdapter
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import kotlinx.android.synthetic.main.fragment_bottom_cart_add_sale.*
@@ -76,26 +78,6 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
                 adapterCart.insertData(product)
             }
         }
-
-    }
-
-    override fun onClickPlus(product: Product?) {
-        val index = listProduct.indexOf(product)
-        listProduct[index].sale_qty = listProduct[index].sale_qty.plus(1)
-        setUpTotal()
-        adapterCart.notifyDataSetChanged()
-    }
-
-    override fun onClickMinus(product: Product?) {
-        val index = listProduct.indexOf(product)
-        val quantity = listProduct[index].sale_qty.minus(1)
-        if (quantity > 0){
-            listProduct[index].sale_qty = listProduct[index].sale_qty.minus(1)
-            adapterCart.notifyDataSetChanged()
-        }else{
-            removeItemCart(product)
-        }
-        setUpTotal()
     }
 
     override fun onClickDelete(product: Product?) {
@@ -111,6 +93,17 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
         )
     }
 
+    override fun onChange(product: Product?, qty: String) {
+        val index = listProduct.indexOf(product)
+        if (!TextUtils.isEmpty(qty)){
+            if ((qty.toInt()) > 0){
+                listProduct[index].sale_qty = qty.toInt()
+            }else{
+                removeItemCart(listProduct[index])
+            }
+        }
+    }
+
     private fun removeItemCart(product: Product?) {
         alert.confirmation(getString(R.string.txt_notif_remove_cart),context)
         alert.listenerPositif={
@@ -118,6 +111,9 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
             product?.isSelected = false
             product?.let { prod -> adapterCart.removeData(prod) }
             setUpTotal()
+        }
+        alert.listenerNegatif={
+            adapterCart.notifyDataSetChanged()
         }
     }
 

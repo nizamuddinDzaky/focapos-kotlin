@@ -5,6 +5,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Paint
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.EditText
@@ -86,4 +88,16 @@ fun String.copyText(activity: FragmentActivity?){
     val clip = ClipData.newPlainText("label", this)
     myClipboard.setPrimaryClip(clip)
     Toast.makeText(activity, "Copied $this", Toast.LENGTH_SHORT).show()
+}
+
+fun EditText.onChange(listener: () ->Unit): (() -> Unit)? {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable) {
+            return listener()
+        }
+        override fun beforeTextChanged(s: CharSequence,start: Int,count: Int,after: Int) {}
+
+        override fun onTextChanged(s: CharSequence,start: Int,before: Int,count: Int) {}
+    })
+    return null
 }

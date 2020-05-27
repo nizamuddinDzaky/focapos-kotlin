@@ -104,16 +104,16 @@
 
                             <TextView
                                 android:id="@+id/et_qty_produk_add_sale"
-                                android:layout_width="16dp"
+                                android:layout_width="13dp"
                                 android:layout_height="20dp"
                                 android:layout_marginStart="@dimen/et_top_margin"
                                 android:layout_marginLeft="@dimen/et_top_margin"
                                 android:layout_marginEnd="@dimen/et_top_margin"
                                 android:layout_marginRight="@dimen/et_top_margin"
+                                android:fontFamily="@font/roboto_bold"
                                 android:gravity="center_horizontal"
                                 android:textColor="#666666"
                                 android:textSize="15sp"
-                                android:fontFamily="@font/roboto_bold"
                                 tools:text="200" />
                             <ImageView
                                 android:id="@+id/iv_add_product_add_sale"

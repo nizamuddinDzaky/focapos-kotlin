@@ -129,6 +129,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             dpd?.show()
         }
         et_add_payment_total.addTextChangedListener(NumberSeparator(et_add_payment_total))
+        et_add_payment_total.setText(mustPaid.toInt().toString())
         btn_confirmation_add_payment?.setOnClickListener {
             val mandatory = listOf<EditText>(et_add_payment_total)
             if (!mandatory.validation()){

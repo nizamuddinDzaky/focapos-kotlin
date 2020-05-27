@@ -237,7 +237,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
         return dialog
     }
 
-    override fun onClickPlus(qty: Double, position: Int) {
+    /*override fun onClickPlus(qty: Double, position: Int) {
         val deliveryItem = deliveryItems?.get(position)
 
         val unsentQty = deliveryItem?.quantity_ordered?.minus(deliveryItem.all_sent_qty ?: 0.0) ?: 0.0
@@ -261,9 +261,28 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
             deliveryItem?.quantity_sent = newQty
             adapter.notifyDataSetChanged()
         }
-    }
+    }*/
 
     override fun onClickDelete(position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onChange(position: Int, qty: String): Boolean {
+        val ret = false
+        if (!TextUtils.isEmpty(qty)){
+            val deliveryItem = deliveryItems?.get(position)
+            val unsentQty = deliveryItem?.quantity_ordered?.minus(deliveryItem.all_sent_qty ?: 0.0) ?: 0.0
+            val maxQty = unsentQty.plus(deliveryItem?.tempDelivQty ?: 0.0 )
+            val minQty = 1.0
+            val newQty = qty.toDouble()
+            if (newQty > maxQty){
+                alert.alert(getString(R.string.txt_alert_out_of_qty), context)
+            }else if (newQty < minQty){
+                alert.alert(getString(R.string.txt_alert_must_more_than_one), context)
+            }else{
+                deliveryItem?.quantity_sent = newQty
+            }
+        }
+        return ret
     }
 }
