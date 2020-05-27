@@ -95,20 +95,19 @@
                                 android:contentDescription="@string/txt_image_minus"
                                 android:src="@drawable/minus" />
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/et_sale_item_qty"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="20dp"
                                 android:layout_marginStart="@dimen/et_top_margin"
                                 android:layout_marginLeft="@dimen/et_top_margin"
                                 android:layout_marginEnd="@dimen/et_top_margin"
                                 android:layout_marginRight="@dimen/et_top_margin"
+                                android:background="@drawable/bottom_line"
+                                android:fontFamily="@font/roboto_regular"
                                 android:gravity="center_horizontal"
-                                android:importantForAutofill="no"
-                                android:inputType="numberSigned"
                                 android:textColor="#666666"
                                 android:textSize="12sp"
-                                tools:ignore="LabelFor"
                                 tools:text="200" />
 
                             <!--<TextView

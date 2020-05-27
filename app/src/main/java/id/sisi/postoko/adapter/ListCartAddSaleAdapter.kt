@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.onChange
 import id.sisi.postoko.utils.extensions.toAlias
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import kotlinx.android.synthetic.main.list_cart_add_sale.view.*
@@ -37,22 +35,21 @@ class ListCartAddSaleAdapter(
             product: Product?,
             listenerProduct: OnClickListenerInterface?
         ) {
-            itemView.et_sale_item_qty.onChange {
-                listenerProduct?.onChange(product, itemView.et_sale_item_qty.text.toString())
-            }
 
-            itemView.et_sale_item_qty.setText(product?.sale_qty.toString())
+
+            itemView.et_sale_item_qty.setOnClickListener {
+                listenerProduct?.onChange(product)
+            }
+            itemView.et_sale_item_qty.text = product?.sale_qty.toString()
             itemView.tv_product_name.text = product?.name
             itemView.tv_product_price.text = product?.price?.toCurrencyID()
             itemView.tv_alias_product.text = product?.name.toAlias()
 
             itemView.iv_minus.setOnClickListener {
-                val qty = itemView.et_sale_item_qty.text.toString().toInt().minus(1)
-                itemView.et_sale_item_qty.setText(qty.toString())
+                listenerProduct?.onClickMinus(product)
             }
             itemView.iv_plus.setOnClickListener {
-                val qty = itemView.et_sale_item_qty.text.toString().toInt().plus(1)
-                itemView.et_sale_item_qty.setText(qty.toString())
+                listenerProduct?.onClickPlus(product)
             }
             itemView.iv_delete.setOnClickListener {
                 listenerProduct?.onClickDelete(product)
@@ -83,10 +80,10 @@ class ListCartAddSaleAdapter(
     }
 
     interface OnClickListenerInterface {
-        /*fun onClickPlus(product: Product?)*/
-        /*fun onClickMinus(product: Product?)*/
+        fun onClickPlus(product: Product?)
+        fun onClickMinus(product: Product?)
         fun onClickDelete(product: Product?)
         fun onClickEdit(product: Product?)
-        fun onChange(product: Product?, qty: String)
+        fun onChange(product: Product?)
     }
 }

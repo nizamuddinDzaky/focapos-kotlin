@@ -16,7 +16,6 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListCartAddSaleAdapter
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import kotlinx.android.synthetic.main.fragment_bottom_cart_add_sale.*
@@ -26,7 +25,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
     private lateinit var adapterCart: ListCartAddSaleAdapter
     private var listProduct: List<Product> = arrayListOf()
     var listener: () -> Unit = {}
-    private val alert = MyDialog()
+    private val myDialog = MyDialog()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog =  super.onCreateDialog(savedInstanceState)
@@ -80,6 +79,25 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
         }
     }
 
+    override fun onClickPlus(product: Product?) {
+        val index = listProduct.indexOf(product)
+        listProduct[index].sale_qty = listProduct[index].sale_qty.plus(1)
+        setUpTotal()
+        adapterCart.notifyDataSetChanged()
+    }
+
+    override fun onClickMinus(product: Product?) {
+        val index = listProduct.indexOf(product)
+        val quantity = listProduct[index].sale_qty.minus(1)
+        if (quantity > 0){
+            listProduct[index].sale_qty = quantity
+            adapterCart.notifyDataSetChanged()
+        }else{
+            removeItemCart(product)
+        }
+        setUpTotal()
+    }
+
     override fun onClickDelete(product: Product?) {
         removeItemCart(product)
     }
@@ -93,26 +111,28 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
         )
     }
 
-    override fun onChange(product: Product?, qty: String) {
-        val index = listProduct.indexOf(product)
-        if (!TextUtils.isEmpty(qty)){
-            if ((qty.toInt()) > 0){
-                listProduct[index].sale_qty = qty.toInt()
+    override fun onChange(product: Product?) {
+        myDialog.qty(product?.name ?: "",getString(R.string.txt_sale_quantity), product?.sale_qty ?: 0, context)
+        myDialog.listenerPositifNote={ qty ->
+            val index = listProduct.indexOf(product)
+            if (TextUtils.isEmpty(qty)){
+                myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
             }else{
-                removeItemCart(listProduct[index])
+                listProduct[index].sale_qty = qty.toInt()
+                adapterCart.notifyDataSetChanged()
             }
         }
     }
 
     private fun removeItemCart(product: Product?) {
-        alert.confirmation(getString(R.string.txt_notif_remove_cart),context)
-        alert.listenerPositif={
+        myDialog.confirmation(getString(R.string.txt_notif_remove_cart),context)
+        myDialog.listenerPositif={
             product?.sale_qty = 0
             product?.isSelected = false
             product?.let { prod -> adapterCart.removeData(prod) }
             setUpTotal()
         }
-        alert.listenerNegatif={
+        myDialog.listenerNegatif={
             adapterCart.notifyDataSetChanged()
         }
     }

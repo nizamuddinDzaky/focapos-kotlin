@@ -43,7 +43,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     private var sale: Sales? = null
     private var listSaleItems  = ArrayList<SaleItem>()
     private var saleItemTemp: List<MutableMap<String, Double?>>? =  mutableListOf()
-    private var alert = MyDialog()
+    private var myDialog = MyDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -235,9 +235,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                     "sent_quantity" to it.quantity.toString()
                 )
             }
-            logE("items : $saleItems")
-
-            /*val body = mutableMapOf(
+            val body = mutableMapOf(
                 "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
                 "sale_reference_no" to (et_add_delivery_sales_ref?.text?.toString() ?: ""),
                 "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
@@ -251,9 +249,9 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             viewModel.postAddDelivery(body) {
                 listener()
                 this.dismiss()
-            }*/
+            }
         }else{
-            alert.alert(validation[KEY_MESSAGE] as String, context)
+            myDialog.alert(validation[KEY_MESSAGE] as String, context)
         }
     }
 
@@ -267,29 +265,29 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 
-   /* override fun onClickPlus(qty: Double, position: Int) {
+    override fun onClickPlus(qty: Double, position: Int) {
         val quantity = listSaleItems[position].quantity?.plus(1)
         if (quantity != null) {
             if (quantity > (saleItemTemp?.get(position)?.get("sent_quantity") ?: 0.0)){
-                alert.alert(getString(R.string.txt_alert_out_of_qty), context)
+                myDialog.alert(getString(R.string.txt_alert_out_of_qty), context)
             }else{
                 listSaleItems[position].quantity = quantity
                 adapter.notifyDataSetChanged()
             }
         }
-    }*/
+    }
 
-    /*override fun onClickMinus(qty: Double, position: Int) {
+    override fun onClickMinus(qty: Double, position: Int) {
         val quantity = listSaleItems[position].quantity?.minus(1.0)
         if (quantity != null) {
             if (quantity < 1){
-                alert.confirmation(getString(R.string.txt_are_you_sure), context)
-                alert.listenerPositif = {
+                myDialog.confirmation(getString(R.string.txt_are_you_sure), context)
+                myDialog.listenerPositif = {
                     listSaleItems[position].quantity = quantity
                     listSaleItems.removeAt(position)
                     adapter.notifyDataSetChanged()
                 }
-                alert.listenerNegatif = {
+                myDialog.listenerNegatif = {
                     adapter.notifyDataSetChanged()
                 }
             }else{
@@ -298,40 +296,48 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 adapter.notifyDataSetChanged()
             }
         }
-    }*/
+    }
 
     override fun onClickDelete(position: Int) {
-        alert.confirmation(getString(R.string.txt_are_you_sure), context)
-        alert.listenerPositif = {
+        myDialog.confirmation(getString(R.string.txt_are_you_sure), context)
+        myDialog.listenerPositif = {
             listSaleItems.removeAt(position)
             adapter.notifyDataSetChanged()
         }
-        alert.listenerNegatif = {
+        myDialog.listenerNegatif = {
             adapter.notifyDataSetChanged()
         }
     }
 
-    override fun onChange(position: Int, qty: String): Boolean {
-        var ret = false
-        if (!TextUtils.isEmpty(qty)){
-            if ((qty.toDouble()) > (saleItemTemp?.get(position)?.get("sent_quantity") ?: 0.0)){
-                alert.alert(getString(R.string.txt_alert_out_of_qty), context)
-            }else if ((qty.toDouble()) < 1){
-                alert.confirmation(getString(R.string.txt_are_you_sure), context)
-                alert.listenerPositif = {
-                    listSaleItems[position].quantity = qty.toDouble()
-                    listSaleItems.removeAt(position)
-                    adapter.notifyDataSetChanged()
+    override fun onChange(position: Int) {
+        myDialog.qty(
+            listSaleItems[position].product_name ?: "",
+            getString(R.string.txt_delivery_total_qty),
+            listSaleItems[position].quantity?.toInt() ?: 0,
+            context,
+            listSaleItems[position].product_unit_code ?: "")
+
+        myDialog.listenerPositifNote={ qty ->
+            val newQty = qty.toDouble()
+            if (TextUtils.isEmpty(qty)){
+                myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
+            }else{
+                when {
+                    (newQty) > (saleItemTemp?.get(position)?.get("sent_quantity") ?: 0.0) -> {
+                        val alert = MyDialog()
+                        alert.alert(getString(R.string.txt_alert_out_of_qty), context)
+                    }
+                    newQty < 1 -> {
+                        val alert = MyDialog()
+                        alert.alert(getString(R.string.txt_alert_must_more_than_one), context)
+                    }
+                    else -> {
+                        listSaleItems[position].quantity = newQty
+                        adapter.notifyDataSetChanged()
+                    }
                 }
-                alert.listenerNegatif = {
-                    ret = true
-                }
-            }
-            else{
-                listSaleItems[position].quantity = (qty.toDouble())
             }
         }
-        return ret
     }
 }
 

@@ -31,7 +31,7 @@ class SelectCustomerFragment: Fragment() {
         return inflater.inflate(R.layout.select_customer_add_sale_fragment, container, false)
     }
 
-    private val alert = MyDialog()
+    private val myDialog = MyDialog()
 
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,17 +108,17 @@ class SelectCustomerFragment: Fragment() {
         }
 
         btn_action_submit.setOnClickListener {
-            when {
+            /*when {
                 TextUtils.isEmpty((activity as AddSaleActivity?)?.idCustomer) -> {
                     alert.alert(getString(R.string.txt_alert_id_customer), context)
                 }
                 TextUtils.isEmpty((activity as AddSaleActivity?)?.idWarehouse) -> {
                     alert.alert(getString(R.string.txt_alert_id_warehouse), context)
                 }
-                else -> {
+                else -> {*/
                     (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(AddItemAddSaleFragment.TAG))
-                }
-            }
+                /*}
+            }*/
         }
     }
 
