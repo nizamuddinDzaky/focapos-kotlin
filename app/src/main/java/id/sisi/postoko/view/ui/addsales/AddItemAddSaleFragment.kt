@@ -19,7 +19,7 @@ class AddItemAddSaleFragment: Fragment() {
 
     private var listProduct: List<Product> = arrayListOf()
     private var expanded: Boolean = true
-    private val alert = MyDialog()
+    private val myDialog = MyDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,7 +117,7 @@ class AddItemAddSaleFragment: Fragment() {
             if (((activity as AddSaleActivity?)?.countItemSelected() ?: 0) > 0)
                 (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(PaymentAddSaleFragment.TAG))
             else
-                alert.alert(getString(R.string.txt_alert_id_warehouse), context)
+                myDialog.alert(getString(R.string.txt_alert_id_warehouse), context)
         }
     }
     private fun startSearchData(query: String) {

@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -70,6 +71,22 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
                 sp_price_group_warehouse?.setIfExist(idWarehouse)
             }
         })
+
+        sp_price_group_warehouse.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                idWarehouse = if ((position-1) >= 0){
+                    listWarehouse[position-1].id
+                }else{
+                    null
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+        }
 
         et_price_group_name.setText(priceGroup?.name)
 

@@ -90,7 +90,7 @@ class HomeActivity : BaseActivity() {
         appUpdater.start()
 
         val firebaseToken = FirebaseInstanceId.getInstance().getToken()
-        Toast.makeText(this, "FCM Registration Token: $firebaseToken", Toast.LENGTH_LONG).show()
+        logE("FCM Registration Token: $firebaseToken")
     }
 
     override fun onResume() {

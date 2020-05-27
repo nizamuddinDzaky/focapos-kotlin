@@ -18,12 +18,12 @@
             android:padding="@dimen/et_top_margin">
 
             <RelativeLayout
-                android:layout_width="74dp"
+                android:layout_width="62dp"
                 android:layout_height="74dp">
                 <View
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:layout_margin="@dimen/margin_6"
+                    android:layout_marginTop="@dimen/margin_6"
                     android:background="@drawable/bg_avatar_customer_pg" />
                 <TextView
                     android:id="@+id/tv_alias_product"
@@ -104,16 +104,17 @@
 
                             <TextView
                                 android:id="@+id/et_qty_produk_add_sale"
-                                android:layout_width="16dp"
-                                android:layout_height="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/et_top_margin"
                                 android:layout_marginLeft="@dimen/et_top_margin"
                                 android:layout_marginEnd="@dimen/et_top_margin"
                                 android:layout_marginRight="@dimen/et_top_margin"
+                                android:background="@drawable/bottom_line"
+                                android:fontFamily="@font/roboto_regular"
                                 android:gravity="center_horizontal"
                                 android:textColor="#666666"
                                 android:textSize="15sp"
-                                android:fontFamily="@font/roboto_bold"
                                 tools:text="200" />
                             <ImageView
                                 android:id="@+id/iv_add_product_add_sale"
@@ -144,7 +145,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginLeft="@dimen/et_top_margin"
                 android:layout_marginRight="@dimen/et_top_margin">
 
                 <TextView

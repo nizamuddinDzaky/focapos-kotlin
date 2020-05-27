@@ -49,7 +49,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:paddingBottom="@dimen/standard_margin"
+
                     android:paddingTop="@dimen/et_top_margin"
                     tools:ignore="RtlSymmetry">
                     <TextView
@@ -64,7 +64,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:layout_marginTop="@dimen/et_top_margin"
                         android:baselineAligned="false">
@@ -82,7 +82,7 @@
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="horizontal"
                             android:gravity="center"
                             android:layout_weight="1">
@@ -96,9 +96,24 @@
                                 android:src="@drawable/minus" />
 
                             <TextView
+                                android:id="@+id/et_sale_item_qty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="@dimen/et_top_margin"
+                                android:layout_marginLeft="@dimen/et_top_margin"
+                                android:layout_marginEnd="@dimen/et_top_margin"
+                                android:layout_marginRight="@dimen/et_top_margin"
+                                android:background="@drawable/bottom_line"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="center_horizontal"
+                                android:textColor="#666666"
+                                android:textSize="12sp"
+                                tools:text="200" />
+
+                            <!--<TextView
                                 android:id="@+id/tv_sale_item_qty"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/et_top_margin"
                                 android:layout_marginLeft="@dimen/et_top_margin"
                                 android:layout_marginEnd="@dimen/et_top_margin"
@@ -108,7 +123,7 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="#666666"
                                 android:textSize="15sp"
-                                tools:text="200" />
+                                tools:text="200" />-->
 
                             <ImageView
                                 android:id="@+id/iv_plus"

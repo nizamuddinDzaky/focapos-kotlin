@@ -33,7 +33,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     private var sales: Sales? = null
     private var mustPaid: Double = 0.0
     private var isCheckedCash = false
-    private var alert = MyDialog()
+    private var myDialog = MyDialog()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -129,6 +129,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             dpd?.show()
         }
         et_add_payment_total.addTextChangedListener(NumberSeparator(et_add_payment_total))
+        et_add_payment_total.setText(mustPaid.toInt().toString())
         btn_confirmation_add_payment?.setOnClickListener {
             val mandatory = listOf<EditText>(et_add_payment_total)
             if (!mandatory.validation()){
@@ -163,7 +164,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
                 this.dismiss()
             }
         }else{
-            alert.alert(validation[KEY_MESSAGE] as String, context)
+            myDialog.alert(validation[KEY_MESSAGE] as String, context)
         }
     }
 

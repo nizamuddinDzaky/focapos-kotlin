@@ -3,6 +3,7 @@ package id.sisi.postoko.view.ui.delivery
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductDetailDeliveryAdapter
 import id.sisi.postoko.utils.KEY_ID_DELIVERY
-import id.sisi.postoko.utils.extensions.toDisplayDate
-import id.sisi.postoko.utils.extensions.toDisplayStatus
-import id.sisi.postoko.utils.extensions.toDisplayStatusColor
+import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.fragment_detail_delivery.*
 
 
@@ -47,10 +46,18 @@ class BottomSheetDetailDeliveryFragment : BottomSheetDialogFragment() {
         viewModel.getDetailDelivery().observe(viewLifecycleOwner, Observer {
             adapter.updateSalesData(it?.deliveryItems)
             tv_title_bottom_sheet.text = it?.do_reference_no
-            tv_date.text = it?.updated_at?.toDisplayDate()
+            tv_date.text = it?.date?.toDisplayDate()
             tv_sale_no.text = it?.sale_reference_no
             tv_customer.text = it?.customer
-            tv_date_delivery.text = it?.date?.toDisplayDate()
+
+            if(TextUtils.isEmpty(it?.delivering_date)){
+                layout_delivering_date.gone()
+            }
+            if(TextUtils.isEmpty(it?.delivered_date)){
+                layout_delivered_date.gone()
+            }
+
+            tv_date_delivery.text = it?.delivering_date?.toDisplayDate()
             tv_date_delivered.text = it?.delivered_date?.toDisplayDate()
             tv_status.text = it?.status?.toDisplayStatus()?.let { it1 -> getText(it1) }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
