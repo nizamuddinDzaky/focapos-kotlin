@@ -20,6 +20,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
         tools:targetApi="n">
+        <activity android:name=".view.UploadFileActivity"></activity>
         <activity
             android:name=".view.ui.addsales.AddSaleActivity"
             android:label="@string/title_activity_add_sale"

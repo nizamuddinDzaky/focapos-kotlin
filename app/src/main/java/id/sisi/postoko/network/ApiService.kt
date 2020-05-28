@@ -1,6 +1,7 @@
 package id.sisi.postoko.network
 
 import android.annotation.SuppressLint
+import com.google.gson.GsonBuilder
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.*
 import okhttp3.*
@@ -289,16 +290,16 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataCustomerSelected>>
 
-    @POST("nizam")
+    @Multipart
+    @POST("ImageUploadApi/Api.php?apicall=upload")
     fun postUploadFile(
         @Part imagename: MultipartBody.Part
-    ): Call<BaseResponse<DataLogin>>
-
+    ): Call<MyResponse>
     companion object {
         private var retrofit: Retrofit? = null
 
 //        private const val BASE_URL: String = "https://qp.forca.id/"
-        private const val BASE_URL: String = "http://192.168.1.68"
+        private const val BASE_URL: String = "http://192.168.1.69/"
 
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
 //        private const val BASE_URL: String = "http://10.15.4.102:9090/"
@@ -375,4 +376,5 @@ interface ApiServices {
             .client(getUnsafeOkHttpClient())
             .build()
     }
+
 }

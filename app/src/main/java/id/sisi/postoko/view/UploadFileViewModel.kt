@@ -10,6 +10,7 @@ import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.tryMe
 import id.sisi.postoko.utils.helper.json2obj
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class UploadFileViewModel() : ViewModel() {
     private var isExecute = MutableLiveData<Boolean>()

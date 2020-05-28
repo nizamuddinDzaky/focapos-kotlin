@@ -122,8 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         tv_sign_up.setOnClickListener {
-            val bottomSheetFragment = BottomSheetPercobaanUpload()
-            bottomSheetFragment.show(supportFragmentManager, BottomSheetPercobaanUpload().tag)
+            startActivity(Intent(this, UploadFileActivity::class.java))
         }
     }
 
