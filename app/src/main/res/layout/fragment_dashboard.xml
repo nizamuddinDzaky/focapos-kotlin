@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".view.ui.dashboard.AccountFragment">
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:ignore="UselessParent">
+        tools:ignore="UselessParent">-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,210 +44,222 @@
                 android:layout_height="wrap_content"
                 tools:text="Jawa Timur" />
         </LinearLayout>
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:orientation="horizontal"
-            android:baselineAligned="false"
-            android:background="@drawable/shadow">
-
-            <LinearLayout
-                android:id="@+id/view_01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/et_top_margin"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/iv_view_01"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:contentDescription="@string/conDes"
-                    app:layout_constraintBottom_toTopOf="@id/tv_view_01"
-                    app:srcCompat="@drawable/icon_sales" />
-
-                <TextView
-                    android:id="@+id/tv_view_01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_sales"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/margin_5"
-                    app:layout_constraintTop_toBottomOf="@id/iv_view_01" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/view_02"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/et_top_margin"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/iv_view_02"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:contentDescription="@string/conDes"
-                    app:layout_constraintBottom_toTopOf="@id/tv_view_02"
-                    app:srcCompat="@drawable/icon_delivery" />
-
-                <TextView
-                    android:id="@+id/tv_view_02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_delivery"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#858484"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/margin_5"
-                    app:layout_constraintTop_toBottomOf="@id/iv_view_02" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/view_03"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/et_top_margin"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/iv_view_03"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:contentDescription="@string/conDes"
-                    app:layout_constraintBottom_toTopOf="@id/tv_view_03"
-                    app:srcCompat="@drawable/icon_purchase" />
-
-                <TextView
-                    android:id="@+id/tv_view_03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_purchase"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/margin_5"
-                    app:layout_constraintTop_toBottomOf="@id/iv_view_03" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/view_04"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/et_top_margin"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/iv_view_04"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:contentDescription="@string/conDes"
-                    app:layout_constraintBottom_toTopOf="@id/tv_view_04"
-                    app:srcCompat="@drawable/icon_master" />
-
-                <TextView
-                    android:id="@+id/tv_view_04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_master_data"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/margin_5"
-                    app:layout_constraintTop_toBottomOf="@id/iv_view_04" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:background="@drawable/shadow2">
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:ignore="MissingConstraints">
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/standard_margin"
+                    android:layout_marginRight="@dimen/standard_margin"
+                    android:layout_marginBottom="@dimen/standard_margin"
                     android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:baselineAligned="false"
+                    android:background="@drawable/shadow">
+
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="0.3"
+                        android:id="@+id/view_01"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="left|start"
-                        tools:ignore="RtlHardcoded">
-                        <Button
-                            android:id="@+id/btn_prev_dashboard"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/back_foreground"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/layout_filter_date"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:orientation="horizontal"
-                        android:gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/et_top_margin"
                         tools:ignore="UseCompoundDrawables">
+
                         <ImageView
+                            android:id="@+id/iv_view_01"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/calendar_icon_foreground"/>
-                        <TextView
-                            android:id="@+id/tv_date_filter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:textStyle="bold"
-                            android:textColor="#858484"
-                            android:gravity="center_vertical"/>
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:contentDescription="@string/conDes"
+                            app:layout_constraintBottom_toTopOf="@id/tv_view_01"
+                            app:srcCompat="@drawable/icon_sales" />
 
+                        <TextView
+                            android:id="@+id/tv_view_01"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_sales"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/colorTittleInput"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/margin_5"
+                            app:layout_constraintTop_toBottomOf="@id/iv_view_01" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/view_02"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/et_top_margin"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/iv_view_02"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:contentDescription="@string/conDes"
+                            app:layout_constraintBottom_toTopOf="@id/tv_view_02"
+                            app:srcCompat="@drawable/icon_delivery" />
+
+                        <TextView
+                            android:id="@+id/tv_view_02"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_delivery"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#858484"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/margin_5"
+                            app:layout_constraintTop_toBottomOf="@id/iv_view_02" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/view_03"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/et_top_margin"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/iv_view_03"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:contentDescription="@string/conDes"
+                            app:layout_constraintBottom_toTopOf="@id/tv_view_03"
+                            app:srcCompat="@drawable/icon_purchase" />
+
+                        <TextView
+                            android:id="@+id/tv_view_03"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_purchase"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/colorTittleInput"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/margin_5"
+                            app:layout_constraintTop_toBottomOf="@id/iv_view_03" />
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="0.3"
+                        android:id="@+id/view_04"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right|end"
-                        tools:ignore="RtlHardcoded">
-                        <Button
-                            android:id="@+id/btn_next_dashboard"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/et_top_margin"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/iv_view_04"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:background="@drawable/next_foreground" />
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:contentDescription="@string/conDes"
+                            app:layout_constraintBottom_toTopOf="@id/tv_view_04"
+                            app:srcCompat="@drawable/icon_master" />
 
+                        <TextView
+                            android:id="@+id/tv_view_04"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_master_data"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/colorTittleInput"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/margin_5"
+                            app:layout_constraintTop_toBottomOf="@id/iv_view_04" />
                     </LinearLayout>
+
                 </LinearLayout>
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/view_pager_dashboard"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="550dp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    android:background="@drawable/shadow2">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        tools:ignore="MissingConstraints">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:baselineAligned="false">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="0.3"
+                                android:layout_height="wrap_content"
+                                android:gravity="left|start"
+                                tools:ignore="RtlHardcoded">
+                                <Button
+                                    android:id="@+id/btn_prev_dashboard"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/back_foreground"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/layout_filter_date"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.6"
+                                android:orientation="horizontal"
+                                android:gravity="center_horizontal"
+                                tools:ignore="UseCompoundDrawables">
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/calendar_icon_foreground"/>
+                                <TextView
+                                    android:id="@+id/tv_date_filter"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:textStyle="bold"
+                                    android:textColor="#858484"
+                                    android:gravity="center_vertical"/>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="0.3"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|end"
+                                tools:ignore="RtlHardcoded">
+                                <Button
+                                    android:id="@+id/btn_next_dashboard"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/next_foreground" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/view_pager_dashboard"
+                            android:layout_width="match_parent"
+                            android:layout_height="550dp"/>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    <!--</LinearLayout>-->
+</LinearLayout>
