@@ -293,13 +293,24 @@ interface ApiServices {
     @Multipart
     @POST("ImageUploadApi/Api.php?apicall=upload")
     fun postUploadFile(
-        @Part imagename: MultipartBody.Part
+        @PartMap body: Map<String, RequestBody>
+        /*@Part("image\"; filename=\"myfile.jpg\" ") file: RequestBody,
+    @Part("desc") desc: RequestBody*/
+
+    ): Call<MyResponse>
+
+    @Multipart
+    @POST("ImageUploadApi/Api.php?apicall=upload")
+    fun postUploadFile2(
+        /*@Part("image\"; filename=\"myfile.jpg\" ") file: RequestBody?,*/
+        @PartMap body: Map<String, RequestBody>
+
     ): Call<MyResponse>
     companion object {
         private var retrofit: Retrofit? = null
 
 //        private const val BASE_URL: String = "https://qp.forca.id/"
-        private const val BASE_URL: String = "http://192.168.1.69/"
+        val BASE_URL: String = "http://192.168.1.69/"
 
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
 //        private const val BASE_URL: String = "http://10.15.4.102:9090/"
@@ -370,11 +381,17 @@ interface ApiServices {
             return builder.build()
         }
 
-        private fun buildRetrofit() = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getUnsafeOkHttpClient())
-            .build()
+        private fun buildRetrofit() : Retrofit{
+            val gson = GsonBuilder()
+                .setLenient()
+                .create()
+            return Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(getUnsafeOkHttpClient())
+                .build()
+        }
+
     }
 
 }

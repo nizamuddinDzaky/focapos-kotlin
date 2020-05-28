@@ -61,12 +61,12 @@ class BottomSheetPercobaanUpload: BottomSheetDialogFragment() {
         }
 
         btn_confirmation_add_delivery.setOnClickListener {
-            val file =
+            /*val file =*/
             /*val pickedImg = data.getParcelableArrayListExtra<ImageFile>(RESULT_PICK_IMAGE)[0]?.path*/
 
-            viewModel.postUploadFile(imagename) {
+           /* viewModel.postUploadFile(imagename) {
                 logE("berhasil")
-            }
+            }*/
         }
     }
 
