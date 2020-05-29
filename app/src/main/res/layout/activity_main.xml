@@ -79,21 +79,20 @@
             tools:targetApi="jelly_bean"
             android:paddingStart="@dimen/margin_10"
             tools:ignore="RtlSymmetry" />
-        <EditText
-            android:id="@+id/et_password"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:backgroundTint="#00B0FF"
-            tools:targetApi="lollipop"
-            tools:ignore="LabelFor,TextFields"
-            android:importantForAutofill="no" />
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/cb_show_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#666666"
-            android:text="@string/txt_show_password"/>
+            android:layout_marginTop="-10dp"
+            app:helperText="@string/txt_helper_new_password"
+            app:passwordToggleEnabled="true">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:backgroundTint="@android:color/holo_blue_bright"
+                tools:targetApi="lollipop" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <RelativeLayout

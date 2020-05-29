@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import android.widget.EditText
@@ -45,7 +46,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private var listWarehouse: List<Warehouse> = ArrayList()
     private lateinit var viewModel: AddSalesViewModel
     private val progressBar = CustomProgressBar()
-    private var alert = MyDialog()
+    private var myDialog = MyDialog()
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -223,7 +224,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     override fun onClickPlus(qty: Double, position: Int) {
         saleItem?.get(position)?.quantity = saleItem?.get(position)?.quantity?.plus(1.0)
         saleItem?.get(position)?.subtotal =
-            saleItem?.get(position)?.quantity?.times(saleItem?.get(position)?.unit_price!!)
+            saleItem?.get(position)?.quantity?.times((saleItem?.get(position)?.unit_price ?: 0.0))
         adapter.notifyDataSetChanged()
         sumTotal()
     }
@@ -232,21 +233,21 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         val quantity = saleItem?.get(position)?.quantity?.minus(1.0)
         if (quantity != null) {
             if (quantity < 1) {
-                alert.confirmation(getString(R.string.txt_are_you_sure), this)
-                alert.listenerPositif = {
+                myDialog.confirmation(getString(R.string.txt_are_you_sure), this)
+                myDialog.listenerPositif = {
                     saleItem?.get(position)?.quantity = quantity
                     saleItem?.removeAt(position)
                     adapter.notifyDataSetChanged()
                     sumTotal()
                 }
-                alert.listenerNegatif = {
+                myDialog.listenerNegatif = {
                     adapter.notifyDataSetChanged()
                     sumTotal()
                 }
             } else {
                 saleItem?.get(position)?.quantity = quantity
                 saleItem?.get(position)?.subtotal =
-                    saleItem?.get(position)?.quantity?.times(saleItem?.get(position)?.unit_price!!)
+                    saleItem?.get(position)?.quantity?.times((saleItem?.get(position)?.unit_price ?: 0.0))
 
                 adapter.notifyDataSetChanged()
                 sumTotal()
@@ -261,9 +262,35 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         startActivityForResult(intent, 2)
     }
 
+    override fun onChange(position: Int) {
+        val newSaleItem = saleItem?.get(position)
+        myDialog.qty(
+            newSaleItem?.product_name ?: "",
+            getString(R.string.txt_sale_quantity),
+            newSaleItem?.quantity?.toInt() ?: 0,
+            this)
+        myDialog.listenerPositifNote = { qty ->
+
+            if (TextUtils.isEmpty(qty)){
+                myDialog.alert(getString(R.string.txt_alert_must_more_than_one), this)
+            }else{
+                val newQty = qty.toDouble()
+                if (newQty < 1) {
+                    myDialog.alert(getString(R.string.txt_alert_must_more_than_one), this)
+                }else{
+                    saleItem?.get(position)?.quantity = newQty
+                    saleItem?.get(position)?.subtotal =
+                        newQty.times((saleItem?.get(position)?.unit_price ?: 0.0))
+                    adapter.notifyDataSetChanged()
+                    sumTotal()
+                }
+            }
+        }
+    }
+
     override fun onBackPressed() {
-        alert.confirmation(getString(R.string.txt_are_you_sure), this)
-        alert.listenerPositif = {
+        myDialog.confirmation(getString(R.string.txt_are_you_sure), this)
+        myDialog.listenerPositif = {
             super.onBackPressed()
         }
     }
@@ -354,7 +381,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 finish()
             }
         } else {
-            alert.alert(validation[KEY_MESSAGE] as String, this)
+            myDialog.alert(validation[KEY_MESSAGE] as String, this)
         }
     }
 

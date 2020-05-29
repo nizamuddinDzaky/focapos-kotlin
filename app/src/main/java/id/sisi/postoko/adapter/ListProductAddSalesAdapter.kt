@@ -8,9 +8,8 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.utils.extensions.toAlias
 import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.toNumberID
 import kotlinx.android.synthetic.main.list_product_sales.view.*
-import java.text.NumberFormat
-import java.util.*
 
 
 class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = arrayListOf()) :
@@ -42,7 +41,11 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
             if (value?.quantity == 0.0)
                 itemView.et_qty_produk_add_sale.text = "1"
             else
-                itemView.et_qty_produk_add_sale.text = value?.quantity?.toInt().toString()
+                itemView.et_qty_produk_add_sale.text = value?.quantity?.toNumberID()
+
+            itemView.et_qty_produk_add_sale.setOnClickListener {
+                listener?.onChange(position)
+            }
 
             itemView.tv_subtoal_add_sale?.text = value?.subtotal?.toCurrencyID()
 
@@ -69,5 +72,6 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
         fun onClickPlus(qty: Double, position: Int)
         fun onClickMinus(qty: Double, position: Int)
         fun onClickEdit(saleItem: SaleItem, position: Int)
+        fun onChange(position: Int)
     }
 }

@@ -68,21 +68,36 @@
                 android:layout_height="20dp"
                 android:contentDescription="@string/txt_image_minus"
                 android:src="@drawable/minus" />
-
-            <TextView
-                android:id="@+id/tv_sale_item_qty"
+            <EditText
+                android:id="@+id/et_sale_item_qty"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/et_top_margin"
+                android:layout_marginLeft="@dimen/et_top_margin"
+                android:layout_marginEnd="@dimen/et_top_margin"
+                android:layout_marginRight="@dimen/et_top_margin"
+                android:gravity="center_horizontal"
+                android:importantForAutofill="no"
+                android:inputType="numberSigned"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                tools:ignore="LabelFor"
+                tools:text="200" />
+
+            <!--<TextView
+                android:id="@+id/tv_sale_item_qty"
+                android:layout_width="19dp"
                 android:layout_height="24dp"
-                android:fontFamily="@font/roboto_regular"
                 android:layout_marginStart="@dimen/et_top_margin"
                 android:layout_marginLeft="@dimen/et_top_margin"
                 android:layout_marginEnd="@dimen/et_top_margin"
                 android:layout_marginRight="@dimen/et_top_margin"
                 android:background="@drawable/bottom_line"
+                android:fontFamily="@font/roboto_regular"
                 android:gravity="center_horizontal"
                 android:textColor="#666666"
                 android:textSize="15sp"
-                tools:text="200" />
+                tools:text="200" />-->
             <ImageView
                 android:id="@+id/iv_plus"
                 android:layout_width="20dp"

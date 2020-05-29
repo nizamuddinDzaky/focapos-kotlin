@@ -22,7 +22,7 @@ class DetailSalesBookingActivity : BaseActivity() {
     var idSalesBooking: Int = 0
     var tempSale: Sales? = null
     var tempCustomer: Customer? = null
-    private var alert = MyDialog()
+    private var myDialog = MyDialog()
     lateinit var vmSale: SaleBookingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class DetailSalesBookingActivity : BaseActivity() {
             R.id.menu_edit_sale -> {
                 val result = validationActionEditSale()
                 if (!(result[KEY_VALIDATION_REST] as Boolean)) {
-                    alert.alert(result[KEY_MESSAGE] as String, this)
+                    myDialog.alert(result[KEY_MESSAGE] as String, this)
                 } else {
                     val intent = Intent(this, EditSaleActivity::class.java)
                     intent.putExtra(KEY_SALE, tempSale)

@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -22,7 +24,7 @@ import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_payment.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_form_payment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,20 +34,18 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     var listener: () -> Unit = {}
     private var sales: Sales? = null
     private var mustPaid: Double = 0.0
-    private var isCheckedCash = false
-    private var alert = MyDialog()
+    private var myDialog = MyDialog()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_bottom_sheet_add_payment, container, false)
+        return inflater.inflate(R.layout.fragment_bottom_sheet_form_payment, container, false)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog =  super.onCreateDialog(savedInstanceState)
         dialog.setOnShowListener { dialogInterface ->
             val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            /*setupFullHeight(bottomSheetDialog)*/
             bottomSheetDialog.setupFullHeight(context as Activity)
         }
         return dialog
@@ -82,10 +82,6 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             }
         })
-
-        btn_close.setOnClickListener {
-            this.dismiss()
-        }
 
         et_add_payment_date?.setText(currentDate.toDisplayDate())
         et_add_payment_date?.hint = currentDate.toDisplayDate()
@@ -129,6 +125,13 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             dpd?.show()
         }
         et_add_payment_total.addTextChangedListener(NumberSeparator(et_add_payment_total))
+        et_add_payment_total.setText(mustPaid.toInt().toString())
+
+        setUpRadioGroup()
+
+        btn_close.setOnClickListener {
+            this.dismiss()
+        }
         btn_confirmation_add_payment?.setOnClickListener {
             val mandatory = listOf<EditText>(et_add_payment_total)
             if (!mandatory.validation()){
@@ -136,17 +139,36 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             }
             actionAddPayment()
         }
+    }
 
-        rb_cash.isChecked = true
+    private fun setUpRadioGroup() {
+        for (i in 0 until (rg_payment_type?.childCount ?: 0)) {
+            (rg_payment_type?.get(i) as? RadioButton)?.tag =
+                PaymentType.values()[i].name.toLowerCase(
+                    Locale.getDefault()
+                )
+        }
+        rg_payment_type?.setOnCheckedChangeListener { radioGroup, i ->
+            val radioButton = radioGroup.findViewById<RadioButton>(i)
+            rg_payment_type?.tag = radioButton.tag
+        }
+        rg_payment_type?.check(rg_payment_type?.get(0)?.id ?: 0)
 
+        rb_gift_card.setOnClickListener {
+            layout_gift_card.expand(true)
+            layout_credit_card.collapse(true)
+        }
         rb_cash.setOnClickListener {
-            if(isCheckedCash){
-                    rb_cash.isChecked = false
-                    this.isCheckedCash = false
-            }else{
-                    rb_cash.isChecked = true
-                    this.isCheckedCash = true
-            }
+            layout_credit_card.collapse(true)
+            layout_gift_card.collapse(true)
+        }
+        rb_bank.setOnClickListener {
+            layout_credit_card.collapse(true)
+            layout_gift_card.collapse(true)
+        }
+        rb_credit_card.setOnClickListener {
+            layout_gift_card.collapse(true)
+            layout_credit_card.expand(true)
         }
     }
 
@@ -156,14 +178,15 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             val body = mutableMapOf(
                 "date" to (et_add_payment_date?.tag?.toString() ?: ""),
                 "amount_paid" to (et_add_payment_total?.tag?.toString() ?: "0"),
-                "note" to (et_add_payment_note?.text?.toString() ?: "")
+                "note" to (et_add_payment_note?.text?.toString() ?: ""),
+                "payment_method" to (rg_payment_type.tag?.toString() ?: "")
             )
             viewModel.postAddPayment(body) {
                 listener()
                 this.dismiss()
             }
         }else{
-            alert.alert(validation[KEY_MESSAGE] as String, context)
+            myDialog.alert(validation[KEY_MESSAGE] as String, context)
         }
     }
 

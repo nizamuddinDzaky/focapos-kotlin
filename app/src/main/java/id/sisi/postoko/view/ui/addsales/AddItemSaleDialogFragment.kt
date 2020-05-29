@@ -1,6 +1,7 @@
 package id.sisi.postoko.view.ui.addsales
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.onChange
 import id.sisi.postoko.utils.extensions.toAlias
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import kotlinx.android.synthetic.main.dialog_fragment_item_add_sale.*
@@ -20,27 +22,35 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        dialog?.window?.attributes?.windowAnimations = R.style.DialogTheme
         return inflater.inflate(R.layout.dialog_fragment_item_add_sale, container, false)
     }
     var listenerAdd: (Product) -> Unit = {}
     var listenerRemove: (Product) -> Unit = {}
-    private val alert = MyDialog()
+    private val myDialog = MyDialog()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tv_alias_product.text = product.name.toAlias()
         tv_product_name.text = product.name
         tv_product_price.text = product.price.toCurrencyID()
-        tv_sale_item_qty.text = product.sale_qty.toString()
+
+        et_sale_item_qty.onChange {
+            val strQty = et_sale_item_qty.text.toString()
+            if (!TextUtils.isEmpty(strQty))
+                product.sale_qty  = strQty.toInt()
+        }
+
+        et_sale_item_qty.setText(product.sale_qty.toString())
 
         iv_plus.setOnClickListener {
             product.sale_qty += 1
-            tv_sale_item_qty.text = product.sale_qty.toString()
+            et_sale_item_qty.setText(product.sale_qty.toString())
         }
 
         iv_minus.setOnClickListener {
             product.sale_qty -= 1
-            tv_sale_item_qty.text = product.sale_qty.toString()
+            et_sale_item_qty.setText(product.sale_qty.toString())
         }
 
         if (!product.isSelected){
@@ -51,9 +61,10 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
             removeItemCart(product)
         }
 
+
         btn_add_to_cart.setOnClickListener {
             if (product.sale_qty < 1){
-                alert.alert(getString(R.string.txt_alert_must_more_than_one), context)
+                myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
             }else{
                 product.isSelected = true
                 listenerAdd(product)
@@ -63,8 +74,8 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
     }
 
     private fun removeItemCart(product: Product) {
-        alert.confirmation(getString(R.string.txt_notif_remove_cart),context)
-        alert.listenerPositif={
+        myDialog.confirmation(getString(R.string.txt_notif_remove_cart),context)
+        myDialog.listenerPositif={
             product.sale_qty = 0
             product.isSelected = false
             listenerRemove(product)

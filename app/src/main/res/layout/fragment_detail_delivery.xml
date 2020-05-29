@@ -153,6 +153,7 @@
                     tools:text="IPAY bla bla" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/layout_delivering_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -178,6 +179,7 @@
                     tools:text="IPAY bla bla" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/layout_delivered_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -187,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/txt_menu_good_receive"
+                    android:text="@string/txt_delivered_date"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto_bold" />
 

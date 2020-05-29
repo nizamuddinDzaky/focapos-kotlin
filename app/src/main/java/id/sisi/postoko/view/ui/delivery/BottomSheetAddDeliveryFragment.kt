@@ -5,11 +5,8 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
-import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,16 +24,15 @@ import id.sisi.postoko.adapter.ListItemDeliveryAdapter
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.KEY_DATA_DELIVERY
+import id.sisi.postoko.utils.KEY_MESSAGE
+import id.sisi.postoko.utils.KEY_VALIDATION_REST
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
-import okhttp3.MultipartBody
-import retrofit2.http.Multipart
 import java.text.SimpleDateFormat
 import java.util.*
-
-
 class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeliveryAdapter.OnClickListenerInterface {
 
     private val progressBar = CustomProgressBar()
@@ -47,7 +43,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     private var sale: Sales? = null
     private var listSaleItems  = ArrayList<SaleItem>()
     private var saleItemTemp: List<MutableMap<String, Double?>>? =  mutableListOf()
-    private var alert = MyDialog()
+    private var myDialog = MyDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -212,28 +208,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 tv_note.text = it
             }
         }
-
-        layout_upload_file.setOnClickListener {
-            val i = Intent(
-                Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            )
-
-            startActivityForResult(i, RC_UPLOAD_IMAGE)
-        }
         /*deliveryNote*/
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode==RC_UPLOAD_IMAGE && resultCode == Activity.RESULT_OK){
-            try {
-                iv_file.setImageURI(data?.data)
-                val mBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, data?.data)
-                iv_file.setImageBitmap(mBitmap.resizeBitmap(200))
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -250,15 +225,6 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         (parentFragment as DeliveryFragment).refreshDataSale()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        /*MultipartBody.Part.createFormData()*/
-    }
-
     private fun actionAddDelivery() {
 
         val validation =  validationFormAddDelivery()
@@ -269,7 +235,6 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                     "sent_quantity" to it.quantity.toString()
                 )
             }
-
             val body = mutableMapOf(
                 "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
                 "sale_reference_no" to (et_add_delivery_sales_ref?.text?.toString() ?: ""),
@@ -286,7 +251,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 this.dismiss()
             }
         }else{
-            alert.alert(validation[KEY_MESSAGE] as String, context)
+            myDialog.alert(validation[KEY_MESSAGE] as String, context)
         }
     }
 
@@ -304,7 +269,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         val quantity = listSaleItems[position].quantity?.plus(1)
         if (quantity != null) {
             if (quantity > (saleItemTemp?.get(position)?.get("sent_quantity") ?: 0.0)){
-                alert.alert(getString(R.string.txt_alert_out_of_qty), context)
+                myDialog.alert(getString(R.string.txt_alert_out_of_qty), context)
             }else{
                 listSaleItems[position].quantity = quantity
                 adapter.notifyDataSetChanged()
@@ -316,13 +281,13 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         val quantity = listSaleItems[position].quantity?.minus(1.0)
         if (quantity != null) {
             if (quantity < 1){
-                alert.confirmation(getString(R.string.txt_are_you_sure), context)
-                alert.listenerPositif = {
+                myDialog.confirmation(getString(R.string.txt_are_you_sure), context)
+                myDialog.listenerPositif = {
                     listSaleItems[position].quantity = quantity
                     listSaleItems.removeAt(position)
                     adapter.notifyDataSetChanged()
                 }
-                alert.listenerNegatif = {
+                myDialog.listenerNegatif = {
                     adapter.notifyDataSetChanged()
                 }
             }else{
@@ -334,13 +299,46 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     }
 
     override fun onClickDelete(position: Int) {
-        alert.confirmation(getString(R.string.txt_are_you_sure), context)
-        alert.listenerPositif = {
+        myDialog.confirmation(getString(R.string.txt_are_you_sure), context)
+        myDialog.listenerPositif = {
             listSaleItems.removeAt(position)
             adapter.notifyDataSetChanged()
         }
-        alert.listenerNegatif = {
+        myDialog.listenerNegatif = {
             adapter.notifyDataSetChanged()
         }
     }
+
+    override fun onChange(position: Int) {
+        myDialog.qty(
+            listSaleItems[position].product_name ?: "",
+            getString(R.string.txt_delivery_total_qty),
+            listSaleItems[position].quantity?.toInt() ?: 0,
+            context,
+            listSaleItems[position].product_unit_code ?: "")
+
+        myDialog.listenerPositifNote={ qty ->
+            val newQty = qty.toDouble()
+            if (TextUtils.isEmpty(qty)){
+                myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
+            }else{
+                when {
+                    (newQty) > (saleItemTemp?.get(position)?.get("sent_quantity") ?: 0.0) -> {
+                        val alert = MyDialog()
+                        alert.alert(getString(R.string.txt_alert_out_of_qty), context)
+                    }
+                    newQty < 1 -> {
+                        val alert = MyDialog()
+                        alert.alert(getString(R.string.txt_alert_must_more_than_one), context)
+                    }
+                    else -> {
+                        listSaleItems[position].quantity = newQty
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+    }
 }
+
+

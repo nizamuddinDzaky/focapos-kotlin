@@ -43,7 +43,7 @@ class AddSaleActivity : BaseActivity() {
     private lateinit var vmProduct: ProductViewModel
     var listProduct: List<Product> = arrayListOf()
     lateinit var vmAddSale: AddSalesViewModel
-    private var alert = MyDialog()
+    private var myDialog = MyDialog()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sale)
@@ -148,8 +148,8 @@ class AddSaleActivity : BaseActivity() {
             PaymentAddSaleFragment.TAG -> switchFragment(findSaleFragmentByTag(AddItemAddSaleFragment.TAG))
             AddItemAddSaleFragment.TAG -> switchFragment(findSaleFragmentByTag(SelectCustomerFragment.TAG))
             SelectCustomerFragment.TAG -> {
-                alert.confirmation(getString(R.string.txt_are_you_sure), this)
-                alert.listenerPositif ={
+                myDialog.confirmation(getString(R.string.txt_are_you_sure), this)
+                myDialog.listenerPositif ={
                     super.onBackPressed()
                 }
             }

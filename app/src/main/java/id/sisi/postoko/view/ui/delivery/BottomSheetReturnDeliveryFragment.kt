@@ -31,7 +31,7 @@ import java.util.*
 
 class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDeliveryAdapter.OnClickListenerInterface {
 
-    private var alert = MyDialog()
+    private var myDialog = MyDialog()
     private lateinit var adapter: ListItemDeliveryAdapter<DeliveryItem>
     private lateinit var vmDelivery: DeliveryDetailViewModel
     private var idDelivery = ""
@@ -152,15 +152,15 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
         }
 
         tv_add_note.setOnClickListener {
-            alert.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
-            alert.listenerPositifNote = {
+            myDialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            myDialog.listenerPositifNote = {
                 setUpNote(it)
             }
         }
 
         tv_edit_note.setOnClickListener {
-            alert.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
-            alert.listenerPositifNote = {
+            myDialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            myDialog.listenerPositifNote = {
                 setUpNote(it)
             }
         }
@@ -186,6 +186,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 "sale_reference_no" to (et_sales_ref?.text?.toString() ?: ""),
                 "do_reference_no" to (et_reference_no?.text?.toString() ?: ""),
                 "note" to (tv_note?.text?.toString() ?: ""),
+                "status" to "returned",
                 "products" to delItems
             )
             vmDelivery.postReturnDeliv(body, idDelivery) {
@@ -193,7 +194,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 this.dismiss()
             }
         }else{
-            alert.alert(rest[KEY_MESSAGE] as String, context)
+            myDialog.alert(rest[KEY_MESSAGE] as String, context)
         }
     }
 
@@ -244,7 +245,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
         val maxQty = unsentQty.plus(deliveryItem?.tempDelivQty ?: 0.0 )
         val newQty = deliveryItem?.quantity_sent?.plus(1) ?: 0.0
         if (newQty > maxQty){
-            alert.alert(getString(R.string.txt_alert_out_of_qty), context)
+            myDialog.alert(getString(R.string.txt_alert_out_of_qty), context)
         }else{
             deliveryItem?.quantity_sent = newQty
             adapter.notifyDataSetChanged()
@@ -256,7 +257,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
         val minQty = 1.0
         val newQty = deliveryItem?.quantity_sent?.minus(1) ?: 0.0
         if (newQty < minQty){
-            alert.alert(getString(R.string.txt_alert_must_more_than_one), context)
+            myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
         }else{
             deliveryItem?.quantity_sent = newQty
             adapter.notifyDataSetChanged()
@@ -265,5 +266,38 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
 
     override fun onClickDelete(position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onChange(position: Int) {
+        val deliveryItem = deliveryItems?.get(position)
+        myDialog.qty(
+            deliveryItem?.product_name ?: "",
+            getString(R.string.txt_delivery_total_qty),
+            deliveryItem?.quantity_sent?.toInt() ?: 0,
+            context,
+            deliveryItem?.product_unit_code ?: "")
+
+        myDialog.listenerPositifNote={ qty ->
+            if (TextUtils.isEmpty(qty)){
+                myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
+            }else{
+                val newQty = qty.toDouble()
+                val unsentQty = deliveryItem?.quantity_ordered?.minus(deliveryItem.all_sent_qty ?: 0.0) ?: 0.0
+                val maxQty = unsentQty.plus(deliveryItem?.tempDelivQty ?: 0.0 )
+                val minQty = 1.0
+                when {
+                    newQty > maxQty -> {
+                        myDialog.alert(getString(R.string.txt_alert_out_of_qty), context)
+                    }
+                    newQty < minQty -> {
+                        myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
+                    }
+                    else -> {
+                        deliveryItem?.quantity_sent = newQty
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
     }
 }

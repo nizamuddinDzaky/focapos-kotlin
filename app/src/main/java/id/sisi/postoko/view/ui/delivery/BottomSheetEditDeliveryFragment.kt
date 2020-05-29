@@ -38,7 +38,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
     private lateinit var adapter: ListItemDeliveryAdapter<DeliveryItem>
     private lateinit var vmDelivery: DeliveryDetailViewModel
     private var deliveryItems: List<DeliveryItem>? = arrayListOf()
-    private val alert = MyDialog()
+    private val myDialog = MyDialog()
     private var idDelivery = ""
     var listener: () -> Unit = {}
     private val progressBar = CustomProgressBar()
@@ -193,15 +193,15 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         }
 
         tv_add_note.setOnClickListener {
-            alert.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
-            alert.listenerPositifNote = {
+            myDialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            myDialog.listenerPositifNote = {
                 setUpNote(it)
             }
         }
 
         tv_edit_note.setOnClickListener {
-            alert.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
-            alert.listenerPositifNote = {
+            myDialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            myDialog.listenerPositifNote = {
                 setUpNote(it)
             }
         }
@@ -245,7 +245,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                 this.dismiss()
             }
         }else{
-            alert.alert(rest[KEY_MESSAGE] as String, context)
+            myDialog.alert(rest[KEY_MESSAGE] as String, context)
         }
     }
 
@@ -275,7 +275,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         val maxQty = unsentQty.plus(deliveryItem?.tempDelivQty ?: 0.0 )
         val newQty = deliveryItem?.quantity_sent?.plus(1) ?: 0.0
         if (newQty > maxQty){
-            alert.alert(getString(R.string.txt_alert_out_of_qty), context)
+            myDialog.alert(getString(R.string.txt_alert_out_of_qty), context)
         }else{
             deliveryItem?.quantity_sent = newQty
             adapter.notifyDataSetChanged()
@@ -287,7 +287,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         val minQty = 1.0
         val newQty = deliveryItem?.quantity_sent?.minus(1) ?: 0.0
         if (newQty < minQty){
-            alert.alert(getString(R.string.txt_alert_must_more_than_one), context)
+            myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
         }else{
             deliveryItem?.quantity_sent = newQty
             adapter.notifyDataSetChanged()
@@ -302,5 +302,36 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         (parentFragment as DeliveryFragment).refreshDataSale()
     }
 
+    override fun onChange(position: Int) {
+        val deliveryItem = deliveryItems?.get(position)
+        myDialog.qty(
+            deliveryItem?.product_name ?: "",
+            getString(R.string.txt_delivery_total_qty),
+            deliveryItem?.quantity_sent?.toInt() ?: 0,
+            context,
+            deliveryItem?.product_unit_code ?: "")
 
+        myDialog.listenerPositifNote={ qty ->
+            if (TextUtils.isEmpty(qty)){
+                myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
+            }else{
+                val newQty = qty.toDouble()
+                val unsentQty = deliveryItem?.quantity_ordered?.minus(deliveryItem.all_sent_qty ?: 0.0) ?: 0.0
+                val maxQty = unsentQty.plus(deliveryItem?.tempDelivQty ?: 0.0 )
+                val minQty = 1.0
+                when {
+                    newQty > maxQty -> {
+                        myDialog.alert(getString(R.string.txt_alert_out_of_qty), context)
+                    }
+                    newQty < minQty -> {
+                        myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
+                    }
+                    else -> {
+                        deliveryItem?.quantity_sent = newQty
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+    }
 }
