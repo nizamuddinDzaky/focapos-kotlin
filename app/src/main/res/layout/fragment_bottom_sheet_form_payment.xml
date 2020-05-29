@@ -44,217 +44,180 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
+
+            <RadioGroup
                 android:id="@+id/rg_payment_type"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/et_top_margin"
-                    android:paddingLeft="@dimen/standard_margin"
-                    android:paddingRight="@dimen/standard_margin">
-                    <RadioButton
-                        android:id="@+id/rb_cash"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_payment_cash"
-                        android:fontFamily="@font/roboto_regular"
-                        android:paddingLeft="10dp"
-                        android:paddingStart="10dp"
-                        tools:ignore="RtlSymmetry"
-                        tools:targetApi="jelly_bean" />
-
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/et_top_margin"
-                    android:background="@color/colorLine" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/et_top_margin"
-                    android:paddingLeft="@dimen/standard_margin"
-                    android:paddingRight="@dimen/standard_margin"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/et_top_margin"
+                android:paddingRight="@dimen/et_top_margin">
+                <RadioButton
+                    android:id="@+id/rb_cash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_payment_cash"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:targetApi="lollipop" />
+                <RadioButton
+                    android:id="@+id/rb_gift_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_gift_card"
+                    android:fontFamily="@font/roboto_regular"
                     android:visibility="gone"
+                    tools:visibility="visible"
+                    tools:targetApi="lollipop" />
+                <RadioButton
+                    android:id="@+id/rb_credit_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_credit_card"
+                    android:fontFamily="@font/roboto_regular"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    tools:targetApi="lollipop" />
+                <RadioButton
+                    android:id="@+id/rb_bank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:buttonTint="#B20838"
+                    android:text="@string/txt_bank"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:targetApi="lollipop" />
+            </RadioGroup>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:background="@color/colorLine" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/layout_gift_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/et_top_margin"
+                android:background="#fff"
+                android:paddingStart="@dimen/et_top_margin"
+                android:layout_marginTop="@dimen/et_top_margin"
+                tools:ignore="RtlHardcoded,RtlSymmetry"
+                app:el_duration="300"
+                app:el_expanded="false"
+                app:el_parallax="0.5">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <RadioButton
-                        android:id="@+id/rb_gift_card"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_gift_card"
-                        android:fontFamily="@font/roboto_regular"
-                        android:paddingLeft="10dp"
-                        android:paddingStart="10dp"
-                        tools:ignore="RtlSymmetry"
+                        android:textColor="#646464"
+                        android:fontFamily="@font/roboto_bold"
                         tools:targetApi="jelly_bean" />
-                    <net.cachapa.expandablelayout.ExpandableLayout
-                        android:id="@+id/expandable_layout"
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="40dp"
-                        android:orientation="vertical"
-                        android:background="#fff"
-                        android:paddingStart="40dp"
-                        tools:ignore="RtlHardcoded,RtlSymmetry"
-                        app:el_duration="300"
-                        app:el_expanded="false"
-                        app:el_parallax="0.5">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txt_gift_card"
-                            android:textColor="#646464"
-                            android:fontFamily="@font/roboto_bold"
-                            tools:targetApi="jelly_bean" />
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text"
-                            android:importantForAutofill="no"
-                            tools:ignore="LabelFor" />
-                    </net.cachapa.expandablelayout.ExpandableLayout>
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        tools:ignore="LabelFor" />
                 </LinearLayout>
-                <View
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/et_top_margin"
-                    android:background="@color/colorLine" />
+            </net.cachapa.expandablelayout.ExpandableLayout>
 
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/layout_credit_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/et_top_margin"
+                android:orientation="vertical"
+                android:background="#fff"
+                android:paddingStart="@dimen/et_top_margin"
+                app:el_duration="300"
+                app:el_expanded="false"
+                app:el_parallax="0.5"
+                tools:ignore="RtlSymmetry">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/et_top_margin"
-                    android:paddingLeft="@dimen/standard_margin"
-                    android:paddingRight="@dimen/standard_margin"
-                    android:visibility="gone"
                     android:orientation="vertical">
-                    <RadioButton
-                        android:id="@+id/rb_credit_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_credit_card"
-                        android:fontFamily="@font/roboto_regular"
-                        android:paddingLeft="10dp"
-                        android:paddingStart="10dp"
-                        tools:ignore="RtlSymmetry"
-                        tools:targetApi="jelly_bean"/>
-                    <net.cachapa.expandablelayout.ExpandableLayout
-                        android:id="@+id/expandable_layout2"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="40dp"
-                        android:orientation="vertical"
-                        android:background="#fff"
-                        android:paddingStart="40dp"
-                        app:el_duration="300"
-                        app:el_expanded="false"
-                        app:el_parallax="0.5"
-                        tools:ignore="RtlSymmetry">
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:baselineAligned="false">
-                            <LinearLayout
-                                android:layout_width="0dp"
+                            android:orientation="vertical"
+                            android:layout_weight="0.5"
+                            android:layout_marginRight="@dimen/margin_20"
+                            android:layout_marginEnd="@dimen/margin_20">
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_weight="0.5"
-                                android:layout_marginRight="@dimen/margin_20"
-                                android:layout_marginEnd="@dimen/margin_20">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Nomor Kartu"/>
-                                <EditText
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:importantForAutofill="no"
-                                    android:inputType="text"
-                                    tools:ignore="LabelFor" />
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
+                                android:text="@string/txt_card_number"/>
+                            <EditText
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_weight="0.5">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Nomor Kartu"/>
-                                <EditText
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:importantForAutofill="no"
-                                    android:inputType="text"
-                                    tools:ignore="LabelFor" />
-                            </LinearLayout>
+                                android:importantForAutofill="no"
+                                android:inputType="text"
+                                tools:ignore="LabelFor" />
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <Spinner
-                                android:layout_width="0dp"
-                                android:layout_weight="0.3"
-                                android:layout_height="50dp"
-                                android:clickable="true"
-                                style="@style/Widget.AppCompat.Spinner.Underlined"
-                                android:focusable="true"/>
-                            <Spinner
-                                android:layout_width="0dp"
-                                android:layout_weight="0.3"
-                                android:layout_height="50dp"
-                                android:clickable="true"
-                                style="@style/Widget.AppCompat.Spinner.Underlined"
-                                android:focusable="true"/>
-                            <Spinner
-                                android:layout_width="0dp"
-                                android:layout_weight="0.3"
-                                android:layout_height="50dp"
-                                android:clickable="true"
-                                style="@style/Widget.AppCompat.Spinner.Underlined"
-                                android:focusable="true"/>
+                            android:orientation="vertical"
+                            android:layout_weight="0.5">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txt_name"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:importantForAutofill="no"
+                                android:inputType="text"
+                                tools:ignore="LabelFor" />
                         </LinearLayout>
-                    </net.cachapa.expandablelayout.ExpandableLayout>
-                </LinearLayout>
-                <View
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/et_top_margin"
-                    android:background="@color/colorLine" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:paddingTop="@dimen/et_top_margin"
-                    android:paddingLeft="@dimen/standard_margin"
-                    android:paddingRight="@dimen/standard_margin">
-                    <RadioButton
-                        android:id="@+id/rb_bank"
-                        android:layout_width="wrap_content"
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/txt_bank"
-                        android:fontFamily="@font/roboto_regular"
-                        android:paddingLeft="10dp"
-                        android:paddingStart="10dp"
-                        tools:ignore="RtlSymmetry"
-                        tools:targetApi="jelly_bean"/>
+                        android:orientation="horizontal">
+                        <Spinner
+                            android:layout_width="0dp"
+                            android:layout_weight="0.3"
+                            android:layout_height="50dp"
+                            android:clickable="true"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:focusable="true"/>
+                        <Spinner
+                            android:layout_width="0dp"
+                            android:layout_weight="0.3"
+                            android:layout_height="50dp"
+                            android:clickable="true"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:focusable="true"/>
+                        <Spinner
+                            android:layout_width="0dp"
+                            android:layout_weight="0.3"
+                            android:layout_height="50dp"
+                            android:clickable="true"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:focusable="true"/>
+                    </LinearLayout>
                 </LinearLayout>
-                <View
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/et_top_margin"
-                    android:background="@color/colorLine" />
-            </LinearLayout>
+
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -494,6 +494,58 @@
                         tools:targetApi="jelly_bean"
                         tools:text="Rp 96.000.000" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#FFFFFF"
+                    android:paddingTop="@dimen/standard_margin"
+                    android:paddingLeft="@dimen/et_top_margin"
+                    android:paddingRight="@dimen/et_top_margin"
+                    android:paddingBottom="@dimen/et_top_margin">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_sale_note"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean" />
+                    <TextView
+                        android:id="@+id/tv_sale_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/txt_sale_note"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#FFFFFF"
+                    android:paddingTop="@dimen/standard_margin"
+                    android:paddingLeft="@dimen/et_top_margin"
+                    android:paddingRight="@dimen/et_top_margin"
+                    android:paddingBottom="@dimen/et_top_margin">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_employee_records"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean" />
+                    <TextView
+                        android:id="@+id/tv_employee_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/txt_sale_note"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean" />
+                </LinearLayout>
+
             </LinearLayout>
     </ScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

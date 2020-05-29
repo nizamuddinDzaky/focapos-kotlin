@@ -153,7 +153,7 @@ class HomeActivity : BaseActivity() {
 
     fun showSearch(isShown: Boolean) {
         if (isShown) {
-//            main_content_container?.gone()
+            main_container?.gone()
             search_container?.visible()
             if (search_view.typeView == 1) {
                 grFragment?.let {
@@ -172,6 +172,7 @@ class HomeActivity : BaseActivity() {
             }
         } else {
             search_container?.gone()
+            main_container?.visible()
 //            main_content_container?.visible()
             switchFragment(navPosition)
         }
