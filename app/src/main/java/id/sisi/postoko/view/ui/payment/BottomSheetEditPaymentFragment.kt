@@ -177,7 +177,8 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
             val body = mutableMapOf(
                 "date" to (et_add_payment_date?.tag?.toString() ?: ""),
                 "amount_paid" to (et_add_payment_total?.tag?.toString() ?: "0"),
-                "note" to (et_add_payment_note?.text?.toString() ?: "")
+                "note" to (et_add_payment_note?.text?.toString() ?: ""),
+                "payment_method" to (rg_payment_type.tag?.toString() ?: "")
             )
             viewModel.putEditayment(body, payment.id) {
                 listener()
