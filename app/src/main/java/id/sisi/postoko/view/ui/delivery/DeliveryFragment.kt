@@ -1,6 +1,7 @@
 package id.sisi.postoko.view.ui.delivery
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,7 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Delivery
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.KEY_DATA_DELIVERY
-import id.sisi.postoko.utils.KEY_ID_DELIVERY
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
@@ -115,6 +114,11 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
         bundle.putString(KEY_ID_DELIVERY, delivery.id)
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+    }
+
+    override fun onClickAttachment(url: String?) {
+        val myDialog = MyDialog()
+        myDialog.alert("Coming soon", context)
     }
 
     override fun onClickReturn(delivery: Delivery) {

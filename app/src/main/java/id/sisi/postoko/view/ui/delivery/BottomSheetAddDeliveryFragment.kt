@@ -5,7 +5,10 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +19,7 @@ import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.loader.content.CursorLoader
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -31,12 +35,17 @@ import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeliveryAdapter.OnClickListenerInterface {
 
     private val progressBar = CustomProgressBar()
-    private lateinit var viewModel: AddDeliveryViewModel
+    private lateinit var viewModel: DeliveryDetailViewModel
     var listener: () -> Unit = {}
     private lateinit var adapter: ListItemDeliveryAdapter<SaleItem>
     private var customer: Customer? = null
@@ -44,6 +53,8 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     private var listSaleItems  = ArrayList<SaleItem>()
     private var saleItemTemp: List<MutableMap<String, Double?>>? =  mutableListOf()
     private var myDialog = MyDialog()
+    private var requestFile: RequestBody? = null
+    private var requestPart: MultipartBody.Part? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,11 +90,10 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             )
         }
 
-        viewModel = ViewModelProvider(
-            this,
-            AddDeliveryFactory(sale?.id ?: 0)
-        ).get(AddDeliveryViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DeliveryDetailViewModel::class.java)
+
         viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            logE("$it")
             if (it && !progressBar.isShowing()) {
                 context?.let { c ->
                     progressBar.show(c, getString(R.string.txt_please_wait))
@@ -98,15 +108,6 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             }
         })
-
-
-        /*viewModelCustomer = ViewModelProvider(this).get(MasterDetailViewModel::class.java)
-        viewModelCustomer.getDetailCustomer().observe(viewLifecycleOwner, Observer {
-            customer = it
-            et_add_delivery_customer_name?.setText(customer?.name)
-            et_add_delivery_customer_address?.setText(customer?.address)
-        })
-        viewModelCustomer.requestDetailCustomer(sale?.customer_id ?: 1)*/
 
         //setupUI
         et_add_delivery_date?.setText(currentDate.toDisplayDate())
@@ -208,7 +209,39 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 tv_note.text = it
             }
         }
-        /*deliveryNote*/
+
+        iv_delete.setOnClickListener {
+            removeFile()
+        }
+
+        layout_upload_file.setOnClickListener {
+            val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(i, 100)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(data != null){
+            val selectedImage = data.data
+            val file = File(selectedImage?.let { getRealPathFromURI(it) })
+            tv_image_name.text = file.name
+            tv_prefix_image_name.gone()
+            iv_delete.visible()
+            requestFile = RequestBody.create(MediaType.parse(selectedImage?.let { activity?.contentResolver?.getType(it) }), file)
+            requestPart = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        }else{
+            removeFile()
+        }
+    }
+
+    private fun removeFile() {
+        requestFile = null
+        requestPart = null
+        iv_delete.gone()
+        tv_prefix_image_name.visible()
+        tv_image_name.text = getString(R.string.txt_upload_file)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -223,46 +256,6 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         (parentFragment as DeliveryFragment).refreshDataSale()
-    }
-
-    private fun actionAddDelivery() {
-
-        val validation =  validationFormAddDelivery()
-        if (validation[KEY_VALIDATION_REST] as Boolean) {
-            val saleItems = listSaleItems.map {
-                return@map mutableMapOf(
-                    "sale_items_id" to it.id.toString(),
-                    "sent_quantity" to it.quantity.toString()
-                )
-            }
-            val body = mutableMapOf(
-                "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
-                "sale_reference_no" to (et_add_delivery_sales_ref?.text?.toString() ?: ""),
-                "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
-                "address" to (et_add_delivery_customer_address?.text?.toString() ?: ""),
-                "status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
-                "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
-                "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
-                "products" to saleItems,
-                "note" to (tv_note.text.toString())
-            )
-            viewModel.postAddDelivery(body) {
-                listener()
-                this.dismiss()
-            }
-        }else{
-            myDialog.alert(validation[KEY_MESSAGE] as String, context)
-        }
-    }
-
-    private fun validationFormAddDelivery(): Map<String, Any?> {
-        var message = ""
-        var cek = true
-        if (listSaleItems.size < 1){
-            message += "- ${getString(R.string.txt_alert_item_sale)}\n"
-            cek = false
-        }
-        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 
     override fun onClickPlus(qty: Double, position: Int) {
@@ -339,6 +332,60 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             }
         }
     }
+
+    private fun actionAddDelivery() {
+        val validation =  validationFormAddDelivery()
+        if (validation[KEY_VALIDATION_REST] as Boolean) {
+
+            val saleItems = listSaleItems.map {
+                return@map mutableMapOf(
+                    "sale_items_id" to it.id.toString(),
+                    "sent_quantity" to it.quantity.toString()
+                )
+            }
+            val body = mutableMapOf(
+                "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
+                "sale_reference_no" to (et_add_delivery_sales_ref?.text?.toString() ?: ""),
+                "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
+                "address" to (et_add_delivery_customer_address?.text?.toString() ?: ""),
+                "status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
+                "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
+                "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
+                "products" to saleItems,
+                "note" to (tv_note.text.toString())
+            )
+            viewModel.postAddDelivery(sale?.id ?: 0, body, requestPart) {
+                listener()
+                this.dismiss()
+            }
+        }else{
+            myDialog.alert(validation[KEY_MESSAGE] as String, context)
+        }
+    }
+
+    private fun getRealPathFromURI(contentUri: Uri): String? {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val loader =
+            context?.let { CursorLoader(it, contentUri, proj, null, null, null) }
+        val cursor = loader?.loadInBackground()
+        val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        val result = cursor.getString(columnIndex)
+        cursor.close()
+        return result
+    }
+
+    private fun validationFormAddDelivery(): Map<String, Any?> {
+        var message = ""
+        var cek = true
+        if (listSaleItems.size < 1){
+            message += "- ${getString(R.string.txt_alert_item_sale)}\n"
+            cek = false
+        }
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
+    }
+
+
 }
 
 

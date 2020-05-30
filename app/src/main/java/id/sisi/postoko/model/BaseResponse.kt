@@ -9,6 +9,18 @@ data class BaseResponse<T>(
     var code: Int?
 )
 
+data class Response<T>(
+    var delivery: T?
+)
+
+data class ResponseDelivery(
+    var id: String?,
+    var reference_no: String?,
+    var do_reference_no: String?,
+    var so_reference_no: String?,
+    var return_reference_no: String?
+)
+
 data class DataLogin(
     var user_id: String?,
     var company_id: String?,

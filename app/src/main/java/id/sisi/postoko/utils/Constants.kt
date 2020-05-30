@@ -48,3 +48,4 @@ const val RC_ADD_PRICE_GROUP = 220
 const val RC_ADD_CUSTOMER_GROUP = 221
 const val RC_ADD_CUSTOMER_TO_PG = 222
 const val RC_ADD_CUSTOMER_TO_CG = 223
+const val RC_UPLOAD_IMAGE = 224

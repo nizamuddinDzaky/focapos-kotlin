@@ -1,12 +1,11 @@
 package id.sisi.postoko.network
 
 import android.annotation.SuppressLint
+import com.google.gson.GsonBuilder
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.*
-import okhttp3.CipherSuite
-import okhttp3.ConnectionSpec
-import okhttp3.OkHttpClient
-import okhttp3.TlsVersion
+import id.sisi.postoko.model.Response
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
@@ -58,21 +57,29 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<DataLogin>>
+    ): Call<BaseResponse<Response<ResponseDelivery>>>
 
     @POST("api/v1/distributor/sales_booking/add_return_deliveries")
     fun postReturnDeliv(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<DataLogin>>
+    ): Call<BaseResponse<Response<ResponseDelivery>>>
 
     @PUT("api/v1/distributor/sales_booking/edit_deliveries_booking")
     fun putEditDeliv(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, Any>,
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<DataProfile>>
+    ): Call<BaseResponse<Response<ResponseDelivery>>>
+
+    @Multipart
+    @POST("api/v1/distributor/sales_booking/upload_file_delivery")
+    fun postUploadFileDelivery(
+        @Part file: MultipartBody.Part,
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>
+    ): Call<BaseResponse<DataLogin>>
 
     @GET("api/Local/list_province")
     fun getProvince(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<List<DataDaerah>>>
@@ -295,9 +302,10 @@ interface ApiServices {
     companion object {
         private var retrofit: Retrofit? = null
 
-        private const val BASE_URL: String = "https://qp.forca.id/"
+//        private const val BASE_URL: String = "https://qp.forca.id/"
+
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-//        private const val BASE_URL: String = "http://10.15.4.102:9090/"
+        private const val BASE_URL: String = "http://10.15.4.102:9090/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {
@@ -365,10 +373,17 @@ interface ApiServices {
             return builder.build()
         }
 
-        private fun buildRetrofit() = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getUnsafeOkHttpClient())
-            .build()
+        private fun buildRetrofit() : Retrofit{
+            val gson = GsonBuilder()
+                .setLenient()
+                .create()
+            return Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(getUnsafeOkHttpClient())
+                .build()
+        }
+
     }
+
 }
