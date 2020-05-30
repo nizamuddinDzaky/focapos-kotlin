@@ -139,7 +139,7 @@
                     android:textColor="#676767"
                     android:textStyle="bold" />
                 <Spinner
-                    android:id="@+id/sp_district_group_edit_customer"
+                    android:id="@+id/sp_city_group_edit_customer"
                     android:layout_width="match_parent"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:layout_height="50dp"
@@ -153,7 +153,7 @@
                     android:textColor="#676767"
                     android:textStyle="bold" />
                 <Spinner
-                    android:id="@+id/sp_city_group_edit_customer"
+                    android:id="@+id/sp_district_group_edit_customer"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
