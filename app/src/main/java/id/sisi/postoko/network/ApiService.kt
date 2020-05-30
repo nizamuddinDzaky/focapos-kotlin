@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.google.gson.GsonBuilder
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.*
+import id.sisi.postoko.model.Response
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import org.greenrobot.eventbus.EventBus
@@ -56,21 +57,29 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<DataLogin>>
+    ): Call<BaseResponse<Response<ResponseDelivery>>>
 
     @POST("api/v1/distributor/sales_booking/add_return_deliveries")
     fun postReturnDeliv(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<DataLogin>>
+    ): Call<BaseResponse<Response<ResponseDelivery>>>
 
     @PUT("api/v1/distributor/sales_booking/edit_deliveries_booking")
     fun putEditDeliv(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, Any>,
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<DataProfile>>
+    ): Call<BaseResponse<Response<ResponseDelivery>>>
+
+    @Multipart
+    @POST("api/v1/distributor/sales_booking/upload_file_delivery")
+    fun postUploadFileDelivery(
+        @Part file: MultipartBody.Part,
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>
+    ): Call<BaseResponse<DataLogin>>
 
     @GET("api/Local/list_province")
     fun getProvince(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<List<DataDaerah>>>
@@ -290,30 +299,13 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataCustomerSelected>>
 
-    @Multipart
-    @POST("ImageUploadApi/Api.php?apicall=upload")
-    fun postUploadFile(
-        @PartMap body: Map<String, RequestBody>
-        /*@Part("image\"; filename=\"myfile.jpg\" ") file: RequestBody,
-    @Part("desc") desc: RequestBody*/
-
-    ): Call<MyResponse>
-
-    @Multipart
-    @POST("ImageUploadApi/Api.php?apicall=upload")
-    fun postUploadFile2(
-        /*@Part("image\"; filename=\"myfile.jpg\" ") file: RequestBody?,*/
-        @PartMap body: Map<String, RequestBody>
-
-    ): Call<MyResponse>
     companion object {
         private var retrofit: Retrofit? = null
 
 //        private const val BASE_URL: String = "https://qp.forca.id/"
-        val BASE_URL: String = "http://192.168.1.69/"
 
         //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-//        private const val BASE_URL: String = "http://10.15.4.102:9090/"
+        private const val BASE_URL: String = "http://10.15.4.102:9090/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {

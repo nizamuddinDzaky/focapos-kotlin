@@ -42,7 +42,7 @@ class CustomProgressBar {
 
         dialog = Dialog(context, R.style.CustomProgressBarTheme)
         dialog.setContentView(view)
-        dialog.setCancelable(false)
+//        dialog.setCancelable(false)
         dialog.show()
 
         return dialog

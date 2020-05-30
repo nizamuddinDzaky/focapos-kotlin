@@ -5,7 +5,10 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +19,7 @@ import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.loader.content.CursorLoader
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -29,6 +33,10 @@ import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_delivery.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,6 +49,10 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
     private val myDialog = MyDialog()
     private var idDelivery = ""
     var listener: () -> Unit = {}
+    private var requestFile: RequestBody? = null
+    private var requestPart: MultipartBody.Part? = null
+    private var strAttachment: String? = null
+
     private val progressBar = CustomProgressBar()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,6 +99,15 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
 
                 deliveryItems?.forEach {delivery ->
                     delivery.tempDelivQty = delivery.quantity_sent
+                }
+
+                if (!TextUtils.isEmpty(it.attachment)){
+                    iv_delete.visible()
+                    tv_prefix_image_name.gone()
+                    tv_image_name.text = it.attachment
+                    strAttachment = it.attachment
+                }else{
+                    removeFile()
                 }
 
                 setUpUI(it.deliveryItems)
@@ -205,6 +226,15 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                 setUpNote(it)
             }
         }
+
+        iv_delete.setOnClickListener {
+            removeFile()
+        }
+
+        layout_upload_file.setOnClickListener {
+            val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(i, 100)
+        }
     }
 
     private fun setUpNote(note: String) {
@@ -229,7 +259,6 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                     "sent_quantity" to it.quantity_sent.toString()
                 )
             }
-
             val body = mutableMapOf(
                 "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
                 "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
@@ -238,9 +267,10 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                 "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
                 "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
                 "note" to (tv_note.text.toString()),
-                "products" to deliItems
+                "products" to deliItems,
+                "attachment" to (strAttachment ?: "")
             )
-            vmDelivery.putEditDeliv(body, idDelivery) {
+            vmDelivery.putEditDeliv(body, idDelivery, requestPart) {
                 listener()
                 this.dismiss()
             }
@@ -249,23 +279,20 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         }
     }
 
-    private fun validationFormUpdateDelivery(): Map<String, Any?> {
-        var message = ""
-        var cek = true
-        if ((deliveryItems?.size ?: listOf<DeliveryItem>().size) < 1){
-            message += "- ${getString(R.string.txt_alert_item_sale)}\n"
-            cek = false
-        }
-        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
-    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-    private fun setUpUI(deliveryItems: List<DeliveryItem>?) {
-        adapter = ListItemDeliveryAdapter()
-        adapter.updateDate(deliveryItems)
-        adapter.listenerProduct = this
-        rv_list_data?.layoutManager = LinearLayoutManager(this.context)
-        rv_list_data?.setHasFixedSize(false)
-        rv_list_data?.adapter = adapter
+        if(data != null){
+            val selectedImage = data.data
+            val file = File(selectedImage?.let { getRealPathFromURI(it) })
+            tv_image_name.text = file.name
+            tv_prefix_image_name.gone()
+            iv_delete.visible()
+            requestFile = RequestBody.create(MediaType.parse(selectedImage?.let { activity?.contentResolver?.getType(it) }), file)
+            requestPart = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        }else{
+            removeFile()
+        }
     }
 
     override fun onClickPlus(qty: Double, position: Int) {
@@ -334,4 +361,46 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
             }
         }
     }
+
+    private fun removeFile() {
+        requestFile = null
+        requestPart = null
+        strAttachment = null
+        iv_delete.gone()
+        tv_prefix_image_name.visible()
+        tv_image_name.text = getString(R.string.txt_upload_file)
+    }
+
+    private fun getRealPathFromURI(contentUri: Uri): String? {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val loader =
+            context?.let { CursorLoader(it, contentUri, proj, null, null, null) }
+        val cursor = loader?.loadInBackground()
+        val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        val result = cursor.getString(columnIndex)
+        cursor.close()
+        return result
+    }
+
+    private fun validationFormUpdateDelivery(): Map<String, Any?> {
+        var message = ""
+        var cek = true
+        if ((deliveryItems?.size ?: listOf<DeliveryItem>().size) < 1){
+            message += "- ${getString(R.string.txt_alert_item_sale)}\n"
+            cek = false
+        }
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
+    }
+
+    private fun setUpUI(deliveryItems: List<DeliveryItem>?) {
+        adapter = ListItemDeliveryAdapter()
+        adapter.updateDate(deliveryItems)
+        adapter.listenerProduct = this
+        rv_list_data?.layoutManager = LinearLayoutManager(this.context)
+        rv_list_data?.setHasFixedSize(false)
+        rv_list_data?.adapter = adapter
+    }
+
+
 }
