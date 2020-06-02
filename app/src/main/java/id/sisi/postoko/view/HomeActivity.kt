@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.UpdateFrom
+import com.google.android.material.appbar.AppBarLayout
 import com.google.firebase.iid.FirebaseInstanceId
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
@@ -28,6 +29,7 @@ import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.sales.SaleStatus
 //import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home3.*
+import kotlinx.android.synthetic.main.activity_home3.view.*
 import kotlinx.android.synthetic.main.dialog_alert_confirmation.*
 
 
@@ -77,9 +79,17 @@ class HomeActivity : BaseActivity() {
         viewCustomerViewModel.getSyncCustomerToBK().observe(this, Observer {
             progressBar.dialog.dismiss()
             if (it != null) {
-                Toast.makeText(this, "Sinkron Sukses, Total pelanggan berhasil disinkron : "+it.total_customer_data, Toast.LENGTH_LONG).show()
-            }else{
-                Toast.makeText(this, "Post Sync customer to bk failed because data store active not found!", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Sinkron Sukses, Total pelanggan berhasil disinkron : " + it.total_customer_data,
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Post Sync customer to bk failed because data store active not found!",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
 
@@ -143,7 +153,7 @@ class HomeActivity : BaseActivity() {
 
     fun showSearch(isShown: Boolean) {
         if (isShown) {
-//            main_content_container?.gone()
+            main_container?.gone()
             search_container?.visible()
             if (search_view.typeView == 1) {
                 grFragment?.let {
@@ -162,6 +172,7 @@ class HomeActivity : BaseActivity() {
             }
         } else {
             search_container?.gone()
+            main_container?.visible()
 //            main_content_container?.visible()
             switchFragment(navPosition)
         }
@@ -199,9 +210,13 @@ class HomeActivity : BaseActivity() {
     private fun switchFragment(navPosition: BottomNavigationPosition): Boolean {
         if (BottomNavigationPosition.HOME == navPosition) {
             app_bar?.setBackgroundResource(R.drawable.gradient_bg_appbar)
+            (app_bar?.collapsing_toolbar?.layoutParams as? AppBarLayout.LayoutParams)?.scrollFlags =
+                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
         } else {
             app_bar?.setBackgroundResource(R.color.main_blue)
             app_bar?.setExpanded(true)
+            (app_bar?.collapsing_toolbar?.layoutParams as? AppBarLayout.LayoutParams)?.scrollFlags =
+                AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
         }
         return findFragment(navPosition).let {
             if (it.isAdded) return false
@@ -230,7 +245,7 @@ class HomeActivity : BaseActivity() {
             roleId.isNotCashier()
     }
 
-    fun syncMasterCustomer(){
+    fun syncMasterCustomer() {
         val dialog = Dialog(this, R.style.MyCustomDialogFullScreen)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_alert_confirmation)

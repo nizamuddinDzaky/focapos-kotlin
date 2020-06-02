@@ -2,6 +2,8 @@ package id.sisi.postoko.utils.extensions
 
 import android.content.Context
 import id.sisi.postoko.R
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -191,4 +193,8 @@ fun String?.toAlias(): String {
     if (this.isNullOrEmpty()) return "#"
     if (this.length == 1) return this.toUpper()
     return this.toUpper().substring(0, 2)
+}
+
+fun String.toRequestBody(): RequestBody{
+    return RequestBody.create(MediaType.parse("text/plain"), this)
 }

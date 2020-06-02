@@ -51,18 +51,9 @@ class MainActivity : AppCompatActivity() {
         typeface.typeFace("robot_font/Roboto-Bold.ttf",tv_password, assets)
         typeface.typeFace("robot_font/Roboto-Bold.ttf",btn_login, assets)
         typeface.typeFace("robot_font/Roboto-Bold.ttf",tv_sign_up, assets)
-        typeface.typeFace("robot_font/Roboto-Regular.ttf",cb_show_password, assets)
         typeface.typeFace("robot_font/Roboto-Regular.ttf",checkbox_remember_me, assets)
         typeface.typeFace("robot_font/Roboto-Regular.ttf",btn_login_forget_password, assets)
         typeface.typeFace("robot_font/Roboto-Regular.ttf",tv_belum_punya_akun, assets)
-
-        cb_show_password.setOnClickListener {
-            if (cb_show_password.isChecked) {
-                et_password.transformationMethod = HideReturnsTransformationMethod.getInstance();
-            } else {
-                et_password.transformationMethod = PasswordTransformationMethod.getInstance();
-            }
-        }
 
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         viewModel.getDataLogin().observe(this, Observer {
@@ -120,6 +111,9 @@ class MainActivity : AppCompatActivity() {
                 prefs.usernameLogin = if (isRememberMe) username else ""
                 prefs.passwordLogin = if (isRememberMe) password else ""
             }
+        }
+        tv_sign_up.setOnClickListener {
+            startActivity(Intent(this, UploadFileActivity::class.java))
         }
     }
 

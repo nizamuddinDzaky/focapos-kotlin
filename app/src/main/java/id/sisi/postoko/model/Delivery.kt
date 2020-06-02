@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Delivery(
     val address: String,
-//    val attachment: Any,
+    val attachment: String,
     val created_at: String,
     val created_by: String,
     val customer: String,

@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +16,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.loader.content.CursorLoader
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -26,9 +30,14 @@ import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_return_delivery.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDeliveryAdapter.OnClickListenerInterface {
 
     private var myDialog = MyDialog()
@@ -38,6 +47,10 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
     private var saleId = "0"
     private val progressBar = CustomProgressBar()
     private var deliveryItems: List<DeliveryItem>? = arrayListOf()
+    private var requestFile: RequestBody? = null
+    private var requestPart: MultipartBody.Part? = null
+    private var strAttachment: String? = null
+
     var listener: () -> Unit = {}
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -164,6 +177,30 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 setUpNote(it)
             }
         }
+
+        iv_delete.setOnClickListener {
+            removeFile()
+        }
+
+        layout_upload_file.setOnClickListener {
+            val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(i, 100)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(data != null){
+            val selectedImage = data.data
+            val file = File(selectedImage?.let { getRealPathFromURI(it) })
+            tv_image_name.text = file.name
+            tv_prefix_image_name.gone()
+            iv_delete.visible()
+            requestFile = RequestBody.create(MediaType.parse(selectedImage?.let { activity?.contentResolver?.getType(it) }), file)
+            requestPart = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        }else{
+            removeFile()
+        }
     }
 
     private fun actionReturnDelivery() {
@@ -189,44 +226,13 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 "status" to "returned",
                 "products" to delItems
             )
-            vmDelivery.postReturnDeliv(body, idDelivery) {
+            vmDelivery.postReturnDeliv(body, idDelivery, requestPart) {
                 listener()
                 this.dismiss()
             }
         }else{
             myDialog.alert(rest[KEY_MESSAGE] as String, context)
         }
-    }
-
-    private fun setUpNote(note: String) {
-        if (TextUtils.isEmpty(note)){
-            tv_add_note.visible()
-            tv_edit_note.gone()
-            tv_note.text = getString(R.string.txt_not_set_note)
-        }else{
-            tv_add_note.gone()
-            tv_edit_note.visible()
-            tv_note.text = note
-        }
-    }
-
-    private fun validationFormReturnDelivery(): Map<String, Any?> {
-        var message = ""
-        var cek = true
-        if ((deliveryItems?.size ?: listOf<DeliveryItem>().size) < 1){
-            message += "- ${getString(R.string.txt_alert_item_sale)}\n"
-            cek = false
-        }
-        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
-    }
-
-    private fun setUpUI(deliveryItems: List<DeliveryItem>?) {
-        adapter = ListItemDeliveryAdapter()
-        adapter.updateDate(deliveryItems)
-        adapter.listenerProduct = this
-        rv_list_data?.layoutManager = LinearLayoutManager(this.context)
-        rv_list_data?.setHasFixedSize(false)
-        rv_list_data?.adapter = adapter
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -299,5 +305,57 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 }
             }
         }
+    }
+
+    private fun setUpNote(note: String) {
+        if (TextUtils.isEmpty(note)){
+            tv_add_note.visible()
+            tv_edit_note.gone()
+            tv_note.text = getString(R.string.txt_not_set_note)
+        }else{
+            tv_add_note.gone()
+            tv_edit_note.visible()
+            tv_note.text = note
+        }
+    }
+
+    private fun validationFormReturnDelivery(): Map<String, Any?> {
+        var message = ""
+        var cek = true
+        if ((deliveryItems?.size ?: listOf<DeliveryItem>().size) < 1){
+            message += "- ${getString(R.string.txt_alert_item_sale)}\n"
+            cek = false
+        }
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
+    }
+
+    private fun setUpUI(deliveryItems: List<DeliveryItem>?) {
+        adapter = ListItemDeliveryAdapter()
+        adapter.updateDate(deliveryItems)
+        adapter.listenerProduct = this
+        rv_list_data?.layoutManager = LinearLayoutManager(this.context)
+        rv_list_data?.setHasFixedSize(false)
+        rv_list_data?.adapter = adapter
+    }
+
+    private fun removeFile() {
+        requestFile = null
+        requestPart = null
+        strAttachment = null
+        iv_delete.gone()
+        tv_prefix_image_name.visible()
+        tv_image_name.text = getString(R.string.txt_upload_file)
+    }
+
+    private fun getRealPathFromURI(contentUri: Uri): String? {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val loader =
+            context?.let { CursorLoader(it, contentUri, proj, null, null, null) }
+        val cursor = loader?.loadInBackground()
+        val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        val result = cursor.getString(columnIndex)
+        cursor.close()
+        return result
     }
 }

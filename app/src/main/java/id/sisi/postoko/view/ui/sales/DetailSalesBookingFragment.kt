@@ -106,6 +106,8 @@ class DetailSalesBookingFragment : Fragment() {
         tv_sale_detail_sbo_total?.text = sale?.total?.toCurrencyID()
         tv_sale_detail_sbo_paid?.text = sale?.paid?.toCurrencyID()
         tv_sale_detail_grand_total?.text = (sale?.grand_total?.minus(sale.paid))?.toCurrencyID()
+        tv_employee_note?.text = sale?.staff_note
+        tv_sale_note?.text = sale?.note
         adapter.updateSaleItems(sale?.saleItems)
     }
 
