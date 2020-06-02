@@ -112,9 +112,6 @@ class MainActivity : AppCompatActivity() {
                 prefs.passwordLogin = if (isRememberMe) password else ""
             }
         }
-        tv_sign_up.setOnClickListener {
-            startActivity(Intent(this, UploadFileActivity::class.java))
-        }
     }
 
     private fun successLogin(token: String, user: User?) {
