@@ -41,7 +41,7 @@ import okhttp3.RequestBody
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NAME_SHADOWING")
 class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeliveryAdapter.OnClickListenerInterface {
 
     private val progressBar = CustomProgressBar()
@@ -138,6 +138,10 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                         val parseDate =
                             inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
                         parseDate?.let {
+                            val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                            val strTime = time.format(Date())
+                            val parseDate =
+                                inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth $strTime")
                             val selectedDate = inputDateFormat.format(parseDate)
                             et_add_delivery_date.setText(selectedDate.toDisplayDate())
                             et_add_delivery_date?.tag = selectedDate
@@ -263,6 +267,9 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         if (quantity != null) {
             if (quantity > (saleItemTemp?.get(position)?.get("sent_quantity") ?: 0.0)){
                 myDialog.alert(getString(R.string.txt_alert_out_of_qty), context)
+                myDialog.listenerPositif={
+                    adapter.notifyDataSetChanged()
+                }
             }else{
                 listSaleItems[position].quantity = quantity
                 adapter.notifyDataSetChanged()

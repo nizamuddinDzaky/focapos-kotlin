@@ -178,8 +178,10 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                 DatePickerDialog(
                     it1,
                     DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
+                        val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                        val strTime = time.format(Date())
                         val parseDate =
-                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
+                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth $strTime")
                         parseDate?.let {
                             val selectedDate = inputDateFormat.format(parseDate)
                             et_add_delivery_date.setText(selectedDate.toDisplayDate())

@@ -55,9 +55,6 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val currentDate = sdf.format(Date())
-
         val idSalesBooking = arguments?.getInt(KEY_ID_SALES_BOOKING) ?: 0
         sales = arguments?.getParcelable("sale")
         mustPaid = sales?.paid?.let { sales?.grand_total?.minus(it) } ?: 0.0
@@ -83,6 +80,9 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             }
         })
 
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val currentDate = sdf.format(Date())
         et_add_payment_date?.setText(currentDate.toDisplayDate())
         et_add_payment_date?.hint = currentDate.toDisplayDate()
         et_add_payment_date?.tag = currentDate
@@ -108,8 +108,9 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
                 DatePickerDialog(
                     it1,
                     DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
+                        val strTime = time.format(Date())
                         val parseDate =
-                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
+                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth $strTime")
                         parseDate?.let {
                             val selectedDate = inputDateFormat.format(parseDate)
                             et_add_payment_date.setText(selectedDate.toDisplayDate())
