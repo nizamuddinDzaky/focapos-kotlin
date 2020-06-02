@@ -84,7 +84,7 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
         et_add_payment_date.setOnClickListener {
 
             val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-
+            val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
             val date = if (et_add_payment_date.tag == null){
                 inputDateFormat.format(Date())
             }else{
@@ -103,8 +103,9 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
                 DatePickerDialog(
                     it1,
                     DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
+                        val strTime = time.format(Date())
                         val parseDate =
-                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
+                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth $strTime")
                         parseDate?.let {
                             val selectedDate = inputDateFormat.format(parseDate)
                             et_add_payment_date.setText(selectedDate.toDisplayDate())

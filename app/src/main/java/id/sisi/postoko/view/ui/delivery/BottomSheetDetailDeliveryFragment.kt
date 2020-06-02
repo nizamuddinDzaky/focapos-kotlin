@@ -46,7 +46,7 @@ class BottomSheetDetailDeliveryFragment : BottomSheetDialogFragment() {
         viewModel.getDetailDelivery().observe(viewLifecycleOwner, Observer {
             adapter.updateSalesData(it?.deliveryItems)
             tv_title_bottom_sheet.text = it?.do_reference_no
-            tv_date.text = it?.date?.toDisplayDate()
+            tv_date.text = it?.date?.toDisplayDateTime()
             tv_sale_no.text = it?.sale_reference_no
             tv_customer.text = it?.customer
 
@@ -57,8 +57,8 @@ class BottomSheetDetailDeliveryFragment : BottomSheetDialogFragment() {
                 layout_delivered_date.gone()
             }
 
-            tv_date_delivery.text = it?.delivering_date?.toDisplayDate()
-            tv_date_delivered.text = it?.delivered_date?.toDisplayDate()
+            tv_date_delivery.text = it?.delivering_date?.toDisplayDateTime()
+            tv_date_delivered.text = it?.delivered_date?.toDisplayDateTime()
             tv_status.text = it?.status?.toDisplayStatus()?.let { it1 -> getText(it1) }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 it?.status?.toDisplayStatusColor()?.let { it1 -> context?.getColor(it1)?.let { it1 -> tv_status.setTextColor(it1) } }
