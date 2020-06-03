@@ -55,6 +55,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     private var myDialog = MyDialog()
     private var requestFile: RequestBody? = null
     private var requestPart: MultipartBody.Part? = null
+    private var note: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -194,22 +195,26 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             this.dismiss()
         }
 
+        tv_note.text = getString(R.string.txt_not_set_note)
+
         tv_add_note.setOnClickListener {
             val dialog = MyDialog()
-            dialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            dialog.note(getString(R.string.txt_delivery_note), note ?: "", context)
             dialog.listenerPositifNote = {
                 tv_add_note.gone()
                 tv_edit_note.visible()
+                note = it
                 tv_note.text = it
             }
         }
 
         tv_edit_note.setOnClickListener {
             val dialog = MyDialog()
-            dialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            dialog.note(getString(R.string.txt_delivery_note), note ?: "", context)
             dialog.listenerPositifNote = {
                 tv_add_note.gone()
                 tv_edit_note.visible()
+                note = it
                 tv_note.text = it
             }
         }
@@ -359,7 +364,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
                 "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
                 "products" to saleItems,
-                "note" to (tv_note.text.toString())
+                "note" to (note ?: "")
             )
             viewModel.postAddDelivery(sale?.id ?: 0, body, requestPart) {
                 listener()

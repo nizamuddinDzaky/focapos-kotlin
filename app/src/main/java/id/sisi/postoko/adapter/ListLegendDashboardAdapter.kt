@@ -16,10 +16,11 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toDisplayStatus
 import kotlinx.android.synthetic.main.list_legend_dashboard.view.*
 
 class ListLegendDashboardAdapter (
-        private var status: List<String>? = arrayListOf(),
+        private var status: List<Int>? = arrayListOf(),
         private var jumlah: List<String>? = arrayListOf(),
         private var image: List<Int>? = arrayListOf(),
         private var fragmentActivity: FragmentActivity? = null
@@ -42,9 +43,9 @@ class ListLegendDashboardAdapter (
 
     class LegendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val typeface = TypeFace()
-        fun bind(status: String?, jumlah: String?, image: Int?, fragmentActivity: FragmentActivity? = null) {
+        fun bind(status: Int?, jumlah: String?, image: Int?, fragmentActivity: FragmentActivity? = null) {
             itemView.iv_icon_legend_dashboard.setImageResource(image?:0)
-            itemView.tv_status_legend_dashboard.text = status
+            itemView.tv_status_legend_dashboard.text = status?.let { itemView.context.getText(it) }
             itemView.tv_jumlah_legend_dashboard.text = jumlah
             fragmentActivity?.assets?.let {
                 typeface.typeFace("robot_font/Roboto-Bold.ttf",itemView.tv_status_legend_dashboard,it)
@@ -52,7 +53,7 @@ class ListLegendDashboardAdapter (
             }
         }
     }
-    fun updateLegendData(newStatus: List<String>?, newJumlah: ArrayList<String>?, newImage: ArrayList<Int>?) {
+    fun updateLegendData(newStatus: List<Int>?, newJumlah: ArrayList<String>?, newImage: ArrayList<Int>?) {
         status = newStatus
         jumlah = newJumlah
         image = newImage

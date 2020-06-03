@@ -133,7 +133,6 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
     }
 
     fun refreshDataSale() {
-        logE("asds")
         (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
     }
 

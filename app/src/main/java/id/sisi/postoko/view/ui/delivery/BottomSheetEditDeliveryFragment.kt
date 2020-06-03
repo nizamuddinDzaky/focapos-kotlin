@@ -52,6 +52,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
     private var requestFile: RequestBody? = null
     private var requestPart: MultipartBody.Part? = null
     private var strAttachment: String? = null
+    private var note: String? = null
 
     private val progressBar = CustomProgressBar()
     override fun onCreateView(
@@ -216,14 +217,14 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         }
 
         tv_add_note.setOnClickListener {
-            myDialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            myDialog.note(getString(R.string.txt_delivery_note), note ?: "", context)
             myDialog.listenerPositifNote = {
                 setUpNote(it)
             }
         }
 
         tv_edit_note.setOnClickListener {
-            myDialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            myDialog.note(getString(R.string.txt_delivery_note), note ?: "", context)
             myDialog.listenerPositifNote = {
                 setUpNote(it)
             }
@@ -248,6 +249,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
             tv_add_note.gone()
             tv_edit_note.visible()
             tv_note.text = note
+            this.note = note
         }
     }
 
@@ -268,7 +270,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                 "status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
                 "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
                 "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
-                "note" to (tv_note.text.toString()),
+                "note" to (note ?: ""),
                 "products" to deliItems,
                 "attachment" to (strAttachment ?: "")
             )
