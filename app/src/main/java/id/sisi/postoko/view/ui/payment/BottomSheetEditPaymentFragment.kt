@@ -4,13 +4,17 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,14 +24,17 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Payment
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.*
-import id.sisi.postoko.utils.extensions.setupFullHeight
-import id.sisi.postoko.utils.extensions.toDisplayDate
-import id.sisi.postoko.utils.extensions.validation
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_form_payment.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
 
     private var sales: Sales? = null
@@ -37,11 +44,24 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
     private val progressBar = CustomProgressBar()
     var listener: () -> Unit = {}
     private var myDialog = MyDialog()
+    private var requestBody: RequestBody? = null
+    private var requestPart: MultipartBody.Part? = null
+    private var paymentNote: String? = null
+    private var strAttachment: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_bottom_sheet_form_payment, container, false)
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog =  super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            bottomSheetDialog.setupFullHeight(context as Activity)
+        }
+        return dialog
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -59,9 +79,20 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
             et_add_payment_date?.hint = it.date.toDisplayDate()
             et_add_payment_date?.tag = it.date
             et_add_payment_total.setText(it.amount.toInt().toString())
-            et_add_payment_note.setText(it.note)
+            paymentNote = it.note
             setUpRadioGroup(it.paid_by)
             mustPaid += it.amount
+
+            setPaymentNote()
+
+            if (!TextUtils.isEmpty(it.attachment)){
+                iv_delete.visible()
+                tv_prefix_image_name.gone()
+                tv_image_name.text = it.attachment
+                strAttachment = it.attachment
+            }else{
+                removeFile()
+            }
         }
         viewModel = ViewModelProvider(this, AddPaymentFactory(idSalesBooking)).get(AddPaymentViewModel::class.java)
 
@@ -134,6 +165,68 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
             }
             actionUpdatePayment()
         }
+
+        tv_add_payment_note.setOnClickListener {
+            showPopUpNote(getString(R.string.txt_note), paymentNote ?: "")
+        }
+
+        tv_edit_payment_note.setOnClickListener {
+            showPopUpNote(getString(R.string.txt_note), paymentNote ?: "")
+        }
+
+        iv_delete.setOnClickListener {
+            removeFile()
+        }
+
+        layout_upload_file.setOnClickListener {
+            val i = Intent(Intent.ACTION_GET_CONTENT)
+            i.type = "*/*"
+            i.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."), RC_UPLOAD_IMAGE)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == RC_UPLOAD_IMAGE){
+                if(data != null){
+                    try {
+                        val selectedUri = data.data
+                        val filePath= FilePath()
+                        val selectedPath = context?.let { context ->
+                            selectedUri?.let { uri ->
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    filePath.getPath(context, uri)
+                                } else {
+                                    TODO("VERSION.SDK_INT < KITKAT")
+                                }
+                            }
+                        }
+                        val file = File(selectedPath)
+                        tv_image_name.text = file.name
+                        tv_prefix_image_name.gone()
+                        iv_delete.visible()
+                        requestBody = RequestBody.create(MediaType.parse(selectedUri?.let { activity?.contentResolver?.getType(it) }), file)
+                        requestPart = MultipartBody.Part.createFormData("file", file.name, requestBody)
+                    }catch (e: Exception){
+                        Toast.makeText(context, "$e", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    removeFile()
+                }
+            }
+        }
+    }
+
+    private fun removeFile() {
+        requestBody = null
+        requestPart = null
+        strAttachment = null
+        iv_delete.gone()
+        tv_prefix_image_name.visible()
+        tv_image_name.text = getString(R.string.txt_upload_file)
     }
 
     private fun setUpRadioGroup(paidBy: String) {
@@ -178,10 +271,11 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
             val body = mutableMapOf(
                 "date" to (et_add_payment_date?.tag?.toString() ?: ""),
                 "amount_paid" to (et_add_payment_total?.tag?.toString() ?: "0"),
-                "note" to (et_add_payment_note?.text?.toString() ?: ""),
-                "payment_method" to (rg_payment_type.tag?.toString() ?: "")
+                "note" to (paymentNote ?: ""),
+                "payment_method" to (rg_payment_type.tag?.toString() ?: ""),
+                "attachment" to (strAttachment ?: "")
             )
-            viewModel.putEditayment(body, payment.id) {
+            viewModel.putEditayment(body, payment.id, requestPart) {
                 listener()
                 this.dismiss()
             }
@@ -200,13 +294,25 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
         return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog =  super.onCreateDialog(savedInstanceState)
-        dialog.setOnShowListener { dialogInterface ->
-            val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            bottomSheetDialog.setupFullHeight(context as Activity)
+    private fun showPopUpNote(title: String, paymentNote: String) {
+        val dialog = MyDialog()
+        dialog.note(title, paymentNote, context)
+        dialog.listenerPositifNote = {
+            this.paymentNote = it
+            setPaymentNote()
         }
-        return dialog
+    }
+
+    private fun setPaymentNote() {
+        if (TextUtils.isEmpty(paymentNote)){
+            tv_edit_payment_note.gone()
+            tv_add_payment_note.visible()
+            tv_payment_note.text = getString(R.string.txt_not_set_note)
+        }else{
+            tv_payment_note.text = paymentNote
+            tv_add_payment_note.gone()
+            tv_edit_payment_note.visible()
+        }
     }
 
 }

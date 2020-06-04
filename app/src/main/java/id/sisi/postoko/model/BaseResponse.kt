@@ -10,10 +10,11 @@ data class BaseResponse<T>(
 )
 
 data class Response<T>(
-    var delivery: T?
+    var delivery: T?,
+    var payment: T?
 )
 
-data class ResponseDelivery(
+data class ResponseData(
     var id: String?,
     var reference_no: String?,
     var do_reference_no: String?,

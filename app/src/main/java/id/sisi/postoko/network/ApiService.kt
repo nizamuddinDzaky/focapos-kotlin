@@ -30,13 +30,21 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, String>
-    ): Call<BaseResponse<DataLogin>>
+    ): Call<BaseResponse<Response<ResponseData>>>
 
     @PUT("api/v1/distributor/sales_booking/edit_payments")
     fun putEditPayment(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, String>
+    ): Call<BaseResponse<Response<ResponseData>>>
+
+    @Multipart
+    @POST("api/v1/distributor/sales_booking/upload_file_payment")
+    fun postUploadFilePayment(
+        @Part file: MultipartBody.Part,
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>
     ): Call<BaseResponse<DataLogin>>
 
     @POST("api/v1/distributor/sales_booking/add_sales_booking")
@@ -57,21 +65,21 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<Response<ResponseDelivery>>>
+    ): Call<BaseResponse<Response<ResponseData>>>
 
     @POST("api/v1/distributor/sales_booking/add_return_deliveries")
     fun postReturnDeliv(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<Response<ResponseDelivery>>>
+    ): Call<BaseResponse<Response<ResponseData>>>
 
     @PUT("api/v1/distributor/sales_booking/edit_deliveries_booking")
     fun putEditDeliv(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, Any>,
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<Response<ResponseDelivery>>>
+    ): Call<BaseResponse<Response<ResponseData>>>
 
     @Multipart
     @POST("api/v1/distributor/sales_booking/upload_file_delivery")

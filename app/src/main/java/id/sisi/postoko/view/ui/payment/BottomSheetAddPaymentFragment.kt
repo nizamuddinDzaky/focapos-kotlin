@@ -4,13 +4,17 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,15 +23,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.*
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.setupFullHeight
-import id.sisi.postoko.utils.extensions.toDisplayDate
-import id.sisi.postoko.utils.extensions.validation
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_form_payment.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     private val progressBar = CustomProgressBar()
     lateinit var viewModel: AddPaymentViewModel
@@ -35,6 +41,9 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
     private var sales: Sales? = null
     private var mustPaid: Double = 0.0
     private var myDialog = MyDialog()
+    private var paymentNote: String? = null
+    private var requestBody: RequestBody? = null
+    private var requestPart: MultipartBody.Part? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -140,6 +149,78 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             }
             actionAddPayment()
         }
+
+        tv_add_payment_note.setOnClickListener {
+            showPopUpNote(getString(R.string.txt_note), paymentNote ?: "")
+        }
+
+        tv_edit_payment_note.setOnClickListener {
+            showPopUpNote(getString(R.string.txt_note), paymentNote ?: "")
+        }
+
+        setPaymentNote()
+
+        iv_delete.setOnClickListener {
+            removeFile()
+        }
+
+        layout_upload_file.setOnClickListener {
+            val i = Intent(Intent.ACTION_GET_CONTENT)
+            i.type = "*/*"
+            i.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."), RC_UPLOAD_IMAGE)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == RC_UPLOAD_IMAGE){
+                if(data != null){
+                    try {
+                        val selectedUri = data.data
+                        val filePath= FilePath()
+                        val selectedPath = context?.let { context ->
+                            selectedUri?.let { uri ->
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    filePath.getPath(context, uri)
+                                } else {
+                                    TODO("VERSION.SDK_INT < KITKAT")
+                                }
+                            }
+                        }
+                        val file = File(selectedPath)
+                        tv_image_name.text = file.name
+                        tv_prefix_image_name.gone()
+                        iv_delete.visible()
+                        requestBody = RequestBody.create(MediaType.parse(selectedUri?.let { activity?.contentResolver?.getType(it) }), file)
+                        requestPart = MultipartBody.Part.createFormData("file", file.name, requestBody)
+                    }catch (e: Exception){
+                        Toast.makeText(context, "$e", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    removeFile()
+                }
+            }
+        }
+    }
+
+    private fun removeFile() {
+        requestBody = null
+        requestPart = null
+        iv_delete.gone()
+        tv_prefix_image_name.visible()
+        tv_image_name.text = getString(R.string.txt_upload_file)
+    }
+
+    private fun showPopUpNote(title: String, paymentNote: String) {
+        val dialog = MyDialog()
+        dialog.note(title, paymentNote, context)
+        dialog.listenerPositifNote = {
+            this.paymentNote = it
+            setPaymentNote()
+        }
     }
 
     private fun setUpRadioGroup() {
@@ -179,10 +260,10 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             val body = mutableMapOf(
                 "date" to (et_add_payment_date?.tag?.toString() ?: ""),
                 "amount_paid" to (et_add_payment_total?.tag?.toString() ?: "0"),
-                "note" to (et_add_payment_note?.text?.toString() ?: ""),
+                "note" to (paymentNote ?: ""),
                 "payment_method" to (rg_payment_type.tag?.toString() ?: "")
             )
-            viewModel.postAddPayment(body) {
+            viewModel.postAddPayment(body, requestPart) {
                 listener()
                 this.dismiss()
             }
@@ -199,5 +280,17 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
             cek = false
         }
         return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
+    }
+
+    private fun setPaymentNote() {
+        if (TextUtils.isEmpty(paymentNote)){
+            tv_edit_payment_note.gone()
+            tv_add_payment_note.visible()
+            tv_payment_note.text = getString(R.string.txt_not_set_note)
+        }else{
+            tv_payment_note.text = paymentNote
+            tv_add_payment_note.gone()
+            tv_edit_payment_note.visible()
+        }
     }
 }
