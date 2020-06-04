@@ -47,6 +47,7 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
     }
 
     private fun setupViewModel() {
+        logE("status ${status.name}")
         viewModel =
             ViewModelProvider(this, SBFactory(hashMapOf(KEY_SALE_STATUS to status.name))).get(
                 SBViewModel::class.java

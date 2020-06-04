@@ -87,7 +87,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         if (sale?.order_discount != 0.0)
             et_discount_edit_sale.setText(sale?.order_discount.toString())
         if (sale?.shipping != 0.0)
-            et_shipping_edit_sale.setText(sale?.shipping.toString())
+            et_shipping_edit_sale.setText(sale?.shipping?.toInt().toString())
         if (sale?.payment_term != 0)
             et_payment_term_edit_sale.setText(sale?.payment_term.toString())
         idWarehouse = sale?.warehouse_id.toString()
@@ -365,7 +365,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 "customer" to (idCustomer ?: ""),
                 "warehouse" to (idWarehouse ?: ""),
                 "order_discount" to (et_discount_edit_sale?.tag?.toString() ?: ""),
-                "shipping" to (et_shipping_edit_sale?.text?.toString() ?: ""),
+                "shipping" to (et_shipping_edit_sale?.tag?.toString() ?: ""),
                 "sale_status" to (rg_status_edit_sale?.tag?.toString() ?: ""),
                 "payment_term" to (et_payment_term_edit_sale?.text?.toString() ?: ""),
                 "staff_note" to (et_staff_note_edit_sale?.text?.toString() ?: ""),

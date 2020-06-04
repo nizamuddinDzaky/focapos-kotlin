@@ -27,6 +27,7 @@ import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
+import id.sisi.postoko.view.ui.sales.SaleStatus
 import id.sisi.postoko.view.ui.warehouse.WarehouseDialogFragment
 import kotlinx.android.synthetic.main.fragment_dashboard_pager.*
 import java.text.SimpleDateFormat
@@ -40,7 +41,12 @@ import java.util.*
 class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
 
     private lateinit var adapter: ListLegendDashboardAdapter
-    private var listStatus: ArrayList<String> = arrayListOf("Cancel", "Sukses", " Pending")
+    private var listStatus: ArrayList<Int> =
+        arrayListOf(
+            R.string.txt_status_closed,
+            R.string.txt_status_reserved,
+            R.string.txt_status_pending
+        )
     private var listImage: ArrayList<Int> = arrayListOf(R.drawable.circle_cancel, R.drawable.circle_sukses, R.drawable.circle_pending)
     private var listJumlah: ArrayList<String> = arrayListOf()
 

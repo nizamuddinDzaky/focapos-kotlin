@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -50,6 +51,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
     private var requestFile: RequestBody? = null
     private var requestPart: MultipartBody.Part? = null
     private var strAttachment: String? = null
+    private var note: String? = null
 
     var listener: () -> Unit = {}
     override fun onCreateView(
@@ -167,14 +169,14 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
         }
 
         tv_add_note.setOnClickListener {
-            myDialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            myDialog.note(getString(R.string.txt_delivery_note), note ?: "", context)
             myDialog.listenerPositifNote = {
                 setUpNote(it)
             }
         }
 
         tv_edit_note.setOnClickListener {
-            myDialog.note(getString(R.string.txt_delivery_note), tv_note.text.toString(), context)
+            myDialog.note(getString(R.string.txt_delivery_note), note ?: "", context)
             myDialog.listenerPositifNote = {
                 setUpNote(it)
             }
@@ -188,6 +190,11 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
             val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(i, 100)
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        (parentFragment as DeliveryFragment).refreshDataSale()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -224,7 +231,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 "sale_id" to (saleId),
                 "sale_reference_no" to (et_sales_ref?.text?.toString() ?: ""),
                 "do_reference_no" to (et_reference_no?.text?.toString() ?: ""),
-                "note" to (tv_note?.text?.toString() ?: ""),
+                "note" to (note ?: ""),
                 "status" to "returned",
                 "products" to delItems
             )
@@ -318,6 +325,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
             tv_add_note.gone()
             tv_edit_note.visible()
             tv_note.text = note
+            this.note = note
         }
     }
 

@@ -13,6 +13,7 @@ import id.sisi.postoko.adapter.ListPaymentAdapter
 import id.sisi.postoko.model.Payment
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.failed_load_data.*
@@ -36,6 +37,13 @@ class PaymentFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as DetailSalesBookingActivity).vmSale.getDetailSale().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                logE("asdsd")
+                setUpFab()
+            }
+        })
 
         idSalesBooking = (activity as? DetailSalesBookingActivity)?.idSalesBooking ?: 0
 
@@ -65,14 +73,19 @@ class PaymentFragment : Fragment(){
     }
 
     override fun onResume() {
+        setUpFab()
+        super.onResume()
+    }
+
+    private fun setUpFab() {
         val sale = (activity as? DetailSalesBookingActivity)?.tempSale
         if((sale?.paid ?: 0.0) >= (sale?.grand_total ?: 0.0)){
             fb_add_transaction.gone()
         }else{
             fb_add_transaction.visible()
         }
-        super.onResume()
     }
+
 
     private fun sumTotalPaid(it: List<Payment>?): Double {
         var paid = 0.0

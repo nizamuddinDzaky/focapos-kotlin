@@ -162,12 +162,12 @@ class DeliveryDetailViewModel : ViewModel() {
     }
 
     private fun postUploadFile(body: MultipartBody.Part, idDelivery: String, listener: (message: String) -> Unit) {
-        logE("masuk5")
         isExecute.postValue(true)
          val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
          val params = mutableMapOf(KEY_ID_DELIVERY to idDelivery)
         ApiServices.getInstance()?.postUploadFileDelivery(body, headers, params)?.exe(
             onFailure = { _, t->
+                logE("gagal: $t")
                 listener(t.toString())
                 isExecute.postValue(false)
             },
@@ -175,6 +175,7 @@ class DeliveryDetailViewModel : ViewModel() {
                 isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        logE("berhasil: ${response.body()?.message}")
                         message.postValue(response.body()?.message)
                         listener(response.body()?.message.toString())
                     }
