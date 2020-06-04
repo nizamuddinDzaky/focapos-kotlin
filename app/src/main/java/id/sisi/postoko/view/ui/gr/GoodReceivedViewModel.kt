@@ -27,12 +27,13 @@ class GoodReceivedViewModel(var status: String) : ViewModel() {
                 goodsReceived.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
+                isExecute.postValue(true)
                 if (response.isSuccessful) {
                     tryMe {
                         goodsReceived.postValue(response.body()?.data?.list_goods_received)
                     }
                 } else {
+                    isExecute.postValue(false)
                     goodsReceived.postValue(listOf())
                 }
             }
