@@ -1,11 +1,13 @@
 package id.sisi.postoko.view.ui.delivery
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -14,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -182,11 +185,40 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
         }
 
         layout_upload_file.setOnClickListener {
-            val i = Intent(Intent.ACTION_GET_CONTENT)
-            i.type = "*/*"
-            //allows to select data and return it
-            i.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (context?.let { context ->
+                        ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                    }
+                    == PackageManager.PERMISSION_DENIED){
+                    val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permission, RC_UPLOAD_IMAGE)
+                }else{
+                    openMedia()
+                }
+            }else{
+                openMedia()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            RC_UPLOAD_IMAGE ->{
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    openMedia()
+                }
+                else{
+                    Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -371,5 +403,12 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
         iv_delete.gone()
         tv_prefix_image_name.visible()
         tv_image_name.text = getString(R.string.txt_upload_file)
+    }
+
+    private fun openMedia() {
+        val i = Intent(Intent.ACTION_GET_CONTENT)
+        i.type = "*/*"
+        i.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
     }
 }

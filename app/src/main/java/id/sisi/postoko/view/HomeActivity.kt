@@ -58,15 +58,6 @@ class HomeActivity : BaseActivity() {
 
         setSupportActionBar(toolbar)
 
-        val permission = ContextCompat.checkSelfPermission(this,
-            Manifest.permission.READ_EXTERNAL_STORAGE)
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                101)
-        }
-
         initFragment(savedInstanceState)
         bottom_navigation?.apply {
             active(navPosition.position) // Extension function

@@ -1,10 +1,12 @@
 package id.sisi.postoko.view.ui.payment
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -15,6 +17,7 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -179,10 +182,40 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
         }
 
         layout_upload_file.setOnClickListener {
-            val i = Intent(Intent.ACTION_GET_CONTENT)
-            i.type = "*/*"
-            i.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."), RC_UPLOAD_IMAGE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (context?.let { context ->
+                        ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                    }
+                    == PackageManager.PERMISSION_DENIED){
+                    val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permission, RC_UPLOAD_IMAGE)
+                }else{
+                    openMedia()
+                }
+            }else{
+                openMedia()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            RC_UPLOAD_IMAGE ->{
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    openMedia()
+                }
+                else{
+                    Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -315,4 +348,10 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun openMedia() {
+        val i = Intent(Intent.ACTION_GET_CONTENT)
+        i.type = "*/*"
+        i.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
+    }
 }

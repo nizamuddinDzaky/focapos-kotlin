@@ -1,11 +1,13 @@
 package id.sisi.postoko.view.ui.delivery
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -15,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -230,54 +233,40 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         }
 
         layout_upload_file.setOnClickListener {
-            val i = Intent(Intent.ACTION_GET_CONTENT)
-            i.type = "*/*"
-            //allows to select data and return it
-            i.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (context?.let { context ->
+                        ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                    }
+                    == PackageManager.PERMISSION_DENIED){
+                    val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permission, RC_UPLOAD_IMAGE)
+                }else{
+                    openMedia()
+                }
+            }else{
+                openMedia()
+            }
         }
     }
 
-    private fun setUpNote(note: String) {
-        if (TextUtils.isEmpty(note)){
-            tv_add_note.visible()
-            tv_edit_note.gone()
-            tv_note.text = getString(R.string.txt_not_set_note)
-        }else{
-            tv_add_note.gone()
-            tv_edit_note.visible()
-            tv_note.text = note
-            this.note = note
-        }
-    }
-
-    private fun actionUpdateDelivery() {
-        val rest =  validationFormUpdateDelivery()
-        if (rest[KEY_VALIDATION_REST] as Boolean) {
-
-            val deliItems = deliveryItems?.map {
-                return@map mutableMapOf(
-                    "delivery_items_id" to it.id.toString(),
-                    "sent_quantity" to it.quantity_sent.toString()
-                )
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            RC_UPLOAD_IMAGE ->{
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    openMedia()
+                }
+                else{
+                    Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
             }
-            val body = mutableMapOf(
-                "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
-                "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
-                "address" to (et_add_delivery_customer_address?.text?.toString() ?: ""),
-                "status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
-                "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
-                "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
-                "note" to (note ?: ""),
-                "products" to deliItems,
-                "attachment" to (strAttachment ?: "")
-            )
-            vmDelivery.putEditDeliv(body, idDelivery, requestPart) {
-                listener()
-                this.dismiss()
-            }
-        }else{
-            myDialog.alert(rest[KEY_MESSAGE] as String, context)
         }
     }
 
@@ -382,6 +371,49 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         }
     }
 
+    private fun setUpNote(note: String) {
+        if (TextUtils.isEmpty(note)){
+            tv_add_note.visible()
+            tv_edit_note.gone()
+            tv_note.text = getString(R.string.txt_not_set_note)
+        }else{
+            tv_add_note.gone()
+            tv_edit_note.visible()
+            tv_note.text = note
+            this.note = note
+        }
+    }
+
+    private fun actionUpdateDelivery() {
+        val rest =  validationFormUpdateDelivery()
+        if (rest[KEY_VALIDATION_REST] as Boolean) {
+
+            val deliItems = deliveryItems?.map {
+                return@map mutableMapOf(
+                    "delivery_items_id" to it.id.toString(),
+                    "sent_quantity" to it.quantity_sent.toString()
+                )
+            }
+            val body = mutableMapOf(
+                "date" to (et_add_delivery_date?.tag?.toString() ?: ""),
+                "customer" to (et_add_delivery_customer_name?.text?.toString() ?: ""),
+                "address" to (et_add_delivery_customer_address?.text?.toString() ?: ""),
+                "status" to (rg_add_delivery_status?.tag?.toString() ?: ""),
+                "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
+                "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
+                "note" to (note ?: ""),
+                "products" to deliItems,
+                "attachment" to (strAttachment ?: "")
+            )
+            vmDelivery.putEditDeliv(body, idDelivery, requestPart) {
+                listener()
+                this.dismiss()
+            }
+        }else{
+            myDialog.alert(rest[KEY_MESSAGE] as String, context)
+        }
+    }
+
     private fun removeFile() {
         requestBody = null
         requestPart = null
@@ -410,5 +442,10 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         rv_list_data?.adapter = adapter
     }
 
-
+    private fun openMedia() {
+        val i = Intent(Intent.ACTION_GET_CONTENT)
+        i.type = "*/*"
+        i.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
+    }
 }

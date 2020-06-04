@@ -120,6 +120,13 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataProfile>>
 
+    @Multipart
+    @POST("api/v1/distributor/auth/update_avatar")
+    fun postUploadAvatarProfile(
+        @Part file: MultipartBody.Part,
+        @HeaderMap headerMap: Map<String, String>
+    ): Call<BaseResponse<DataProfile>>
+
     @POST("api/v1/distributor/auth/forgot_password")
     fun postResetPassword(
         @HeaderMap headerMap: Map<String, String>,
