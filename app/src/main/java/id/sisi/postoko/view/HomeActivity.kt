@@ -1,12 +1,16 @@
 package id.sisi.postoko.view
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Html
 import android.view.MenuItem
 import android.view.Window
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -53,6 +57,15 @@ class HomeActivity : BaseActivity() {
         setContentView(R.layout.activity_home3)
 
         setSupportActionBar(toolbar)
+
+        val permission = ContextCompat.checkSelfPermission(this,
+            Manifest.permission.READ_EXTERNAL_STORAGE)
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                101)
+        }
 
         initFragment(savedInstanceState)
         bottom_navigation?.apply {
