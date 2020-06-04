@@ -6,9 +6,8 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -17,17 +16,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.loader.content.CursorLoader
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemDeliveryAdapter
 import id.sisi.postoko.model.DeliveryItem
-import id.sisi.postoko.utils.KEY_ID_DELIVERY
-import id.sisi.postoko.utils.KEY_MESSAGE
-import id.sisi.postoko.utils.KEY_VALIDATION_REST
-import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_return_delivery.*
@@ -48,7 +43,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
     private var saleId = "0"
     private val progressBar = CustomProgressBar()
     private var deliveryItems: List<DeliveryItem>? = arrayListOf()
-    private var requestFile: RequestBody? = null
+    private var requestBody: RequestBody? = null
     private var requestPart: MultipartBody.Part? = null
     private var strAttachment: String? = null
     private var note: String? = null
@@ -187,8 +182,11 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
         }
 
         layout_upload_file.setOnClickListener {
-            val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(i, 100)
+            val i = Intent(Intent.ACTION_GET_CONTENT)
+            i.type = "*/*"
+            //allows to select data and return it
+            i.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
         }
     }
 
@@ -199,16 +197,34 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(data != null){
-            val selectedImage = data.data
-            val file = File(selectedImage?.let { getRealPathFromURI(it) })
-            tv_image_name.text = file.name
-            tv_prefix_image_name.gone()
-            iv_delete.visible()
-            requestFile = RequestBody.create(MediaType.parse(selectedImage?.let { activity?.contentResolver?.getType(it) }), file)
-            requestPart = MultipartBody.Part.createFormData("file", file.name, requestFile)
-        }else{
-            removeFile()
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == 100){
+                if(data != null){
+                    try {
+                        val selectedUri = data.data
+                        val filePath= FilePath()
+                        val selectedPath = context?.let { context ->
+                            selectedUri?.let { uri ->
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    filePath.getPath(context, uri)
+                                } else {
+                                    TODO("VERSION.SDK_INT < KITKAT")
+                                }
+                            }
+                        }
+                        val file = File(selectedPath)
+                        tv_image_name.text = file.name
+                        tv_prefix_image_name.gone()
+                        iv_delete.visible()
+                        requestBody = RequestBody.create(MediaType.parse(selectedUri?.let { activity?.contentResolver?.getType(it) }), file)
+                        requestPart = MultipartBody.Part.createFormData("file", file.name, requestBody)
+                    }catch (e: Exception){
+                        Toast.makeText(context, "$e", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    removeFile()
+                }
+            }
         }
     }
 
@@ -349,23 +365,11 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
     }
 
     private fun removeFile() {
-        requestFile = null
+        requestBody = null
         requestPart = null
         strAttachment = null
         iv_delete.gone()
         tv_prefix_image_name.visible()
         tv_image_name.text = getString(R.string.txt_upload_file)
-    }
-
-    private fun getRealPathFromURI(contentUri: Uri): String? {
-        val proj = arrayOf(MediaStore.Images.Media.DATA)
-        val loader =
-            context?.let { CursorLoader(it, contentUri, proj, null, null, null) }
-        val cursor = loader?.loadInBackground()
-        val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-        cursor.moveToFirst()
-        val result = cursor.getString(columnIndex)
-        cursor.close()
-        return result
     }
 }
