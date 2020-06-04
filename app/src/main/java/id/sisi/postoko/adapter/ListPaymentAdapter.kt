@@ -10,6 +10,7 @@ import id.sisi.postoko.model.Payment
 import id.sisi.postoko.utils.MyPopupMenu
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toDisplayDate
+import id.sisi.postoko.utils.extensions.toDisplayDateTime
 import id.sisi.postoko.utils.extensions.toDisplayPaymentType
 import kotlinx.android.synthetic.main.list_item_pembayaran.view.*
 
@@ -41,7 +42,7 @@ class ListPaymentAdapter(
             payment?.let {
                 itemView.tv_payment_reference_no?.text = it.reference_no
                 itemView.tv_payment_amount?.text = it.amount.toCurrencyID()
-                itemView.tv_payment_date?.text = it.date.toDisplayDate()
+                itemView.tv_payment_date?.text = it.date.toDisplayDateTime()
                 itemView.tv_payment_type.text = itemView.context.getText(it.paid_by.toDisplayPaymentType())
             }
             itemView.btn_menu_more.setOnClickListener {

@@ -176,6 +176,18 @@ fun String.toDisplayDate(): String {
     return this
 }
 
+fun String.toDisplayDateTime(): String {
+    try {
+        val dateInFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+        val dateOutFormat = SimpleDateFormat("dd MMMM yyyy HH:mm", Locale("id", "ID"))
+        dateInFormat.parse(this)?.let {
+            return dateOutFormat.format(it)
+        }
+    } catch (e: Exception) { }
+
+    return this
+}
+
 fun Number.toCurrencyID(): String {
     return NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(this)
 }

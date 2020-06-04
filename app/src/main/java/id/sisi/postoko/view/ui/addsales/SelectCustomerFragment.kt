@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
@@ -67,18 +68,15 @@ class SelectCustomerFragment: Fragment() {
         }
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.format(Date())
         et_date_sale?.setText(currentDate.toDisplayDate())
         et_date_sale?.hint = currentDate.toDisplayDate()
+        et_date_sale?.tag = currentDate
         (activity as AddSaleActivity).date = currentDate
         et_date_sale.setOnClickListener {
             val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            val date = if (et_date_sale.tag == null) {
-                inputDateFormat.format(Date())
-            } else {
-                et_date_sale.tag.toString() + " 00:00:00"
-            }
-            val resultDate = inputDateFormat.parse(date)
+            val resultDate = inputDateFormat.parse(currentDate)
             val calendar: Calendar = GregorianCalendar()
             resultDate?.let {
                 calendar.time = resultDate
@@ -87,14 +85,15 @@ class SelectCustomerFragment: Fragment() {
             val month = calendar[Calendar.MONTH]
             val day = calendar[Calendar.DAY_OF_MONTH]
 
-            val dpd = context?.let { it1 ->
+            val dpd = context?.let { c ->
                 DatePickerDialog(
-                    it1,
+                    c,
                     DatePickerDialog.OnDateSetListener { _, _, monthOfYear, dayOfMonth ->
+                        val strTime = time.format(Date())
                         val parseDate =
-                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth 00:00:00")
+                            inputDateFormat.parse("$year-${monthOfYear + 1}-$dayOfMonth $strTime")
                         parseDate?.let {
-                            val selectedDate = inputDateFormat.format(parseDate)
+                            val selectedDate = inputDateFormat.format(it)
                             et_date_sale.setText(selectedDate.toDisplayDate())
                             (activity as AddSaleActivity).date = selectedDate
                         }
@@ -108,17 +107,17 @@ class SelectCustomerFragment: Fragment() {
         }
 
         btn_action_submit.setOnClickListener {
-            /*when {
+            when {
                 TextUtils.isEmpty((activity as AddSaleActivity?)?.idCustomer) -> {
-                    alert.alert(getString(R.string.txt_alert_id_customer), context)
+                    myDialog.alert(getString(R.string.txt_alert_id_customer), context)
                 }
                 TextUtils.isEmpty((activity as AddSaleActivity?)?.idWarehouse) -> {
-                    alert.alert(getString(R.string.txt_alert_id_warehouse), context)
+                    myDialog.alert(getString(R.string.txt_alert_id_warehouse), context)
                 }
-                else -> {*/
+                else -> {
                     (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(AddItemAddSaleFragment.TAG))
-                /*}
-            }*/
+                }
+            }
         }
     }
 

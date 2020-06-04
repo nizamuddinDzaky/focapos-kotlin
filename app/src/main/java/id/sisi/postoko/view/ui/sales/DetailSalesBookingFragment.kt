@@ -96,7 +96,7 @@ class DetailSalesBookingFragment : Fragment() {
     private fun setupDetailSale(sale: Sales?) {
         (activity as? DetailSalesBookingActivity)?.tempSale = sale
         tv_sale_detail_reference_no?.text = sale?.reference_no
-        tv_sale_detail_sbo_date?.text = sale?.date?.toDisplayDate()
+        tv_sale_detail_sbo_date?.text = sale?.date?.toDisplayDateTime()
         sale?.let {
             tv_sale_detail_sbo_sale_status?.text =
                 getString(SaleStatus.PENDING.tryValue(sale.sale_status)?.stringId ?: R.string.empty)
