@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.User
+import id.sisi.postoko.utils.BASE_URL
 import id.sisi.postoko.utils.LoadImageFromUrl
 import id.sisi.postoko.utils.RC_PROFILE
 import id.sisi.postoko.utils.extensions.*
@@ -106,7 +107,7 @@ class ProfileActivity : BaseActivity() {
 
             if(!TextUtils.isEmpty(it.avatar)){
                 val loadImage = LoadImageFromUrl(iv_header_avatar)
-                loadImage.execute("http://10.15.4.102:9090/assets/uploads/avatars/thumbs/${it.avatar}")
+                loadImage.execute("$BASE_URL/assets/uploads/avatars/thumbs/${it.avatar}")
             }
 
             tv_user_company_name?.text = it.company

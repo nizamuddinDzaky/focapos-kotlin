@@ -18,14 +18,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_20"
-                android:orientation="vertical"
                 android:gravity="center_horizontal">
 
-                <ImageView
-                    android:layout_width="41dp"
-                    android:layout_height="50dp"
-                    android:contentDescription="Upload Image"
-                    android:src="@mipmap/forcapos" />
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="@dimen/et_top_margin"
+                    tools:ignore="UselessParent">
+                    <ImageView
+                        android:id="@+id/iv_logo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/conDes"
+                        android:src="@drawable/toko2" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/conDes"
+                        android:src="@drawable/ic_cover_upload" />
+                    <TextView
+                        android:id="@+id/tv_alias_product"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/standard_margin"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@android:color/white"
+                        android:text="@string/txt_edit"/>
+                </RelativeLayout>
             </LinearLayout>
 
             <TextView

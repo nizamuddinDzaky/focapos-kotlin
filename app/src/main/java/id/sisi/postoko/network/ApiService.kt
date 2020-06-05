@@ -166,7 +166,7 @@ interface ApiServices {
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataCustomer>>
 
-    @POST("api/v1/distributor/api/v1/distributor/customers/add_customers")
+    @POST("api/v1/distributor/customers/add_customers")
     fun postCustomers(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
@@ -177,6 +177,14 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
+    @Multipart
+    @POST("api/v1/distributor/customers/upload_file_customer")
+    fun postUploadLogoCustomer(
+        @Part file: MultipartBody.Part,
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>
     ): Call<BaseResponse<DataLogin>>
 
     @GET("api/v1/distributor/products/list_products")

@@ -31,7 +31,6 @@ import id.sisi.postoko.view.ui.MasterDetailViewModel
 import id.sisi.postoko.view.ui.customer.CustomerViewModel
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.sales.SaleStatus
-//import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home3.*
 import kotlinx.android.synthetic.main.activity_home3.view.*
 import kotlinx.android.synthetic.main.dialog_alert_confirmation.*

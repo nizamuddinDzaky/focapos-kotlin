@@ -1,4 +1,4 @@
-package id.sisi.postoko.view.ui.profile
+package id.sisi.postoko.view.ui.customer
 
 import android.Manifest
 import android.app.Activity
@@ -13,91 +13,44 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
-import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.custom.CustomProgressBar
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_avatar_profile.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_logo_customer.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class BottomSheetUpdateAvatar: BottomSheetDialogFragment() {
+class BottomSheetUpdateLogoCustomer: BottomSheetDialogFragment() {
 
-    private var tempUser: User? = null
-    private var requestBody: RequestBody? = null
-    private var requestPart: MultipartBody.Part? = null
-    private lateinit var mViewModel: ProfileViewModel
     private val progressBar = CustomProgressBar()
     private var imageUri: Uri? = null
+    private var requestBody: RequestBody? = null
+    private var requestPart: MultipartBody.Part? = null
+    private var idCustomer: String? = null
+    private lateinit var mViewModel: CustomerViewModel
+    var listener : () -> Unit ={}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        arguments?.getParcelable<User>("user")?.let{
-            tempUser = it
-        }
 
-        mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-
-        return inflater.inflate(R.layout.fragment_bottom_sheet_edit_avatar_profile, container, false)
+        mViewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_bottom_sheet_edit_logo_customer, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_gallery.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if (context?.let { context -> checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) }
-                    == PackageManager.PERMISSION_DENIED){
-                    val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    requestPermissions(permission, RC_UPLOAD_IMAGE)
-                }else{
-                    val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    startActivityForResult(i, RC_UPLOAD_IMAGE)
-                }
-            }
-        }
-
-        btn_camera.setOnClickListener {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if (context?.let { context -> checkSelfPermission(context, Manifest.permission.CAMERA) }
-                    == PackageManager.PERMISSION_DENIED ||
-                    context?.let { context -> checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) }
-                    == PackageManager.PERMISSION_DENIED){
-
-                    val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    requestPermissions(permission, RC_PERMISSION_CAMERA)
-                }
-                else{
-                    openCamera()
-                }
-            }
-            else{
-                openCamera()
-            }
-
-        }
-
-        btn_action_submit.setOnClickListener {
-            if (requestPart != null ){
-                mViewModel.postUploadAvatarProfile(requestPart){
-                    (activity as? ProfileActivity)?.refreshData(true)
-                    this.dismiss()
-                }
-
-            }
-        }
         mViewModel.getMessage().observe(viewLifecycleOwner, Observer {
             it?.let {
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
@@ -114,35 +67,67 @@ class BottomSheetUpdateAvatar: BottomSheetDialogFragment() {
             }
         })
 
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == RC_UPLOAD_IMAGE){
-                imageUri = data?.data
-                iv_avatar.setImageURI(imageUri)
-            }else{
-                iv_avatar.setImageURI(imageUri)
-            }
+        arguments?.getString(KEY_ID_CUSTOMER).let {
+            idCustomer = it
+        }
 
-            try {
-                val filePath= FilePath()
-                val selectedPath = context?.let { context ->
-                    imageUri?.let { uri ->
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            filePath.getPath(context, uri)
-                        } else {
-                            TODO("VERSION.SDK_INT < KITKAT")
-                        }
-                    }
+        btn_action_submit.setOnClickListener {
+            requestPart?.let { req ->
+                mViewModel.postUploadLogoCustomer(req, idCustomer ?: "0"){
+                    listener()
                 }
-                val file = File(selectedPath)
-                requestBody = RequestBody.create(MediaType.parse(imageUri?.let { activity?.contentResolver?.getType(it) }), file)
-                requestPart = MultipartBody.Part.createFormData("avatar", file.name, requestBody)
-            }catch (e: Exception){
-                Toast.makeText(context, "$e", Toast.LENGTH_SHORT).show()
             }
         }
+
+        btn_gallery.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (context?.let { context ->
+                        ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                    }
+                    == PackageManager.PERMISSION_DENIED){
+                    val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permission, RC_UPLOAD_IMAGE)
+                }else{
+                    val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    startActivityForResult(i, RC_UPLOAD_IMAGE)
+                }
+            }
+        }
+
+        btn_camera.setOnClickListener {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (context?.let { context ->
+                        ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.CAMERA
+                        )
+                    }
+                    == PackageManager.PERMISSION_DENIED ||
+                    context?.let { context ->
+                        ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        )
+                    }
+                    == PackageManager.PERMISSION_DENIED){
+
+                    val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    requestPermissions(permission, RC_PERMISSION_CAMERA)
+                }
+                else{
+                    openCamera()
+                }
+            }
+            else{
+                openCamera()
+            }
+
+        }
+
     }
 
     override fun onRequestPermissionsResult(
@@ -168,6 +153,36 @@ class BottomSheetUpdateAvatar: BottomSheetDialogFragment() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == RC_UPLOAD_IMAGE){
+                imageUri = data?.data
+                iv_avatar.setImageURI(imageUri)
+            }else{
+                iv_avatar.setImageURI(imageUri)
+            }
+            logE("uri : $requestCode")
+            try {
+                val filePath= FilePath()
+                val selectedPath = context?.let { context ->
+                    imageUri?.let { uri ->
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            filePath.getPath(context, uri)
+                        } else {
+                            TODO("VERSION.SDK_INT < KITKAT")
+                        }
+                    }
+                }
+                val file = File(selectedPath)
+                requestBody = RequestBody.create(MediaType.parse(imageUri?.let { activity?.contentResolver?.getType(it) }), file)
+                requestPart = MultipartBody.Part.createFormData("logo", file.name, requestBody)
+            }catch (e: Exception){
+                Toast.makeText(context, "$e", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun openCamera(){
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, "New Picture")
@@ -180,15 +195,19 @@ class BottomSheetUpdateAvatar: BottomSheetDialogFragment() {
     }
 
     companion object {
+        var listener : () -> Unit ={}
         fun show(
             fragmentManager: FragmentManager,
-            user: User
+            idCustomers: String?
         ) {
-            val bottomSheetFragment = BottomSheetUpdateAvatar()
+            val bottomSheetFragment = BottomSheetUpdateLogoCustomer()
             val bundle = Bundle()
-            bundle.putParcelable("user", user)
+            bundle.putString(KEY_ID_CUSTOMER, idCustomers)
             bottomSheetFragment.arguments = bundle
             bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
+            bottomSheetFragment.listener = {
+                listener()
+            }
         }
     }
 }
