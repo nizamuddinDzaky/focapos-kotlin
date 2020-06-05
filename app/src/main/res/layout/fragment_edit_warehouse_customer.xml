@@ -5,10 +5,57 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.customer.EditWarehouseCustomerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Info Gudang"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_alignParentTop="true"/>
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pelanggan dapat terdaftar lebih dari 1 gudang"
+            android:textSize="14sp"
+            android:layout_below="@+id/title"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_master_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            tools:itemCount="10"
+            android:layout_above="@id/add_warehouse"
+            android:layout_below="@+id/description"
+            tools:listitem="@layout/list_item_warehouse_customer" />
+
+        <TextView
+            android:id="@+id/add_warehouse"
+            android:layout_above="@id/btn_confirmation_edit_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+ Tambah Gudang"
+            android:gravity="center"
+            android:textColor="@color/light_blue"
+            android:textStyle="bold"
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:id="@+id/btn_confirmation_edit_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1CA865"
+            android:text="SIMPAN"
+            android:textAllCaps="true"
+            android:layout_alignParentBottom="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
 </FrameLayout>
