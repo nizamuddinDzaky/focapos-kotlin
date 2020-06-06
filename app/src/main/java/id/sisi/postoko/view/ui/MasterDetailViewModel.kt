@@ -19,17 +19,17 @@ class MasterDetailViewModel : ViewModel() {
         val params = mutableMapOf("id_customers" to idCustomer.toString())
         ApiServices.getInstance()?.getDetailCustomer(headers, params)?.exe(
             onFailure = { _, _ ->
-                isExecute.postValue(true)
+                isExecute.postValue(false)
                 customer.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         customer.postValue(response.body()?.data?.customer)
                     }
                 } else {
-                    isExecute.postValue(true)
+                    isExecute.postValue(false)
                 }
             }
         )

@@ -27,12 +27,13 @@ class SupplierViewModel : ViewModel() {
                 suppliers.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         suppliers.postValue(response.body()?.data?.list_suppliers)
                     }
                 } else {
+                    isExecute.postValue(false)
                     suppliers.postValue(listOf())
                 }
             }
