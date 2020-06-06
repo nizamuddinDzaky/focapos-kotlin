@@ -28,12 +28,13 @@ class WarehouseViewModel : ViewModel() {
                 warehouses.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         warehouses.postValue(response.body()?.data?.list_warehouses)
                     }
                 } else {
+                    isExecute.postValue(false)
                     warehouses.postValue(listOf())
                 }
             }

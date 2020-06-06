@@ -54,7 +54,6 @@ class AddSalesViewModel : ViewModel() {
                 message.postValue(TXT_CONNECTION_FAILED)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
                         message.postValue(response.body()?.message)

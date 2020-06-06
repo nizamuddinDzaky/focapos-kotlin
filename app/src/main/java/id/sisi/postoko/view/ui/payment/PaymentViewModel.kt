@@ -29,12 +29,13 @@ class PaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
                 payments.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         payments.postValue(response.body()?.data?.list_payments)
                     }
                 } else {
+                    isExecute.postValue(false)
                     payments.postValue(listOf())
                 }
             }

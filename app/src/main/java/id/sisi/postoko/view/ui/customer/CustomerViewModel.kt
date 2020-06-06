@@ -35,12 +35,13 @@ class CustomerViewModel : ViewModel() {
                 customers.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         customers.postValue(response.body()?.data?.list_customers)
                     }
                 } else {
+                    isExecute.postValue(false)
                     customers.postValue(listOf())
                 }
             }
@@ -58,11 +59,11 @@ class CustomerViewModel : ViewModel() {
                 statusSyncCustomerToBK.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
-
                 if (response.isSuccessful) {
+                    isExecute.postValue(true)
                     statusSyncCustomerToBK.postValue(response.body()?.data)
                 } else {
+                    isExecute.postValue(false)
                     statusSyncCustomerToBK.postValue(null)
                 }
             }
@@ -78,12 +79,13 @@ class CustomerViewModel : ViewModel() {
                 customersGroup.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         customersGroup.postValue(response.body()?.data?.customer_groups)
                     }
                 } else {
+                    isExecute.postValue(false)
                     customersGroup.postValue(listOf())
                 }
             }
@@ -99,12 +101,13 @@ class CustomerViewModel : ViewModel() {
                 priceGroup.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         priceGroup.postValue(response.body()?.data?.price_groups)
                     }
                 } else {
+                    isExecute.postValue(false)
                     priceGroup.postValue(listOf())
                 }
             }
@@ -117,15 +120,15 @@ class CustomerViewModel : ViewModel() {
         ApiServices.getInstance()?.postCustomers(headers, body)?.exe(
             onFailure = { _, _ ->
                 listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal"))
-                isExecute.postValue(true)
+                isExecute.postValue(false)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
+                    isExecute.postValue(true)
                     listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.body()?.message))
                 } else {
+                    isExecute.postValue(false)
                     listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.body()?.message))
-                    isExecute.postValue(true)   
                 }
             }
         )
@@ -138,15 +141,15 @@ class CustomerViewModel : ViewModel() {
         ApiServices.getInstance()?.putEditCustomers(headers, params, body)?.exe(
             onFailure = { _, _ ->
                 listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal"))
-                isExecute.postValue(true)
+                isExecute.postValue(false)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
+                    isExecute.postValue(true)
                     listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.message()))
                 } else {
+                    isExecute.postValue(false)
                     listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.message()))
-                    isExecute.postValue(true)
                 }
             }
         )
