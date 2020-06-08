@@ -22,7 +22,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.view.custom.CustomProgressBar
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_avatar_profile.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_upload_logo.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -48,7 +48,7 @@ class BottomSheetUpdateAvatar: BottomSheetDialogFragment() {
 
         mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        return inflater.inflate(R.layout.fragment_bottom_sheet_edit_avatar_profile, container, false)
+        return inflater.inflate(R.layout.fragment_bottom_sheet_upload_logo, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

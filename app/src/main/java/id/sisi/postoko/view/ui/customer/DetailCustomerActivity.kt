@@ -17,7 +17,6 @@ import id.sisi.postoko.utils.LoadImageFromUrl
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.MasterDetailViewModel
 import kotlinx.android.synthetic.main.activity_customer_detail.*
-import kotlinx.android.synthetic.main.content_add_customer.*
 import kotlinx.android.synthetic.main.content_detail_customer.*
 
 
