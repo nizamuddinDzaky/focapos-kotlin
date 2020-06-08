@@ -7,7 +7,7 @@ import android.widget.ImageView
 import id.sisi.postoko.utils.extensions.logE
 import java.net.URL
 
-class LoadImageFromUrl(var imageView: ImageView) :
+class LoadImageFromUrl(private var imageView: ImageView) :
     AsyncTask<String?, Void?, Bitmap?>() {
 
     override fun doInBackground(vararg params: String?): Bitmap? {
