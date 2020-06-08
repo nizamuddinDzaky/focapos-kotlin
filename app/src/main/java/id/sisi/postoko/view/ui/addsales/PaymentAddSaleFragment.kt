@@ -92,11 +92,11 @@ class PaymentAddSaleFragment: Fragment() {
         }
 
         tv_add_employee_note.setOnClickListener {
-            showPopUpNote(getString(R.string.txt_sale_note), employeeNote ?: "", KEY_EMPLOYEE)
+            showPopUpNote(getString(R.string.txt_employee_records), employeeNote ?: "", KEY_EMPLOYEE)
         }
 
         tv_edit_employee_note.setOnClickListener {
-            showPopUpNote(getString(R.string.txt_sale_note), employeeNote ?: "", KEY_EMPLOYEE)
+            showPopUpNote(getString(R.string.txt_employee_records), employeeNote ?: "", KEY_EMPLOYEE)
         }
 
         btn_action_submit.setOnClickListener {

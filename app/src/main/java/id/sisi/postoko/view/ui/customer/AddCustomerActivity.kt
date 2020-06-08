@@ -101,7 +101,7 @@ class AddCustomerActivity : AppCompatActivity() {
                 mViewModelDaerah.getStates(cityList[position])
             }
         }
-     
+
         btn_confirmation_add_customer.setOnClickListener {
             actionAddCustomer()
         }

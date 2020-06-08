@@ -10,13 +10,16 @@ import id.sisi.postoko.model.DataLogin
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.exe
+import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.tryMe
 import id.sisi.postoko.utils.helper.json2obj
+import okhttp3.MultipartBody
 
 class AddPaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
     private var isExecute = MutableLiveData<Boolean>()
     private var message = MutableLiveData<String?>()
 
-    fun postAddPayment(body: Map<String, String>, listener: () -> Unit) {
+    fun postAddPayment(body: Map<String, String>, file: MultipartBody.Part?, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_SALES_BOOKING to idSalesBooking.toString())
@@ -27,11 +30,20 @@ class AddPaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
             },
             onResponse = { _, response ->
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
-                    message.postValue(response.body()?.message)
-                    listener()
+                    tryMe {
+                        message.postValue(response.body()?.message)
+                        if (file != null){
+                            postUploadFile(file, response.body()?.data?.payment?.id ?: "0"){messageUpload ->
+                                message.postValue(messageUpload)
+                                isExecute.postValue(false)
+                                listener()
+                            }
+                        }else{
+                            isExecute.postValue(false)
+                            listener()
+                        }
+                    }
                 } else {
-                    isExecute.postValue(false)
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
                     if (TextUtils.isEmpty(errorResponse?.message)){
@@ -43,7 +55,7 @@ class AddPaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
         )
     }
 
-    fun putEditayment(body: Map<String, String>, id_payement: String, listener: () -> Unit) {
+    fun putEditayment(body: Map<String, String>, id_payement: String, file: MultipartBody.Part?, listener: () -> Unit) {
         isExecute.postValue(true)
 
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
@@ -55,18 +67,57 @@ class AddPaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
                 isExecute.postValue(false)
             },
             onResponse = { _, response ->
+                isExecute.postValue(false)
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
-                    message.postValue(response.body()?.message)
-                    listener()
+                    tryMe {
+                        message.postValue(response.body()?.message)
+                        if (file != null){
+                            postUploadFile(file, response.body()?.data?.payment?.id ?: "0"){messageUpload ->
+                                message.postValue(messageUpload)
+                                isExecute.postValue(false)
+                                listener()
+                            }
+                        }else{
+                            isExecute.postValue(false)
+                            listener()
+                        }
+                    }
                 } else {
-                    isExecute.postValue(false)
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
                     if (TextUtils.isEmpty(errorResponse?.message)){
                         message.postValue(TXT_URL_NOT_FOUND)
                     }else
                         message.postValue(errorResponse?.message)
+                }
+            }
+        )
+    }
+
+    private fun postUploadFile(body: MultipartBody.Part, idDelivery: String, listener: (message: String) -> Unit) {
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf(KEY_ID_PAYMENT to idDelivery)
+        ApiServices.getInstance()?.postUploadFilePayment(body, headers, params)?.exe(
+            onFailure = { _, t->
+                logE("gagal: $t")
+                listener(t.toString())
+                isExecute.postValue(false)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    tryMe {
+                        logE("berhasil: ${response.body()?.message}")
+                        message.postValue(response.body()?.message)
+                        listener(response.body()?.message.toString())
+                    }
+                } else {
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        listener(TXT_URL_NOT_FOUND)
+                    }else
+                        listener(errorResponse?.message.toString())
                 }
             }
         )
