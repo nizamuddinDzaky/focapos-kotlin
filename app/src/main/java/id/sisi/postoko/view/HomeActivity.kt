@@ -1,16 +1,12 @@
 package id.sisi.postoko.view
 
-import android.Manifest
 import android.app.Dialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Html
 import android.view.MenuItem
 import android.view.Window
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +27,6 @@ import id.sisi.postoko.view.ui.MasterDetailViewModel
 import id.sisi.postoko.view.ui.customer.CustomerViewModel
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.sales.SaleStatus
-//import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home3.*
 import kotlinx.android.synthetic.main.activity_home3.view.*
 import kotlinx.android.synthetic.main.dialog_alert_confirmation.*
