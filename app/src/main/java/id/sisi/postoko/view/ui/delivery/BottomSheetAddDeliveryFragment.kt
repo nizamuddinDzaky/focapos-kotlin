@@ -111,7 +111,6 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             }
         })
 
-        //setupUI
         et_add_delivery_date?.setText(currentDate.toDisplayDate())
         et_add_delivery_date?.hint = currentDate.toDisplayDate()
         et_add_delivery_date?.tag = currentDate
