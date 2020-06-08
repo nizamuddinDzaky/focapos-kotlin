@@ -179,6 +179,14 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
+    @Multipart
+    @POST("api/v1/distributor/customers/upload_file_customer")
+    fun postUploadLogoCustomer(
+        @Part file: MultipartBody.Part,
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>
+    ): Call<BaseResponse<DataLogin>>
+
     @GET("api/v1/distributor/products/list_products")
     fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
 

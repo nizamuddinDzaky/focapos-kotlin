@@ -152,7 +152,7 @@ class CustomerViewModel : ViewModel() {
         )
     }
 
-    fun postUploadLogoCustomer(logo: MultipartBody.Part, idCustomer: String, listener: () -> Unit) {
+    private fun postUploadLogoCustomer(logo: MultipartBody.Part, idCustomer: String, listener: () -> Unit) {
         isExecute.postValue(true)
        /* if (isUpdate){
             isExecute.postValue(true)
