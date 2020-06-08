@@ -30,13 +30,21 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, String>
-    ): Call<BaseResponse<DataLogin>>
+    ): Call<BaseResponse<Response<ResponseData>>>
 
     @PUT("api/v1/distributor/sales_booking/edit_payments")
     fun putEditPayment(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, String>
+    ): Call<BaseResponse<Response<ResponseData>>>
+
+    @Multipart
+    @POST("api/v1/distributor/sales_booking/upload_file_payment")
+    fun postUploadFilePayment(
+        @Part file: MultipartBody.Part,
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>
     ): Call<BaseResponse<DataLogin>>
 
     @POST("api/v1/distributor/sales_booking/add_sales_booking")
@@ -57,21 +65,21 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<Response<ResponseDelivery>>>
+    ): Call<BaseResponse<Response<ResponseData>>>
 
     @POST("api/v1/distributor/sales_booking/add_return_deliveries")
     fun postReturnDeliv(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<Response<ResponseDelivery>>>
+    ): Call<BaseResponse<Response<ResponseData>>>
 
     @PUT("api/v1/distributor/sales_booking/edit_deliveries_booking")
     fun putEditDeliv(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, Any>,
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<Response<ResponseDelivery>>>
+    ): Call<BaseResponse<Response<ResponseData>>>
 
     @Multipart
     @POST("api/v1/distributor/sales_booking/upload_file_delivery")
@@ -110,6 +118,13 @@ interface ApiServices {
     fun putChangePassword(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataProfile>>
+
+    @Multipart
+    @POST("api/v1/distributor/auth/update_avatar")
+    fun postUploadAvatarProfile(
+        @Part file: MultipartBody.Part,
+        @HeaderMap headerMap: Map<String, String>
     ): Call<BaseResponse<DataProfile>>
 
     @POST("api/v1/distributor/auth/forgot_password")
@@ -151,7 +166,7 @@ interface ApiServices {
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataCustomer>>
 
-    @POST("api/v1/distributor/api/v1/distributor/customers/add_customers")
+    @POST("api/v1/distributor/customers/add_customers")
     fun postCustomers(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
@@ -162,6 +177,14 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
         @Body body: Map<String, Any?>
+    ): Call<BaseResponse<DataLogin>>
+
+    @Multipart
+    @POST("api/v1/distributor/customers/upload_file_customer")
+    fun postUploadLogoCustomer(
+        @Part file: MultipartBody.Part,
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>
     ): Call<BaseResponse<DataLogin>>
 
     @GET("api/v1/distributor/products/list_products")

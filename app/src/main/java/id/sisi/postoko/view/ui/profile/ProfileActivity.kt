@@ -3,11 +3,15 @@ package id.sisi.postoko.view.ui.profile
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
+import android.text.TextUtils
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.User
+import id.sisi.postoko.utils.BASE_URL
+import id.sisi.postoko.utils.LoadImageFromUrl
 import id.sisi.postoko.utils.RC_PROFILE
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.BaseActivity
@@ -29,14 +33,13 @@ class ProfileActivity : BaseActivity() {
 
         mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-
         mViewModel.getIsExecute().observe(this, Observer {
             swipeRefreshLayout?.isRefreshing = it
         })
 
         mViewModel.getUser().observe(this, Observer {
-            showData(it)
             if (it != null) {
+                showData(it)
                 user = it
                 layout_profile.visible()
                 layout_status_progress?.gone()
@@ -84,6 +87,13 @@ class ProfileActivity : BaseActivity() {
                 user
             )
         }
+        iv_header_avatar.setOnClickListener {
+            BottomSheetUpdateAvatar.show(
+                supportFragmentManager,
+                user
+            )
+        }
+
         btn_change_password?.setOnClickListener {
             BottomSheetChangePassword.show(
                 supportFragmentManager
@@ -94,6 +104,12 @@ class ProfileActivity : BaseActivity() {
     private fun showData(user: User?) {
         user?.let {
             logE("profile : $it")
+
+            if(!TextUtils.isEmpty(it.avatar)){
+                val loadImage = LoadImageFromUrl(iv_header_avatar)
+                loadImage.execute("$BASE_URL/assets/uploads/avatars/thumbs/${it.avatar}")
+            }
+
             tv_user_company_name?.text = it.company
             tv_user_company_address?.text = it.address
             tv_profile_first_name?.text = it.first_name

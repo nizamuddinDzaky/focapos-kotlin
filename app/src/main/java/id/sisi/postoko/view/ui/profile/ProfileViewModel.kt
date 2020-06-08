@@ -17,6 +17,7 @@ import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
 import id.sisi.postoko.utils.helper.json2obj
+import okhttp3.MultipartBody
 
 class ProfileViewModel : ViewModel() {
     private val user = MutableLiveData<User?>()
@@ -150,6 +151,41 @@ class ProfileViewModel : ViewModel() {
                 }
             }
         )
+    }
+
+    fun postUploadAvatarProfile(file: MultipartBody.Part?, listener: () -> Unit) {
+        /*if (file.isEmpty()) {
+            logE("body is empty, force cancel call api.")
+            return
+        }*/
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        if (file != null) {
+            ApiServices.getInstance()?.postUploadAvatarProfile(file,headers)?.exe(
+                onFailure = { _, t ->
+                    logE("gagal : $t")
+                    isExecute.postValue(false)
+                    user.postValue(null)
+                    listener()
+                },
+                onResponse = { _, response ->
+                    isExecute.postValue(false)
+                    if (response.isSuccessful) {
+                        tryMe {
+                            message.postValue(response.body()?.message)
+                            listener()
+                        }
+                    } else {
+                        val errorResponse =
+                            response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                        if (TextUtils.isEmpty(errorResponse?.message)){
+                            message.postValue(TXT_URL_NOT_FOUND)
+                        }else
+                            message.postValue(errorResponse?.message)
+                    }
+                }
+            )
+        }
     }
 
     internal fun getIsExecute(): LiveData<Boolean> {

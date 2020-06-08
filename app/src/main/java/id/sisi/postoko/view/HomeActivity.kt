@@ -31,7 +31,6 @@ import id.sisi.postoko.view.ui.MasterDetailViewModel
 import id.sisi.postoko.view.ui.customer.CustomerViewModel
 import id.sisi.postoko.view.ui.gr.GoodReceiveStatus
 import id.sisi.postoko.view.ui.sales.SaleStatus
-//import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home3.*
 import kotlinx.android.synthetic.main.activity_home3.view.*
 import kotlinx.android.synthetic.main.dialog_alert_confirmation.*
@@ -57,15 +56,6 @@ class HomeActivity : BaseActivity() {
         setContentView(R.layout.activity_home3)
 
         setSupportActionBar(toolbar)
-
-        val permission = ContextCompat.checkSelfPermission(this,
-            Manifest.permission.READ_EXTERNAL_STORAGE)
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                101)
-        }
 
         initFragment(savedInstanceState)
         bottom_navigation?.apply {

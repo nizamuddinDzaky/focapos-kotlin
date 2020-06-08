@@ -111,7 +111,6 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
             }
         })
 
-        //setupUI
         et_add_delivery_date?.setText(currentDate.toDisplayDate())
         et_add_delivery_date?.hint = currentDate.toDisplayDate()
         et_add_delivery_date?.tag = currentDate
@@ -225,11 +224,40 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         }
 
         layout_upload_file.setOnClickListener {
-            val i = Intent(Intent.ACTION_GET_CONTENT)
-            i.type = "*/*"
-            //allows to select data and return it
-            i.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (context?.let { context ->
+                        ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                    }
+                    == PackageManager.PERMISSION_DENIED){
+                    val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permission, RC_UPLOAD_IMAGE)
+                }else{
+                    openMedia()
+                }
+            }else{
+                openMedia()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            RC_UPLOAD_IMAGE ->{
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    openMedia()
+                }
+                else{
+                    Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -237,7 +265,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK){
-            if(requestCode == 100){
+            if(requestCode == RC_UPLOAD_IMAGE){
                 if(data != null){
                     try {
                         val selectedUri = data.data
@@ -408,7 +436,12 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
 
-
+    private fun openMedia() {
+        val i = Intent(Intent.ACTION_GET_CONTENT)
+        i.type = "*/*"
+        i.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
+    }
 }
 
 

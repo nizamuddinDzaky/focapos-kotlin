@@ -1,21 +1,23 @@
 package id.sisi.postoko.view.ui.customer
 
+import android.text.TextUtils
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
-import id.sisi.postoko.model.Customer
-import id.sisi.postoko.model.CustomerGroup
-import id.sisi.postoko.model.DataSyncCustomerToBK
-import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.model.*
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_CUSTOMER
+import id.sisi.postoko.utils.TXT_URL_NOT_FOUND
 import id.sisi.postoko.utils.extensions.exe
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
+import id.sisi.postoko.utils.helper.json2obj
 import id.sisi.postoko.view.HomeActivity
+import okhttp3.MultipartBody
 
 class CustomerViewModel : ViewModel() {
     private val customers = MutableLiveData<List<Customer>?>()
@@ -23,6 +25,7 @@ class CustomerViewModel : ViewModel() {
     private val priceGroup = MutableLiveData<List<PriceGroup>?>()
     private var isExecute = MutableLiveData<Boolean>()
     private var idCustomer: String? = null
+    private var message = MutableLiveData<String?>()
 
     private var statusSyncCustomerToBK = MutableLiveData<DataSyncCustomerToBK>()
 
@@ -35,13 +38,12 @@ class CustomerViewModel : ViewModel() {
                 customers.postValue(null)
             },
             onResponse = { _, response ->
+                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
                         customers.postValue(response.body()?.data?.list_customers)
                     }
                 } else {
-                    isExecute.postValue(false)
                     customers.postValue(listOf())
                 }
             }
@@ -59,11 +61,11 @@ class CustomerViewModel : ViewModel() {
                 statusSyncCustomerToBK.postValue(null)
             },
             onResponse = { _, response ->
+                isExecute.postValue(false)
+
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
                     statusSyncCustomerToBK.postValue(response.body()?.data)
                 } else {
-                    isExecute.postValue(false)
                     statusSyncCustomerToBK.postValue(null)
                 }
             }
@@ -79,13 +81,12 @@ class CustomerViewModel : ViewModel() {
                 customersGroup.postValue(null)
             },
             onResponse = { _, response ->
+                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
                         customersGroup.postValue(response.body()?.data?.customer_groups)
                     }
                 } else {
-                    isExecute.postValue(false)
                     customersGroup.postValue(listOf())
                 }
             }
@@ -101,34 +102,85 @@ class CustomerViewModel : ViewModel() {
                 priceGroup.postValue(null)
             },
             onResponse = { _, response ->
+                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
                         priceGroup.postValue(response.body()?.data?.price_groups)
                     }
                 } else {
-                    isExecute.postValue(false)
                     priceGroup.postValue(listOf())
                 }
             }
         )
     }
 
-    fun postAddCustomer(body: Map<String, Any?>, listener: (Map<String, Any?>) -> Unit) {
+    fun postAddCustomer(body: Map<String, Any?>, logo: MultipartBody.Part?, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.postCustomers(headers, body)?.exe(
-            onFailure = { _, _ ->
-                listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal"))
+            onFailure = { _, t ->
+                message.postValue(t.toString())
                 isExecute.postValue(false)
             },
             onResponse = { _, response ->
+
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
-                    listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.body()?.message))
+                    tryMe {
+                        message.postValue(response.body()?.message)
+                        logE("logo : $logo")
+                        if (logo != null){
+                            postUploadLogoCustomer(logo, response.body()?.data?.id ?: "0"){
+                                isExecute.postValue(false)
+                                listener()
+                            }
+                        }else{
+                            isExecute.postValue(false)
+                            listener()
+                        }
+
+                    }
                 } else {
                     isExecute.postValue(false)
-                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.body()?.message))
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
+                }
+            }
+        )
+    }
+
+    fun postUploadLogoCustomer(logo: MultipartBody.Part, idCustomer: String, listener: () -> Unit) {
+        isExecute.postValue(true)
+       /* if (isUpdate){
+            isExecute.postValue(true)
+        }*/
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf("id_customer" to idCustomer)
+        ApiServices.getInstance()?.postUploadLogoCustomer(logo, headers, params)?.exe(
+            onFailure = { _, t ->
+                logE("gagal : $t")
+                message.postValue(t.toString())
+                isExecute.postValue(false)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                logE("masuk1")
+                if (response.isSuccessful) {
+                    logE("masuk2")
+                        message.postValue(response.body()?.message)
+                        listener()
+
+                } else {
+                    logE("masuk3")
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
@@ -141,15 +193,15 @@ class CustomerViewModel : ViewModel() {
         ApiServices.getInstance()?.putEditCustomers(headers, params, body)?.exe(
             onFailure = { _, _ ->
                 listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal"))
-                isExecute.postValue(false)
+                isExecute.postValue(true)
             },
             onResponse = { _, response ->
+                isExecute.postValue(false)
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
                     listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.message()))
                 } else {
-                    isExecute.postValue(false)
                     listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.message()))
+                    isExecute.postValue(false)
                 }
             }
         )
@@ -179,4 +231,6 @@ class CustomerViewModel : ViewModel() {
     internal fun getSyncCustomerToBK(): LiveData<DataSyncCustomerToBK>{
         return this.statusSyncCustomerToBK
     }
+
+    internal fun getMessage() = message
 }
