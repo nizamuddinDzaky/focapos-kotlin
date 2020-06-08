@@ -28,9 +28,9 @@ class CustomerGroupViewModel: ViewModel() {
                 customers.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         if(!getSelected) {
                             customers.postValue(response.body()?.data?.list_customer)
                         } else{
@@ -38,6 +38,7 @@ class CustomerGroupViewModel: ViewModel() {
                         }
                     }
                 } else {
+                    isExecute.postValue(false)
                     customers.postValue(listOf())
                 }
             }
@@ -53,12 +54,13 @@ class CustomerGroupViewModel: ViewModel() {
                 customersGroup.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         customersGroup.postValue(response.body()?.data?.customer_groups)
                     }
                 } else {
+                    isExecute.postValue(false)
                     customersGroup.postValue(listOf())
                 }
             }
@@ -77,11 +79,11 @@ class CustomerGroupViewModel: ViewModel() {
                         "message" to "koneksi gagal"
                     )
                 )
-                isExecute.postValue(true)
+                isExecute.postValue(false)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
+                    isExecute.postValue(true)
                     listener(
                         mapOf(
                             "networkRespone" to NetworkResponse.SUCCESS,
@@ -89,13 +91,13 @@ class CustomerGroupViewModel: ViewModel() {
                         )
                     )
                 } else {
+                    isExecute.postValue(false)
                     listener(
                         mapOf(
                             "networkRespone" to NetworkResponse.ERROR,
                             "message" to response.body()?.message
                         )
                     )
-                    isExecute.postValue(true)
                 }
             }
         )
@@ -106,17 +108,17 @@ class CustomerGroupViewModel: ViewModel() {
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.postAddCustomerGroup(headers, body)?.exe(
             onFailure = { _, _ ->
+                isExecute.postValue(false)
                 listener(
                     mapOf(
                         "networkRespone" to NetworkResponse.FAILURE,
                         "message" to "koneksi gagal"
                     )
                 )
-                isExecute.postValue(true)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
+                    isExecute.postValue(true)
                     listener(
                         mapOf(
                             "networkRespone" to NetworkResponse.SUCCESS,
@@ -124,13 +126,13 @@ class CustomerGroupViewModel: ViewModel() {
                         )
                     )
                 } else {
+                    isExecute.postValue(false)
                     listener(
                         mapOf(
                             "networkRespone" to NetworkResponse.ERROR,
                             "message" to response.body()?.message
                         )
                     )
-                    isExecute.postValue(true)
                 }
             }
         )
@@ -142,17 +144,17 @@ class CustomerGroupViewModel: ViewModel() {
         val params = mutableMapOf(KEY_ID_CUSTOMER_GROUP to idCustomerGroup)
         ApiServices.getInstance()?.putEditCustomerGroup(headers, params, body)?.exe(
             onFailure = { _, _ ->
+                isExecute.postValue(false)
                 listener(
                     mapOf(
                         "networkRespone" to NetworkResponse.FAILURE,
                         "message" to "koneksi gagal"
                     )
                 )
-                isExecute.postValue(true)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
+                    isExecute.postValue(true)
                     listener(
                         mapOf(
                             "networkRespone" to NetworkResponse.SUCCESS,
@@ -160,13 +162,13 @@ class CustomerGroupViewModel: ViewModel() {
                         )
                     )
                 } else {
+                    isExecute.postValue(false)
                     listener(
                         mapOf(
                             "networkRespone" to NetworkResponse.ERROR,
                             "message" to response.message()
                         )
                     )
-                    isExecute.postValue(true)
                 }
             }
         )

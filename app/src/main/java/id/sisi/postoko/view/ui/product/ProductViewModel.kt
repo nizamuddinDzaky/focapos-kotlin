@@ -26,12 +26,13 @@ class ProductViewModel : ViewModel() {
                 products.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         products.postValue(response.body()?.data?.list_products)
                     }
                 } else {
+                    isExecute.postValue(false)
                     products.postValue(listOf())
                 }
             }

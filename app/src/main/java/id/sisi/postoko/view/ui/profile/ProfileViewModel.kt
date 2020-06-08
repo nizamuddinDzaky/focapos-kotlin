@@ -38,11 +38,12 @@ class ProfileViewModel : ViewModel() {
                 isExecute.postValue(false)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
+                    isExecute.postValue(true)
                     message.postValue(response.body()?.message)
                     listener()
                 } else {
+                    isExecute.postValue(false)
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
                     if (TextUtils.isEmpty(errorResponse?.message)){
@@ -63,15 +64,15 @@ class ProfileViewModel : ViewModel() {
                 user.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         val newUser = response.body()?.data?.user
                         newUser?.companyData = response.body()?.data?.company
                         user.postValue(newUser)
                     }
                 } else {
-
+                    isExecute.postValue(false)
                 }
             }
         )
@@ -92,9 +93,9 @@ class ProfileViewModel : ViewModel() {
                 user.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         val newUser = response.body()?.data?.user
                         newUser?.companyData = response.body()?.data?.company
                         user.postValue(newUser)
@@ -103,6 +104,7 @@ class ProfileViewModel : ViewModel() {
                         listener()
                     }
                 } else {
+                    isExecute.postValue(false)
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
                     if (TextUtils.isEmpty(errorResponse?.message)){
@@ -128,9 +130,9 @@ class ProfileViewModel : ViewModel() {
                 listener()
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         val newUser = response.body()?.data?.user
                         newUser?.companyData = response.body()?.data?.company
                         user.postValue(newUser)
@@ -139,6 +141,7 @@ class ProfileViewModel : ViewModel() {
                         listener()
                     }
                 } else {
+                    isExecute.postValue(false)
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
                     if (TextUtils.isEmpty(errorResponse?.message)){

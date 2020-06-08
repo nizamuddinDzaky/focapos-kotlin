@@ -27,13 +27,13 @@ class DaerahViewModel : ViewModel() {
                 daerahProvince.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         daerahProvince.postValue(response.body()?.data)
                     }
                 } else {
-
+                    isExecute.postValue(false)
                 }
             }
         )
@@ -49,13 +49,13 @@ class DaerahViewModel : ViewModel() {
                 daerahCity.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         daerahCity.postValue(response.body()?.data)
                     }
                 } else {
-
+                    isExecute.postValue(false)
                 }
             }
         )
@@ -71,13 +71,13 @@ class DaerahViewModel : ViewModel() {
                 daerahStates.postValue(null)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(true)
                         daerahStates.postValue(response.body()?.data)
                     }
                 } else {
-
+                    isExecute.postValue(false)
                 }
             }
         )
