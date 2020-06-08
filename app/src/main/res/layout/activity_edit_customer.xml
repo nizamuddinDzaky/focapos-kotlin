@@ -14,7 +14,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_edit_customer"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="?attr/actionBarSize"
             android:background="#fff"
             app:navigationIcon="@drawable/back_arrow_foreground"
             app:popupTheme="@style/AppTheme.PopupOverlay">
@@ -25,9 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/txt_edit_customer"
-                android:textColor="#676767"
-                android:fontFamily="@font/roboto_bold"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textColor="#000"
+                android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>

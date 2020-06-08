@@ -25,14 +25,14 @@ class AddGoodReceivedViewModel(private var idGoodsReceived: Int, private val fa:
         val params = mutableMapOf(KEY_ID_GOODS_RECEIVED to idGoodsReceived.toString())
         ApiServices.getInstance()?.postAddGoodReceived(headers, params, body)?.exe(
             onFailure = { _, _ ->
-                _isExecute.postValue(false)
+                _isExecute.postValue(true)
             },
             onResponse = { _, response ->
-                _isExecute.postValue(true)
+                _isExecute.postValue(false)
                 if (response.isSuccessful) {
                     listener()
                 } else {
-                    _isExecute.postValue(false)
+                    _isExecute.postValue(true)
                 }
             }
         )
@@ -44,11 +44,11 @@ class AddGoodReceivedViewModel(private var idGoodsReceived: Int, private val fa:
         val params = mutableMapOf(KEY_ID_GOODS_RECEIVED to idGoodsReceived.toString())
         ApiServices.getInstance()?.getDetailGoodReceived(headers, params)?.exe(
             onFailure = { _, _ ->
-                _isExecute.postValue(false)
+                _isExecute.postValue(true)
                 _goodReceived.postValue(null)
             },
             onResponse = { _, response ->
-                _isExecute.postValue(true)
+                _isExecute.postValue(false)
                 if (response.isSuccessful) {
                     listener()
                     val newGoodReceived = response.body()?.data?.good_received
@@ -56,7 +56,7 @@ class AddGoodReceivedViewModel(private var idGoodsReceived: Int, private val fa:
                         response.body()?.data?.good_received_items
                     _goodReceived.postValue(newGoodReceived)
                 } else {
-                    _isExecute.postValue(false)
+                    _isExecute.postValue(true)
                 }
             }
         )

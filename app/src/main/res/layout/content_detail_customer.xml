@@ -17,17 +17,11 @@
             android:orientation="vertical"
             android:background="@drawable/gradient_detail_customer"
             android:gravity="center_horizontal">
-            <RelativeLayout
+            <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                tools:ignore="UselessParent">
-                <ImageView
-                    android:id="@+id/iv_logo"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:contentDescription="@string/conDes"
-                    android:src="@drawable/toko2" />
-            </RelativeLayout>
+                android:src="@mipmap/forcapos"
+                />
             <TextView
                 android:id="@+id/tv_customer_name_header"
                 android:layout_width="match_parent"
@@ -526,8 +520,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:gravity="center_horizontal"
-                tools:ignore="TooManyViews">
+                android:gravity="center_horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

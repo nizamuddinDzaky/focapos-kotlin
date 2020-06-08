@@ -22,7 +22,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.view.custom.CustomProgressBar
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_upload_logo.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_avatar_profile.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -48,13 +48,12 @@ class BottomSheetUpdateAvatar: BottomSheetDialogFragment() {
 
         mViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        return inflater.inflate(R.layout.fragment_bottom_sheet_upload_logo, container, false)
+        return inflater.inflate(R.layout.fragment_bottom_sheet_edit_avatar_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tv_title_bottom_sheet.text = getString(R.string.txt_proifle)
         btn_gallery.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 if (context?.let { context -> checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) }
@@ -87,14 +86,6 @@ class BottomSheetUpdateAvatar: BottomSheetDialogFragment() {
                 openCamera()
             }
 
-        }
-
-        btn_simpan.setOnClickListener {
-            btn_action_submit.performClick()
-        }
-
-        btn_close.setOnClickListener {
-            this.dismiss()
         }
 
         btn_action_submit.setOnClickListener {
