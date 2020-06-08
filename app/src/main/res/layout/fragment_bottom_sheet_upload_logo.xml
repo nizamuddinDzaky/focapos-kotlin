@@ -32,7 +32,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/btn_reset"
+            android:id="@+id/btn_simpan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -65,6 +65,8 @@
             android:id="@+id/iv_avatar"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:padding="@dimen/et_top_margin"
+            android:src="@drawable/female_forca_large"
             android:background="@drawable/square_dash"
             />
         <LinearLayout
@@ -73,25 +75,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/et_top_margin"
             android:orientation="horizontal">
-            <ImageButton
+            <ImageView
                 android:id="@+id/btn_camera"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_camera"
-                android:layout_margin="@dimen/et_top_margin"
-                android:background="#0893B2"/>
+                android:layout_margin="@dimen/et_top_margin" />
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/colorLine" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/btn_gallery"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_gallery"
-                android:layout_margin="@dimen/et_top_margin"
-                android:background="@color/main_red"/>
+                android:layout_margin="@dimen/et_top_margin"/>
         </LinearLayout>
     </LinearLayout>
     <Button
@@ -101,6 +101,7 @@
         android:layout_marginTop="@dimen/standard_margin"
         android:layout_marginLeft="@dimen/et_top_margin"
         android:layout_marginRight="@dimen/et_top_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:background="@color/main_green"
         android:text="@string/txt_action_save"
         android:textAllCaps="false"

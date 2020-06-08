@@ -69,25 +69,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/et_top_margin"
             android:orientation="horizontal">
-            <ImageButton
+            <ImageView
                 android:id="@+id/btn_camera"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_camera"
-                android:layout_margin="@dimen/et_top_margin"
-                android:background="#0893B2"/>
+                android:layout_margin="@dimen/et_top_margin"/>
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/colorLine" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/btn_gallery"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_gallery"
-                android:layout_margin="@dimen/et_top_margin"
-                android:background="@color/main_red"/>
+                android:layout_margin="@dimen/et_top_margin" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

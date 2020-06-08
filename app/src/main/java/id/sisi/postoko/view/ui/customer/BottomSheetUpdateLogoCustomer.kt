@@ -22,7 +22,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.custom.CustomProgressBar
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_logo_customer.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_upload_logo.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -45,12 +45,13 @@ class BottomSheetUpdateLogoCustomer: BottomSheetDialogFragment() {
     ): View? {
 
         mViewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_bottom_sheet_edit_logo_customer, container, false)
+        return inflater.inflate(R.layout.fragment_bottom_sheet_upload_logo, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        tv_title_bottom_sheet.text = getString(R.string.txt_logo)
         mViewModel.getMessage().observe(viewLifecycleOwner, Observer {
             it?.let {
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
@@ -128,6 +129,14 @@ class BottomSheetUpdateLogoCustomer: BottomSheetDialogFragment() {
 
         }
 
+        btn_simpan.setOnClickListener {
+            btn_action_submit.performClick()
+        }
+
+        btn_close.setOnClickListener {
+            this.dismiss()
+        }
+
     }
 
     override fun onRequestPermissionsResult(
@@ -162,7 +171,6 @@ class BottomSheetUpdateLogoCustomer: BottomSheetDialogFragment() {
             }else{
                 iv_avatar.setImageURI(imageUri)
             }
-            logE("uri : $requestCode")
             try {
                 val filePath= FilePath()
                 val selectedPath = context?.let { context ->
@@ -191,7 +199,7 @@ class BottomSheetUpdateLogoCustomer: BottomSheetDialogFragment() {
         //camera intent
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-        startActivityForResult(cameraIntent, RC_IMAGE_CAPTURE_CODE)
+        startActivityForResult(cameraIntent, RC_PERMISSION_CAMERA)
     }
 
     companion object {
