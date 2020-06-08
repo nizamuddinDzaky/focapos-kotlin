@@ -23,7 +23,6 @@ data class ResponseData(
 )
 
 data class DataLogin(
-    var id: String?,
     var user_id: String?,
     var company_id: String?,
     var token: String?

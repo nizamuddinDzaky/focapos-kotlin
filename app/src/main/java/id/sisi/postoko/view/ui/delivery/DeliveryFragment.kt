@@ -1,7 +1,6 @@
 package id.sisi.postoko.view.ui.delivery
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +16,13 @@ import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Delivery
 import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
-import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.KEY_DATA_DELIVERY
+import id.sisi.postoko.utils.KEY_ID_DELIVERY
+import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
-import id.sisi.postoko.view.ui.sales.SaleBookingViewModel
 import id.sisi.postoko.view.ui.sales.SaleStatus
 import kotlinx.android.synthetic.main.failed_load_data.*
 import kotlinx.android.synthetic.main.pengiriman_fragment.*

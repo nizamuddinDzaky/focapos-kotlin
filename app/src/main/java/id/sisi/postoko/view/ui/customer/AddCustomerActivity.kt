@@ -1,14 +1,8 @@
 package id.sisi.postoko.view.ui.customer
 
-import android.Manifest
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -17,7 +11,6 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,23 +20,14 @@ import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.model.User
 import id.sisi.postoko.network.NetworkResponse
-import id.sisi.postoko.utils.FilePath
-import id.sisi.postoko.utils.RC_IMAGE_CAPTURE_CODE
-import id.sisi.postoko.utils.RC_PERMISSION_CAMERA
-import id.sisi.postoko.utils.RC_UPLOAD_IMAGE
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.content_add_customer.*
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_address.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
 import java.util.*
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class AddCustomerActivity : AppCompatActivity() {
     private lateinit var viewModelCustomer: CustomerViewModel
     private lateinit var mViewModelDaerah: DaerahViewModel
@@ -60,10 +44,6 @@ class AddCustomerActivity : AppCompatActivity() {
     private var cityList: Array<String> = arrayOf()
     private var villageList: Array<String> = arrayOf()
 
-    private var imageUri: Uri? = null
-    private var requestBody: RequestBody? = null
-    private var requestPart: MultipartBody.Part? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_customer)
@@ -79,22 +59,6 @@ class AddCustomerActivity : AppCompatActivity() {
                 listCustomerGroup = it
             }
         })
-
-        viewModelCustomer.getMessage().observe(this, Observer {
-            it?.let {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        viewModelCustomer.getIsExecute().observe(this, Observer {
-            if (it && !progressBar.isShowing()) {
-
-                progressBar.show(this, getString(R.string.txt_please_wait))
-            } else {
-                progressBar.dialog.dismiss()
-            }
-        })
-
         val adapterCustomerGroup = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listCustomerGroupName)
         sp_customer_group_add_customer.adapter = adapterCustomerGroup
         sp_customer_group_add_customer.onItemSelectedListener = object : MaterialSpinner.OnItemSelectedListener {
@@ -137,7 +101,7 @@ class AddCustomerActivity : AppCompatActivity() {
                 mViewModelDaerah.getStates(cityList[position])
             }
         }
-     
+
         btn_confirmation_add_customer.setOnClickListener {
             actionAddCustomer()
         }
@@ -182,137 +146,6 @@ class AddCustomerActivity : AppCompatActivity() {
         })
 
         mViewModelDaerah.getProvince()
-
-        iv_logo.setOnClickListener {
-            val bottomSheet = BottomSheetSelectMedia()
-            bottomSheet.show(supportFragmentManager, BottomSheetSelectMedia().tag)
-
-            bottomSheet.lCamera={
-                actionOpenCamera()
-            }
-
-            bottomSheet.lGallery={
-                actionOpenMedia()
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when(requestCode){
-            RC_PERMISSION_CAMERA -> {
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED){
-                    openCamera()
-                }
-                else{
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            RC_UPLOAD_IMAGE ->{
-                val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(i, RC_UPLOAD_IMAGE)
-            }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == RC_UPLOAD_IMAGE){
-                imageUri = data?.data
-                iv_logo.setImageURI(imageUri)
-            }else{
-                iv_logo.setImageURI(imageUri)
-            }
-            logE("$imageUri")
-            try {
-                val filePath= FilePath()
-                val selectedPath = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    imageUri?.let { filePath.getPath(this, it) }
-                } else {
-                    TODO("VERSION.SDK_INT < KITKAT")
-                }
-                val file = File(selectedPath)
-
-                requestBody = RequestBody.create(MediaType.parse(imageUri?.let { contentResolver?.getType(it) }), file)
-                requestPart = MultipartBody.Part.createFormData("logo", file.name, requestBody)
-            }catch (e: Exception){
-                Toast.makeText(this, "$e", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home){
-            android.app.AlertDialog.Builder(this@AddCustomerActivity)
-                .setTitle("Konfirmasi")
-                .setMessage("Apakah yakin ?")
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    super.onBackPressed()
-                }
-                .setNegativeButton(android.R.string.cancel) { _, _ ->
-
-                }
-                .show()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun actionOpenCamera() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.CAMERA
-                )
-                == PackageManager.PERMISSION_DENIED ||
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-                == PackageManager.PERMISSION_DENIED){
-
-                val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                requestPermissions(permission, RC_PERMISSION_CAMERA)
-            }
-            else{
-                openCamera()
-            }
-        }
-        else{
-            openCamera()
-        }
-    }
-
-    private fun openCamera(){
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.TITLE, "New Picture")
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-        imageUri = contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        //camera intent
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-        startActivityForResult(cameraIntent, RC_IMAGE_CAPTURE_CODE)
-    }
-
-    private fun actionOpenMedia() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-                == PackageManager.PERMISSION_DENIED){
-                val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                requestPermissions(permission, RC_UPLOAD_IMAGE)
-            }else{
-                val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(i, RC_UPLOAD_IMAGE)
-            }
-        }
     }
 
     private fun setUIProvince(){
@@ -339,10 +172,28 @@ class AddCustomerActivity : AppCompatActivity() {
         )
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+            android.app.AlertDialog.Builder(this@AddCustomerActivity)
+                .setTitle("Konfirmasi")
+                .setMessage("Apakah yakin ?")
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    super.onBackPressed()
+                }
+                .setNegativeButton(android.R.string.cancel) { _, _ ->
+
+                }
+                .show()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun actionAddCustomer() {
         val numbersMap =  validationFormAddCustomer()
 
         if (numbersMap["type"] as Boolean){
+            progressBar.show(this, "Silakan tunggu...")
+
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_name_add_customer?.text?.toString() ?: ""),
                 "email" to (et_email_add_customer?.text?.toString() ?: ""),
@@ -363,10 +214,14 @@ class AddCustomerActivity : AppCompatActivity() {
                 "state" to (sp_city_group_add_customer?.selectedItem?.toString() ?: "")
 
             )
-            viewModelCustomer.postAddCustomer(body, requestPart){
-                val returnIntent = Intent()
-                setResult(Activity.RESULT_OK, returnIntent)
-                finish()
+            viewModelCustomer.postAddCustomer(body){
+                progressBar.dialog.dismiss()
+                Toast.makeText(this, ""+it["message"], Toast.LENGTH_SHORT).show()
+                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
+                    val returnIntent = Intent()
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                }
             }
         }else{
             AlertDialog.Builder(this@AddCustomerActivity)

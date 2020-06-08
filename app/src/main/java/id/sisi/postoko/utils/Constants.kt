@@ -51,6 +51,3 @@ const val RC_ADD_CUSTOMER_TO_CG = 223
 const val RC_UPLOAD_IMAGE = 224
 const val RC_IMAGE_CAPTURE_CODE = 1001
 const val RC_PERMISSION_CAMERA = 1000
-//const val BASE_URL = "http://qp.forca.id/"
-const val BASE_URL = "http://10.15.4.102:9090/"
-const val DEFAULT_LOGO_CUSTOMER = "logo.png"
