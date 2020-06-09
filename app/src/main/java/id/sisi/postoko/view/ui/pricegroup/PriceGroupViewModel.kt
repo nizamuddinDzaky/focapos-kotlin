@@ -33,7 +33,7 @@ class PriceGroupViewModel : ViewModel() {
             onResponse = { _, response ->
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
+                        isExecute.postValue(false)
                         logE("${response.body()}")
                         if(!getSelected) {
                             customers.postValue(response.body()?.data?.list_customer)

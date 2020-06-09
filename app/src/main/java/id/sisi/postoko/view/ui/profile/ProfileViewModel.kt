@@ -66,7 +66,7 @@ class ProfileViewModel : ViewModel() {
             onResponse = { _, response ->
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
+                        isExecute.postValue(false)
                         val newUser = response.body()?.data?.user
                         newUser?.companyData = response.body()?.data?.company
                         user.postValue(newUser)

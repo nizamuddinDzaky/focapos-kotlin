@@ -30,7 +30,7 @@ class WarehouseViewModel : ViewModel() {
             onResponse = { _, response ->
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
+                        isExecute.postValue(false)
                         warehouses.postValue(response.body()?.data?.list_warehouses)
                     }
                 } else {
