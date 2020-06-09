@@ -32,10 +32,10 @@ class ImagePaymentDialogFragment: DialogFragment()  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val loadImage = LoadImageFromUrl(iv_image)
+        val loadImage = context?.let { LoadImageFromUrl(iv_image, it, 0) }
 
         val attachment = arguments?.getString("payment")
-        loadImage.execute("https://qp.forca.id/welcome/$attachment")
+        loadImage?.execute("https://qp.forca.id/welcome/$attachment")
     }
 
     override fun onStart() {

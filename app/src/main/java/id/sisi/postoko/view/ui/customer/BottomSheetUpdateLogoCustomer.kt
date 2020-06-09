@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.*
@@ -167,21 +169,29 @@ class BottomSheetUpdateLogoCustomer: BottomSheetDialogFragment() {
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == RC_UPLOAD_IMAGE){
                 imageUri = data?.data
-                iv_avatar.setImageURI(imageUri)
-            }else{
-                iv_avatar.setImageURI(imageUri)
             }
-            try {
-                val filePath= FilePath()
-                val selectedPath = context?.let { context ->
-                    imageUri?.let { uri ->
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            filePath.getPath(context, uri)
-                        } else {
-                            TODO("VERSION.SDK_INT < KITKAT")
-                        }
+            val filePath= FilePath()
+            val selectedPath = context?.let { context ->
+                imageUri?.let { uri ->
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        filePath.getPath(context, uri)
+                    } else {
+                        TODO("VERSION.SDK_INT < KITKAT")
                     }
                 }
+            }
+
+            val myOptions = RequestOptions().override(100,100)
+
+            activity?.let {
+                logE("$it")
+                Glide.with(it)
+                    .load(selectedPath)
+                    .apply(myOptions)
+                    .into(iv_avatar)
+            }
+
+            try {
                 val file = File(selectedPath)
                 requestBody = RequestBody.create(MediaType.parse(imageUri?.let { activity?.contentResolver?.getType(it) }), file)
                 requestPart = MultipartBody.Part.createFormData("logo", file.name, requestBody)

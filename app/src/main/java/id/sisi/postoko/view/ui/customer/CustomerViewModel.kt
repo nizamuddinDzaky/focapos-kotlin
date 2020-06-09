@@ -127,16 +127,14 @@ class CustomerViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     tryMe {
                         message.postValue(response.body()?.message)
-                        logE("logo : $logo")
                         if (logo != null){
                             postUploadLogoCustomer(logo, response.body()?.data?.id ?: "0"){
                                 isExecute.postValue(false)
-                                listener()
                             }
                         }else{
                             isExecute.postValue(false)
-                            listener()
                         }
+                        listener()
 
                     }
                 } else {

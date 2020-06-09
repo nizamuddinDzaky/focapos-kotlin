@@ -10,10 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
-import id.sisi.postoko.utils.BASE_URL
-import id.sisi.postoko.utils.DEFAULT_LOGO_CUSTOMER
-import id.sisi.postoko.utils.KEY_ID_CUSTOMER
-import id.sisi.postoko.utils.LoadImageFromUrl
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.MasterDetailViewModel
 import kotlinx.android.synthetic.main.activity_customer_detail.*
@@ -38,12 +35,8 @@ class DetailCustomerActivity : AppCompatActivity() {
                 customer = it
             }
 
-
-            if(!TextUtils.isEmpty(it?.logo) && !it?.logo?.equals(DEFAULT_LOGO_CUSTOMER)!!){
-                val loadImage = LoadImageFromUrl(iv_logo)
-                loadImage.execute("$BASE_URL/assets/uploads/avatars/thumbs/${it.logo}")
-            }
-
+            val loadImage = LoadImageFromUrl(iv_logo, this, R.drawable.toko2)
+            loadImage.execute("$URL_AVATAR_PROFILE${it?.logo}")
 
             tv_customer_name_header.text = it?.company
             tv_customer_name.text = it?.company

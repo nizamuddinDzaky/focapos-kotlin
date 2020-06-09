@@ -30,7 +30,7 @@ class CustomerGroupViewModel: ViewModel() {
             onResponse = { _, response ->
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
+                        isExecute.postValue(false)
                         if(!getSelected) {
                             customers.postValue(response.body()?.data?.list_customer)
                         } else{
@@ -55,8 +55,8 @@ class CustomerGroupViewModel: ViewModel() {
             },
             onResponse = { _, response ->
                 if (response.isSuccessful) {
+                    isExecute.postValue(false)
                     tryMe {
-                        isExecute.postValue(false)
                         customersGroup.postValue(response.body()?.data?.customer_groups)
                     }
                 } else {
@@ -83,7 +83,7 @@ class CustomerGroupViewModel: ViewModel() {
             },
             onResponse = { _, response ->
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
+                    isExecute.postValue(false)
                     listener(
                         mapOf(
                             "networkRespone" to NetworkResponse.SUCCESS,
@@ -118,7 +118,7 @@ class CustomerGroupViewModel: ViewModel() {
             },
             onResponse = { _, response ->
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
+                    isExecute.postValue(false)
                     listener(
                         mapOf(
                             "networkRespone" to NetworkResponse.SUCCESS,

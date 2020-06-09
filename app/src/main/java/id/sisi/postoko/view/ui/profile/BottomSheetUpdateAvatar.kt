@@ -17,14 +17,18 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_upload_logo.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.Request
 import okhttp3.RequestBody
 import java.io.File
 
@@ -119,22 +123,31 @@ class BottomSheetUpdateAvatar: BottomSheetDialogFragment() {
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == RC_UPLOAD_IMAGE){
                 imageUri = data?.data
-                iv_avatar.setImageURI(imageUri)
-            }else{
-                iv_avatar.setImageURI(imageUri)
+            }
+
+            val filePath= FilePath()
+            val selectedPath = context?.let { context ->
+                imageUri?.let { uri ->
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        filePath.getPath(context, uri)
+                    } else {
+                        TODO("VERSION.SDK_INT < KITKAT")
+                    }
+                }
+            }
+
+            val myOptions = RequestOptions().override(100,100)
+
+            activity?.let {
+                logE("$it")
+                Glide.with(it)
+                    .load(selectedPath)
+                    .apply(myOptions)
+                    .into(iv_avatar)
             }
 
             try {
-                val filePath= FilePath()
-                val selectedPath = context?.let { context ->
-                    imageUri?.let { uri ->
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            filePath.getPath(context, uri)
-                        } else {
-                            TODO("VERSION.SDK_INT < KITKAT")
-                        }
-                    }
-                }
+
                 val file = File(selectedPath)
                 requestBody = RequestBody.create(MediaType.parse(imageUri?.let { activity?.contentResolver?.getType(it) }), file)
                 requestPart = MultipartBody.Part.createFormData("avatar", file.name, requestBody)

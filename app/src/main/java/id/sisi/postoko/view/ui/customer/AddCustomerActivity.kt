@@ -21,12 +21,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.tiper.MaterialSpinner
 import id.sisi.postoko.R
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.PriceGroup
-import id.sisi.postoko.model.User
-import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.FilePath
 import id.sisi.postoko.utils.RC_IMAGE_CAPTURE_CODE
 import id.sisi.postoko.utils.RC_PERMISSION_CAMERA
@@ -36,7 +36,6 @@ import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.content_add_customer.*
-import kotlinx.android.synthetic.main.fragment_bottom_sheet_edit_profile_address.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -225,18 +224,24 @@ class AddCustomerActivity : AppCompatActivity() {
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == RC_UPLOAD_IMAGE){
                 imageUri = data?.data
-                iv_logo.setImageURI(imageUri)
-            }else{
-                iv_logo.setImageURI(imageUri)
             }
-            logE("$imageUri")
+
+            val filePath= FilePath()
+            val selectedPath = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                imageUri?.let { filePath.getPath(this, it) }
+            } else {
+                TODO("VERSION.SDK_INT < KITKAT")
+            }
+
+            val myOptions = RequestOptions().override(100,100)
+            Glide.with(this)
+                .load(selectedPath)
+                .placeholder(R.drawable.toko2)
+                .circleCrop()
+                .apply(myOptions)
+                .into(iv_logo)
+
             try {
-                val filePath= FilePath()
-                val selectedPath = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    imageUri?.let { filePath.getPath(this, it) }
-                } else {
-                    TODO("VERSION.SDK_INT < KITKAT")
-                }
                 val file = File(selectedPath)
 
                 requestBody = RequestBody.create(MediaType.parse(imageUri?.let { contentResolver?.getType(it) }), file)
