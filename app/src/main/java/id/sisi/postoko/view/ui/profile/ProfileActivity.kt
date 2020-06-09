@@ -3,18 +3,21 @@ package id.sisi.postoko.view.ui.profile
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.text.TextUtils
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import id.sisi.postoko.R
 import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.LoadImageFromUrl
 import id.sisi.postoko.utils.RC_PROFILE
-import id.sisi.postoko.utils.extensions.*
+import id.sisi.postoko.utils.URL_AVATAR_PROFILE
+import id.sisi.postoko.utils.extensions.getTryString
+import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.tryValue
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseActivity
-import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.failed_load_data.*
 
@@ -102,12 +105,9 @@ class ProfileActivity : BaseActivity() {
 
     private fun showData(user: User?) {
         user?.let {
-            logE("profile : $it")
 
-            if(!TextUtils.isEmpty(it.avatar)){
-                val loadImage = LoadImageFromUrl(iv_header_avatar)
-                loadImage.execute("http://10.15.4.102:9090/assets/uploads/avatars/thumbs/${it.avatar}")
-            }
+            val loadImage = LoadImageFromUrl(iv_header_avatar, this, R.drawable.female_forca)
+            loadImage.execute("$URL_AVATAR_PROFILE${it.avatar}")
 
             tv_user_company_name?.text = it.company
             tv_user_company_address?.text = it.address

@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.*
 import id.sisi.postoko.model.Response
+import id.sisi.postoko.utils.BASE_URL
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import org.greenrobot.eventbus.EventBus
@@ -166,7 +167,7 @@ interface ApiServices {
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataCustomer>>
 
-    @POST("api/v1/distributor/api/v1/distributor/customers/add_customers")
+    @POST("api/v1/distributor/customers/add_customers")
     fun postCustomers(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
@@ -324,11 +325,6 @@ interface ApiServices {
 
     companion object {
         private var retrofit: Retrofit? = null
-
-        private const val BASE_URL: String = "https://qp.forca.id/"
-
-        //private const val BASE_URL: String = "http://10.37.11.119:8282/api/v1/distributor/"
-        //private const val BASE_URL: String = "http://10.15.4.102:9090/"
 
         fun getInstance(): ApiServices? {
             retrofit ?: synchronized(this) {
