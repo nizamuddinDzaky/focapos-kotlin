@@ -56,7 +56,7 @@ class CustomerGroupViewModel: ViewModel() {
             onResponse = { _, response ->
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
+                        isExecute.postValue(false)
                         customersGroup.postValue(response.body()?.data?.customer_groups)
                     }
                 } else {

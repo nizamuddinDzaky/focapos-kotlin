@@ -28,7 +28,7 @@ class ProductViewModel : ViewModel() {
             onResponse = { _, response ->
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
+                        isExecute.postValue(false)
                         products.postValue(response.body()?.data?.list_products)
                     }
                 } else {
