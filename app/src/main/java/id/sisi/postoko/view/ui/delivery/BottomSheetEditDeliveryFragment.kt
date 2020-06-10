@@ -335,7 +335,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
     }
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        (parentFragment as DeliveryFragment).refreshDataSale()
+        listener()
     }
 
     override fun onChange(position: Int) {

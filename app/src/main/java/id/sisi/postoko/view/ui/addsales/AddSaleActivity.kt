@@ -30,6 +30,7 @@ class AddSaleActivity : BaseActivity() {
     var warehouseName: String? = null
     var idCustomer: String? = null
     var customerName: String? = null
+    var customerAddress: String? = null
     var currentFragmentTag: String? = null
     var saleNote: String? = null
     var employeeNote: String? = null

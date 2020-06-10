@@ -4,21 +4,17 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import kotlinx.android.synthetic.main.list_item_sales_booking.view.*
 
 class ListSalesAdapter(
-    private var sales: List<Sales>? = arrayListOf(),
-    private var fragmentActivity: FragmentActivity? = null
+    private var sales: List<Sales>? = arrayListOf()
 ) : RecyclerView.Adapter<ListSalesAdapter.SalesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SalesViewHolder {
@@ -33,11 +29,11 @@ class ListSalesAdapter(
     }
 
     override fun onBindViewHolder(holder: SalesViewHolder, position: Int) {
-        holder.bind(sales?.get(position), fragmentActivity)
+        holder.bind(sales?.get(position))
     }
 
     class SalesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(sale: Sales?, fragmentActivity: FragmentActivity? = null) {
+        fun bind(sale: Sales?) {
 
             sale?.let {
                 itemView.tv_sales_reference_no?.text = it.reference_no
@@ -46,8 +42,8 @@ class ListSalesAdapter(
                 itemView.tv_sales_delevery_status?.text =
                     it.delivery_status?.toDisplayStatus()?.let { it1 -> itemView.context.getText(it1) }
                 itemView.tv_sales_payment_status?.text =
-                    itemView.context.getText(it.payment_status.toDisplayStatus())
-                itemView.tv_sales_total_price?.text = it.grand_total.toCurrencyID()
+                    itemView.context.getText(it.payment_status?.toDisplayStatus() ?: 0)
+                itemView.tv_sales_total_price?.text = it.grand_total?.toCurrencyID()
                 val seeDetail = "Lihat ${it.total_items} Rincian Item"
                 itemView.tv_sales_detail?.text = seeDetail
                 itemView.setOnClickListener {

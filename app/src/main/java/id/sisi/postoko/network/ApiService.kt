@@ -52,7 +52,7 @@ interface ApiServices {
     fun postAddSales(
         @HeaderMap headerMap: Map<String, String>,
         @Body body: Map<String, Any?>
-    ): Call<BaseResponse<DataLogin>>
+    ): Call<BaseResponse<Response<ResponseData>>>
 
     @POST("api/v1/distributor/purchases/add_gr_to_po")
     fun postAddGoodReceived(

@@ -18,7 +18,6 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.Observer
@@ -75,8 +74,8 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         sale = arguments?.getParcelable("sale_booking")
         customer = arguments?.getParcelable(KEY_DATA_DELIVERY)
         customer.let {
-            et_add_delivery_customer_name?.setText(customer?.name)
-            et_add_delivery_customer_address?.setText(customer?.address)
+            et_add_delivery_customer_name?.setText(it?.name)
+            et_add_delivery_customer_address?.setText(it?.address)
         }
         for (x in 0 until sale?.saleItems?.size!!){
             sale?.saleItems?.get(x)?.let {
@@ -318,7 +317,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        (parentFragment as DeliveryFragment).refreshDataSale()
+        listener()
     }
 
     override fun onClickPlus(qty: Double, position: Int) {

@@ -72,7 +72,7 @@ class SalesBookingFragment(var status: SaleStatus = PENDING) : BaseFragment() {
     }
 
     private fun setupRecycleView() {
-        adapter = ListSalesAdapter(fragmentActivity = activity)
+        adapter = ListSalesAdapter()
         rv_list_sales?.layoutManager = LinearLayoutManager(this.context)
         rv_list_sales?.setHasFixedSize(false)
         rv_list_sales?.adapter = adapter

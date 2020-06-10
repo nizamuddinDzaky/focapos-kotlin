@@ -224,7 +224,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        (parentFragment as DeliveryFragment).refreshDataSale()
+        listener()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

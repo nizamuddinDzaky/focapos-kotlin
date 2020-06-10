@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         Prefs(MyApp.instance)
     }
     private lateinit var viewModel: LoginViewModel
-    private lateinit var toast: Toast
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

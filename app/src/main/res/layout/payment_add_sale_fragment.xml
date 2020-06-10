@@ -232,7 +232,16 @@
             tools:text="@string/txt_sale_note"
             android:textColor="@color/text_grey"
             android:fontFamily="@font/roboto_italic"/>
+
+        <CheckBox
+            android:id="@+id/cb_create_delivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#666666"
+            android:text="Buat Pengiriman Setelah Menyimpan Data Sale" />
     </LinearLayout>
+
     <Button
         android:id="@+id/btn_action_submit"
         android:layout_width="match_parent"
