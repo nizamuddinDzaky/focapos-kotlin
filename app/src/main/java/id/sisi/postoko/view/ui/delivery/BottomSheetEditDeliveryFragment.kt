@@ -274,7 +274,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         super.onActivityResult(requestCode, resultCode, data)
 
         if(resultCode == Activity.RESULT_OK){
-            if(requestCode == 100){
+            if(requestCode == RC_UPLOAD_IMAGE){
                 if(data != null){
                     try {
                         val selectedUri = data.data
@@ -446,6 +446,6 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
         val i = Intent(Intent.ACTION_GET_CONTENT)
         i.type = "*/*"
         i.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
+        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),RC_UPLOAD_IMAGE)
     }
 }

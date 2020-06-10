@@ -347,4 +347,5 @@
     <string name="txt_value_gift_card">gift_card</string>
     <string name="txt_value_bank">bank</string>
     <string name="txt_proifle">Profile</string>
+    <string name="txt_confirm_unduh">Lampiran Akan Di Unduh, Apakah Anda Yakin ?</string>
 </resources>

@@ -1,6 +1,7 @@
 package id.sisi.postoko.view.ui.payment
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListPaymentAdapter
 import id.sisi.postoko.model.Payment
+import id.sisi.postoko.utils.DownloadFile
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
@@ -110,11 +113,15 @@ class PaymentFragment : Fragment(){
         }
 
         adapter.listener={
-            val dialogFragment = ImagePaymentDialogFragment()
-            val bundle = Bundle()
-            bundle.putString("payment", it)
-            dialogFragment.arguments = bundle
-            dialogFragment.show(childFragmentManager, "dialog")
+            val myDialog = MyDialog()
+            if (TextUtils.isEmpty(it)){
+                myDialog.alert(getString(R.string.txt_no_attachment), context)
+            }else{
+                myDialog.confirmation(getString(R.string.txt_confirm_unduh), context)
+                myDialog.listenerPositif={
+                    DownloadFile().downloadFile(it, context)
+                }
+            }
         }
         rv_list_item_pembayaran?.layoutManager = LinearLayoutManager(this.context)
         rv_list_item_pembayaran?.setHasFixedSize(false)

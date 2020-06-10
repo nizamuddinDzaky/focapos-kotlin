@@ -331,6 +331,6 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
         val i = Intent(Intent.ACTION_GET_CONTENT)
         i.type = "*/*"
         i.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
+        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),RC_UPLOAD_IMAGE)
     }
 }
