@@ -266,6 +266,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == RC_UPLOAD_IMAGE){
+                logE("$data")
                 if(data != null){
                     try {
                         val selectedUri = data.data
@@ -286,9 +287,11 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                         requestBody = RequestBody.create(MediaType.parse(selectedUri?.let { activity?.contentResolver?.getType(it) }), file)
                         requestPart = MultipartBody.Part.createFormData("file", file.name, requestBody)
                     }catch (e: Exception){
+                        logE("error: $e")
                         Toast.makeText(context, "$e", Toast.LENGTH_SHORT).show()
                     }
                 }else{
+                    logE("asdsad")
                     removeFile()
                 }
             }
@@ -440,7 +443,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         val i = Intent(Intent.ACTION_GET_CONTENT)
         i.type = "*/*"
         i.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."),100)
+        startActivityForResult(Intent.createChooser(i,"Choose File to Upload.."), RC_UPLOAD_IMAGE)
     }
 }
 

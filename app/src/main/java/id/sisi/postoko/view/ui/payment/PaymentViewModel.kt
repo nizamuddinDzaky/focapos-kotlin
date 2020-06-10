@@ -31,7 +31,7 @@ class PaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
             onResponse = { _, response ->
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
+                        isExecute.postValue(false)
                         payments.postValue(response.body()?.data?.list_payments)
                     }
                 } else {

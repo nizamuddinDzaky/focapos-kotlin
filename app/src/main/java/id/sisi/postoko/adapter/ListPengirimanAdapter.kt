@@ -61,11 +61,6 @@ class ListPengirimanAdapter(
 
                 itemView.tv_delivery_driver_name?.text = it.delivered_by
             }
-
-            itemView.tv_attachment.setOnClickListener {
-                listenerItem?.onClickAttachment(delivery?.attachment)
-            }
-
             itemView.btn_menu_more.setOnClickListener {
                 val listAction: MutableList<() -> Unit?>
                 val listMenu: MutableList<String>
@@ -77,11 +72,15 @@ class ListPengirimanAdapter(
                         },
                         {
                             listenerItem?.onClickEdit(delivery)
+                        },
+                        {
+                            listenerItem?.onClickAttachment(delivery.attachment)
                         }
                     )
                     listMenu = mutableListOf(
                         itemView.context.getString(R.string.txt_see_detail),
-                        itemView.context.getString(R.string.txt_edit_delivery)
+                        itemView.context.getString(R.string.txt_edit_delivery),
+                        itemView.context.getString(R.string.txt_see_attachment)
                     )
                     MyPopupMenu(
                         it,
@@ -96,11 +95,15 @@ class ListPengirimanAdapter(
                         },
                         {
                             listenerItem?.onClickReturn(delivery)
+                        },
+                        {
+                            listenerItem?.onClickAttachment(delivery.attachment)
                         }
                     )
                     listMenu = mutableListOf(
                         itemView.context.getString(R.string.txt_see_detail),
-                        itemView.context.getString(R.string.txt_return_delivery)
+                        itemView.context.getString(R.string.txt_return_delivery),
+                        itemView.context.getString(R.string.txt_see_attachment)
                     )
                     MyPopupMenu(
                         it,
@@ -113,10 +116,14 @@ class ListPengirimanAdapter(
                     listAction = mutableListOf(
                         {
                             listenerItem?.onClickDetail(delivery)
+                        },
+                        {
+                            listenerItem?.onClickAttachment(delivery.attachment)
                         }
                     )
                     listMenu = mutableListOf(
-                        itemView.context.getString(R.string.txt_see_detail)
+                        itemView.context.getString(R.string.txt_see_detail),
+                        itemView.context.getString(R.string.txt_see_attachment)
                     )
                     MyPopupMenu(
                         it,
