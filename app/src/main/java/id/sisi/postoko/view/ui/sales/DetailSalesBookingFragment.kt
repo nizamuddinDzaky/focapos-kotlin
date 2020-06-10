@@ -48,9 +48,9 @@ class DetailSalesBookingFragment : Fragment() {
         (activity as DetailSalesBookingActivity).vmSale.getDetailSale().observe(viewLifecycleOwner, Observer {
             setupDetailSale(it)
             it?.let {
-                (activity as DetailSalesBookingActivity).vmSale.requestDetailCustomer(it.customer_id)
-                (activity as DetailSalesBookingActivity).vmSale.requestDetailWarehouse(it.warehouse_id)
-                (activity as DetailSalesBookingActivity).vmSale.requestDetailSupplier(it.biller_id)
+                (activity as DetailSalesBookingActivity).vmSale.requestDetailCustomer(it.customer_id ?: 0)
+                (activity as DetailSalesBookingActivity).vmSale.requestDetailWarehouse(it.warehouse_id ?: 0)
+                (activity as DetailSalesBookingActivity).vmSale.requestDetailSupplier(it.biller_id ?: 0)
             }
         })
         (activity as DetailSalesBookingActivity).vmSale.getDetailCustomer().observe(viewLifecycleOwner, Observer {
@@ -105,7 +105,7 @@ class DetailSalesBookingFragment : Fragment() {
         tv_sale_detail_sbo_discount?.text = sale?.total_discount?.toCurrencyID()
         tv_sale_detail_sbo_total?.text = sale?.total?.toCurrencyID()
         tv_sale_detail_sbo_paid?.text = sale?.paid?.toCurrencyID()
-        tv_sale_detail_grand_total?.text = (sale?.grand_total?.minus(sale.paid))?.toCurrencyID()
+        tv_sale_detail_grand_total?.text = (sale?.grand_total?.minus(sale.paid ?: 0.0))?.toCurrencyID()
         tv_employee_note?.text = sale?.staff_note
         tv_sale_note?.text = sale?.note
         adapter.updateSaleItems(sale?.saleItems)

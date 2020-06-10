@@ -11,7 +11,8 @@ data class BaseResponse<T>(
 
 data class Response<T>(
     var delivery: T?,
-    var payment: T?
+    var payment: T?,
+    var sale: T?
 )
 
 data class ResponseData(

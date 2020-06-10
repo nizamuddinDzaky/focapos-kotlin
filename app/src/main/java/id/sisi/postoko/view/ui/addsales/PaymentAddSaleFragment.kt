@@ -1,27 +1,27 @@
 package id.sisi.postoko.view.ui.addsales
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.RadioButton
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.KEY_EMPLOYEE
-import id.sisi.postoko.utils.KEY_SALE
-import id.sisi.postoko.utils.MyDialog
-import id.sisi.postoko.utils.NumberSeparator
+import androidx.lifecycle.Observer
+import id.sisi.postoko.model.Customer
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.visible
+import id.sisi.postoko.view.ui.delivery.BottomSheetAddDeliveryFragment
+import id.sisi.postoko.view.ui.sales.SaleBookingFactory
+import id.sisi.postoko.view.ui.sales.SaleBookingViewModel
 import id.sisi.postoko.view.ui.sales.SaleStatus
-import kotlinx.android.synthetic.main.dialog_fragment_free_text_add_sale.*
 import kotlinx.android.synthetic.main.payment_add_sale_fragment.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,6 +44,7 @@ class PaymentAddSaleFragment: Fragment() {
 
     private var saleNote: String? = null
     private var employeeNote: String? = null
+    private lateinit var vmDetailSale: SaleBookingViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,24 +60,6 @@ class PaymentAddSaleFragment: Fragment() {
     }
 
     private fun setUpEventUi() {
-
-        /*et_discount_add_sale.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                (activity as AddSaleActivity).discount = et_discount_add_sale.tag.toString()
-            }
-        }
-
-        et_shipping_add_sale.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                (activity as AddSaleActivity).shipment_price = et_shipping_add_sale.tag?.toString()
-            }
-        }
-
-        et_payment_term_add_sale.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                (activity as AddSaleActivity).payment_term = et_payment_term_add_sale.tag.toString()
-            }
-        }*/
 
         rg_status_add_sale?.setOnCheckedChangeListener { radioGroup, i ->
             val radioButton = radioGroup.findViewById<RadioButton>(i)
@@ -127,15 +110,59 @@ class PaymentAddSaleFragment: Fragment() {
                 "products" to saleItems
             )
 
-            (activity as AddSaleActivity).vmAddSale.postAddSales(body){
-                val returnIntent = Intent()
-
-                returnIntent.putExtra("sale_status", rg_status_add_sale.tag.toString())
-                (activity as AddSaleActivity).setResult(Activity.RESULT_OK, returnIntent)
-                (activity as AddSaleActivity).finish()
+            if(cb_create_delivery.isChecked && rg_status_add_sale?.tag?.toString() == "pending"){
+                val dialog = MyDialog()
+                dialog.alert(getString(R.string.txt_must_reserved), context)
+            }else{
+                sentDataAddSale(body)
             }
         }
     }
+
+    private fun sentDataAddSale(body: MutableMap<String, Any>) {
+        (activity as AddSaleActivity).vmAddSale.postAddSales(body){ idSale ->
+            if(!cb_create_delivery.isChecked){
+                finishAddSale()
+            }else{
+                loadSale(idSale)
+            }
+        }
+    }
+
+    private fun finishAddSale() {
+        val returnIntent = Intent()
+        returnIntent.putExtra("sale_status", rg_status_add_sale.tag.toString())
+        (activity as AddSaleActivity).setResult(Activity.RESULT_OK, returnIntent)
+        (activity as AddSaleActivity).finish()
+    }
+
+    private fun loadSale(idSale: String?) {
+
+        val newCustomer = Customer(
+            address = (activity as AddSaleActivity?)?.customerAddress,
+            name = (activity as AddSaleActivity?)?.customerName
+        )
+        vmDetailSale = ViewModelProvider(
+            this,
+            SaleBookingFactory(idSale?.toInt() ?: 0)
+        ).get(SaleBookingViewModel::class.java)
+        vmDetailSale.getDetailSale().observe(viewLifecycleOwner, Observer {
+            val bottomSheetFragment = BottomSheetAddDeliveryFragment()
+            val bundle = Bundle()
+            bundle.putInt(KEY_ID_SALES_BOOKING, it?.id ?: 0)
+            bundle.putParcelable("sale_booking", it)
+            bundle.putParcelable(KEY_DATA_DELIVERY, newCustomer)
+            bottomSheetFragment.arguments = bundle
+            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+            bottomSheetFragment.listener = {
+                finishAddSale()
+            }
+        })
+        vmDetailSale.requestDetailSale()
+    }
+
+
+
 
     private fun setUpUI() {
         et_discount_add_sale.addTextChangedListener(NumberSeparator(et_discount_add_sale))
@@ -201,25 +228,6 @@ class PaymentAddSaleFragment: Fragment() {
                 setEmployeeNote()
             }
         }
-        /*val dialog = context?.let { Dialog(it, R.style.MyCustomDialogFullScreen) }
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog?.setContentView(R.layout.dialog_fragment_free_text_add_sale)
-        dialog?.tv_title_free_text?.text = title
-        dialog?.ta_notes?.setText(saleNote)
-        dialog?.tv_cancel?.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog?.tv_sure?.setOnClickListener {
-            if (key == KEY_SALE){
-                this.saleNote = dialog.ta_notes.text.toString()
-                (activity as AddSaleActivity).saleNote = this.saleNote
-                setSaleNote()
-            }else if (key == KEY_EMPLOYEE){
-                this.employeeNote = dialog.ta_notes.text.toString()
-                (activity as AddSaleActivity).employeeNote = this.employeeNote
-                setEmployeeNote()
-            }
-            dialog.dismiss()*/
     }
 
     companion object {

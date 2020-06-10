@@ -62,6 +62,7 @@ class SelectCustomerFragment: Fragment() {
             dialogFragment.listener={ customer ->
                 (activity as AddSaleActivity?)?.idCustomer = customer.id
                 (activity as AddSaleActivity?)?.customerName = customer.company
+                (activity as AddSaleActivity?)?.customerAddress = customer.address
                 sp_customer.setText(customer.company)
             }
             dialogFragment.show(childFragmentManager, FragmentSearchCustomer().tag)

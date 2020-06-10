@@ -19,7 +19,7 @@ class AddSalesViewModel : ViewModel() {
     private var idSalesBooking: Int = 0
     private var message = MutableLiveData<String?>()
 
-    fun postAddSales(body: Map<String, Any?>, listener: () -> Unit) {
+    fun postAddSales(body: Map<String, Any?>, listener: (idSale: String?) -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.postAddSales(headers, body)?.exe(
@@ -30,15 +30,16 @@ class AddSalesViewModel : ViewModel() {
             onResponse = { _, response ->
                 if (response.isSuccessful) {
                     tryMe {
+                        isExecute.postValue(false)
                         message.postValue(response.body()?.message)
-                        listener()
+                        listener(response.body()?.data?.sale?.id)
                     }
                 } else {
                     isExecute.postValue(false)
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
                     message.postValue(errorResponse?.message)
-                    listener()
+                    listener("0")
                 }
             }
         )

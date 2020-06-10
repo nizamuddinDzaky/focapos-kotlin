@@ -1,15 +1,10 @@
 package id.sisi.postoko.view.ui.delivery
 
-import android.app.DownloadManager
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +18,6 @@ import id.sisi.postoko.model.SaleItem
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import id.sisi.postoko.view.ui.sales.SaleStatus
@@ -100,7 +94,8 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
             if (sale?.sale_status == SaleStatus.RESERVED.toString().toLowerCase(Locale.ROOT)) {
                 showBottomSheetAddDelivery(idSalesBooking)
             }else{
-                Toast.makeText(context, "Maaf Sale Belum Disetujui", Toast.LENGTH_SHORT).show()
+                val dialog = MyDialog()
+                dialog.alert(getString(R.string.txt_must_reserved), context)
             }
         }
     }
@@ -113,6 +108,7 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
         val bottomSheetFragment = BottomSheetEditDeliveryFragment()
         bottomSheetFragment.listener = {
             viewModel.getListDelivery()
+            refreshDataSale()
         }
         val bundle = Bundle()
         bundle.putString(KEY_ID_DELIVERY, delivery.id)
@@ -135,6 +131,7 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
     override fun onClickReturn(delivery: Delivery) {
         val bottomSheetFragment = BottomSheetReturnDeliveryFragment()
         bottomSheetFragment.listener = {
+            refreshDataSale()
             viewModel.getListDelivery()
         }
         val bundle = Bundle()
@@ -143,7 +140,7 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
-    fun refreshDataSale() {
+    private fun refreshDataSale() {
         (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
     }
 

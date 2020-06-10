@@ -45,24 +45,24 @@ class SBAdapter :
                     it.delivery_status?.toDisplayStatus()?.let { it1 -> itemView.context.getText(it1) }
 
                 itemView.tv_sales_payment_status?.text =
-                    itemView.context.getText(it.payment_status.toDisplayStatus())
+                    itemView.context.getText(it.payment_status?.toDisplayStatus() ?: 0)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    itemView.tv_sales_payment_status.setTextColor(itemView.context.getColor(it.payment_status.toDisplayStatusColor()))
+                    itemView.tv_sales_payment_status.setTextColor(itemView.context.getColor(it.payment_status?.toDisplayStatusColor() ?: 0))
                     it.delivery_status?.toDisplayStatusColor()?.let { statusColor ->
                         itemView.context.getColor(
                             statusColor
                         )
                     }?.let { context -> itemView.tv_sales_delevery_status.setTextColor(context) }
                 }else{
-                    itemView.tv_sales_payment_status.setTextColor(ResourcesCompat.getColor(itemView.resources, it.payment_status.toDisplayStatusColor(), null))
+                    itemView.tv_sales_payment_status.setTextColor(ResourcesCompat.getColor(itemView.resources, it.payment_status?.toDisplayStatusColor() ?: 0, null))
                     it.delivery_status?.toDisplayStatusColor()?.let { it1 ->
                         ResourcesCompat.getColor(itemView.resources,
                             it1, null)
                     }?.let { it2 -> itemView.tv_sales_delevery_status.setTextColor(it2) }
                 }
                 itemView.tv_customer_name?.text = it.customer
-                itemView.tv_sales_total_price?.text = it.grand_total.toCurrencyID()
+                itemView.tv_sales_total_price?.text = it.grand_total?.toCurrencyID()
                 val seeDetail = "Di Buat Oleh ${it.created_by}"
                 itemView.tv_sales_detail?.text = seeDetail
                 itemView.setOnClickListener {
