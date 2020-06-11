@@ -42,8 +42,9 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.7"
                 android:layout_marginTop="@dimen/et_top_margin"
                 android:paddingLeft="@dimen/standard_margin"
                 android:paddingRight="@dimen/standard_margin"
@@ -92,10 +93,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
-                    tools:text="asdasd"/>
+                    tools:text="Pt ultra jaya"/>
 
             </LinearLayout>
-
+            <ImageView
+                android:id="@+id/btn_menu_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_marginTop="@dimen/margin_6"
+                android:contentDescription="@string/conDes"
+                android:src="@drawable/ic_more_vert_black_24dp"
+                tools:visibility="visible" />
         </LinearLayout>
 
         <LinearLayout

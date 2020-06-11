@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -13,6 +14,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.MyPopupMenu
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.toDisplayStatus
@@ -65,11 +67,36 @@ class SBAdapter :
                 itemView.tv_sales_total_price?.text = it.grand_total?.toCurrencyID()
                 val seeDetail = "Di Buat Oleh ${it.created_by}"
                 itemView.tv_sales_detail?.text = seeDetail
+
+                val listAction: MutableList<() -> Unit?> = mutableListOf(
+                    {
+                        val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
+                        page.putExtra(KEY_ID_SALES_BOOKING, sale.id)
+                        page.putExtra(KEY_DELIVERY_STATUS_SALE, sale.delivery_status)
+                        itemView.context.startActivity(page)
+                    }
+                )
+                val listMenu: MutableList<String> = mutableListOf(
+                    itemView.context.getString(R.string.txt_see_detail)
+                )
+
+                if (sale.sale_status == "reserved"){
+                    listAction.add {
+                        Toast.makeText(itemView.context, "wahai", Toast.LENGTH_SHORT).show()
+                    }
+                    listMenu.add(itemView.context.getString(R.string.txt_close_sale))
+                }
+
+                itemView.btn_menu_more.setOnClickListener {v->
+                    MyPopupMenu(
+                        v,
+                        listMenu,
+                        listAction,
+                        highlight = itemView
+                    ).show()
+                }
                 itemView.setOnClickListener {
-                    val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
-                    page.putExtra(KEY_ID_SALES_BOOKING, sale.id)
-                    page.putExtra(KEY_DELIVERY_STATUS_SALE, sale.delivery_status)
-                    itemView.context.startActivity(page)
+                    itemView.btn_menu_more?.performClick()
                 }
             }
         }
