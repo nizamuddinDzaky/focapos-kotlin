@@ -18,10 +18,7 @@ import id.sisi.postoko.model.DataSpinner
 import id.sisi.postoko.model.GoodReceived
 import id.sisi.postoko.utils.KEY_GOOD_RECEIVED
 import id.sisi.postoko.utils.MySpinnerAdapter
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.setIfExist
-import id.sisi.postoko.utils.extensions.setupFullHeight
-import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_good_received.*
 
@@ -52,10 +49,10 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
 
         initSpinnerWarehouse(goodReceived)
 
-        adapter = ListItemAddGoodReceiveAdapter()
-        rv_item_gr?.layoutManager = LinearLayoutManager(this.context)
+        //adapter = ListItemAddGoodReceiveAdapter()
+        /*rv_item_gr?.layoutManager = LinearLayoutManager(this.context)
         rv_item_gr?.setHasFixedSize(false)
-        rv_item_gr?.adapter = adapter
+        rv_item_gr?.adapter = adapter*/
 
         goodReceived?.let {
             viewModel = ViewModelProvider(this, AddGoodReceivedFactory(it.id?.toInt() ?: 0)).get(
@@ -64,15 +61,15 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
             viewModel.getDetailGoodReceived().observe(viewLifecycleOwner, Observer { gr ->
                 gr?.let {
                     logE("${gr.goodReceivedItems}")
-                    gr.goodReceivedItems?.let { item -> adapter.updateData(item) }
-                    /*tv_detail_good_received_name?.text = gr.nama_produk*/
-                    /*tryMe {
+                    //gr.goodReceivedItems?.let { item -> adapter.updateData(item) }
+                    tv_detail_good_received_name?.text = gr.nama_produk
+                    tryMe {
                         val price =
                             (gr.grand_total?.toDouble() ?: 0.0).div(gr.qty_do?.toDouble() ?: 1.0)
                         tv_detail_good_received_price.text = price.toCurrencyID()
                         et_detail_good_received_new_price?.setText(price.format(0))
                     }
-                    tv_detail_good_received_quantity?.text = gr.qty_do?.toDouble()?.toNumberID()*/
+                    tv_detail_good_received_quantity?.text = gr.qty_do?.toDouble()?.toNumberID()
 
                     tv_detail_good_received_spj_no?.text = gr.no_spj
                     tv_detail_good_received_total?.text = gr.grand_total?.toDouble()?.toCurrencyID()
@@ -116,9 +113,9 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
 
     private fun actionAddGoodReceived() {
         val body = mutableMapOf<String, String>()
-        /*et_detail_good_received_new_price?.text?.let {
+        et_detail_good_received_new_price?.text?.let {
             body["price"] = it.toString()
-        }*/
+        }
         viewModel.postAddGoodReceived(body) {
             listener()
             this.dismiss()
