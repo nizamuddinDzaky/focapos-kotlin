@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,8 @@ import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toLower
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
+import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.sales.AddSalesViewModel
 import id.sisi.postoko.view.ui.sales.SaleStatus
 import kotlinx.android.synthetic.main.failed_load_data.*
 import kotlinx.android.synthetic.main.fragment_sales_booking.*
@@ -24,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_sales_booking.*
 class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
 
     private lateinit var viewModel: SBViewModel
+    private lateinit var vmSale: AddSalesViewModel
     private lateinit var adapter: SBAdapter
     private lateinit var layoutManager: LinearLayoutManager
 
@@ -36,6 +40,8 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
         return inflater.inflate(R.layout.fragment_sales_booking, container, false)
     }
 
+    private val progressBar = CustomProgressBar()
+
     override var tagName: String
         get() = status.name
         set(_) {}
@@ -47,7 +53,25 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        logE("status ${status.name}")
+
+        vmSale = ViewModelProvider(
+            this
+        ).get(AddSalesViewModel::class.java)
+
+        vmSale.getIsExecute().observe(viewLifecycleOwner, Observer {
+            if (it) {
+                context?.let { it1 -> progressBar.show(it1, getString(R.string.txt_please_wait)) }
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+
+        vmSale.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
         viewModel =
             ViewModelProvider(this, SBFactory(hashMapOf(KEY_SALE_STATUS to status.name))).get(
                 SBViewModel::class.java
@@ -58,6 +82,7 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
         setupRecycleView()
 
         swipeRefreshLayoutSalesBooking?.setOnRefreshListener {
+            logE("bismillah")
             viewModel.requestRefreshNoFilter()
         }
     }
@@ -72,6 +97,11 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
 
     private fun setupRecycleView() {
         adapter = SBAdapter()
+        adapter.closeSaleListener={idSalesBooking ->
+            /*vmSale.postCloseSale(idSalesBooking) {
+                viewModel.requestRefreshNoFilter()
+            }*/
+        }
         layoutManager = LinearLayoutManager(this.context)
         rv_list_sales?.layoutManager = layoutManager
         rv_list_sales?.setHasFixedSize(false)
@@ -80,6 +110,7 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
         viewModel.repos.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             actionCheckEmpty(it.size)
+            scrollToTop()
             swipeRefreshLayoutSalesBooking?.isRefreshing = false
         })
         viewModel.networkState.observe(viewLifecycleOwner, Observer {
@@ -141,6 +172,12 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
             }
             viewModel.requestRefreshNewFilter(it)
         }
+    }
+
+    fun scrollToTop() {
+        rv_list_sales.postDelayed({
+            rv_list_sales.layoutManager?.scrollToPosition(0)
+        }, 400)
     }
 
     companion object {

@@ -73,12 +73,12 @@ class DetailCustomerActivity : AppCompatActivity() {
                 super.onBackPressed()
                 true
             }
-            R.id.menu_edit_sale -> {
+            /*R.id.menu_e -> {
                 val intent = Intent(this, EditCustomerActivity::class.java)
                 intent.putExtra("customer", customer)
                 startActivityForResult(intent, 1)
                 true
-            }
+            }*/
             else -> super.onOptionsItemSelected(item)
         }
     }

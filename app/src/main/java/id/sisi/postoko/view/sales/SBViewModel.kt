@@ -7,6 +7,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.network.ApiServices
+import id.sisi.postoko.utils.extensions.logE
 
 enum class NetworkState {
     RUNNING,
@@ -38,6 +39,7 @@ class SBViewModel(var filter: HashMap<String, String>) : ViewModel() {
     }
 
     fun requestRefreshNoFilter() {
+        logE("requestRefreshNoFilter()")
         factory.getListGoodReceived().value?.invalidate()
     }
 
