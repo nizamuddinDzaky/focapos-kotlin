@@ -4,10 +4,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class EditCustomerPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class AddCustomerPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val pages = listOf(
-        EditDataCustomerFragment(),
-        EditWarehouseCustomerFragment()
+        AddDataCustomerFragment(),
+        AddWarehouseCustomerFragment()
     )
     private var currentPosition: Int = 0
 

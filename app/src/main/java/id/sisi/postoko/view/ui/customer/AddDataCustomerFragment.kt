@@ -82,7 +82,7 @@ class AddDataCustomerFragment : BaseFragment() {
         viewModelCustomer.getIsExecute().observe(viewLifecycleOwner, Observer {
             if (it && !progressBar.isShowing()) {
 
-                progressBar.show(activity!!.applicationContext, getString(R.string.txt_please_wait))
+                progressBar.show(requireContext(), getString(R.string.txt_please_wait))
             } else {
                 progressBar.dialog.dismiss()
             }

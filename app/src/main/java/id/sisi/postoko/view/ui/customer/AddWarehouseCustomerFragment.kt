@@ -10,10 +10,10 @@ import id.sisi.postoko.R
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_edit_warehouse_customer.view.*
 
-class EditWarehouseCustomerFragment : BaseFragment() {
+class AddWarehouseCustomerFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = EditWarehouseCustomerFragment()
+        fun newInstance() = AddWarehouseCustomerFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

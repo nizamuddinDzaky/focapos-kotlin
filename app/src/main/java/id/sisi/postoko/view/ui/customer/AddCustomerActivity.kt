@@ -36,6 +36,10 @@ import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.content_add_customer.*
+import kotlinx.android.synthetic.main.content_add_customer.iv_logo
+import kotlinx.android.synthetic.main.content_add_customer.main_view_pager
+import kotlinx.android.synthetic.main.content_add_customer.tabs_main_pagers
+import kotlinx.android.synthetic.main.content_edit_customer.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -54,6 +58,11 @@ class AddCustomerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_customer)
         setSupportActionBar(toolbar_add_customer)
         supportActionBar?.title = null
+
+        main_view_pager?.let {
+            it.adapter = AddCustomerPagerAdapter(supportFragmentManager)
+            tabs_main_pagers?.setupWithViewPager(it)
+        }
 
         iv_logo.setOnClickListener {
             val bottomSheet = BottomSheetSelectMedia()
