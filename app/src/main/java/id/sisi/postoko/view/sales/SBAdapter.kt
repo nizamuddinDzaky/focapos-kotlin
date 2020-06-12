@@ -14,6 +14,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.utils.KEY_DELIVERY_STATUS_SALE
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.KEY_SALE_STATUS
 import id.sisi.postoko.utils.MyPopupMenu
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.toDisplayDate
@@ -29,14 +30,15 @@ class SBAdapter :
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_sales_booking, parent, false)
         return ViewHolder(view)
     }
+    var closeSaleListener: (id: Int) -> Unit = {}
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindTo(getItem(position))
+        holder.bindTo(getItem(position), closeSaleListener)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindTo(sale: Sales?) {
+        fun bindTo(sale: Sales?, closeSaleListener: (id: Int) -> Unit = {}) {
 
 
             sale?.let {
@@ -72,6 +74,7 @@ class SBAdapter :
                     {
                         val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
                         page.putExtra(KEY_ID_SALES_BOOKING, sale.id)
+                        page.putExtra(KEY_SALE_STATUS, sale.sale_status)
                         page.putExtra(KEY_DELIVERY_STATUS_SALE, sale.delivery_status)
                         itemView.context.startActivity(page)
                     }
@@ -82,7 +85,7 @@ class SBAdapter :
 
                 if (sale.sale_status == "reserved"){
                     listAction.add {
-                        Toast.makeText(itemView.context, "wahai", Toast.LENGTH_SHORT).show()
+                        closeSaleListener(sale.id)
                     }
                     listMenu.add(itemView.context.getString(R.string.txt_close_sale))
                 }

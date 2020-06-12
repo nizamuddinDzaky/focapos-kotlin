@@ -54,6 +54,12 @@ interface ApiServices {
         @Body body: Map<String, Any?>
     ): Call<BaseResponse<Response<ResponseData>>>
 
+    @POST("api/v1/distributor/sales_booking/close_sales_booking")
+    fun postCloseSale(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<Response<ResponseData>>>
+
     @POST("api/v1/distributor/purchases/add_gr_to_po")
     fun postAddGoodReceived(
         @HeaderMap headerMap: Map<String, String>,

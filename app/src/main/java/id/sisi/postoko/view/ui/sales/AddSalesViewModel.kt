@@ -71,6 +71,33 @@ class AddSalesViewModel : ViewModel() {
         )
     }
 
+    fun postCloseSale(idSalesBooking: Int, listener: () -> Unit) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf("id_sales" to idSalesBooking.toString())
+        ApiServices.getInstance()?.postCloseSale(headers, params)?.exe(
+            onFailure = { _, _ ->
+                isExecute.postValue(false)
+                message.postValue(TXT_CONNECTION_FAILED)
+            },
+            onResponse = { _, response ->
+                isExecute.postValue(false)
+                if (response.isSuccessful) {
+                    tryMe {
+                        message.postValue(response.body()?.message)
+                        listener()
+                    }
+                } else {
+                    isExecute.postValue(false)
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    message.postValue(errorResponse?.message)
+                    listener()
+                }
+            }
+        )
+    }
+
     internal fun getIsExecute(): LiveData<Boolean> {
         return isExecute
     }

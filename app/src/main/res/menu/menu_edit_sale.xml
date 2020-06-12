@@ -6,6 +6,7 @@
         android:title="@string/txt_edit" />
 
     <item
-        android:id="@+id/menu_account_"
-        android:title="@string/txt_close_sale" />
+        android:id="@+id/menu_close_sale"
+        android:title="@string/txt_close_sale"
+        android:visible="false"/>
 </menu>
