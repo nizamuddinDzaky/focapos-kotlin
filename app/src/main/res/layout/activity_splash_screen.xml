@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This a "Splash Screen" XML file, here all the text view, Image view are laid in a linearly fashion inside the Linear layout. The reason of linear layout is for accurately placing the logo and the progress bar without happen to use the constraints -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_forcapos" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="200dp"
+        android:padding="15dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/txt_copyright"
+        android:textSize="15sp"
+        android:fontFamily="@font/roboto_bold"
+        android:textAlignment="center"/>
+
+</RelativeLayout>
