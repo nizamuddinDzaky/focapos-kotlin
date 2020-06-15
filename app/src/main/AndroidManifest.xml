@@ -84,6 +84,12 @@
             android:name=".view.MainActivity"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoTitleBar">
+        </activity>
+
+        <activity
+            android:name=".view.SplashScreenActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
