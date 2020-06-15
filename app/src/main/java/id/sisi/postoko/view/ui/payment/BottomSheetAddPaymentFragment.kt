@@ -309,7 +309,7 @@ class BottomSheetAddPaymentFragment : BottomSheetDialogFragment(){
         var message = ""
         var cek = true
         if (et_add_payment_total.tag.toString().toDouble() > mustPaid){
-            message += "${getString(R.string.txt_overpayment)} $mustPaid \n"
+            message += "${getString(R.string.txt_overpayment)} ${mustPaid.toCurrencyID()} \n"
             cek = false
         }
         return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)

@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.detail_good_received_activity.*
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DetailSalesBookingActivity : BaseActivity() {
 
-    private var deliverStatusSale: String = ""
+    var deliverStatusSale: String = ""
     var idSalesBooking: Int = 0
     var tempSale: Sales? = null
     var tempCustomer: Customer? = null

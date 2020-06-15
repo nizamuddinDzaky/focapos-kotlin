@@ -19,9 +19,11 @@ import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
+import id.sisi.postoko.view.ui.sales.SaleStatus
 import kotlinx.android.synthetic.main.failed_load_data.*
 import kotlinx.android.synthetic.main.pembayaran_fragment.*
 import kotlinx.android.synthetic.main.pembayaran_fragment.fb_add_transaction
+import java.util.*
 
 class PaymentFragment : Fragment(){
 
@@ -43,7 +45,6 @@ class PaymentFragment : Fragment(){
 
         (activity as DetailSalesBookingActivity).vmSale.getDetailSale().observe(viewLifecycleOwner, Observer {
             it?.let {
-                logE("asdsd")
                 setUpFab()
             }
         })
@@ -169,7 +170,13 @@ class PaymentFragment : Fragment(){
         super.onActivityCreated(savedInstanceState)
 
         fb_add_transaction?.setOnClickListener {
-            showBottomSheetAddPayment(idSalesBooking)
+            val sale = (activity as? DetailSalesBookingActivity)?.tempSale
+            if (sale?.sale_status == SaleStatus.RESERVED.toString().toLowerCase(Locale.ROOT)) {
+                showBottomSheetAddPayment(idSalesBooking)
+            }else{
+                val dialog = MyDialog()
+                dialog.alert(getString(R.string.txt_must_reserved), context)
+            }
         }
     }
 
