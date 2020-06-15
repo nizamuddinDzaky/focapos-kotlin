@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -145,7 +144,7 @@ class DetailSalesBookingFragment : Fragment() {
             tv_sale_detail_sbo_sale_status?.text =
                 getString(SaleStatus.PENDING.tryValue(sale.sale_status)?.stringId ?: R.string.empty)
         }
-        tv_sale_detail_sbo_delivery_status?.text = sale?.delivery_status
+        tv_sale_detail_sbo_delivery_status?.text = (activity as DetailSalesBookingActivity).deliverStatusSale
         tv_sale_detail_sbo_discount?.text = sale?.total_discount?.toCurrencyID()
         tv_sale_detail_sbo_total?.text = sale?.total?.toCurrencyID()
         tv_sale_detail_sbo_paid?.text = sale?.paid?.toCurrencyID()
@@ -188,9 +187,9 @@ class DetailSalesBookingFragment : Fragment() {
                 true
             }
             R.id.menu_close_sale -> {
-                /*viewModel.postCloseSale(sale?.id ?: 0) {
+                viewModel.postCloseSale(sale?.id ?: 0) {
                     (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
-                }*/
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -199,12 +198,13 @@ class DetailSalesBookingFragment : Fragment() {
 
     private fun validationActionEditSale(): Map<String, Any> {
         var message = ""
+        logE("${sale?.delivery_status}")
         var cek = true
         if (sale?.sale_status == SaleStatus.values()[1].name.toLowerCase(Locale.getDefault())) {
             message += "- ${getString(R.string.txt_sale_reserved)}\n"
             cek = false
         }
-        if (sale?.delivery_status?.toLowerCase(Locale.ROOT) != DeliveryStatus.PENDING.toString()
+        if ((activity as DetailSalesBookingActivity).deliverStatusSale.toLowerCase(Locale.ROOT) != DeliveryStatus.PENDING.toString()
                 .toLowerCase(
                     Locale.ROOT
                 )

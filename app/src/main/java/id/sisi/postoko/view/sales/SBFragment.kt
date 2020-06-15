@@ -98,9 +98,9 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
     private fun setupRecycleView() {
         adapter = SBAdapter()
         adapter.closeSaleListener={idSalesBooking ->
-            /*vmSale.postCloseSale(idSalesBooking) {
+            vmSale.postCloseSale(idSalesBooking) {
                 viewModel.requestRefreshNoFilter()
-            }*/
+            }
         }
         layoutManager = LinearLayoutManager(this.context)
         rv_list_sales?.layoutManager = layoutManager
