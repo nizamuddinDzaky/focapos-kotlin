@@ -56,3 +56,4 @@ const val BASE_URL = "https://qp.forca.id/"
 const val DEFAULT_LOGO_CUSTOMER = "logo.png"
 const val URL_AVATAR_PROFILE = "$BASE_URL/assets/uploads/avatars/thumbs/"
 const val URL_FILE_ATTACHMENT = "$BASE_URL/files/"
+const val SPLASH_TIME_OUT: Long = 3000

@@ -4,19 +4,29 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListDetailSalesBookingAdapter
 import id.sisi.postoko.model.Sales
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.*
+import id.sisi.postoko.view.custom.CustomProgressBar
+import id.sisi.postoko.view.ui.delivery.DeliveryStatus
 import kotlinx.android.synthetic.main.detail_sales_booking_fragment.*
+import java.util.*
 
 
 class DetailSalesBookingFragment : Fragment() {
 
     private lateinit var adapter: ListDetailSalesBookingAdapter
+    private lateinit var viewModel: AddSalesViewModel
+    private val progressBar = CustomProgressBar()
+    var sale: Sales? = null
+    private var myDialog = MyDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +44,26 @@ class DetailSalesBookingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(
+            this
+        ).get(AddSalesViewModel::class.java)
+
+        viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            if (it) {
+                context?.let { it1 -> progressBar.show(it1, getString(R.string.txt_please_wait)) }
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+
+        /*VersionHelper.refreshActionBarMenu(this)*/
+
+        viewModel.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
         setupUI()
 
         tv_copy.setOnClickListener {
@@ -48,6 +78,9 @@ class DetailSalesBookingFragment : Fragment() {
         (activity as DetailSalesBookingActivity).vmSale.getDetailSale().observe(viewLifecycleOwner, Observer {
             setupDetailSale(it)
             it?.let {
+                sale = it
+                (activity as DetailSalesBookingActivity).invalidateOptionsMenu()
+                (activity as? DetailSalesBookingActivity)?.saleStatus = it.sale_status
                 (activity as DetailSalesBookingActivity).vmSale.requestDetailCustomer(it.customer_id ?: 0)
                 (activity as DetailSalesBookingActivity).vmSale.requestDetailWarehouse(it.warehouse_id ?: 0)
                 (activity as DetailSalesBookingActivity).vmSale.requestDetailSupplier(it.biller_id ?: 0)
@@ -86,6 +119,16 @@ class DetailSalesBookingFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val saleStatus= (activity as? DetailSalesBookingActivity)?.saleStatus ?: ""
+        if (saleStatus == SaleStatus.RESERVED.name.toLowerCase(
+                Locale.ROOT)
+        ){
+            menu.findItem(R.id.menu_close_sale).isVisible = true
+        }
+        super.onPrepareOptionsMenu(menu)
+    }
+
     private fun setupUI() {
         setupRecycleView()
         swipeRefreshLayoutDetailSales?.setOnRefreshListener {
@@ -101,7 +144,7 @@ class DetailSalesBookingFragment : Fragment() {
             tv_sale_detail_sbo_sale_status?.text =
                 getString(SaleStatus.PENDING.tryValue(sale.sale_status)?.stringId ?: R.string.empty)
         }
-        tv_sale_detail_sbo_delivery_status?.text = sale?.delivery_status
+        tv_sale_detail_sbo_delivery_status?.text = (activity as DetailSalesBookingActivity).deliverStatusSale
         tv_sale_detail_sbo_discount?.text = sale?.total_discount?.toCurrencyID()
         tv_sale_detail_sbo_total?.text = sale?.total?.toCurrencyID()
         tv_sale_detail_sbo_paid?.text = sale?.paid?.toCurrencyID()
@@ -125,6 +168,51 @@ class DetailSalesBookingFragment : Fragment() {
                 (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
             /*}*/
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_edit_sale -> {
+                val result = validationActionEditSale()
+                if (!(result[KEY_VALIDATION_REST] as Boolean)) {
+                    myDialog.alert(result[KEY_MESSAGE] as String, context)
+                } else {
+                    val intent = Intent((activity as DetailSalesBookingActivity), EditSaleActivity::class.java)
+                    intent.putExtra(KEY_SALE, sale)
+                    intent.putParcelableArrayListExtra(
+                        KEY_SALE_ITEM,
+                        sale?.saleItems?.let { ArrayList(it) })
+                    startActivityForResult(intent, 1)
+                }
+                true
+            }
+            R.id.menu_close_sale -> {
+                viewModel.postCloseSale(sale?.id ?: 0) {
+                    (activity as DetailSalesBookingActivity).vmSale.requestDetailSale()
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun validationActionEditSale(): Map<String, Any> {
+        var message = ""
+        logE("${sale?.delivery_status}")
+        var cek = true
+        if (sale?.sale_status == SaleStatus.values()[1].name.toLowerCase(Locale.getDefault())) {
+            message += "- ${getString(R.string.txt_sale_reserved)}\n"
+            cek = false
+        }
+        if ((activity as DetailSalesBookingActivity).deliverStatusSale.toLowerCase(Locale.ROOT) != DeliveryStatus.PENDING.toString()
+                .toLowerCase(
+                    Locale.ROOT
+                )
+        ) {
+            message += "- ${getString(R.string.txt_alert_sale_has_delivery)}\n"
+            cek = false
+        }
+        return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }
     companion object {
         const val TAG: String = ""

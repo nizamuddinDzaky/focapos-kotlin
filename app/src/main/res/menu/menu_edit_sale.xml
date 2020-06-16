@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="example.javatpoint.com.optionmenu.MainActivity">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item  android:id="@+id/menu_edit_sale"
-        android:title="@string/txt_edit"
-        app:showAsAction="always"
-        />
+    <item
+        android:id="@+id/menu_edit_sale"
+        android:title="@string/txt_edit" />
+
+    <item
+        android:id="@+id/menu_close_sale"
+        android:title="@string/txt_close_sale"
+        android:visible="false"/>
 </menu>

@@ -44,6 +44,7 @@ class AddPaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
                         }
                     }
                 } else {
+                    isExecute.postValue(false)
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
                     if (TextUtils.isEmpty(errorResponse?.message)){
@@ -83,6 +84,7 @@ class AddPaymentViewModel(private var idSalesBooking: Int) : ViewModel() {
                         }
                     }
                 } else {
+                    isExecute.postValue(false)
                     val errorResponse =
                         response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
                     if (TextUtils.isEmpty(errorResponse?.message)){

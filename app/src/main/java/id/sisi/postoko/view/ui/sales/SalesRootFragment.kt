@@ -59,15 +59,17 @@ class SalesRootFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 2020) {
-            val sale_status = data?.getStringExtra("sale_status")
-            if(sale_status == "pending"){
-                main_view_pager.setCurrentItem(0)
-            }else if(sale_status == "reserved"){
-                main_view_pager.setCurrentItem(1)
+            val saleStatus = data?.getStringExtra("sale_status")
+            var activeFragment = 0
+            if(saleStatus == "closed"){
+                activeFragment = 2
+            }else if(saleStatus == "reserved"){
+                activeFragment = 1
             }
+            main_view_pager.currentItem = activeFragment
+            (main_view_pager?.adapter as? SalesPagerAdapter)?.getItem(activeFragment)
+                ?.onActivityResult(requestCode, resultCode, data)
         }
-        (main_view_pager?.adapter as? SalesPagerAdapter)?.getCurrentFragment()
-            ?.onActivityResult(requestCode, resultCode, data)
     }
 
     companion object {

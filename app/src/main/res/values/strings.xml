@@ -349,4 +349,5 @@
     <string name="txt_proifle">Profile</string>
     <string name="txt_must_reserved">Status Pengiriman Harus "Dipesan"</string>
     <string name="txt_confirm_unduh">Lampiran Akan Di Unduh, Apakah Anda Yakin ?</string>
+    <string name="txt_close_sale">Selesaikan Pengiriman</string>
 </resources>
