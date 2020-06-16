@@ -31,7 +31,7 @@ class EditWarehouseCustomerFragment : BaseFragment() {
         var view = inflater.inflate(R.layout.fragment_edit_warehouse_customer, container, false)
 
         view.add_warehouse.setOnClickListener {
-            val intent = Intent(context, AddCustomerWarehouseActivity::class.java)
+            val intent = Intent(context, EditCustomerWarehouseActivity::class.java)
             startActivity(intent)
         }
 

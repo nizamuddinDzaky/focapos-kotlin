@@ -28,7 +28,7 @@ class AddWarehouseCustomerFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_edit_warehouse_customer, container, false)
+        var view = inflater.inflate(R.layout.fragment_add_warehouse_customer, container, false)
 
         view.add_warehouse.setOnClickListener {
             val intent = Intent(context, AddCustomerWarehouseActivity::class.java)
