@@ -200,6 +200,7 @@ class DeliveryFragment : Fragment(), ListPengirimanAdapter.OnClickListenerInterf
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.listener = {
             viewModel.getListDelivery()
+            refreshDataSale()
         }
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }

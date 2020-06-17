@@ -128,7 +128,7 @@
         android:layout_marginLeft="@dimen/et_top_margin"
         android:layout_marginRight="@dimen/et_top_margin"
         android:background="@color/main_red"
-        android:text="@string/txt_add_to_cart"
+        android:text="@string/txt_remove_from_cart"
         android:textAllCaps="false"
         android:fontFamily="@font/roboto_regular"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
