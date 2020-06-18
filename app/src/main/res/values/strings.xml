@@ -351,4 +351,5 @@
     <string name="txt_confirm_unduh">Lampiran Akan Di Unduh, Apakah Anda Yakin ?</string>
     <string name="txt_close_sale">Selesaikan Penjualan</string>
     <string name="txt_remove_from_cart">Hapus Dari Keranjang</string>
+    <string name="txt_select_media">Pilih Media</string>
 </resources>

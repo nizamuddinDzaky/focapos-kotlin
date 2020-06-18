@@ -34,6 +34,7 @@ import id.sisi.postoko.utils.RC_UPLOAD_IMAGE
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.daerah.DaerahViewModel
+import id.sisi.postoko.view.ui.delivery.DialogFragmentSelectMedia
 import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.content_add_customer.*
 import okhttp3.MediaType
@@ -183,15 +184,15 @@ class AddCustomerActivity : AppCompatActivity() {
         mViewModelDaerah.getProvince()
 
         iv_logo.setOnClickListener {
-            val bottomSheet = BottomSheetSelectMedia()
-            bottomSheet.show(supportFragmentManager, BottomSheetSelectMedia().tag)
+            val dialogFragment = DialogFragmentSelectMedia()
 
-            bottomSheet.lCamera={
-                actionOpenCamera()
+            dialogFragment.show(supportFragmentManager, DialogFragmentSelectMedia().tag)
+            dialogFragment.lGallery={
+                actionOpenMedia()
             }
 
-            bottomSheet.lGallery={
-                actionOpenMedia()
+            dialogFragment.lCamera={
+                actionOpenCamera()
             }
         }
     }

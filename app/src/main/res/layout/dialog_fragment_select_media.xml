@@ -8,44 +8,18 @@
     <RelativeLayout
         android:id="@+id/layout_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="0"
         android:paddingTop="8dp">
-
-        <ImageView
-            android:id="@+id/btn_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="@dimen/et_top_margin"
-            android:layout_marginLeft="@dimen/et_top_margin"
-            android:src="@drawable/back_arrow_foreground"
-            android:contentDescription="@string/txt_image_avatar"/>
-
         <TextView
             android:id="@+id/tv_title_bottom_sheet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/txt_personal"
+            android:text="@string/txt_select_media"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#676767"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/btn_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/et_top_margin"
-            android:layout_marginRight="@dimen/et_top_margin"
-            android:gravity="center"
-            android:text="@string/txt_action_save"
-            android:fontFamily="@font/roboto_bold"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/text_blue"
-            tools:ignore="RelativeOverlap" />
     </RelativeLayout>
 
     <View
