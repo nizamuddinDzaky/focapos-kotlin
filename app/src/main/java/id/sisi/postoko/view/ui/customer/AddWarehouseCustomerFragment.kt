@@ -8,6 +8,7 @@ import android.view.ViewGroup
 
 import id.sisi.postoko.R
 import id.sisi.postoko.view.BaseFragment
+import kotlinx.android.synthetic.main.fragment_add_warehouse_customer.*
 import kotlinx.android.synthetic.main.fragment_edit_warehouse_customer.view.*
 
 class AddWarehouseCustomerFragment : BaseFragment() {
@@ -30,11 +31,14 @@ class AddWarehouseCustomerFragment : BaseFragment() {
     ): View? {
         var view = inflater.inflate(R.layout.fragment_add_warehouse_customer, container, false)
 
-        view.add_warehouse.setOnClickListener {
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        add_warehouse.setOnClickListener {
             val intent = Intent(context, AddCustomerWarehouseActivity::class.java)
             startActivity(intent)
         }
-
-        return view
     }
 }

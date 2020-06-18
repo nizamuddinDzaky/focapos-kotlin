@@ -85,6 +85,16 @@
             android:noHistory="true"
             android:theme="@style/AppTheme.NoTitleBar">
         </activity>
+        <activity
+            android:name=".view.ui.customer.AddCustomerWarehouseActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoTitleBar">
+        </activity>
+        <activity
+            android:name=".view.ui.customer.EditCustomerWarehouseActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoTitleBar">
+        </activity>
 
         <activity
             android:name=".view.SplashScreenActivity"

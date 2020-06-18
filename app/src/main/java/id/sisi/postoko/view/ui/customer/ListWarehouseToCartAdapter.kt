@@ -7,15 +7,17 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.extensions.toAlias
 import id.sisi.postoko.utils.extensions.visibleOrGone
+import id.sisi.postoko.view.ui.customer.AddCustomerWarehouseActivity
 import kotlinx.android.synthetic.main.list_customer_price_group.view.*
 
-class ListWarehouseCGToCartAdapter<T>(
+class ListWarehouseToCartAdapter<T>(
     private var masterData: MutableList<T>? = mutableListOf(),
     private var fragmentActivity: FragmentActivity? = null
 ) :
-    RecyclerView.Adapter<ListWarehouseCGToCartAdapter.MasterViewHolder<T>>() {
+    RecyclerView.Adapter<ListWarehouseToCartAdapter.MasterViewHolder<T>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MasterViewHolder<T> {
         val view =
@@ -32,14 +34,14 @@ class ListWarehouseCGToCartAdapter<T>(
     }
 
     class MasterViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(value: T?, adapter: ListWarehouseCGToCartAdapter<T>) {
+        fun bind(value: T?, adapter: ListWarehouseToCartAdapter<T>) {
             when (value) {
-                is Customer -> {
+                is Warehouse -> {
                     value.isSelected.visibleOrGone(itemView.view_mark_selected)
-                    val name = "${value.customer_company} (${value.customer_name})"
+                    val name = "${value.name} (${value.name})"
                     itemView.tv_customer_price_group_item_1?.text = name
                     itemView.tv_customer_price_group_item_2?.text = value.address
-                    itemView.tv_alias_customer?.text = value.customer_company.toAlias()
+                    itemView.tv_alias_customer?.text = value.name.toAlias()
                     itemView.setOnClickListener {
                         adapter.addCustomerToCart(value)
                     }
@@ -49,11 +51,11 @@ class ListWarehouseCGToCartAdapter<T>(
     }
 
     fun addCustomerToCart(value: T) {
-        val activity = (fragmentActivity as? AddCustomerToCustomerGoupActivity)
+        val activity = (fragmentActivity as? AddCustomerWarehouseActivity)
         when (value) {
-            is Customer -> {
+            is Warehouse -> {
                 value.isSelected = !value.isSelected
-                activity?.validation(value as Customer)
+                activity?.validation(value as Warehouse)
             }
         }
         notifyDataSetChanged()

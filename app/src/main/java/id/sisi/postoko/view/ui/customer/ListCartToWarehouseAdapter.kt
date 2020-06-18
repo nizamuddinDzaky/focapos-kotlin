@@ -9,14 +9,16 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.extensions.toAlias
+import id.sisi.postoko.view.ui.customer.AddCustomerWarehouseActivity
 import kotlinx.android.synthetic.main.list_customer_price_group_cart.view.*
 
-class ListCartCGToWarehouseAdapter<T>(
+class ListCartToWarehouseAdapter<T>(
     private var masterData: MutableList<T>? = mutableListOf(),
     private var fragmentActivity: FragmentActivity? = null
 ) :
-    RecyclerView.Adapter<ListCartCGToWarehouseAdapter.MasterViewHolder<T>>() {
+    RecyclerView.Adapter<ListCartToWarehouseAdapter.MasterViewHolder<T>>() {
     private var lastPosition = -1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MasterViewHolder<T> {
         val view =
@@ -46,11 +48,11 @@ class ListCartCGToWarehouseAdapter<T>(
     }
 
     class MasterViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(value: T?, adapter: ListCartCGToWarehouseAdapter<T>) {
+        fun bind(value: T?, adapter: ListCartToWarehouseAdapter<T>) {
             when (value) {
-                is Customer -> {
-                    itemView.tv_list_customer_cart_title?.text = value.customer_company
-                    itemView.tv_alias_customer?.text = value.customer_company.toAlias()
+                is Warehouse -> {
+                    itemView.tv_list_customer_cart_title?.text = value.name
+                    itemView.tv_alias_customer?.text = value.name.toAlias()
                     itemView.setOnClickListener {
                         adapter.unselected(value)
                     }
@@ -60,11 +62,11 @@ class ListCartCGToWarehouseAdapter<T>(
     }
 
     private fun unselected(value: T) {
-        val activity = (fragmentActivity as? AddCustomerToCustomerGoupActivity)
+        val activity = (fragmentActivity as? AddCustomerWarehouseActivity)
         when (value) {
-            is Customer -> {
+            is Warehouse -> {
                 value.isSelected = !value.isSelected
-                activity?.validation(value as Customer)
+                activity?.validation(value as Warehouse)
             }
         }
     }
