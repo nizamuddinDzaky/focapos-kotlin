@@ -19,6 +19,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.model.*
 import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.validation
@@ -86,7 +87,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
 
         if (sale?.order_discount != 0.0)
             et_discount_edit_sale.setText(sale?.order_discount.toString())
-        if (sale?.shipping != 0.0)
+        if (sale?.shipping != 0.0 && sale?.shipping.toString() != "null")
             et_shipping_edit_sale.setText(sale?.shipping?.toInt().toString())
         if (sale?.payment_term != 0)
             et_payment_term_edit_sale.setText(sale?.payment_term.toString())

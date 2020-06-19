@@ -103,11 +103,11 @@
                     <RadioButton
                         android:id="@+id/rbtn_packing"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:buttonTint="@color/radio_button"
                         android:fontFamily="@font/roboto_regular"
                         android:text="@string/txt_being_packed"
-                        android:layout_weight="1"
                         tools:targetApi="lollipop" />
 
                     <RadioButton
@@ -377,14 +377,13 @@
                 <LinearLayout
                     android:id="@+id/layout_upload_file"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/square_dash"
                     android:layout_marginBottom="@dimen/et_top_margin">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:paddingRight="@dimen/et_top_margin"
                         android:paddingTop="@dimen/et_top_margin"
                         tools:ignore="RtlSymmetry,UselessParent"
                         android:paddingEnd="@dimen/et_top_margin">
@@ -393,43 +392,54 @@
                             android:id="@+id/iv_delete"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_alignParentRight="true"
                             android:contentDescription="@string/txt_image_minus"
                             android:src="@drawable/trash"
                             android:visibility="gone"
                             android:layout_alignParentEnd="true" />
-
-                        <ImageView
-                            android:id="@+id/iv_file"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:contentDescription="@string/txt_image_minus"
-                            android:src="@drawable/ic_upload" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_horizontal"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="@dimen/et_top_margin"
-                            tools:ignore="UselessParent">
-                            <TextView
-                                android:id="@+id/tv_prefix_image_name"
-                                android:layout_width="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/standard_margin">
+                            <ImageView
+                                android:id="@+id/iv_file"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/txt_image_minus"
+                                android:src="@drawable/ic_upload" />
+
+                            <ImageView
+                                android:id="@+id/iv_prev_image"
+                                android:layout_width="127dp"
+                                android:layout_height="141dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/txt_image_minus"
+                                android:src="@drawable/ic_upload"
+                                android:visibility="gone"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/text_blue"
-                                android:fontFamily="@font/roboto_bold"
-                                android:text="@string/txt_search_for"/>
-                            <TextView
-                                android:id="@+id/tv_image_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_bold"
-                                android:text="@string/txt_upload_file"/>
+                                android:orientation="horizontal"
+                                android:gravity="center_horizontal"
+                                >
+                                <TextView
+                                    android:id="@+id/tv_prefix_image_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/text_blue"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:text="@string/txt_search_for"/>
+                                <TextView
+                                    android:id="@+id/tv_image_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:text="@string/txt_upload_file"/>
+                            </LinearLayout>
                         </LinearLayout>
+
                     </RelativeLayout>
                 </LinearLayout>
 

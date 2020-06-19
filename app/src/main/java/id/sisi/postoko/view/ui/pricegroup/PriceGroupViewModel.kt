@@ -60,7 +60,7 @@ class PriceGroupViewModel : ViewModel() {
             onResponse = { _, response ->
                 if (response.isSuccessful) {
                     tryMe {
-                        isExecute.postValue(true)
+                        isExecute.postValue(false)
                         priceGroup.postValue(response.body()?.data?.price_groups)
                     }
                 } else {

@@ -16,7 +16,6 @@ import id.sisi.postoko.utils.DownloadFile
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import id.sisi.postoko.view.ui.sales.SaleStatus
@@ -171,7 +170,7 @@ class PaymentFragment : Fragment(){
 
         fb_add_transaction?.setOnClickListener {
             val sale = (activity as? DetailSalesBookingActivity)?.tempSale
-            if (sale?.sale_status == SaleStatus.RESERVED.toString().toLowerCase(Locale.ROOT)) {
+            if (sale?.sale_status != SaleStatus.PENDING.toString().toLowerCase(Locale.ROOT)) {
                 showBottomSheetAddPayment(idSalesBooking)
             }else{
                 val dialog = MyDialog()
