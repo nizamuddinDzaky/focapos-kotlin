@@ -8,13 +8,13 @@ import android.view.ViewGroup
 
 import id.sisi.postoko.R
 import id.sisi.postoko.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_edit_warehouse_customer.*
+import kotlinx.android.synthetic.main.fragment_add_warehouse_customer.*
 import kotlinx.android.synthetic.main.fragment_edit_warehouse_customer.view.*
 
-class EditWarehouseCustomerFragment : BaseFragment() {
+class AddWarehouseCustomerFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = EditWarehouseCustomerFragment()
+        fun newInstance() = AddWarehouseCustomerFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class EditWarehouseCustomerFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_edit_warehouse_customer, container, false)
+        var view = inflater.inflate(R.layout.fragment_add_warehouse_customer, container, false)
 
         return view
     }
