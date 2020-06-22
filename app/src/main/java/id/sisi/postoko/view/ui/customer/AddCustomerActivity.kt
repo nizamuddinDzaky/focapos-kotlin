@@ -10,42 +10,28 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.RadioButton
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
-import androidx.lifecycle.Observer
+
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.tiper.MaterialSpinner
 import id.sisi.postoko.R
-import id.sisi.postoko.model.CustomerGroup
-import id.sisi.postoko.model.PriceGroup
+import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.FilePath
 import id.sisi.postoko.utils.RC_IMAGE_CAPTURE_CODE
 import id.sisi.postoko.utils.RC_PERMISSION_CAMERA
 import id.sisi.postoko.utils.RC_UPLOAD_IMAGE
 import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.view.custom.CustomProgressBar
-import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import id.sisi.postoko.view.ui.delivery.DialogFragmentSelectMedia
+import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.content_add_customer.*
-import kotlinx.android.synthetic.main.content_add_customer.iv_logo
-import kotlinx.android.synthetic.main.content_add_customer.main_view_pager
-import kotlinx.android.synthetic.main.content_add_customer.tabs_main_pagers
-import kotlinx.android.synthetic.main.content_edit_customer.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
-import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class AddCustomerActivity : AppCompatActivity() {
@@ -53,12 +39,17 @@ class AddCustomerActivity : AppCompatActivity() {
     private var imageUri: Uri? = null
     private var requestBody: RequestBody? = null
     private var requestPart: MultipartBody.Part? = null
+    lateinit var mViewModelWarehouse: WarehouseViewModel
+    var listWarehouse: List<Warehouse>? = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_customer)
         setSupportActionBar(toolbar_add_customer)
         supportActionBar?.title = null
+
+        mViewModelWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
+
 
         main_view_pager?.let {
             it.adapter = AddCustomerPagerAdapter(supportFragmentManager)
