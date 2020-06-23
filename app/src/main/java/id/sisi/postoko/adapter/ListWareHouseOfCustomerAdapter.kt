@@ -6,17 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Warehouse
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toAlias
 import kotlinx.android.synthetic.main.list_item_warehouse_customer.view.*
 
+
 class ListWareHouseOfCustomerAdapter (
-    private var warehouses: List<Warehouse>? = listOf(),
-    var listener: (Warehouse?) -> Unit = {},
-    private var listenerEdit: (Warehouse?) -> Unit = {}
+    private var warehouses: List<Warehouse>? = listOf()
 ) : RecyclerView.Adapter<ListWareHouseOfCustomerAdapter.WarehouseViewHolder>() {
 
-
+    var listenerItem: OnClickListenerInterface? = null
+    private var lastSelectedPosition = -1
+    var lastID = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WarehouseViewHolder {
         val view =
@@ -26,23 +26,61 @@ class ListWareHouseOfCustomerAdapter (
     }
 
     override fun getItemCount(): Int {
-        logE("opop : ${warehouses?.size}")
         return warehouses?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: WarehouseViewHolder, position: Int) {
-        holder.bind(warehouses?.get(position), listener, listenerEdit)
+        holder.itemView.cb_default_warehouse.isChecked = lastSelectedPosition == position;
+        holder.bind(warehouses?.get(position), listenerItem, this)
     }
 
     class WarehouseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(warehouse: Warehouse? , listener: (Warehouse?) -> Unit, listenerEdit: (Warehouse?) -> Unit = {}) {
-            itemView.tv_warehouse_name.text  = warehouse?.name
-            itemView.tv_alias_warehous.text = warehouse?.name.toAlias()
+        fun bind(
+            warehouse: Warehouse?,
+            listenerItem: OnClickListenerInterface?,
+            adapter: ListWareHouseOfCustomerAdapter
+        ) {
+            warehouse?.let {wh ->
+                itemView.tv_warehouse_name.text  = wh.name
+                itemView.tv_alias_warehous.text = wh.name.toAlias()
+                when(wh.isSelected){
+                    true -> {
+                        itemView.cb_select_warehouse.isChecked = true
+                    }
+                    else -> {
+                        itemView.cb_select_warehouse.isChecked = false
+                    }
+                }
+
+                itemView.cb_select_warehouse.setOnCheckedChangeListener { buttonView, isChecked ->
+                    listenerItem?.onClickSelected(wh, isChecked)
+                }
+
+                when(wh.isDefault){
+                    true ->{
+                        itemView.cb_default_warehouse.isChecked = true
+                    }
+                    else -> {
+                        itemView.cb_default_warehouse.isChecked = false
+                    }
+                }
+
+                itemView.cb_default_warehouse.setOnClickListener {
+                    listenerItem?.onClickDefault(wh)
+                }
+
+            }
+
         }
     }
 
     fun updateData(newWarehouses: List<Warehouse>?) {
         warehouses = newWarehouses
         notifyDataSetChanged()
+    }
+
+    interface OnClickListenerInterface {
+        fun onClickSelected(warehouse: Warehouse, isSelected: Boolean)
+        fun onClickDefault(warehouse: Warehouse)
     }
 }

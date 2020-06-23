@@ -157,9 +157,9 @@ class AddDataCustomerFragment : BaseFragment() {
             }
         }
 
-        view.btn_confirmation_add_customer.setOnClickListener {
+        /*view.btn_confirmation_add_customer.setOnClickListener {
             actionAddCustomer(view)
-        }
+        }*/
 
         for (i in 0 until (view.rg_status_add_customer?.childCount ?: 0)) {
             (view.rg_status_add_customer?.get(i) as? RadioButton)?.tag = i

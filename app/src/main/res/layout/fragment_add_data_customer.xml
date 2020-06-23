@@ -280,15 +280,7 @@
                         tools:targetApi="lollipop" />
                 </RadioGroup>
             </LinearLayout>
-            <Button
-                android:id="@+id/btn_confirmation_add_customer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#1CA865"
-                android:text="@string/txt_add"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white"/>
+
         </LinearLayout>
     </ScrollView>
 

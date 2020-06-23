@@ -10,6 +10,8 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -54,6 +56,13 @@ class AddCustomerActivity : AppCompatActivity() {
         main_view_pager?.let {
             it.adapter = AddCustomerPagerAdapter(supportFragmentManager)
             tabs_main_pagers?.setupWithViewPager(it)
+        }
+
+        btn_action_submit.setOnClickListener {
+            /*listWarehouse?.forEach {wh ->
+                logE("warehouse : ${wh.isDefault}")
+            }*/
+            logE("${findViewById<EditText>(R.id.et_name_add_customer).text}")
         }
 
         iv_logo.setOnClickListener {

@@ -48,7 +48,7 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/layout_header"
         android:layout_above="@+id/btn_action_submit">
 
@@ -69,7 +69,10 @@
         android:id="@+id/btn_action_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txt_action_save"
+        android:background="#1CA865"
+        android:text="@string/txt_add"
+        android:textAllCaps="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/et_top_margin"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

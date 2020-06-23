@@ -18,13 +18,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_select_warehouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginStart="@dimen/et_top_margin" />
             <RelativeLayout
-                android:layout_width="74dp"
-                android:layout_height="74dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_margin="@dimen/et_top_margin">
                 <View
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_margin="@dimen/margin_6"
                     android:background="@drawable/bg_avatar_customer_pg" />
                 <TextView
@@ -37,12 +44,10 @@
                     android:text="AR"/>
             </RelativeLayout>
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/standard_margin"
-                android:paddingBottom="@dimen/standard_margin"
-                android:paddingEnd="@dimen/standard_margin"
                 android:gravity="center_vertical"
+                android:layout_weight="1"
                 tools:ignore="RtlSymmetry">
                 <TextView
                     android:id="@+id/tv_warehouse_name"
@@ -51,9 +56,23 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
                     android:textColor="@color/colorBlack"
-                    tools:ignore="NestedWeights,RtlSymmetry"
+                    android:textSize="@dimen/margin_10"
+                    tools:ignore="NestedWeights,RtlSymmetry,SpUsage"
                     tools:text = "Warehous Name"/>
             </LinearLayout>
+
+            <RadioButton
+                android:id="@+id/cb_default_warehouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginEnd="@dimen/et_top_margin"/>
+            <!--<CheckBox
+                android:id="@+id/cb_default_warehouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginEnd="@dimen/et_top_margin" />-->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <View
