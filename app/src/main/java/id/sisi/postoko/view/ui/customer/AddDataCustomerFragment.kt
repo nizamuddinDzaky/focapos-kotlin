@@ -34,7 +34,7 @@ import okhttp3.RequestBody
 import java.util.ArrayList
 
 class AddDataCustomerFragment : BaseFragment() {
-    private lateinit var viewModelCustomer: CustomerViewModel
+
     private lateinit var mViewModelDaerah: DaerahViewModel
     private lateinit var mViewModelCustomerGroup: CustomerGroupViewModel
     private lateinit var mViewModelPriceGroup: PriceGroupViewModel
@@ -67,21 +67,6 @@ class AddDataCustomerFragment : BaseFragment() {
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         val view = inflater.inflate(R.layout.fragment_add_data_customer, container, false)
-
-        viewModelCustomer = ViewModelProvider(this).get(CustomerViewModel::class.java)
-        viewModelCustomer.getMessage().observe(viewLifecycleOwner, Observer {
-            it?.let {
-                Toast.makeText(activity!!.applicationContext, it, Toast.LENGTH_SHORT).show()
-            }
-        })
-        viewModelCustomer.getIsExecute().observe(viewLifecycleOwner, Observer {
-            if (it && !progressBar.isShowing()) {
-
-                progressBar.show(requireContext(), getString(R.string.txt_please_wait))
-            } else {
-                progressBar.dialog.dismiss()
-            }
-        })
 
 //        setup cutomer group
         val adapterCustomerGroup = context?.let {
