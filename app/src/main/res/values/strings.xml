@@ -352,4 +352,6 @@
     <string name="txt_close_sale">Selesaikan Penjualan</string>
     <string name="txt_remove_from_cart">Hapus Dari Keranjang</string>
     <string name="txt_select_media">Pilih Media</string>
+    <string name="txt_id_bk">ID BK</string>
+    <string name="info_gudang">Info Gudang</string>
 </resources>

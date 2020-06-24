@@ -34,7 +34,7 @@
             tools:itemCount="10"
             android:layout_above="@id/add_warehouse"
             android:layout_below="@+id/description"
-            tools:listitem="@layout/list_item_warehouse_customer" />
+            tools:listitem="@layout/list_warehouse_form_customer" />
 
         <TextView
             android:id="@+id/add_warehouse"

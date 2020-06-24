@@ -1,6 +1,5 @@
 package id.sisi.postoko.view.ui.customer
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import id.sisi.postoko.R
-import id.sisi.postoko.adapter.ListWareHouseOfCustomerAdapter
+import id.sisi.postoko.adapter.ListWareHouseOfAddCustomerAdapter
 import id.sisi.postoko.model.Warehouse
 import androidx.lifecycle.Observer
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_add_warehouse_customer.*
 
-class AddWarehouseCustomerFragment : BaseFragment(), ListWareHouseOfCustomerAdapter.OnClickListenerInterface {
-    private lateinit var adapter: ListWareHouseOfCustomerAdapter
+class AddWarehouseCustomerFragment : BaseFragment(), ListWareHouseOfAddCustomerAdapter.OnClickListenerInterface {
+    private lateinit var adapterAdd: ListWareHouseOfAddCustomerAdapter
 
     companion object {
         fun newInstance() = AddWarehouseCustomerFragment()
@@ -57,12 +56,12 @@ class AddWarehouseCustomerFragment : BaseFragment(), ListWareHouseOfCustomerAdap
     }
 
     private fun setupRecycleView(listWarehouse: List<Warehouse>) {
-        adapter = ListWareHouseOfCustomerAdapter()
-        adapter.listenerItem = this
-        adapter.updateData(listWarehouse)
+        adapterAdd = ListWareHouseOfAddCustomerAdapter()
+        adapterAdd.listenerItem = this
+        adapterAdd.updateData(listWarehouse)
         rv_list_master_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_master_data?.setHasFixedSize(false)
-        rv_list_master_data?.adapter = adapter
+        rv_list_master_data?.adapter = adapterAdd
     }
 
     override fun onClickSelected(warehouse: Warehouse, isSelected: Boolean) {
@@ -76,6 +75,6 @@ class AddWarehouseCustomerFragment : BaseFragment(), ListWareHouseOfCustomerAdap
             wh.isDefault = false
         }
         (activity as AddCustomerActivity).listWarehouse?.get(index)?.isDefault = true
-        adapter.notifyDataSetChanged()
+        adapterAdd.notifyDataSetChanged()
     }
 }

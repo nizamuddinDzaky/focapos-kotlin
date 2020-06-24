@@ -44,6 +44,10 @@ class AddCustomerActivity : AppCompatActivity() {
     var listWarehouse: List<Warehouse>? = arrayListOf()
     private val myDialog = MyDialog()
     private val progressBar = CustomProgressBar()
+    private val pages = listOf(
+        AddDataCustomerFragment(),
+        AddWarehouseCustomerFragment()
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +59,7 @@ class AddCustomerActivity : AppCompatActivity() {
 
 
         main_view_pager?.let {
-            it.adapter = AddCustomerPagerAdapter(supportFragmentManager)
+            it.adapter = CustomerPagerAdapter(supportFragmentManager, pages)
             tabs_main_pagers?.setupWithViewPager(it)
         }
 

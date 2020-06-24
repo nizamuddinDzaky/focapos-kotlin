@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.extensions.toAlias
-import kotlinx.android.synthetic.main.list_item_warehouse_customer.view.*
+import kotlinx.android.synthetic.main.list_warehouse_form_customer.view.*
 
 
-class ListWareHouseOfCustomerAdapter (
+class ListWareHouseOfAddCustomerAdapter (
     private var warehouses: List<Warehouse>? = listOf()
-) : RecyclerView.Adapter<ListWareHouseOfCustomerAdapter.WarehouseViewHolder>() {
+) : RecyclerView.Adapter<ListWareHouseOfAddCustomerAdapter.WarehouseViewHolder>() {
 
     var listenerItem: OnClickListenerInterface? = null
     private var lastSelectedPosition = -1
@@ -20,7 +20,7 @@ class ListWareHouseOfCustomerAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WarehouseViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_warehouse_customer, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_warehouse_form_customer, parent, false)
 
         return WarehouseViewHolder(view)
     }
@@ -30,15 +30,13 @@ class ListWareHouseOfCustomerAdapter (
     }
 
     override fun onBindViewHolder(holder: WarehouseViewHolder, position: Int) {
-        holder.itemView.cb_default_warehouse.isChecked = lastSelectedPosition == position;
-        holder.bind(warehouses?.get(position), listenerItem, this)
+        holder.bind(warehouses?.get(position), listenerItem)
     }
 
     class WarehouseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(
             warehouse: Warehouse?,
-            listenerItem: OnClickListenerInterface?,
-            adapter: ListWareHouseOfCustomerAdapter
+            listenerItem: OnClickListenerInterface?
         ) {
             warehouse?.let {wh ->
                 itemView.tv_warehouse_name.text  = wh.name

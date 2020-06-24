@@ -8,8 +8,12 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
+import id.sisi.postoko.adapter.ListMasterAdapter
+import id.sisi.postoko.adapter.ListWareHouseOfDetailCustomerAdapter
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.MasterDetailViewModel
@@ -21,6 +25,7 @@ import kotlinx.android.synthetic.main.content_detail_customer.*
 class DetailCustomerActivity : AppCompatActivity() {
     private var idCustomer: Int? = 0
     var customer: Customer? = null
+    private lateinit var adapter: ListWareHouseOfDetailCustomerAdapter
     private lateinit var viewModelCustomer: MasterDetailViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,12 +54,19 @@ class DetailCustomerActivity : AppCompatActivity() {
             tv_customer_district.text = it?.state
             tv_customer_province.text = it?.country
             tv_customer_cf1.text = it?.cf1
-            tv_customer_cf2.text = it?.cf2
-            tv_customer_cf3.text = it?.cf3
-            tv_customer_cf4.text = it?.cf4
-            tv_customer_cf5.text = it?.cf5
+        })
+
+        viewModelCustomer.getSelectedWarehouse().observe(this, Observer {
+            it?.let {listWarehouse ->
+                setupRecycleView(listWarehouse)
+            }
+        })
+
+        viewModelCustomer.getDefaultWarehouse().observe(this, Observer {
+            txt_defalut_wrehouse.text = "Default Gudang : ${it?.get(0)?.name}"
         })
         viewModelCustomer.requestDetailCustomer(idCustomer ?: 1)
+        viewModelCustomer.requestSelectedWarehouse(idCustomer ?: 1)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -81,5 +93,13 @@ class DetailCustomerActivity : AppCompatActivity() {
             }*/
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun setupRecycleView(listWarehouse: List<Warehouse>) {
+        adapter = ListWareHouseOfDetailCustomerAdapter()
+        adapter.updateData(listWarehouse)
+        rv_selected_wrehouse?.layoutManager = LinearLayoutManager(this)
+        rv_selected_wrehouse?.setHasFixedSize(false)
+        rv_selected_wrehouse?.adapter = adapter
     }
 }

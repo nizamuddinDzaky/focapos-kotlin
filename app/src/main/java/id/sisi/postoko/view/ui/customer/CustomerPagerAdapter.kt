@@ -3,12 +3,10 @@ package id.sisi.postoko.view.ui.customer
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import id.sisi.postoko.view.BaseFragment
 
-class AddCustomerPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    private val pages = listOf(
-        AddDataCustomerFragment(),
-        AddWarehouseCustomerFragment()
-    )
+class CustomerPagerAdapter(fm: FragmentManager, var pages: List<BaseFragment>) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
     private var currentPosition: Int = 0
 
     fun getCurrentFragment() = pages[currentPosition-1]

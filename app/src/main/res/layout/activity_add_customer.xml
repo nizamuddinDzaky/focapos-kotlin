@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/txt_add_customer"
+                android:fontFamily="@font/roboto_bold"
                 android:textColor="#000"
                 android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>
