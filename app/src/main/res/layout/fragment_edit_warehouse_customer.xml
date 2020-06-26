@@ -32,30 +32,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             tools:itemCount="10"
-            android:layout_above="@id/add_warehouse"
             android:layout_below="@+id/description"
-            tools:listitem="@layout/list_item_warehouse_customer" />
-
-        <TextView
-            android:id="@+id/add_warehouse"
-            android:layout_above="@id/btn_confirmation_edit_customer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="+ Tambah Gudang"
-            android:gravity="center"
-            android:textColor="@color/light_blue"
-            android:textStyle="bold"
-            android:layout_margin="20dp"/>
-
-        <Button
-            android:id="@+id/btn_confirmation_edit_customer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#1CA865"
-            android:text="SIMPAN"
-            android:textAllCaps="true"
-            android:layout_alignParentBottom="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/white"/>
+            tools:listitem="@layout/list_warehouse_form_customer" />
     </RelativeLayout>
 </FrameLayout>

@@ -173,6 +173,12 @@ interface ApiServices {
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataCustomer>>
 
+    @GET("api/v1/distributor/Customers/list_customer_warehouse")
+    fun getSelectedWarehouse(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any> = mapOf()
+    ): Call<BaseResponse<DataWarehouseCustomer>>
+
     @POST("api/v1/distributor/customers/add_customers")
     fun postCustomers(
         @HeaderMap headerMap: Map<String, String>,

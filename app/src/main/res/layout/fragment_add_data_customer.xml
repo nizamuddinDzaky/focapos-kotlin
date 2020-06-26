@@ -9,7 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,18 +20,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/margin_15">
+                android:padding="@dimen/et_top_margin">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_company_name"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_company_name_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     tools:ignore="LabelFor"
                     android:inputType="text" />
@@ -40,11 +41,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_owner_customer"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_name_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     tools:ignore="LabelFor"
                     android:inputType="text" />
@@ -54,12 +55,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_customer_group"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
-                <com.tiper.MaterialSpinner
+                    android:fontFamily="@font/roboto_bold" />
+                <Spinner
                     android:id="@+id/sp_customer_group_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:clickable="true"
+                    android:layout_height="40dp"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:focusable="false"/>
 
                 <TextView
@@ -67,12 +68,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_price_group"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
-                <com.tiper.MaterialSpinner
+                    android:fontFamily="@font/roboto_bold" />
+                <Spinner
                     android:id="@+id/sp_price_group_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:clickable="true"
+                    android:layout_height="40dp"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:focusable="false"/>
 
                 <TextView
@@ -80,11 +81,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_email"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_email_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     tools:ignore="LabelFor,TextFields" />
 
@@ -93,11 +94,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_telp"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_phone_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="numberSigned"
                     tools:ignore="LabelFor,TextFields" />
@@ -107,11 +108,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_customer_address"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_address_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="text"
                     tools:ignore="LabelFor" />
@@ -121,25 +122,26 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_province"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
+
                 <Spinner
                     android:id="@+id/sp_provinsi_group_add_customer"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:clickable="true"
-                    android:focusable="false"/>
+                    android:layout_height="40dp"
+                    android:focusable="false" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_district"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <Spinner
                     android:id="@+id/sp_district_group_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:clickable="true"
+                    android:layout_height="40dp"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:focusable="false"/>
 
                 <TextView
@@ -147,12 +149,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_kecamatan"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <Spinner
                     android:id="@+id/sp_city_group_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:clickable="true"
+                    android:layout_height="40dp"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:focusable="false"/>
 
                 <TextView
@@ -160,11 +162,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_postal_code"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_postal_code_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="number"
                     tools:ignore="LabelFor" />
@@ -174,91 +176,91 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_npwp"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_npwp_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="text"
                     tools:ignore="LabelFor" />
 
-                <TextView
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_customer_cf1"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_cf1_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor" />-->
 
-                <TextView
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_customer_cf2"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_cf2_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor" />-->
 
-                <TextView
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_customer_cf3"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_cf3_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor" />-->
 
-                <TextView
+               <!-- <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_customer_cf4"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_cf4_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor" />-->
 
-                <TextView
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_customer_cf5"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
                     android:id="@+id/et_cf5_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_status"
                     android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
                 <RadioGroup
                     android:id="@+id/rg_status_add_customer"
                     android:layout_width="match_parent"
@@ -266,27 +268,19 @@
                     android:orientation="horizontal">
                     <RadioButton
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
                         android:text="@string/txt_inactive"
                         tools:targetApi="lollipop" />
                     <RadioButton
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
                         android:text="@string/txt_active"
                         tools:targetApi="lollipop" />
                 </RadioGroup>
             </LinearLayout>
-            <Button
-                android:id="@+id/btn_confirmation_add_customer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#1CA865"
-                android:text="@string/txt_add"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white"/>
+
         </LinearLayout>
     </ScrollView>
 

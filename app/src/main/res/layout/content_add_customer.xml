@@ -12,11 +12,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="@dimen/margin_15">
+        android:padding="@dimen/et_top_margin">
         <RelativeLayout
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="@dimen/et_top_margin"
             tools:ignore="UselessParent">
             <ImageView
                 android:id="@+id/iv_logo"
@@ -49,8 +48,9 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/layout_header">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_header"
+        android:layout_above="@+id/layout_btn_submit">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs_main_pagers"
@@ -65,4 +65,23 @@
             app:tabTextColor="@android:color/darker_gray" />
 
     </androidx.viewpager.widget.ViewPager>
+    <LinearLayout
+        android:id="@+id/layout_btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_action_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_bottom_sheet"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_marginLeft="@dimen/et_top_margin"
+            android:layout_marginRight="@dimen/et_top_margin"
+            android:background="@color/main_green"
+            android:text="@string/txt_action_save"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 </RelativeLayout>

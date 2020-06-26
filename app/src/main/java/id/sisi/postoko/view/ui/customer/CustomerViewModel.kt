@@ -26,8 +26,56 @@ class CustomerViewModel : ViewModel() {
     private var isExecute = MutableLiveData<Boolean>()
     private var idCustomer: String? = null
     private var message = MutableLiveData<String?>()
+    private val selectedWarehouse = MutableLiveData<List<Warehouse>?>()
+    private val defaultWarehouse = MutableLiveData<List<Warehouse>?>()
+    private val warehouse = MutableLiveData<List<Warehouse>?>()
 
     private var statusSyncCustomerToBK = MutableLiveData<DataSyncCustomerToBK>()
+
+    internal fun requestSelectedWarehouse(idCustomer: Int) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf("id_customers" to idCustomer.toString())
+        ApiServices.getInstance()?.getSelectedWarehouse(headers, params)?.exe(
+            onFailure = { _, _ ->
+                isExecute.postValue(false)
+                customers.postValue(null)
+            },
+            onResponse = { _, response ->
+                if (response.isSuccessful) {
+                    tryMe {
+                        isExecute.postValue(true)
+                        val defaultWarehouseResponse = response.body()?.data?.warehouses_default
+                        val selectedWarehouseResponse = response.body()?.data?.warehouses_selected
+                        val warehouseRespone = response.body()?.data?.warehouses
+                        logE("warehouse2222 : ")
+                        if (selectedWarehouseResponse?.isNotEmpty()!!){
+                            warehouseRespone?.forEach {wh->
+                                if (wh.id == defaultWarehouseResponse?.get(0)?.id){
+                                    wh.isDefault = true
+                                }
+                                selectedWarehouseResponse.forEach {whSelcted->
+                                    if (wh.id == whSelcted.id){
+                                        wh.isSelected = true
+                                    }
+
+                                }
+
+                            }
+                        }
+                        logE("warehouse1111 : ")
+
+                        defaultWarehouse.postValue(defaultWarehouseResponse)
+                        logE("warehouse3333 : ")
+                        warehouse.postValue(warehouseRespone)
+                        selectedWarehouse.postValue(selectedWarehouseResponse)
+                    }
+                } else {
+                    isExecute.postValue(false)
+                }
+            }
+        )
+    }
 
     fun getListCustomer() {
         isExecute.postValue(true)
@@ -51,7 +99,7 @@ class CustomerViewModel : ViewModel() {
     }
 
     fun regSyncCustomerToBK() {
-        var body: Map<String, Any?> = mutableMapOf()
+        val body: Map<String, Any?> = mutableMapOf()
 
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
@@ -128,13 +176,17 @@ class CustomerViewModel : ViewModel() {
                     tryMe {
                         message.postValue(response.body()?.message)
                         if (logo != null){
+                            logE("asdsadsa => ${response.body()?.data?.id}")
+
                             postUploadLogoCustomer(logo, response.body()?.data?.id ?: "0"){
                                 isExecute.postValue(false)
+                                listener()
                             }
                         }else{
                             isExecute.postValue(false)
+                            listener()
                         }
-                        listener()
+
 
                     }
                 } else {
@@ -184,22 +236,28 @@ class CustomerViewModel : ViewModel() {
         )
     }
 
-    fun postEditSale(body: Map<String, Any?>, listener: (Map<String, Any>) -> Unit) {
+    fun postEditCustomer(body: Map<String, Any?>, idCustomer: String, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("id_customer" to idCustomer.toString())
+        val params = mutableMapOf("id_customer" to idCustomer)
         ApiServices.getInstance()?.putEditCustomers(headers, params, body)?.exe(
-            onFailure = { _, _ ->
-                listener(mapOf("networkRespone" to NetworkResponse.FAILURE, "message" to "koneksi gagal"))
-                isExecute.postValue(true)
+            onFailure = { _, t->
+                message.postValue(t.toString())
+                isExecute.postValue(false)
             },
             onResponse = { _, response ->
-                isExecute.postValue(false)
                 if (response.isSuccessful) {
-                    listener(mapOf("networkRespone" to NetworkResponse.SUCCESS, "message" to response.message()))
-                } else {
-                    listener(mapOf("networkRespone" to NetworkResponse.ERROR, "message" to response.message()))
                     isExecute.postValue(false)
+                    message.postValue(response.body()?.message)
+                    listener()
+                } else {
+                    isExecute.postValue(false)
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
@@ -222,12 +280,19 @@ class CustomerViewModel : ViewModel() {
         return priceGroup
     }
 
-    fun setIdCustomer(idCustomer : String){
-        this.idCustomer = idCustomer
-    }
-
     internal fun getSyncCustomerToBK(): LiveData<DataSyncCustomerToBK>{
         return this.statusSyncCustomerToBK
+    }
+
+    internal fun getSelectedWarehouse(): LiveData<List<Warehouse>?> {
+        return selectedWarehouse
+    }
+    internal fun getDefaultWarehouse():  LiveData<List<Warehouse>?> {
+        return defaultWarehouse
+    }
+
+    internal fun getListWarehouse():  LiveData<List<Warehouse>?> {
+        return warehouse
     }
 
     internal fun getMessage() = message
