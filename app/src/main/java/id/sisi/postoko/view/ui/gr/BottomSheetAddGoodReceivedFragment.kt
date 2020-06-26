@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,9 +18,11 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListItemAddGoodReceiveAdapter
 import id.sisi.postoko.model.DataSpinner
 import id.sisi.postoko.model.GoodReceived
+import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.KEY_GOOD_RECEIVED
 import id.sisi.postoko.utils.MySpinnerAdapter
 import id.sisi.postoko.utils.extensions.*
+import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_add_good_received.*
 
@@ -28,7 +32,10 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
     lateinit var viewModel: AddGoodReceivedViewModel
     private lateinit var adapter: ListItemAddGoodReceiveAdapter
     private lateinit var vmWareHouse: WarehouseViewModel
+    private var listWarehouse: List<Warehouse> = ArrayList()
+    private var idWarehouse: String = "0"
     var listener: () -> Unit = {}
+    private val progressBar = CustomProgressBar()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +65,21 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
             viewModel = ViewModelProvider(this, AddGoodReceivedFactory(it.id?.toInt() ?: 0)).get(
                 AddGoodReceivedViewModel::class.java
             )
+
+            viewModel.getMessage().observe(viewLifecycleOwner, Observer {str ->
+                str ?.let {message ->
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            })
+            viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+                if (it && !progressBar.isShowing()) {
+
+                    context?.let { context -> progressBar.show(context, getString(R.string.txt_please_wait)) }
+                } else {
+                    progressBar.dialog.dismiss()
+                }
+            })
+
             viewModel.getDetailGoodReceived().observe(viewLifecycleOwner, Observer { gr ->
                 gr?.let {
                     logE("${gr.goodReceivedItems}")
@@ -102,20 +124,40 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
 
         vmWareHouse.getListWarehouses().observe(viewLifecycleOwner, Observer {
 
-            it?.map {w->
-                return@map DataSpinner(w.name, w.id)
-            }?.toMutableList()?.let { it1 -> adapterWarehouse?.udpateView(it1) }
-            sp_warehouse.setIfExist(goodReceived?.warehouse_id)
+            it?.let {
+                adapterWarehouse?.udpateView(it.map {w->
+                    logE("warehouse : ${w.name} => ${w.id}")
+                    return@map DataSpinner(w.name, w.id)
+                }.toMutableList())
+                listWarehouse = it
+            }
 
         })
         sp_warehouse.adapter = adapterWarehouse
+        sp_warehouse.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                idWarehouse = listWarehouse[position].id
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+        }
+
     }
 
     private fun actionAddGoodReceived() {
-        val body = mutableMapOf<String, String>()
+        val body: MutableMap<String, Any> = mutableMapOf(
+           "price" to (et_detail_good_received_new_price?.text?.toString() ?: ""),
+            "warehouse_id" to idWarehouse
+        )
+
+        /*val body = mutableMapOf<String, String>()
         et_detail_good_received_new_price?.text?.let {
             body["price"] = it.toString()
-        }
+        }*/
         viewModel.postAddGoodReceived(body) {
             listener()
             this.dismiss()

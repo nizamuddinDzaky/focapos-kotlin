@@ -41,17 +41,10 @@ class AddDataCustomerFragment : BaseFragment() {
 
     private var listCustomerGroup: List<CustomerGroup> = ArrayList()
     private var listPriceGroup: List<PriceGroup> = ArrayList()
-    private var idCustomerGroup: String? = null
-    private var idPriceGroup: String? = null
-    private val progressBar = CustomProgressBar()
 
     private var provinceList: Array<String> = arrayOf()
     private var cityList: Array<String> = arrayOf()
     private var villageList: Array<String> = arrayOf()
-
-    private var imageUri: Uri? = null
-    private var requestBody: RequestBody? = null
-    private var requestPart: MultipartBody.Part? = null
 
     companion object {
         fun newInstance() = AddDataCustomerFragment()
@@ -93,7 +86,7 @@ class AddDataCustomerFragment : BaseFragment() {
                 position: Int,
                 id: Long
             ) {
-                idCustomerGroup = listCustomerGroup[position].id
+                (activity as AddCustomerActivity).idCustomerGroup = listCustomerGroup[position].id
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
@@ -123,7 +116,7 @@ class AddDataCustomerFragment : BaseFragment() {
                 position: Int,
                 id: Long
             ) {
-                idPriceGroup = listPriceGroup[position].id.toString()
+                (activity as AddCustomerActivity).idPriceGroup = listPriceGroup[position].id.toString()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
@@ -214,91 +207,5 @@ class AddDataCustomerFragment : BaseFragment() {
         )
     }
 
-    private fun actionAddCustomer(view2: View) {
-        val numbersMap =  validationFormAddCustomer(view2)
-        logE("validation ${numbersMap["type"]}=> ${numbersMap["message"]}")
 
-        if (numbersMap["type"] as Boolean){
-            val body: MutableMap<String, Any> = mutableMapOf(
-                "name" to (view2.et_name_add_customer?.text?.toString() ?: ""),
-                "email" to (view2.et_email_add_customer?.text?.toString() ?: ""),
-                "customer_group_id" to (idCustomerGroup ?: ""),
-                "price_group_id" to (idPriceGroup ?: ""),
-                "company" to (view2.et_company_name_add_customer?.text?.toString() ?: ""),
-                "address" to (view2.et_address_add_customer?.text?.toString() ?: ""),
-                "vat_no" to (view2.et_npwp_add_customer?.text?.toString() ?: ""),
-                "postal_code" to (view2.et_postal_code_add_customer?.text?.toString() ?: ""),
-                "phone" to (view2.et_phone_add_customer?.text?.toString() ?: ""),
-                /*"cf1" to (view2.et_cf1_add_customer?.text?.toString() ?: ""),
-                "cf2" to (view2.et_cf2_add_customer?.text?.toString() ?: ""),
-                "cf3" to (view2.et_cf3_add_customer?.text?.toString() ?: ""),
-                "cf4" to (view2.et_cf4_add_customer?.text?.toString() ?: ""),
-                "cf5" to (view2.et_cf5_add_customer?.text?.toString() ?: ""),*/
-                "province" to (view2.sp_provinsi_group_add_customer?.selectedItem?.toString() ?: ""),
-                "city" to (view2.sp_district_group_add_customer?.selectedItem?.toString() ?: ""),
-                "state" to (view2.sp_city_group_add_customer?.selectedItem?.toString() ?: "")
-
-            )
-            logE("body bohay : $body")
-            /*viewModelCustomer.postAddCustomer(body, requestPart){
-                val returnIntent = Intent()
-                activity!!.setResult(Activity.RESULT_OK, returnIntent)
-                activity!!.finish()
-            }*/
-        }else{
-            androidx.appcompat.app.AlertDialog.Builder(activity!!.applicationContext)
-                .setTitle("Konfirmasi")
-                .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
-        }
-    }
-
-    private fun validationFormAddCustomer(view2: View): Map<String, Any?> {
-        var message = ""
-        var cek = true
-
-        if (view2.et_company_name_add_customer?.text.toString() == ""){
-            message += "- Nama Perusahaan/Toko Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view2.et_name_add_customer?.text.toString() == ""){
-            message += "- Nama Pemilik Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (idCustomerGroup == null){
-            message += "- Customer Group Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view2.et_phone_add_customer?.text.toString() == ""){
-            message += "- No Telp Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view2.et_address_add_customer?.text.toString() == ""){
-            message += "- Alamat Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view2.sp_provinsi_group_add_customer?.selectedItem.toString() == ""){
-            message += "- Provinsi Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view2.sp_district_group_add_customer?.selectedItem.toString() == ""){
-            message += "- Kabupaten/Kota Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view2.sp_city_group_add_customer?.selectedItem.toString() == ""){
-            message += "- Kecamatan Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        return mapOf("message" to message, "type" to cek)
-    }
 }

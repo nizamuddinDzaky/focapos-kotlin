@@ -64,7 +64,7 @@ interface ApiServices {
     fun postAddGoodReceived(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
-        @Body body: Map<String, String>
+        @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
     @POST("api/v1/distributor/sales_booking/add_deliveries_booking")

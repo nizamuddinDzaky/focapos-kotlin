@@ -20,6 +20,7 @@ import id.sisi.postoko.model.DataSpinner
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.MySpinnerAdapter
+import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.daerah.DaerahViewModel
@@ -32,8 +33,7 @@ class EditDataCustomerFragment : BaseFragment() {
 
     private var listCustomerGroup: List<CustomerGroup> = ArrayList()
     private var listPriceGroup: List<PriceGroup> = ArrayList()
-    private var idCustomerGroup: String? = null
-    private var idPriceGroup: String? = null
+
     private val progressBar = CustomProgressBar()
     private var customer: Customer? = null
     private var provinceList: Array<String> = arrayOf()
@@ -78,7 +78,7 @@ class EditDataCustomerFragment : BaseFragment() {
                 adapterCustomerGroup.udpateView(it.map {cg->
                     return@map DataSpinner(cg.name, cg.id)
                 }.toMutableList())
-                /*view.sp_customer_group_edit_customer.setIfExist(customer?.customer_group_id.toString())*/
+                view.sp_customer_group_edit_customer.setIfExist(customer?.customer_group_id.toString())
                 listCustomerGroup = it
             }
         })
@@ -91,7 +91,7 @@ class EditDataCustomerFragment : BaseFragment() {
                 position: Int,
                 id: Long
             ) {
-                idCustomerGroup = listCustomerGroup[position].id
+                (activity as EditCustomerActivity).idCustomerGroup = listCustomerGroup[position].id
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
@@ -115,7 +115,7 @@ class EditDataCustomerFragment : BaseFragment() {
                 position: Int,
                 id: Long
             ) {
-                idPriceGroup = listPriceGroup[position].id.toString()
+                (activity as EditCustomerActivity).idPriceGroup = listPriceGroup[position].id.toString()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
