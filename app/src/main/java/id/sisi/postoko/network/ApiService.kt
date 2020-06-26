@@ -64,7 +64,7 @@ interface ApiServices {
     fun postAddGoodReceived(
         @HeaderMap headerMap: Map<String, String>,
         @QueryMap params: Map<String, String> = mapOf(),
-        @Body body: Map<String, String>
+        @Body body: Map<String, Any?>
     ): Call<BaseResponse<DataLogin>>
 
     @POST("api/v1/distributor/sales_booking/add_deliveries_booking")
@@ -172,6 +172,12 @@ interface ApiServices {
         @HeaderMap headerMap: Map<String, Any>,
         @QueryMap params: Map<String, Any> = mapOf()
     ): Call<BaseResponse<DataCustomer>>
+
+    @GET("api/v1/distributor/Customers/list_customer_warehouse")
+    fun getSelectedWarehouse(
+        @HeaderMap headerMap: Map<String, Any>,
+        @QueryMap params: Map<String, Any> = mapOf()
+    ): Call<BaseResponse<DataWarehouseCustomer>>
 
     @POST("api/v1/distributor/customers/add_customers")
     fun postCustomers(

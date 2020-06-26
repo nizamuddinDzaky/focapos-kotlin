@@ -1,8 +1,6 @@
 package id.sisi.postoko.view.ui.customer
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +24,6 @@ import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.daerah.DaerahViewModel
-import kotlinx.android.synthetic.main.fragment_edit_data_customer.*
 import kotlinx.android.synthetic.main.fragment_edit_data_customer.view.*
 import java.util.ArrayList
 
@@ -36,8 +33,7 @@ class EditDataCustomerFragment : BaseFragment() {
 
     private var listCustomerGroup: List<CustomerGroup> = ArrayList()
     private var listPriceGroup: List<PriceGroup> = ArrayList()
-    private var idCustomerGroup: String? = null
-    private var idPriceGroup: String? = null
+
     private val progressBar = CustomProgressBar()
     private var customer: Customer? = null
     private var provinceList: Array<String> = arrayOf()
@@ -57,7 +53,7 @@ class EditDataCustomerFragment : BaseFragment() {
         set(_) {}
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        var view = inflater.inflate(R.layout.fragment_edit_data_customer, container, false)
+        val view = inflater.inflate(R.layout.fragment_edit_data_customer, container, false)
 
         customer = (activity as EditCustomerActivity).customer
 
@@ -70,11 +66,7 @@ class EditDataCustomerFragment : BaseFragment() {
 
         view.et_postal_code_edit_customer.setText(customer?.postal_code)
         view.et_npwp_edit_customer.setText(customer?.vat_no)
-        view.et_cf1_edit_customer.setText(customer?.cf1)
-        view.et_cf2_edit_customer.setText(customer?.cf2)
-        view.et_cf3_edit_customer.setText(customer?.cf3)
-        view.et_cf4_edit_customer.setText(customer?.cf4)
-        view.et_cf5_edit_customer.setText(customer?.cf5)
+
 
         view.rg_status_edit_customer
         val adapterCustomerGroup = MySpinnerAdapter(activity!!.applicationContext, android.R.layout.simple_spinner_dropdown_item)
@@ -86,7 +78,7 @@ class EditDataCustomerFragment : BaseFragment() {
                 adapterCustomerGroup.udpateView(it.map {cg->
                     return@map DataSpinner(cg.name, cg.id)
                 }.toMutableList())
-                /*view.sp_customer_group_edit_customer.setIfExist(customer?.customer_group_id.toString())*/
+                view.sp_customer_group_edit_customer.setIfExist(customer?.customer_group_id.toString())
                 listCustomerGroup = it
             }
         })
@@ -99,7 +91,7 @@ class EditDataCustomerFragment : BaseFragment() {
                 position: Int,
                 id: Long
             ) {
-                idCustomerGroup = listCustomerGroup[position].id
+                (activity as EditCustomerActivity).idCustomerGroup = listCustomerGroup[position].id
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
@@ -123,7 +115,7 @@ class EditDataCustomerFragment : BaseFragment() {
                 position: Int,
                 id: Long
             ) {
-                idPriceGroup = listPriceGroup[position].id.toString()
+                (activity as EditCustomerActivity).idPriceGroup = listPriceGroup[position].id.toString()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
@@ -173,28 +165,6 @@ class EditDataCustomerFragment : BaseFragment() {
 
         mViewModelDaerah.getProvince()
 
-
-        /*listProvinsi.add(DataSpinner("NANGGROE ACEH DARUSSALAM", "NANGGROE ACEH DARUSSALAM"))
-        listProvinsi.add(DataSpinner("SUMATERA UTARA", "SUMATERA UTARA"))
-
-        val adapterProvonsi = MySpinnerAdapter(activity!!.applicationContext, android.R.layout.simple_list_item_1, listProvinsi)
-        view.sp_provinsi_group_edit_customer.adapter = adapterProvonsi
-        //view.sp_provinsi_group_edit_customer.setIfExist(customer?.country ?: null.toString())
-
-        listKabupaten.add(DataSpinner("ACEH SINGKIL", "ACEH SINGKIL"))
-        listKabupaten.add(DataSpinner("PIDIE", "PIDIE"))
-
-        val adapterKabupaten = MySpinnerAdapter(activity!!.applicationContext, android.R.layout.simple_list_item_1, listKabupaten)
-        view.sp_city_group_edit_customer.adapter = adapterKabupaten
-        //view.sp_city_group_edit_customer.setIfExist(customer?.city ?: null.toString())
-
-        listKecamatan.add(DataSpinner("SINGKOHOR", "SINGKOHOR"))
-        listKecamatan.add(DataSpinner("LAWE ALAS", "LAWE ALAS"))
-
-        val adapterKecamatan = MySpinnerAdapter(activity!!.applicationContext, android.R.layout.simple_list_item_1, listKecamatan)
-        view.sp_district_group_edit_customer.adapter = adapterKecamatan
-        //view.sp_district_group_edit_customer.setIfExist(customer?.state ?: null.toString())*/
-
         for (i in 0 until (view.rg_status_edit_customer?.childCount ?: 0)) {
             (view.rg_status_edit_customer?.get(i) as? RadioButton)?.tag = i
         }
@@ -205,9 +175,9 @@ class EditDataCustomerFragment : BaseFragment() {
         }
         view.rg_status_edit_customer?.check(view.rg_status_edit_customer?.get(1)?.id ?: 0)
 
-        view.btn_confirmation_edit_customer.setOnClickListener {
+        /*view.btn_confirmation_edit_customer.setOnClickListener {
             actionEditCustomer(view)
-        }
+        }*/
 
         return view
     }
@@ -240,97 +210,5 @@ class EditDataCustomerFragment : BaseFragment() {
                 villageList
             )
         }
-    }
-
-    private fun actionEditCustomer(view2: View) {
-        val numbersMap =  validationFormEditCustomer()
-
-        if (numbersMap["type"] as Boolean){
-            progressBar.show(activity!!.applicationContext, "Silakan tunggu...")
-
-            val body: MutableMap<String, Any> = mutableMapOf(
-                "name" to (view2.et_name_edit_customer?.text?.toString() ?: ""),
-                "email" to (view2.et_email_edit_customer?.text?.toString() ?: ""),
-                "customer_group_id" to (idCustomerGroup ?: ""),
-                "price_group_id" to (idPriceGroup ?: ""),
-                "company" to (view2.et_company_name_edit_customer?.text?.toString() ?: ""),
-                "address" to (view2.et_address_edit_customer?.text?.toString() ?: ""),
-                "vat_no" to (view2.et_npwp_edit_customer?.text?.toString() ?: ""),
-                "postal_code" to (view2.et_postal_code_edit_customer?.text?.toString() ?: ""),
-                "phone" to (view2.et_phone_edit_customer?.text?.toString() ?: ""),
-                "cf1" to (view2.et_cf1_edit_customer?.text?.toString() ?: ""),
-                "cf2" to (view2.et_cf2_edit_customer?.text?.toString() ?: ""),
-                "cf3" to (view2.et_cf3_edit_customer?.text?.toString() ?: ""),
-                "cf4" to (view2.et_cf4_edit_customer?.text?.toString() ?: ""),
-                "cf5" to (view2.et_cf5_edit_customer?.text?.toString() ?: ""),
-                "provinsi" to (view2.sp_provinsi_group_edit_customer?.selectedItem?.toString() ?: ""),
-                "kabupaten" to (view2.sp_city_group_edit_customer?.selectedItem?.toString() ?: ""),
-                "kecamatan" to (view2.sp_district_group_edit_customer?.selectedItem?.toString() ?: "")
-            )
-            customer?.id?.let { viewModelCustomer.setIdCustomer(it) }
-            viewModelCustomer.postEditSale(body){
-                progressBar.dialog.dismiss()
-                Toast.makeText(activity!!.applicationContext, ""+it["message"], Toast.LENGTH_SHORT).show()
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    /*val returnIntent = Intent()
-                    activity!!.setResult(Activity.RESULT_OK, returnIntent)
-                    activity!!.finish()*/
-                }
-            }
-        }else{
-            AlertDialog.Builder(activity!!.applicationContext)
-                .setTitle("Konfirmasi")
-                .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
-        }
-    }
-
-    private fun validationFormEditCustomer(): Map<String, Any?> {
-        var message = ""
-        var cek = true
-
-        if (view!!.et_company_name_edit_customer?.text.toString() == ""){
-            message += "- Nama Perusahaan/Toko Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view!!.et_name_edit_customer?.text.toString() == ""){
-            message += "- Nama Pemilik Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (idCustomerGroup == null){
-            message += "- Customer Group Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view!!.et_phone_edit_customer?.text.toString() == ""){
-            message += "- No Telp Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view!!.et_address_edit_customer?.text.toString() == ""){
-            message += "- Alamat Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view!!.sp_provinsi_group_edit_customer?.selectedItem.toString() == ""){
-            message += "- Provinsi Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view!!.sp_city_group_edit_customer?.selectedItem.toString() == ""){
-            message += "- Kabupaten/Kota Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (view!!.sp_district_group_edit_customer?.selectedItem.toString() == ""){
-            message += "- Kecamatan Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        return mapOf("message" to message, "type" to cek)
     }
 }
