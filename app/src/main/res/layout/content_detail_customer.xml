@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_height="wrap_content"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:background="@color/colorBackground">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,637 +43,539 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
+            android:orientation="vertical"
+            android:background="@android:color/white">
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_store_name"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_store_name"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_name"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_customer_group"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_customer_group"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_customer_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_customer_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
 
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_npwp"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_npwp"
-                    android:layout_width="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_npwp"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_npwp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
 
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_deposit"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_deposit"
-                    android:layout_width="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_deposit"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_deposit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
 
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_point_customer"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_point"
-                    android:layout_width="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_point_customer"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_point"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
 
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_email"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_email"
-                    android:layout_width="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_email"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
 
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_telp"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_phone"
-                    android:layout_width="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_telp"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
 
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_customer_address"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_address"
-                    android:layout_width="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_customer_address"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
 
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_district"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_district"
-                    android:layout_width="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_district"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_district"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
 
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_province"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_province"
-                    android:layout_width="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_province"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_province"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
 
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
             </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_country"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/txt_indonesia"
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_id_bk"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/tv_customer_cf1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="#000"
+                        android:textSize="13dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/colorLine" />
         </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/standard_margin"
             android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
-            <LinearLayout
-                android:layout_width="0dp"
+            android:background="@android:color/white">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_country"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="#676767"
+                android:textSize="13dp"
+                android:text="@string/info_gudang"/>
+
+            <TextView
+                android:id="@+id/txt_defalut_wrehouse"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="@string/txt_indonesia"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
+                android:fontFamily="@font/roboto_italic"
+                android:textColor="#676767"
+                tools:text="Default Warehouse : Wkwkw Land"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_selected_wrehouse"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_customer_cf1"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_cf1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal"
-                tools:ignore="TooManyViews">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_customer_cf2"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage,TooManyViews" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                tools:ignore="TooManyViews">
-                <TextView
-                    android:id="@+id/tv_customer_cf2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_customer_cf3"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_cf3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_customer_cf4"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_cf4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_10"
-            android:baselineAligned="false">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_customer_cf4"
-                    android:textColor="#676767"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_customer_cf5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000"
-                    android:textSize="13dp"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/colorLine" />
     </LinearLayout>
 </ScrollView>

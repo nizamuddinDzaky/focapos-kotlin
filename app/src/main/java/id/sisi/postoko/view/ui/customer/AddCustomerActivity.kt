@@ -10,49 +10,44 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.RadioButton
+import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.tiper.MaterialSpinner
 import id.sisi.postoko.R
-import id.sisi.postoko.model.CustomerGroup
-import id.sisi.postoko.model.PriceGroup
-import id.sisi.postoko.utils.FilePath
-import id.sisi.postoko.utils.RC_IMAGE_CAPTURE_CODE
-import id.sisi.postoko.utils.RC_PERMISSION_CAMERA
-import id.sisi.postoko.utils.RC_UPLOAD_IMAGE
-import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.model.Warehouse
+import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
-import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import id.sisi.postoko.view.ui.delivery.DialogFragmentSelectMedia
+import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.content_add_customer.*
-import kotlinx.android.synthetic.main.content_add_customer.iv_logo
-import kotlinx.android.synthetic.main.content_add_customer.main_view_pager
-import kotlinx.android.synthetic.main.content_add_customer.tabs_main_pagers
-import kotlinx.android.synthetic.main.content_edit_customer.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
-import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class AddCustomerActivity : AppCompatActivity() {
 
+    private lateinit var viewModelCustomer: CustomerViewModel
     private var imageUri: Uri? = null
     private var requestBody: RequestBody? = null
     private var requestPart: MultipartBody.Part? = null
+    lateinit var mViewModelWarehouse: WarehouseViewModel
+    var listWarehouse: List<Warehouse>? = arrayListOf()
+    private val myDialog = MyDialog()
+    private val progressBar = CustomProgressBar()
+    private val pages = listOf(
+        AddDataCustomerFragment(),
+        AddWarehouseCustomerFragment()
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,9 +55,41 @@ class AddCustomerActivity : AppCompatActivity() {
         setSupportActionBar(toolbar_add_customer)
         supportActionBar?.title = null
 
+        mViewModelWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
+
+
         main_view_pager?.let {
-            it.adapter = AddCustomerPagerAdapter(supportFragmentManager)
+            it.adapter = CustomerPagerAdapter(supportFragmentManager, pages)
             tabs_main_pagers?.setupWithViewPager(it)
+        }
+
+        viewModelCustomer = ViewModelProvider(this).get(CustomerViewModel::class.java)
+        viewModelCustomer.getMessage().observe(this, Observer {
+            it?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+        viewModelCustomer.getIsExecute().observe(this, Observer {
+            if (it && !progressBar.isShowing()) {
+
+                progressBar.show(this, getString(R.string.txt_please_wait))
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+
+        btn_action_submit.setOnClickListener {
+            val mandatory = listOf<EditText>(
+                findViewById(R.id.et_name_add_customer),
+                findViewById(R.id.et_email_add_customer),
+                findViewById(R.id.et_phone_add_customer),
+                findViewById(R.id.et_address_add_customer)
+            )
+            if (!mandatory.validation()) {
+                return@setOnClickListener
+            }
+
+            actionAddCustomer()
         }
 
         iv_logo.setOnClickListener {
@@ -200,6 +227,73 @@ class AddCustomerActivity : AppCompatActivity() {
                 val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 startActivityForResult(i, RC_UPLOAD_IMAGE)
             }
+        }
+    }
+
+    private fun validationFormAddCustomer(): Map<String, Any?> {
+        var message = ""
+        var cek = true
+
+        if (findViewById<Spinner>(R.id.sp_customer_group_add_customer)?.selectedItem.toString() == ""){
+            message += "- Customer Group Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (findViewById<Spinner>(R.id.sp_provinsi_group_add_customer)?.selectedItem.toString() == ""){
+            message += "- Provinsi Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (findViewById<Spinner>(R.id.sp_district_group_add_customer)?.selectedItem.toString() == ""){
+            message += "- Kabupaten/Kota Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        if (findViewById<Spinner>(R.id.sp_city_group_add_customer)?.selectedItem.toString() == ""){
+            message += "- Kecamatan Tidak Boleh Kosong\n"
+            cek = false
+        }
+
+        return mapOf("message" to message, "type" to cek)
+    }
+
+    private fun actionAddCustomer() {
+        val validation =  validationFormAddCustomer()
+        val listIdSelected: ArrayList<String> = arrayListOf()
+        var defaultWarehouse = 0
+        listWarehouse?.forEach {wh ->
+            if (wh.isSelected)
+                listIdSelected.add(wh.id)
+            if (wh.isDefault)
+                defaultWarehouse = wh.id.toInt()
+        }
+
+        if (validation["type"] as Boolean){
+            val body: MutableMap<String, Any> = mutableMapOf(
+                "name" to (findViewById<EditText>(R.id.et_name_add_customer)?.text?.toString() ?: ""),
+                "email" to (findViewById<EditText>(R.id.et_email_add_customer)?.text?.toString() ?: ""),
+                "customer_group_id" to (findViewById<Spinner>(R.id.sp_customer_group_add_customer)?.selectedItem?.toString() ?: ""),
+                "price_group_id" to (findViewById<Spinner>(R.id.sp_price_group_add_customer)?.selectedItem?.toString() ?: ""),
+                "company" to (findViewById<EditText>(R.id.et_company_name_add_customer)?.text?.toString() ?: ""),
+                "address" to (findViewById<EditText>(R.id.et_address_add_customer)?.text?.toString() ?: ""),
+                "vat_no" to (findViewById<EditText>(R.id.et_npwp_add_customer)?.text?.toString() ?: ""),
+                "postal_code" to (findViewById<EditText>(R.id.et_postal_code_add_customer)?.text?.toString() ?: ""),
+                "phone" to (findViewById<EditText>(R.id.et_phone_add_customer)?.text?.toString() ?: ""),
+                "province" to (findViewById<Spinner>(R.id.sp_provinsi_group_add_customer)?.selectedItem?.toString() ?: ""),
+                "city" to (findViewById<Spinner>(R.id.sp_district_group_add_customer)?.selectedItem?.toString() ?: ""),
+                "state" to (findViewById<Spinner>(R.id.sp_city_group_add_customer)?.selectedItem?.toString() ?: ""),
+                "warehouses" to listIdSelected,
+                "default" to defaultWarehouse
+            )
+
+            viewModelCustomer.postAddCustomer(body, requestPart){
+                val returnIntent = Intent()
+                setResult(Activity.RESULT_OK, returnIntent)
+                finish()
+            }
+
+        }else{
+            myDialog.alert(validation["message"] as String, this)
         }
     }
 }

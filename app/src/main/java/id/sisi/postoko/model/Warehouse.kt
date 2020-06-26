@@ -25,4 +25,5 @@ data class Warehouse(
 ): Parcelable {
     @IgnoredOnParcel
     var isSelected = false
+    var isDefault = false
 }
