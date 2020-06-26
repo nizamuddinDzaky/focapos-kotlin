@@ -50,7 +50,8 @@
         android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/layout_header">
+        android:layout_below="@+id/layout_header"
+        android:layout_above="@+id/btn_action_submit">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs_main_pagers"
@@ -65,4 +66,14 @@
             app:tabTextColor="@android:color/darker_gray" />
 
     </androidx.viewpager.widget.ViewPager>
+    <Button
+        android:id="@+id/btn_action_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1CA865"
+        android:text="@string/txt_add"
+        android:textAllCaps="true"
+        android:layout_alignParentBottom="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

@@ -13,32 +13,7 @@ import id.sisi.postoko.utils.extensions.tryMe
 
 class MasterDetailViewModel : ViewModel() {
     private val customer = MutableLiveData<Customer>()
-    private val selectedWarehouse = MutableLiveData<List<Warehouse>>()
-    private val defaultWarehouse = MutableLiveData<List<Warehouse>>()
     private var isExecute = MutableLiveData<Boolean>()
-
-    internal fun requestSelectedWarehouse(idCustomer: Int) {
-        isExecute.postValue(true)
-        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        val params = mutableMapOf("id_customers" to idCustomer.toString())
-        ApiServices.getInstance()?.getSelectedWarehouse(headers, params)?.exe(
-            onFailure = { _, _ ->
-                isExecute.postValue(false)
-                customer.postValue(null)
-            },
-            onResponse = { _, response ->
-                if (response.isSuccessful) {
-                    tryMe {
-                        isExecute.postValue(true)
-                        selectedWarehouse.postValue(response.body()?.data?.warehouses_selected)
-                        defaultWarehouse.postValue(response.body()?.data?.warehouses_default)
-                    }
-                } else {
-                    isExecute.postValue(false)
-                }
-            }
-        )
-    }
 
     internal fun requestDetailCustomer(idCustomer: Int) {
         isExecute.postValue(true)
@@ -69,11 +44,5 @@ class MasterDetailViewModel : ViewModel() {
 
     internal fun getDetailCustomer(): LiveData<Customer?> {
         return customer
-    }
-    internal fun getSelectedWarehouse(): LiveData<List<Warehouse>?> {
-        return selectedWarehouse
-    }
-    internal fun getDefaultWarehouse():  LiveData<List<Warehouse>?> {
-        return defaultWarehouse
     }
 }

@@ -172,7 +172,7 @@ class DetailSalesBookingFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_edit_sale -> {
+            R.id.menu_edit -> {
                 val result = validationActionEditSale()
                 if (!(result[KEY_VALIDATION_REST] as Boolean)) {
                     myDialog.alert(result[KEY_MESSAGE] as String, context)
