@@ -64,7 +64,12 @@ class DetailCustomerActivity : AppCompatActivity() {
         })
 
         mViewModelCustomer.getDefaultWarehouse().observe(this, Observer {
-            txt_defalut_wrehouse.text = "Default Gudang : ${it?.get(0)?.name}"
+            it?.let{
+                if( it.isNotEmpty()){
+                    txt_defalut_wrehouse.text = "Default Gudang : ${it.get(0).name}"
+                }
+
+            }
         })
         mViewModelMaster.requestDetailCustomer(idCustomer ?: 1)
         mViewModelCustomer.requestSelectedWarehouse(idCustomer ?: 1)

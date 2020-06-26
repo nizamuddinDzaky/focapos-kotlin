@@ -26,9 +26,9 @@ class CustomerViewModel : ViewModel() {
     private var isExecute = MutableLiveData<Boolean>()
     private var idCustomer: String? = null
     private var message = MutableLiveData<String?>()
-    private val selectedWarehouse = MutableLiveData<List<Warehouse>>()
-    private val defaultWarehouse = MutableLiveData<List<Warehouse>>()
-    private val warehouse = MutableLiveData<List<Warehouse>>()
+    private val selectedWarehouse = MutableLiveData<List<Warehouse>?>()
+    private val defaultWarehouse = MutableLiveData<List<Warehouse>?>()
+    private val warehouse = MutableLiveData<List<Warehouse>?>()
 
     private var statusSyncCustomerToBK = MutableLiveData<DataSyncCustomerToBK>()
 
@@ -45,24 +45,28 @@ class CustomerViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     tryMe {
                         isExecute.postValue(true)
-                        logE("warehouse : ${response.body()?.data?.warehouses_default}")
                         val defaultWarehouseResponse = response.body()?.data?.warehouses_default
                         val selectedWarehouseResponse = response.body()?.data?.warehouses_selected
                         val warehouseRespone = response.body()?.data?.warehouses
-                        warehouseRespone?.forEach {wh->
-                            if (wh.id == defaultWarehouseResponse?.get(0)?.id){
-                                wh.isDefault = true
-                            }
-                            selectedWarehouseResponse?.forEach {whSelcted->
-                                if (wh.id == whSelcted.id){
-                                    wh.isSelected = true
+                        logE("warehouse2222 : ")
+                        if (selectedWarehouseResponse?.isNotEmpty()!!){
+                            warehouseRespone?.forEach {wh->
+                                if (wh.id == defaultWarehouseResponse?.get(0)?.id){
+                                    wh.isDefault = true
+                                }
+                                selectedWarehouseResponse.forEach {whSelcted->
+                                    if (wh.id == whSelcted.id){
+                                        wh.isSelected = true
+                                    }
+
                                 }
 
                             }
-
                         }
+                        logE("warehouse1111 : ")
 
                         defaultWarehouse.postValue(defaultWarehouseResponse)
+                        logE("warehouse3333 : ")
                         warehouse.postValue(warehouseRespone)
                         selectedWarehouse.postValue(selectedWarehouseResponse)
                     }
