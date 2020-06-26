@@ -34,6 +34,9 @@ class EditCustomerActivity : AppCompatActivity() {
     lateinit var viewModelCustomer: CustomerViewModel
     private val myDialog = MyDialog()
 
+    var idCustomerGroup: String? = null
+    var idPriceGroup: String? = null
+
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,8 +112,8 @@ class EditCustomerActivity : AppCompatActivity() {
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (findViewById<EditText>(R.id.et_name_edit_customer)?.text?.toString() ?: ""),
                 "email" to (findViewById<EditText>(R.id.et_email_edit_customer)?.text?.toString() ?: ""),
-                "customer_group_id" to (findViewById<Spinner>(R.id.sp_customer_group_edit_customer)?.selectedItem?.toString() ?: ""),
-                "price_group_id" to (findViewById<Spinner>(R.id.sp_price_group_edit_customer)?.selectedItem?.toString() ?: ""),
+                "customer_group_id" to (idCustomerGroup ?: "0"),
+                "price_group_id" to (idPriceGroup ?: "0"),
                 "company" to (findViewById<EditText>(R.id.et_company_name_edit_customer)?.text?.toString() ?: ""),
                 "address" to (findViewById<EditText>(R.id.et_address_edit_customer)?.text?.toString() ?: ""),
                 "vat_no" to (findViewById<EditText>(R.id.et_npwp_edit_customer)?.text?.toString() ?: ""),

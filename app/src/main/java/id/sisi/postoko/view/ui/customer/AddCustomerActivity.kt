@@ -44,6 +44,8 @@ class AddCustomerActivity : AppCompatActivity() {
     var listWarehouse: List<Warehouse>? = arrayListOf()
     private val myDialog = MyDialog()
     private val progressBar = CustomProgressBar()
+    var idCustomerGroup: String? = null
+    var idPriceGroup: String? = null
     private val pages = listOf(
         AddDataCustomerFragment(),
         AddWarehouseCustomerFragment()
@@ -272,8 +274,8 @@ class AddCustomerActivity : AppCompatActivity() {
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (findViewById<EditText>(R.id.et_name_add_customer)?.text?.toString() ?: ""),
                 "email" to (findViewById<EditText>(R.id.et_email_add_customer)?.text?.toString() ?: ""),
-                "customer_group_id" to (findViewById<Spinner>(R.id.sp_customer_group_add_customer)?.selectedItem?.toString() ?: ""),
-                "price_group_id" to (findViewById<Spinner>(R.id.sp_price_group_add_customer)?.selectedItem?.toString() ?: ""),
+                "customer_group_id" to (idCustomerGroup ?: "0"),
+                "price_group_id" to (idPriceGroup ?: "0"),
                 "company" to (findViewById<EditText>(R.id.et_company_name_add_customer)?.text?.toString() ?: ""),
                 "address" to (findViewById<EditText>(R.id.et_address_add_customer)?.text?.toString() ?: ""),
                 "vat_no" to (findViewById<EditText>(R.id.et_npwp_add_customer)?.text?.toString() ?: ""),

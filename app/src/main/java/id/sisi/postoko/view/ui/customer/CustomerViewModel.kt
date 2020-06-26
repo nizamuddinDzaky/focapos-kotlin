@@ -176,7 +176,6 @@ class CustomerViewModel : ViewModel() {
                     tryMe {
                         message.postValue(response.body()?.message)
                         if (logo != null){
-                            logE("asdsadsa => ${response.body()?.data?.id}")
 
                             postUploadLogoCustomer(logo, response.body()?.data?.id ?: "0"){
                                 isExecute.postValue(false)
