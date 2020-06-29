@@ -2,10 +2,12 @@ package id.sisi.postoko.network
 
 import android.annotation.SuppressLint
 import com.google.gson.GsonBuilder
+import id.sisi.postoko.BuildConfig
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.model.*
 import id.sisi.postoko.model.Response
 import id.sisi.postoko.utils.BASE_URL
+import id.sisi.postoko.utils.BASE_URL_DIRTY
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import org.greenrobot.eventbus.EventBus
@@ -408,8 +410,9 @@ interface ApiServices {
             val gson = GsonBuilder()
                 .setLenient()
                 .create()
+            val url = if (BuildConfig.DEBUG) BASE_URL_DIRTY else BASE_URL
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(getUnsafeOkHttpClient())
                 .build()
