@@ -9,7 +9,6 @@
         android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/et_top_margin"
         android:background="#fff">
 
         <ImageView
@@ -36,12 +35,12 @@
                 android:fontFamily="@font/roboto_bold" />
 
             <TextView
+                android:id="@+id/tv_subtitle_bottom_sheet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#676767"
                 android:layout_gravity="center"
                 android:textSize="@dimen/margin_10"
-                android:id="@+id/tv_subtitle_bottom_sheet"
                 android:fontFamily="@font/roboto_regular"
                 tools:ignore="SpUsage" />
 

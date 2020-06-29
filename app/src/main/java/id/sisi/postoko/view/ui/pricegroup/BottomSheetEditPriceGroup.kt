@@ -21,6 +21,7 @@ import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.MySpinnerAdapter
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.visible
@@ -49,6 +50,20 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
         priceGroup = arguments?.getParcelable(KEY_PRICE_GROUP)
 
         vmPriceGroup = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
+
+        vmPriceGroup.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+        vmPriceGroup.getIsExecute().observe(viewLifecycleOwner, Observer {
+            if (it && !progressBar.isShowing()) {
+                context?.let { ctx -> progressBar.show(ctx, getString(R.string.txt_please_wait)) }
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+
         vmWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
 
         tv_title_bottom_sheet.text = getString(R.string.title_activity_edit_price_group)
@@ -68,7 +83,7 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
                     return@map DataSpinner(pg.name, pg.id)
                 }.toMutableList(), hasHeader = getString(R.string.txt_choose_warehouse))
                 listWarehouse = it
-                sp_price_group_warehouse?.setIfExist(idWarehouse)
+                sp_price_group_warehouse?.setIfExist(priceGroup?.warehouse_id.toString())
             }
         })
 
@@ -79,6 +94,7 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
                 position: Int,
                 id: Long
             ) {
+
                 idWarehouse = if ((position-1) >= 0){
                     listWarehouse[position-1].id
                 }else{
@@ -109,18 +125,14 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
     private fun actionEditPriceGroup() {
         val numbersMap = validationEditPriceGroup()
         if (numbersMap["type"] as Boolean){
-            context?.let { progressBar.show(it, "Silakan tunggu...") }
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_price_group_name?.text?.toString() ?: ""),
                 "warehouse_id" to (idWarehouse?: "")
             )
 
             vmPriceGroup.putEditPriceGroup(body,priceGroup?.id.toString()){
-                Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
-                progressBar.dialog.dismiss()
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    listener()
-                }
+                this.dismiss()
+                listener()
             }
         }else{
             AlertDialog.Builder(context)

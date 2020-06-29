@@ -363,6 +363,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
 
     override fun onClickMinus(qty: Double, position: Int) {
         val quantity = listSaleItems[position].quantity?.minus(1.0)
+        val myDialog = MyDialog()
         if (quantity != null) {
             if (quantity < 1){
                 myDialog.confirmation(getString(R.string.txt_are_you_sure), context)

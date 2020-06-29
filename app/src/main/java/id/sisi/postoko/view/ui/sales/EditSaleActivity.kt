@@ -89,7 +89,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             et_discount_edit_sale.setText(sale?.order_discount.toString())
         if (sale?.shipping != 0.0 && sale?.shipping.toString() != "null")
             et_shipping_edit_sale.setText(sale?.shipping?.toInt().toString())
-        if (sale?.payment_term != 0)
+        if (sale?.payment_term != 0 && sale?.payment_term.toString() != "null")
             et_payment_term_edit_sale.setText(sale?.payment_term.toString())
         idWarehouse = sale?.warehouse_id.toString()
 

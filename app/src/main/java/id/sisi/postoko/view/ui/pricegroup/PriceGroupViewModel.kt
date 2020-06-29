@@ -1,25 +1,27 @@
 package id.sisi.postoko.view.ui.pricegroup
 
+import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
-import id.sisi.postoko.model.Customer
-import id.sisi.postoko.model.PriceGroup
-import id.sisi.postoko.model.Product
+import id.sisi.postoko.model.*
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_PRICE_GROUP
+import id.sisi.postoko.utils.TXT_URL_NOT_FOUND
 import id.sisi.postoko.utils.extensions.exe
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.tryMe
+import id.sisi.postoko.utils.helper.json2obj
 
 class PriceGroupViewModel : ViewModel() {
     private val priceGroup = MutableLiveData<List<PriceGroup>?>()
     private val customers = MutableLiveData<List<Customer>?>()
     private val productPrice = MutableLiveData<List<Product>?>()
     private var isExecute = MutableLiveData<Boolean>()
+    private var message = MutableLiveData<String?>()
 
     fun getListCustomerPriceGroup(id_price_group: String, getSelected: Boolean = false) {
         isExecute.postValue(true)
@@ -142,37 +144,28 @@ class PriceGroupViewModel : ViewModel() {
         )
     }
 
-    fun putEditPriceGroup(body: Map<String, Any?>, idPriceGroup: String, listener: (Map<String, Any>) -> Unit) {
+    fun putEditPriceGroup(body: Map<String, Any?>, idPriceGroup: String, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_PRICE_GROUP to idPriceGroup)
         ApiServices.getInstance()?.putEditPriceGroup(headers, params, body)?.exe(
-            onFailure = { _, _ ->
-                listener(
-                    mapOf(
-                        "networkRespone" to NetworkResponse.FAILURE,
-                        "message" to "koneksi gagal"
-                    )
-                )
+            onFailure = { _,  t->
+                message.postValue(t.toString())
                 isExecute.postValue(false)
             },
             onResponse = { _, response ->
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
-                    listener(
-                        mapOf(
-                            "networkRespone" to NetworkResponse.SUCCESS,
-                            "message" to response.message()
-                        )
-                    )
+                    isExecute.postValue(false)
+                    message.postValue(response.body()?.message)
+                    listener()
                 } else {
                     isExecute.postValue(false)
-                    listener(
-                        mapOf(
-                            "networkRespone" to NetworkResponse.ERROR,
-                            "message" to response.message()
-                        )
-                    )
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
@@ -201,37 +194,28 @@ class PriceGroupViewModel : ViewModel() {
         )
     }
 
-    fun putEditProductPrice(body: Map<String, Any?>, idPriceGroup: String, listener: (Map<String, Any>) -> Unit) {
+    fun putEditProductPrice(body: Map<String, Any?>, idPriceGroup: String, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_PRICE_GROUP to idPriceGroup)
         ApiServices.getInstance()?.putEditProductPrice(headers, params, body)?.exe(
-            onFailure = { _, _ ->
-                listener(
-                    mapOf(
-                        "networkRespone" to NetworkResponse.FAILURE,
-                        "message" to "koneksi gagal"
-                    )
-                )
+            onFailure = { _, t->
+                message.postValue(t.toString())
                 isExecute.postValue(false)
             },
             onResponse = { _, response ->
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
-                    listener(
-                        mapOf(
-                            "networkRespone" to NetworkResponse.SUCCESS,
-                            "message" to response.message()
-                        )
-                    )
+                    isExecute.postValue(false)
+                    message.postValue(response.body()?.message)
+                    listener()
                 } else {
                     isExecute.postValue(false)
-                    listener(
-                        mapOf(
-                            "networkRespone" to NetworkResponse.ERROR,
-                            "message" to response.message()
-                        )
-                    )
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
@@ -253,4 +237,6 @@ class PriceGroupViewModel : ViewModel() {
     internal fun getListCustomers(): LiveData<List<Customer>?> {
         return customers
     }
+
+    internal fun getMessage() = message
 }
