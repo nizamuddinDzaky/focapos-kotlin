@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.*
 import id.sisi.postoko.utils.KEY_ID_CUSTOMER
+import id.sisi.postoko.utils.MyPopupMenu
 import id.sisi.postoko.utils.extensions.MyToast
+import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.showErrorL
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.customer.DetailCustomerActivity
@@ -84,6 +86,8 @@ class ListMasterAdapter<T>(
                     itemView.tv_master_data_name?.text = value.name
                     itemView.tv_master_data_description?.text = value.warehouse_name
                     itemView.btn_menu_more?.visible()
+                    itemView.tv_master_data_description2.gone()
+                    itemView.tv_master_data_description.gone()
                     itemView.btn_menu_more?.setOnClickListener {
                         showPopupPriceGroup(it, value, listenerPriceGroup)
                     }
@@ -98,6 +102,7 @@ class ListMasterAdapter<T>(
                     itemView.tv_master_data_name?.text = value.name
                     itemView.tv_master_data_description?.text = formatRupiah.format(value.kredit_limit).toString()
                     itemView.btn_menu_more?.visible()
+                    itemView.tv_master_data_description2.gone()
                     itemView.btn_menu_more?.setOnClickListener {
                         showPopupCustomerGroup(it, value, listenerCustomerGroup)
                     }
@@ -109,86 +114,68 @@ class ListMasterAdapter<T>(
         }
 
         private fun showPopupPriceGroup(view: View, priceGroup: PriceGroup, listenerPriceGroup: (PriceGroup) -> Unit = {}) {
-            val popup = PopupMenu(view.context, view)
-            popup.inflate(R.menu.menu_more_price_group)
-
-            popup.setOnMenuItemClickListener { item: MenuItem? ->
-                when (item?.itemId) {
-                    R.id.menu_more_price_group_add_customer -> {
-                        AddCustomerPriceGroupActivity.show(
-                            fragmentActivity as FragmentActivity,
-                            priceGroup
-                        )
-                    }
-                    R.id.menu_more_price_group_edit -> {
-                        listenerPriceGroup(priceGroup)
-                    }
-                    R.id.menu_more_price_group_detail -> {
-                        DetailPriceGroupActivity.show(
-                            fragmentActivity as FragmentActivity,
-                            priceGroup
-                        )
-                    }
-                    else -> {
-                    }
+            val listAction: MutableList<() -> Unit?> = mutableListOf(
+                {
+                    AddCustomerPriceGroupActivity.show(
+                        fragmentActivity as FragmentActivity,
+                        priceGroup
+                    )
+                },
+                {
+                    listenerPriceGroup(priceGroup)
+                },
+                {
+                    DetailPriceGroupActivity.show(
+                        fragmentActivity as FragmentActivity,
+                        priceGroup
+                    )
                 }
-                true
-            }
+            )
 
-            popup.setOnDismissListener {
-                val outValue = TypedValue()
-                fragmentActivity?.theme?.resolveAttribute(
-                    android.R.attr.selectableItemBackground,
-                    outValue,
-                    true
-                )
-                itemView.setBackgroundResource(outValue.resourceId)
-            }
+            val listMenu: MutableList<String> = mutableListOf(
+                itemView.context.getString(R.string.txt_insert_customer_to_price_group),
+                itemView.context.getString(R.string.txt_edit_price_group),
+                itemView.context.getString(R.string.txt_see_detail)
+            )
 
-            itemView.setBackgroundColor(Color.LTGRAY)
-            popup.show()
+            MyPopupMenu(
+                view,
+                listMenu,
+                listAction,
+                highlight = itemView
+            ).show()
         }
 
         private fun showPopupCustomerGroup(view: View, customerGroup: CustomerGroup, listenerCustomerGroup: (CustomerGroup) -> Unit = {}) {
-            val popup = PopupMenu(view.context, view)
-            popup.inflate(R.menu.menu_more_customer_group)
 
-            popup.setOnMenuItemClickListener { item: MenuItem? ->
-                when (item?.itemId) {
-                    R.id.menu_more_customer_group_add_customer -> {
-                        AddCustomerToCustomerGoupActivity.show(
-                            fragmentActivity as FragmentActivity,
-                            customerGroup
-                        )
-                    }
-                    R.id.menu_more_customer_group_edit -> {
-
-                        listenerCustomerGroup(customerGroup)
-//                        fragmentActivity?.let {
-//                            BottomSheetEditCustomerGroupFragment.show(
-//                                it.supportFragmentManager,
-//                                customerGroup
-//                            )
-//                        }
-                    }
-                    else -> {
-                    }
+            val listAction: MutableList<() -> Unit?> = mutableListOf(
+                {
+                    AddCustomerToCustomerGoupActivity.show(
+                        fragmentActivity as FragmentActivity,
+                        customerGroup
+                    )
+                },
+                {
+                    listenerCustomerGroup(customerGroup)
                 }
-                true
+            )
+
+            val listMenu: MutableList<String> = mutableListOf(
+                itemView.context.getString(R.string.txt_insert_customer_to_customer_group),
+                itemView.context.getString(R.string.txt_edit_customer_group)
+            )
+
+            if (customerGroup.id == "1"){
+                listAction.removeAt(1)
+                listMenu.removeAt(1)
             }
 
-            popup.setOnDismissListener {
-                val outValue = TypedValue()
-                fragmentActivity?.theme?.resolveAttribute(
-                    android.R.attr.selectableItemBackground,
-                    outValue,
-                    true
-                )
-                itemView.setBackgroundResource(outValue.resourceId)
-            }
-
-            itemView.setBackgroundColor(Color.LTGRAY)
-            popup.show()
+            MyPopupMenu(
+                view,
+                listMenu,
+                listAction,
+                highlight = itemView
+            ).show()
         }
     }
 

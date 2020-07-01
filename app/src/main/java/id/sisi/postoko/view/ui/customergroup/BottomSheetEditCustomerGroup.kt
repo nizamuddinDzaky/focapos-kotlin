@@ -8,14 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.CustomerGroup
-import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_CUSTOMER_GROUP
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.visible
@@ -27,6 +27,8 @@ class BottomSheetEditCustomerGroup: BottomSheetDialogFragment() {
     private val progressBar = CustomProgressBar()
     private lateinit var mViewModel: CustomerGroupViewModel
     var listener: () -> Unit = {}
+    private val myDialog = MyDialog()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +38,21 @@ class BottomSheetEditCustomerGroup: BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mViewModel = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
+
+        mViewModel.getMessage().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+        mViewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
+            if (it && !progressBar.isShowing()) {
+
+                context?.let { ctx -> progressBar.show(ctx, getString(R.string.txt_please_wait)) }
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+
         et_customer_group_kredit_limit.addTextChangedListener(NumberSeparator(et_customer_group_kredit_limit))
 
         tv_subtitle_bottom_sheet.visible()
@@ -67,7 +84,6 @@ class BottomSheetEditCustomerGroup: BottomSheetDialogFragment() {
     private fun actionEditCustomerGroup() {
         val numbersMap = validationFormEditCustomerGroup()
         if (numbersMap["type"] as Boolean){
-            context?.let { progressBar.show(it, "Silakan tunggu...") }
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_customer_group_name?.text.toString()),
                 "percentage" to (et_customer_group_percentage?.text.toString()),
@@ -75,21 +91,11 @@ class BottomSheetEditCustomerGroup: BottomSheetDialogFragment() {
             )
 
             mViewModel.putEditCustomerGroup(body, customerGroup.id){
-                Toast.makeText(context, "" + it["message"], Toast.LENGTH_SHORT).show()
-                progressBar.dialog.dismiss()
-                if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                    listener()
-                }
+                this.dismiss()
+                listener()
             }
         }else{
-            context?.let {
-                AlertDialog.Builder(it)
-                    .setTitle("Konfirmasi")
-                    .setMessage(numbersMap["message"] as String)
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
-                    }
-                    .show()
-            }
+            myDialog.alert(numbersMap["message"] as String, context)
         }
     }
 

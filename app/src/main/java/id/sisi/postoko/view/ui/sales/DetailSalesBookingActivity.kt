@@ -32,7 +32,6 @@ class DetailSalesBookingActivity : BaseActivity() {
         setContentView(R.layout.detail_sales_booking_activity)
         setSupportActionBar(toolbar)
         idSalesBooking = intent.getIntExtra(KEY_ID_SALES_BOOKING, 0)
-        deliverStatusSale = intent.getStringExtra(KEY_DELIVERY_STATUS_SALE)
         saleStatus = intent.getStringExtra(KEY_SALE_STATUS)
 
         vmSale = ViewModelProvider(

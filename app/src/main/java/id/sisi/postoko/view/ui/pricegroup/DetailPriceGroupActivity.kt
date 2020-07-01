@@ -12,13 +12,18 @@ import id.sisi.postoko.adapter.ListProductPriceGroupAdapter
 import id.sisi.postoko.model.*
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
+import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseActivity
+import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.detail_price_group.*
 
 class DetailPriceGroupActivity : BaseActivity() {
     private var priceGroup: PriceGroup? = PriceGroup(name = "ForcaPoS")
     private lateinit var adapter: ListProductPriceGroupAdapter
     private lateinit var vmPriceGroup: PriceGroupViewModel
+    private val progressBar = CustomProgressBar()
+    private val myDialog = MyDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +40,23 @@ class DetailPriceGroupActivity : BaseActivity() {
         setupRecycleView()
 
         vmPriceGroup = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
+
+        vmPriceGroup.getMessage().observe(this, Observer {
+            it?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+        vmPriceGroup.getIsExecute().observe(this, Observer {
+            if (it && !progressBar.isShowing()) {
+                progressBar.show(this, getString(R.string.txt_please_wait))
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+
         vmPriceGroup.getListProductPrice().observe(this, Observer {
             val firstListCustomer = it
+            progressBar.dialog.dismiss()
             adapter.updateSalesData(firstListCustomer)
         })
 
@@ -63,10 +83,7 @@ class DetailPriceGroupActivity : BaseActivity() {
         )
 
         vmPriceGroup.putEditProductPrice(body, priceGroup?.id.toString()){
-            Toast.makeText(this, ""+it["message"], Toast.LENGTH_SHORT).show()
-            if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
-                vmPriceGroup.getListProductPrice(priceGroup?.id.toString())
-            }
+            vmPriceGroup.getListProductPrice(priceGroup?.id.toString())
         }
     }
 

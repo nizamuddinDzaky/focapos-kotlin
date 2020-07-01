@@ -2,9 +2,11 @@ package id.sisi.postoko.view.ui.sales
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -143,8 +145,34 @@ class DetailSalesBookingFragment : Fragment() {
         sale?.let {
             tv_sale_detail_sbo_sale_status?.text =
                 getString(SaleStatus.PENDING.tryValue(sale.sale_status)?.stringId ?: R.string.empty)
+
+            tv_sale_detail_sbo_delivery_status?.text =
+                it.delivery_status?.toDisplayStatus()?.let { str -> getString(str) }
         }
-        tv_sale_detail_sbo_delivery_status?.text = (activity as DetailSalesBookingActivity).deliverStatusSale
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (sale?.delivery_status != null){
+                context?.getColor(sale.delivery_status?.toDisplayStatusColor() ?: 0)?.let {
+                    tv_sale_detail_sbo_delivery_status.setTextColor(
+                        it
+                    )
+                }
+            }
+
+            context?.getColor(sale?.sale_status?.toDisplayStatusColor() ?: 0)?.let {
+                tv_sale_detail_sbo_sale_status.setTextColor(
+                    it
+                )
+            }
+
+        }else{
+            if (sale?.delivery_status != null){
+                tv_sale_detail_sbo_delivery_status.setTextColor(ResourcesCompat.getColor(context?.resources!!, sale?.delivery_status?.toDisplayStatusColor() ?: 0, null))
+            }
+            tv_sale_detail_sbo_sale_status.setTextColor(ResourcesCompat.getColor(context?.resources!!, sale?.sale_status?.toDisplayStatusColor() ?: 0, null))
+        }
+
+        /*tv_sale_detail_sbo_delivery_status?.text = sale*/
         tv_sale_detail_sbo_discount?.text = sale?.total_discount?.toCurrencyID()
         tv_sale_detail_sbo_total?.text = sale?.total?.toCurrencyID()
         tv_sale_detail_sbo_paid?.text = sale?.paid?.toCurrencyID()
@@ -174,7 +202,7 @@ class DetailSalesBookingFragment : Fragment() {
         return when (item.itemId) {
             R.id.menu_edit -> {
                 val result = validationActionEditSale()
-                if (!(result[KEY_VALIDATION_REST] as Boolean)) {
+                if (!(result?.get(KEY_VALIDATION_REST) as Boolean)) {
                     myDialog.alert(result[KEY_MESSAGE] as String, context)
                 } else {
                     val intent = Intent((activity as DetailSalesBookingActivity), EditSaleActivity::class.java)
@@ -196,21 +224,23 @@ class DetailSalesBookingFragment : Fragment() {
         }
     }
 
-    private fun validationActionEditSale(): Map<String, Any> {
+    private fun validationActionEditSale(): Map<String, Any>? {
         var message = ""
         logE("${sale?.delivery_status}")
         var cek = true
-        if (sale?.sale_status == SaleStatus.values()[1].name.toLowerCase(Locale.getDefault())) {
+        if (sale?.sale_status == SaleStatus.values()[2].name.toLowerCase(Locale.getDefault())) {
             message += "- ${getString(R.string.txt_sale_reserved)}\n"
             cek = false
+            return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
         }
-        if ((activity as DetailSalesBookingActivity).deliverStatusSale.toLowerCase(Locale.ROOT) != DeliveryStatus.PENDING.toString()
+        if (sale?.delivery_status?.toLowerCase(Locale.ROOT) != DeliveryStatus.PENDING.toString()
                 .toLowerCase(
                     Locale.ROOT
                 )
         ) {
             message += "- ${getString(R.string.txt_alert_sale_has_delivery)}\n"
             cek = false
+            return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
         }
         return mapOf(KEY_MESSAGE to message, KEY_VALIDATION_REST to cek)
     }

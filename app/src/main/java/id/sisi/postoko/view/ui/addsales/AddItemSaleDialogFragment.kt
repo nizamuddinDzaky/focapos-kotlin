@@ -49,8 +49,13 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
         }
 
         iv_minus.setOnClickListener {
-            product.sale_qty -= 1
-            et_sale_item_qty.setText(product.sale_qty.toString())
+            val qty = product.sale_qty - 1
+            if (qty < 1){
+                myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
+            }else{
+                product.sale_qty -= qty
+                et_sale_item_qty.setText(product.sale_qty.toString())
+            }
         }
 
         if (!product.isSelected){

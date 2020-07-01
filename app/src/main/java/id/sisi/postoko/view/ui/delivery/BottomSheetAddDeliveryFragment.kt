@@ -363,17 +363,10 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
 
     override fun onClickMinus(qty: Double, position: Int) {
         val quantity = listSaleItems[position].quantity?.minus(1.0)
+
         if (quantity != null) {
             if (quantity < 1){
-                myDialog.confirmation(getString(R.string.txt_are_you_sure), context)
-                myDialog.listenerPositif = {
-                    listSaleItems[position].quantity = quantity
-                    listSaleItems.removeAt(position)
-                    adapter.notifyDataSetChanged()
-                }
-                myDialog.listenerNegatif = {
-                    adapter.notifyDataSetChanged()
-                }
+                removeItem(position)
             }else{
                 listSaleItems[position].quantity = quantity
                 listSaleItems[position].subtotal = listSaleItems[position].quantity?.times(listSaleItems[position].unit_price!!)
@@ -383,14 +376,7 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
     }
 
     override fun onClickDelete(position: Int) {
-        myDialog.confirmation(getString(R.string.txt_are_you_sure), context)
-        myDialog.listenerPositif = {
-            listSaleItems.removeAt(position)
-            adapter.notifyDataSetChanged()
-        }
-        myDialog.listenerNegatif = {
-            adapter.notifyDataSetChanged()
-        }
+        removeItem(position)
     }
 
     override fun onChange(position: Int) {
@@ -528,6 +514,23 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, selectedUri)
         startActivityForResult(cameraIntent, RC_IMAGE_CAPTURE_CODE)
+    }
+
+    private fun removeItem(position: Int){
+
+        val myDialog = MyDialog()
+        if(listSaleItems.size > 1){
+            myDialog.confirmation(getString(R.string.txt_are_you_sure), context)
+            myDialog.listenerPositif = {
+                listSaleItems.removeAt(position)
+                adapter.notifyDataSetChanged()
+            }
+            myDialog.listenerNegatif = {
+                adapter.notifyDataSetChanged()
+            }
+        }else{
+            myDialog.alert(getString(R.string.txt_alert_item_sale), context)
+        }
     }
 }
 

@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.DataSpinner
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MySpinnerAdapter
+import id.sisi.postoko.utils.NumberSeparator
 import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.list_item_product_price_group.view.*
 
@@ -59,6 +61,8 @@ class ListProductPriceGroupAdapter(private var product: List<Product>? = arrayLi
             itemView.tv_product_code.text = value?.product_code
             itemView.tv_alias_product?.text = getAlias(value?.product_name)
 
+            itemView.et_price.addTextChangedListener(NumberSeparator(itemView.et_price))
+            itemView.et_price_credit.addTextChangedListener(NumberSeparator(itemView.et_price_credit))
             /*itemView.et_price_credit.addTextChangedListener(numberSparator.onTextChangedListener(itemView.et_price_credit))
             itemView.et_price.addTextChangedListener(numberSparator.onTextChangedListener(itemView.et_price))*/
 
@@ -92,6 +96,10 @@ class ListProductPriceGroupAdapter(private var product: List<Product>? = arrayLi
             }
 
             itemView.btn_action_submit.setOnClickListener {
+                val mandatory = listOf<EditText>(itemView.et_price)
+                if (!mandatory.validation()) {
+                    return@setOnClickListener
+                }
                 val newProduct = Product(
                     id = value.id,
                     price = itemView.et_price.tag.toString().toInt(),

@@ -75,7 +75,6 @@ class SBAdapter :
                         val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
                         page.putExtra(KEY_ID_SALES_BOOKING, sale.id)
                         page.putExtra(KEY_SALE_STATUS, sale.sale_status)
-                        page.putExtra(KEY_DELIVERY_STATUS_SALE, sale.delivery_status)
                         itemView.context.startActivity(page)
                     }
                 )
