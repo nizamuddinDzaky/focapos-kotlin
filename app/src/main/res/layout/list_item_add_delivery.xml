@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="#636363"
-                android:text="@string/txt_delivery_total_qty" />
+                android:text="@string/txt_retur_total_qty" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
