@@ -479,6 +479,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="@string/txt_delivery_fee"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean" />
+
+                    <TextView
+                        android:id="@+id/tv_payment_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/text_grey"
+                        tools:targetApi="jelly_bean"
+                        tools:text="Rp 96.000.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/et_top_margin">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="@string/txt_final_amount_idr"
                         android:fontFamily="@font/roboto_bold"
                         android:textColor="@color/text_grey"

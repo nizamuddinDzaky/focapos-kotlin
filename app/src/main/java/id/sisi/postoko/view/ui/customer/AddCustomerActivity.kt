@@ -22,6 +22,7 @@ import com.bumptech.glide.request.RequestOptions
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.delivery.DialogFragmentSelectMedia
@@ -46,6 +47,9 @@ class AddCustomerActivity : AppCompatActivity() {
     private val progressBar = CustomProgressBar()
     var idCustomerGroup: String? = null
     var idPriceGroup: String? = null
+    var provinsiSelected: String? = null
+    var districtSelected: String? = null
+    var stateSelected: String? = null
     private val pages = listOf(
         AddDataCustomerFragment(),
         AddWarehouseCustomerFragment()
@@ -81,6 +85,8 @@ class AddCustomerActivity : AppCompatActivity() {
         })
 
         btn_action_submit.setOnClickListener {
+            logE("$provinsiSelected")
+
             val mandatory = listOf<EditText>(
                 findViewById(R.id.et_name_add_customer),
                 findViewById(R.id.et_email_add_customer),

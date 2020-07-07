@@ -176,6 +176,7 @@ class DetailSalesBookingFragment : Fragment() {
         tv_sale_detail_sbo_discount?.text = sale?.total_discount?.toCurrencyID()
         tv_sale_detail_sbo_total?.text = sale?.total?.toCurrencyID()
         tv_sale_detail_sbo_paid?.text = sale?.paid?.toCurrencyID()
+        tv_payment_fee?.text = sale?.shipping?.toCurrencyID()
         tv_sale_detail_grand_total?.text = (sale?.grand_total?.minus(sale.paid ?: 0.0))?.toCurrencyID()
         tv_employee_note?.text = sale?.staff_note
         tv_sale_note?.text = sale?.note
