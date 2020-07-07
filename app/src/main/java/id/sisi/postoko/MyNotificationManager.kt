@@ -1,17 +1,23 @@
 package id.sisi.postoko
 
 import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.text.Html
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
+import id.sisi.postoko.utils.extensions.logE
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+
 
 class MyNotificationManager(var mCtx : Context) {
     private val NOTIFICATION = 234
@@ -48,7 +54,7 @@ class MyNotificationManager(var mCtx : Context) {
             .setLargeIcon(BitmapFactory.decodeResource(mCtx.resources, R.drawable.plus))
             .setContentText(message)
             .build()
-        notification.flags = notification.flags or Notification.FLAG_AUTO_CANCEL
+        /*notification.flags = notification.flags or Notification.FLAG_AUTO_CANCEL*/
         val notificationManager =
             mCtx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(NOTIFICATION, notification)
@@ -62,6 +68,7 @@ class MyNotificationManager(var mCtx : Context) {
         message: String?,
         intent: Intent?
     ) {
+
         val resultPendingIntent = PendingIntent.getActivity(
             mCtx,
             NOTIFICATION1,
@@ -78,10 +85,11 @@ class MyNotificationManager(var mCtx : Context) {
             .setLargeIcon(BitmapFactory.decodeResource(mCtx.resources, R.drawable.plus))
             .setContentText(message)
             .build()
-        notification.flags = notification.flags or Notification.FLAG_AUTO_CANCEL
+        /*notification.flags = notification.flags or Notification.FLAG_AUTO_CANCEL*/
         val notificationManager =
-            mCtx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            mCtx.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(NOTIFICATION1, notification)
+        logE("sddsfsfdsfsfdf")
     }
 
     //The method will return Bitmap from an image URL

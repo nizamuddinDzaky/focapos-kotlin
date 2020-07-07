@@ -355,4 +355,8 @@
     <string name="txt_id_bk">ID BK</string>
     <string name="info_gudang">Info Gudang</string>
     <string name="txt_retur_total_qty">Jumlah Kembali</string>
+    <string name="txt_choose_province">Pilih Provinsi</string>
+    <string name="txt_choose_district">Pilih Kabupaten</string>
+    <string name="txt_choose_state">Pilih Kecamatan</string>
+    <string name="txt_delivery_payment">Biaya Pengiriman</string>
 </resources>

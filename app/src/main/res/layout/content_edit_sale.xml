@@ -236,7 +236,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/et_top_margin"
-                    android:text="@string/txt_delivery_fee"
+                        android:text="@string/txt_delivery_fee"
                     android:textColor="@color/text_grey"
                     android:fontFamily="@font/roboto_bold" />
 

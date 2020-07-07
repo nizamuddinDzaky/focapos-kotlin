@@ -1,37 +1,25 @@
 package id.sisi.postoko.view.ui.customer
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.RadioButton
-import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.tiper.MaterialSpinner
-
 import id.sisi.postoko.R
 import id.sisi.postoko.model.CustomerGroup
 import id.sisi.postoko.model.DataSpinner
 import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.utils.MySpinnerAdapter
-import id.sisi.postoko.utils.extensions.logE
-import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.view.BaseFragment
-import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.customergroup.CustomerGroupViewModel
 import id.sisi.postoko.view.ui.daerah.DaerahViewModel
 import id.sisi.postoko.view.ui.pricegroup.PriceGroupViewModel
 import kotlinx.android.synthetic.main.fragment_add_data_customer.view.*
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.util.ArrayList
+import java.util.*
 
 class AddDataCustomerFragment : BaseFragment() {
 
@@ -50,10 +38,6 @@ class AddDataCustomerFragment : BaseFragment() {
         fun newInstance() = AddDataCustomerFragment()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override var tagName: String
         get() = "Pelanggan"
         set(_) {}
@@ -68,6 +52,7 @@ class AddDataCustomerFragment : BaseFragment() {
                 android.R.layout.simple_spinner_dropdown_item
             )
         }
+
         mViewModelCustomerGroup = ViewModelProvider(this).get(CustomerGroupViewModel::class.java)
         mViewModelCustomerGroup.getListCustomerGroup()
         mViewModelCustomerGroup.getListCustomerGroups().observe(viewLifecycleOwner, Observer {
@@ -124,14 +109,38 @@ class AddDataCustomerFragment : BaseFragment() {
         view.sp_provinsi_group_add_customer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                mViewModelDaerah.getCity(provinceList[position])
+
+                if((position-1) >= 0){
+                    (activity as AddCustomerActivity).provinsiSelected = provinceList[position-1]
+                    mViewModelDaerah.getCity(provinceList[position]).toString()
+                }else{
+                    (activity as AddCustomerActivity).provinsiSelected = null
+                }
             }
         }
 
         view.sp_district_group_add_customer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                mViewModelDaerah.getStates(cityList[position])
+
+                if((position-1) >= 0){
+                    (activity as AddCustomerActivity).districtSelected = cityList[position-1]
+                    mViewModelDaerah.getStates(cityList[position])
+                }else{
+                    (activity as AddCustomerActivity).districtSelected = null
+                }
+            }
+        }
+
+        view.sp_city_group_add_customer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                if((position-1) >= 0){
+                    (activity as AddCustomerActivity).stateSelected = villageList[position-1]
+                }else{
+                    (activity as AddCustomerActivity).stateSelected = null
+                }
             }
         }
 
@@ -179,32 +188,56 @@ class AddDataCustomerFragment : BaseFragment() {
         })
 
         mViewModelDaerah.getProvince()
-
+        setUICity(view)
+        setUIStates(view)
         return view
     }
 
     private fun setUIProvince(view2: View){
-        view2.sp_provinsi_group_add_customer.adapter = ArrayAdapter(
-            activity!!.applicationContext,
-            android.R.layout.simple_spinner_dropdown_item,
-            provinceList
-        )
+        val adapter = context?.let {
+            MySpinnerAdapter(
+                it,
+                android.R.layout.simple_spinner_dropdown_item
+            )
+        }
+        provinceList.let {
+            adapter?.udpateView(it.map { prov->
+                return@map DataSpinner(prov , prov)
+            }.toMutableList(), hasHeader = getString(R.string.txt_choose_province))
+        }
+        view2.sp_provinsi_group_add_customer.adapter = adapter
     }
 
     private fun setUICity(view2: View){
-        view2.sp_district_group_add_customer.adapter = ArrayAdapter(
-            activity!!.applicationContext,
-            android.R.layout.simple_spinner_dropdown_item,
-            cityList
-        )
+        val adapter = context?.let {
+            MySpinnerAdapter(
+                it,
+                android.R.layout.simple_spinner_dropdown_item
+            )
+        }
+
+        cityList.let {
+            adapter?.udpateView(it.map { city->
+                return@map DataSpinner(city , city)
+            }.toMutableList(), hasHeader = getString(R.string.txt_choose_district))
+        }
+        view2.sp_district_group_add_customer.adapter = adapter
     }
 
     private fun setUIStates(view2: View){
-        view2.sp_city_group_add_customer.adapter = ArrayAdapter(
-            activity!!.applicationContext,
-            android.R.layout.simple_spinner_dropdown_item,
-            villageList
-        )
+        val adapter = context?.let {
+            MySpinnerAdapter(
+                it,
+                android.R.layout.simple_spinner_dropdown_item
+            )
+        }
+
+        villageList.let {
+            adapter?.udpateView(it.map { state->
+                return@map DataSpinner(state , state)
+            }.toMutableList(), hasHeader = getString(R.string.txt_choose_state))
+        }
+        view2.sp_city_group_add_customer.adapter = adapter
     }
 
 

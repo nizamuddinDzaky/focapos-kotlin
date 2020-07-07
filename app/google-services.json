@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "396460601207-3ia8kvsc0m82jtmmlj0nck42ucb3vrjf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.sisi.postoko",
+            "certificate_hash": "79ce1689d38deea995c1d98efb86c75ee1f6ac1f"
+          }
+        },
+        {
           "client_id": "396460601207-lvetmq1cgohpepjbef3314fg0q93fsqk.apps.googleusercontent.com",
           "client_type": 3
         }
