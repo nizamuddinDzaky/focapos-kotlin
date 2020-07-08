@@ -67,7 +67,7 @@ class SBAdapter :
                 }
                 itemView.tv_customer_name?.text = it.customer
                 itemView.tv_sales_total_price?.text = it.grand_total?.toCurrencyID()
-                val seeDetail = "Di Buat Oleh ${it.created_by}"
+                val seeDetail = "Dibuat Oleh ${it.created_by}"
                 itemView.tv_sales_detail?.text = seeDetail
 
                 val listAction: MutableList<() -> Unit?> = mutableListOf(

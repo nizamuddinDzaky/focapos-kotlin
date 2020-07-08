@@ -103,7 +103,6 @@ class DashboardFragment : Fragment() {
                 val mFragment: DashboardPiechartFragment = adapter.getItem(view_pager_dashboard.currentItem) as DashboardPiechartFragment
                 if(warehouseName != null){
                     mFragment.tv_warehouse_name_piechart.text = warehouseName
-                    mFragment.iv_delete_warehouse_piechart.visible()
                 }
                 mFragment.refresh(selectedYear, idWarehouse)
                 tv_date_filter.text = outputDateFormat.format(inputDateFormat.parse("$selectedYear ${selectedMonth+1}"))

@@ -46,20 +46,21 @@ class ListItemDeliveryAdapter<T>(
                     unsentQty = value.unit_quantity?.minus(value.sent_quantity) ?: 0.0
                     strUnsentQty = "${unsentQty.toInt().toNumberID()} ${value.product_unit_code}"
                     quantity = value.quantity ?: 0.0
+                    itemView.tv_title_qty.text = itemView.context.getText(R.string.txt_delivery_total_qty)
 
                     itemView.tv_sale_item_name?.text = value.product_name
                     itemView.tv_product_code?.text = value.product_code
                     val strQtySale = "${value.unit_quantity?.toNumberID()} ${value.product_unit_code}"
                     itemView.tv_sale_item_qty_unit_name?.text = strQtySale
                     itemView.tv_alias_product?.text = value.product_name.toAlias()
-
+                    itemView.tv_title_unsent_qty.text = itemView.context.getText(R.string.txt_not_yet_sent)
                 }
 
                 is DeliveryItem -> {
-                    unsentQty = (value.quantity_ordered?.minus(value.all_sent_qty ?: 0.0)) ?: 0.0
-                    strUnsentQty = "${unsentQty.toNumberID()} ${value.product_unit_code}"
+                    strUnsentQty = "${value.quantity_sent?.toNumberID()} ${value.product_unit_code}"
                     quantity = value.quantity_sent ?: 0.0
-
+                    itemView.tv_title_qty.text = itemView.context.getText(R.string.txt_retur_total_qty)
+                    itemView.tv_title_unsent_qty.text = itemView.context.getText(R.string.txt_sent)
                     itemView.tv_sale_item_name?.text = value.product_name
                     itemView.tv_product_code?.text = value.product_code
                     val strQtySale = "${value.quantity_ordered?.toNumberID()} ${value.product_unit_code}"

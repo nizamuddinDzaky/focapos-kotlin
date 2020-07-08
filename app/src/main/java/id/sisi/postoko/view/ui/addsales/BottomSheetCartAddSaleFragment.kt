@@ -112,7 +112,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
     }
 
     override fun onChange(product: Product?) {
-        myDialog.qty(product?.name ?: "",getString(R.string.txt_sale_quantity), product?.sale_qty ?: 0, context)
+        myDialog.qty(product?.name ?: "",getString(R.string.txt_sale_quantity), product?.sale_qty ?: 0, context, product?.unit_name)
         myDialog.listenerPositifNote={ qty ->
             val index = listProduct.indexOf(product)
             if (TextUtils.isEmpty(qty)){

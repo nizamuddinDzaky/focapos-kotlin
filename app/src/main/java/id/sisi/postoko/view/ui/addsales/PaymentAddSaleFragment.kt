@@ -93,7 +93,8 @@ class PaymentAddSaleFragment: Fragment() {
                 return@map mutableMapOf(
                     "product_id" to it.id,
                     "price" to it.price.toString(),
-                    "quantity" to it.sale_qty
+                    "quantity" to it.sale_qty,
+                    "discount" to it.discount
                 )
             }
 

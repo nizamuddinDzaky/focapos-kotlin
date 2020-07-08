@@ -92,8 +92,8 @@
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_margin"
-        android:backgroundTint="@color/text_blue"
         android:src="@drawable/add_payment"
-        tools:targetApi="lollipop" />
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/text_blue" />
 
 </RelativeLayout>

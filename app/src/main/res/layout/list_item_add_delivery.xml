@@ -100,12 +100,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_title_unsent_qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="#636363"
-                android:text="@string/txt_not_yet_sent" />
+                tools:text="@string/txt_not_yet_sent" />
 
             <TextView
                 android:id="@+id/tv_qty_unsent"
@@ -124,6 +125,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_title_qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"

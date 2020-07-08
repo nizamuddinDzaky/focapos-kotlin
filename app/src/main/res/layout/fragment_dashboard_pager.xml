@@ -38,15 +38,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:textStyle="bold"
-                    android:text="@string/txt_warehouse"
+                    android:text="@string/txt_all_warehouse"
                     android:textColor="#858484"
                     android:gravity="center_vertical"/>
-                <ImageView
-                    android:id="@+id/iv_delete_warehouse_piechart"
-                    android:layout_width="50dp"
-                    android:visibility="gone"
-                    android:layout_height="50dp"
-                    android:src="@drawable/building_icon_foreground"/>
             </LinearLayout>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView

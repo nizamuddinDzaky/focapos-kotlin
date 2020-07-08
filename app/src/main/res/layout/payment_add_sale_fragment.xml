@@ -239,7 +239,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColor="#666666"
-            android:text="Buat Pengiriman Setelah Menyimpan Data Sale" />
+            android:text="@string/txt_confirm_add_data_delivery" />
     </LinearLayout>
 
     <Button
@@ -247,7 +247,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height_bottom_sheet"
         android:background="@color/main_green"
-        android:text="@string/txt_continue"
+        android:text="@string/txt_action_save"
         android:textAllCaps="false"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/et_top_margin"
