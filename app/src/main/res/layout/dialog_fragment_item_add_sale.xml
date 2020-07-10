@@ -51,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
+                android:textColor="#666666"
                 tools:text="Rp50.000"
                 />
         </LinearLayout>
@@ -115,9 +116,9 @@
         android:layout_marginRight="@dimen/et_top_margin"
         android:background="@color/main_green"
         android:text="@string/txt_add_to_cart"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:fontFamily="@font/roboto_regular"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@android:color/white" />
 
     <Button
@@ -129,8 +130,8 @@
         android:layout_marginRight="@dimen/et_top_margin"
         android:background="@color/main_red"
         android:text="@string/txt_remove_from_cart"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:fontFamily="@font/roboto_regular"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@android:color/white" />
 </LinearLayout>

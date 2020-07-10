@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
 import id.sisi.postoko.view.ui.warehouse.WarehouseDialogFragment
@@ -74,8 +76,12 @@ class AddItemAddSaleFragment: Fragment() {
         }
 
         if (!expanded){
+            iv_arrow_up.visible()
+            iv_arrow_down.gone()
             expandable_layout.collapse(true)
         }else{
+            iv_arrow_up.gone()
+            iv_arrow_down.visible()
             expandable_layout.expand(true)
         }
 
@@ -83,8 +89,12 @@ class AddItemAddSaleFragment: Fragment() {
             expanded = !expanded
 
             if (!expanded){
+                iv_arrow_up.visible()
+                iv_arrow_down.gone()
                 expandable_layout.collapse(true)
             }else{
+                iv_arrow_up.gone()
+                iv_arrow_down.visible()
                 expandable_layout.expand(true)
             }
         }

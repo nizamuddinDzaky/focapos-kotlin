@@ -18,6 +18,7 @@ import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import kotlinx.android.synthetic.main.fragment_bottom_cart_add_sale.*
 
 class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSaleAdapter.OnClickListenerInterface {
@@ -56,6 +57,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
         btn_close.setOnClickListener {
             this.dismiss()
         }
+        (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(PaymentAddSaleFragment.TAG))
     }
 
     private fun setUpTotal(){
