@@ -125,7 +125,17 @@ class AddSaleActivity : BaseActivity() {
         return totalSelected
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    fun showCart(){
+        val bottomSheetCartAddSaleFragment = BottomSheetCartAddSaleFragment
+        bottomSheetCartAddSaleFragment.show(supportFragmentManager)
+        bottomSheetCartAddSaleFragment.listener={
+            setUpBadge()
+            setUpTotal()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.menu_cart, menu)
         val menuItem = menu?.findItem(R.id.action_cart)
@@ -142,7 +152,7 @@ class AddSaleActivity : BaseActivity() {
             }
         }
         return true
-    }
+    }*/
 
     override fun onBackPressed() {
         when(currentFragmentTag){

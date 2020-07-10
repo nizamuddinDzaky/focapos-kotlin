@@ -1,9 +1,8 @@
 package id.sisi.postoko.view.ui.addsales
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
@@ -167,6 +166,19 @@ class AddItemAddSaleFragment: Fragment() {
         }
         dialogFragment.show(childFragmentManager, AddItemSaleDialogFragment(product).tag)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_cart, menu)
+        val actionView = menu.findItem(R.id.action_cart)?.actionView
+        val total = (activity as? AddSaleActivity)?.countItemSelected()
+        actionView?.rootView?.findViewById<TextView>(R.id.cart_badge)?.text = total.toString()
+        actionView?.setOnClickListener {
+            (activity as? AddSaleActivity)?.showCart()
+        }
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
 
     companion object {
         val TAG: String = AddItemAddSaleFragment::class.java.simpleName
