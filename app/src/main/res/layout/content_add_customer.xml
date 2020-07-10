@@ -75,13 +75,13 @@
             android:id="@+id/btn_action_submit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height_bottom_sheet"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/et_top_margin"
-            android:layout_marginRight="@dimen/et_top_margin"
+            android:layout_margin="@dimen/margin_10"
             android:background="@color/main_green"
             android:text="@string/txt_action_save"
             android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:fontFamily="@font/roboto_regular"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_alignParentBottom="true"
             android:textColor="@android:color/white" />
     </LinearLayout>
 </RelativeLayout>

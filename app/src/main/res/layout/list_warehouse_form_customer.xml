@@ -23,6 +23,7 @@
                 android:id="@+id/cb_select_warehouse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="#1CA865"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginStart="@dimen/et_top_margin" />
             <RelativeLayout
@@ -65,8 +66,10 @@
                 android:id="@+id/cb_default_warehouse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="#1CA865"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginEnd="@dimen/et_top_margin"/>
+                android:layout_marginEnd="@dimen/et_top_margin"
+                tools:targetApi="lollipop" />
             <!--<CheckBox
                 android:id="@+id/cb_default_warehouse"
                 android:layout_width="wrap_content"

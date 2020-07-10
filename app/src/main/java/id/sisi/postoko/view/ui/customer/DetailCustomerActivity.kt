@@ -76,7 +76,7 @@ class DetailCustomerActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_edit_sale, menu)
+        menuInflater.inflate(R.menu.menu_edit, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -91,7 +91,7 @@ class DetailCustomerActivity : AppCompatActivity() {
                 super.onBackPressed()
                 true
             }
-            R.id.menu_edit -> {
+            R.id.menu_edit_sale -> {
                 val intent = Intent(this, EditCustomerActivity::class.java)
                 intent.putExtra("customer", customer)
                 startActivityForResult(intent, 1)

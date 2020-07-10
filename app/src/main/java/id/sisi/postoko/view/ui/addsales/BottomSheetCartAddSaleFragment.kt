@@ -25,7 +25,8 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
     var position: Int? = null
     private lateinit var adapterCart: ListCartAddSaleAdapter
     private var listProduct: List<Product> = arrayListOf()
-    var listener: () -> Unit = {}
+    private var btnClicked: Boolean = false
+    var listener: (btnClicked: Boolean) -> Unit = {}
     private val myDialog = MyDialog()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -57,7 +58,11 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
         btn_close.setOnClickListener {
             this.dismiss()
         }
-        (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(PaymentAddSaleFragment.TAG))
+
+        btn_action_submit.setOnClickListener {
+            this.dismiss()
+            (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(PaymentAddSaleFragment.TAG))
+        }
     }
 
     private fun setUpTotal(){
@@ -141,18 +146,18 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        listener()
+        listener(btnClicked)
     }
 
     companion object {
-        var listener: () -> Unit = {}
+        var listener: (btnClicked: Boolean) -> Unit = {}
         fun show(
             fragmentManager: FragmentManager
         ) {
 
             val bottomSheetFragment = BottomSheetCartAddSaleFragment()
             bottomSheetFragment.listener={
-                listener()
+                listener(it)
             }
             bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
         }

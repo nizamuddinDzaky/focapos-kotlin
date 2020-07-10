@@ -322,7 +322,7 @@
     <string name="title_activity_add_item_add_sale">AddItemAddSaleActivity</string>
     <string name="txt_add_to_cart">Tambah Ke Keranjang</string>
     <string name="txt_cart">Keranjang</string>
-    <string name="txt_action_sure">Yakin</string>
+    <string name="txt_action_sure">Simpan</string>
     <string name="txt_notif_remove_cart">Anda yakin akan menghapus barang dari keranjang?</string>
     <string name="txt_notif_syn_to_bk">Anda yakin akan melakukan sinkron data pelanggan?</string>
     <string name="txt_alert_item_sale">Silahkan Pilih Item Terlebih Dahulu</string>
@@ -349,6 +349,7 @@
     <string name="txt_value_credit_card">CC</string>
     <string name="txt_value_gift_card">gift_card</string>
     <string name="txt_value_bank">bank</string>
+    <string name="txt_ok">OK</string>
     <string name="txt_proifle">Profile</string>
     <string name="txt_must_reserved">Status Pengiriman Harus "Dipesan"</string>
     <string name="txt_confirm_unduh">Lampiran Akan Di Unduh, Apakah Anda Yakin ?</string>

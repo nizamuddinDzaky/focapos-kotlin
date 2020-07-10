@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:layout_marginBottom="@dimen/margin_10"
-            app:cardCornerRadius="4dp">
+            android:layout_marginTop="@dimen/margin_10">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,10 +50,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/standard_margin"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:src="@android:drawable/ic_input_add"
-        android:tint="@android:color/white" />
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/text_blue" />
 
 </RelativeLayout>

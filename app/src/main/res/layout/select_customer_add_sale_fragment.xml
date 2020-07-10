@@ -52,7 +52,7 @@
                         android:inputType="text"
                         android:clickable="true"
                         android:focusable="false"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         tools:text="dssfdfsf"
                         tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget" />
                 </LinearLayout>

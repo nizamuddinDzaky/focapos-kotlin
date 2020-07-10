@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_detail_customer"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:background="#fff"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:navigationIcon="@drawable/back_arrow_foreground">
@@ -27,7 +27,7 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/txt_detail_customer"
-                android:textColor="#000" />
+                android:textColor="#676767" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
