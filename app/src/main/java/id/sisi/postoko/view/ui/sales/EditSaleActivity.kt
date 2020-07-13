@@ -343,10 +343,10 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private fun setDataFromUpdateProduct(data: Intent, position: Int) {
         val si = data.getParcelableExtra<SaleItem>(KEY_SALE_ITEM)
         saleItem?.let {
-            saleItem?.get(position)?.quantity = si.quantity
-            saleItem?.get(position)?.discount = si.discount
-            saleItem?.get(position)?.unit_price = si.unit_price
-            saleItem?.get(position)?.subtotal = si.unit_price?.times(si.quantity!!)
+            saleItem?.get(position)?.quantity = si?.quantity
+            saleItem?.get(position)?.discount = si?.discount
+            saleItem?.get(position)?.unit_price = si?.unit_price
+            saleItem?.get(position)?.subtotal = si?.unit_price?.times(si.quantity ?: 1.0)
         }
         saleItem?.let { setupRecycleView(it) }
     }
