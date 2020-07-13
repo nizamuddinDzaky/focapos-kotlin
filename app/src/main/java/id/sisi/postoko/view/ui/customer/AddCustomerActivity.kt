@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -63,7 +64,7 @@ class AddCustomerActivity : AppCompatActivity() {
 
         mViewModelWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
 
-
+        tabs_main_pagers.setSelectedTabIndicatorColor(Color.parseColor("#3F51B5"))
         main_view_pager?.let {
             it.adapter = CustomerPagerAdapter(supportFragmentManager, pages)
             tabs_main_pagers?.setupWithViewPager(it)
@@ -247,17 +248,17 @@ class AddCustomerActivity : AppCompatActivity() {
             cek = false
         }
 
-        if (findViewById<Spinner>(R.id.sp_provinsi_group_add_customer)?.selectedItem.toString() == ""){
+        if (provinsiSelected == "" || provinsiSelected == null){
             message += "- Provinsi Tidak Boleh Kosong\n"
             cek = false
         }
 
-        if (findViewById<Spinner>(R.id.sp_district_group_add_customer)?.selectedItem.toString() == ""){
+        if (districtSelected == "" || districtSelected == null){
             message += "- Kabupaten/Kota Tidak Boleh Kosong\n"
             cek = false
         }
 
-        if (findViewById<Spinner>(R.id.sp_city_group_add_customer)?.selectedItem.toString() == ""){
+        if (stateSelected == "" || stateSelected == null){
             message += "- Kecamatan Tidak Boleh Kosong\n"
             cek = false
         }
