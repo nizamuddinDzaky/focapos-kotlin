@@ -185,7 +185,7 @@
                     android:focusableInTouchMode="false"
                     android:textColor="@color/text_grey"
                     android:fontFamily="@font/roboto_regular"
-                    android:hint="@string/txt_hint_example_sales_number"
+                    android:hint="@string/txt_hint_example_delivery_number"
                     android:importantForAutofill="no"
                     android:inputType="none"
                     tools:targetApi="lollipop"/>
@@ -498,8 +498,8 @@
                     android:id="@+id/btn_confirmation_add_delivery"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/button_height_bottom_sheet"
-                    android:layout_marginTop="@dimen/standard_margin"
                     android:layout_marginLeft="@dimen/et_top_margin"
+                    android:layout_marginTop="@dimen/standard_margin"
                     android:layout_marginRight="@dimen/et_top_margin"
                     android:background="@color/main_green"
                     android:text="@string/txt_action_send_it"

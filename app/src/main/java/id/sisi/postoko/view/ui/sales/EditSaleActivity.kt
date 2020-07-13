@@ -269,7 +269,8 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             newSaleItem?.product_name ?: "",
             getString(R.string.txt_sale_quantity),
             newSaleItem?.quantity?.toInt() ?: 0,
-            this)
+            this,
+            newSaleItem?.product_unit_code )
         myDialog.listenerPositifNote = { qty ->
 
             if (TextUtils.isEmpty(qty)){
@@ -357,7 +358,8 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 return@map mutableMapOf(
                     "product_id" to it.product_id.toString(),
                     "price" to it.unit_price.toString(),
-                    "quantity" to it.quantity
+                    "quantity" to it.quantity,
+                    "discount" to it.discount
                 )
             }
 

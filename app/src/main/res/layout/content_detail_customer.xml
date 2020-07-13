@@ -572,7 +572,7 @@
                 tools:text="Default Warehouse : Wkwkw Land"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_selected_wrehouse"
-
+                android:layout_marginBottom="@dimen/et_top_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

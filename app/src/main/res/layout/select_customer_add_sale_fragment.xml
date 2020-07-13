@@ -48,9 +48,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:importantForAutofill="no"
-                        android:inputType="none"
+                        android:autofillHints="nothing"
+                        android:inputType="text"
                         android:clickable="true"
                         android:focusable="false"
+                        android:textSize="14sp"
+                        tools:text="dssfdfsf"
                         tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget" />
                 </LinearLayout>
             </LinearLayout>
@@ -89,6 +92,7 @@
                         android:inputType="text"
                         android:clickable="true"
                         android:focusable="false"
+                        tools:text="dssfdfsf"
                         tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
                         style="@style/Widget.AppCompat.Spinner.Underlined"/>
                 </LinearLayout>
@@ -137,14 +141,13 @@
             android:id="@+id/btn_action_submit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height_bottom_sheet"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/et_top_margin"
-            android:layout_marginRight="@dimen/et_top_margin"
             android:background="@color/main_green"
             android:text="@string/txt_continue"
             android:textAllCaps="false"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_marginTop="@dimen/et_top_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:layout_alignParentBottom="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@android:color/white" />
     </RelativeLayout>
 

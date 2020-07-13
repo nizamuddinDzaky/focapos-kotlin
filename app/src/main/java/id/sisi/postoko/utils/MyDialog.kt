@@ -75,7 +75,7 @@ class MyDialog {
         dialog?.show()
     }
 
-    fun qty(title: String, text: String, qty: Int, activity: Context?, unitName: String = "SAK"){
+    fun qty(title: String, text: String, qty: Int, activity: Context?, unitName: String? = "SAK"){
         val dialog = activity?.let { Dialog(it, R.style.MyCustomDialogFullScreen) }
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.setContentView(R.layout.dialog_fragment_free_text_qty)

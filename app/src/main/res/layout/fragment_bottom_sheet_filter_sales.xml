@@ -3,32 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="8dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:paddingTop="8dp">
+        android:background="#fff">
 
-        <TextView
+        <ImageView
             android:id="@+id/btn_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:text="@string/txt_action_cancel"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/main_blue" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/et_top_margin"
+            android:layout_marginLeft="@dimen/et_top_margin"
+            android:src="@drawable/back_arrow_foreground"
+            android:contentDescription="@string/txt_image_avatar"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/menu_filter"
+            android:fontFamily="@font/roboto_bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#676767"
             android:textStyle="bold" />
@@ -40,6 +37,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto_bold"
             android:layout_marginEnd="@dimen/standard_margin"
             android:layout_marginRight="@dimen/standard_margin"
             android:drawableStart="@drawable/ic_reset_black_24dp"
@@ -48,14 +46,13 @@
             android:text="@string/txt_action_reset"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/main_red" />
+
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/et_top_margin"
-        android:layout_weight="0"
-        android:background="@color/colorBlack" />
+        android:background="@color/colorLine" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -79,10 +76,10 @@
                     android:layout_marginLeft="@dimen/et_top_margin"
                     android:layout_marginTop="@dimen/et_top_margin"
                     android:layout_marginRight="@dimen/et_top_margin"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="@string/txt_sale_status"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:textColor="@color/colorTittleInput" />
 
                 <RadioGroup
                     android:id="@+id/radio_group_delivery_status"
@@ -108,19 +105,25 @@
                                 android:id="@+id/rbtn_pending"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_pending" />
+                                android:text="@string/txt_status_pending"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@color/colorTittleInput"/>
 
                             <RadioButton
                                 android:id="@+id/rbtn_reserved"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_reserved" />
+                                android:text="@string/txt_status_reserved"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@color/colorTittleInput"/>
 
                             <RadioButton
                                 android:id="@+id/rbtn_cancel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_canceled" />
+                                android:text="@string/txt_status_canceled"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@color/colorTittleInput"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -133,13 +136,17 @@
                                 android:id="@+id/rbtn_confirmed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_confirmed" />
+                                android:text="@string/txt_status_confirmed"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@color/colorTittleInput"/>
 
                             <RadioButton
                                 android:id="@+id/rbtn_closed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_closed" />
+                                android:text="@string/txt_status_closed"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@color/colorTittleInput"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -148,9 +155,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="@dimen/et_top_margin"
-                    android:background="@color/colorBlack" />
+                    android:background="@color/colorLine" />
             </RelativeLayout>
 
             <LinearLayout
@@ -223,9 +228,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/et_top_margin"
-                android:background="@color/colorBlack"
-                android:visibility="gone" />
+                android:background="@color/colorLine" />
 
             <LinearLayout
                 android:id="@+id/layout_payment_status"
@@ -240,12 +243,15 @@
                     android:text="@string/txt_payment_status"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginTop="@dimen/et_top_margin"/>
 
                 <RadioGroup
                     android:id="@+id/radio_group_payment_status"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/et_top_margin"
+                    android:layout_marginBottom="@dimen/et_top_margin">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -262,13 +268,17 @@
                                 android:id="@+id/rbtn_pay_pending"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_pending" />
+                                android:text="@string/txt_status_pending"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
                             <RadioButton
                                 android:id="@+id/rbtn_paid"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_paid" />
+                                android:text="@string/txt_status_paid"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -281,13 +291,17 @@
                                 android:id="@+id/rbtn_partial"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_partial" />
+                                android:text="@string/txt_status_partial"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
                             <RadioButton
                                 android:id="@+id/rbtn_pay_due"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_due" />
+                                android:text="@string/txt_status_due"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -297,7 +311,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorBlack" />
+                android:background="@color/colorLine" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -311,13 +325,16 @@
                     android:text="@string/txt_date_range"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginTop="@dimen/et_top_margin"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="@dimen/et_top_margin">
+                    android:padding="@dimen/et_top_margin"
+                    android:layout_marginTop="@dimen/et_top_margin"
+                    android:layout_marginBottom="@dimen/et_top_margin">
 
                     <LinearLayout
                         android:id="@+id/btn_start_date_range"
@@ -332,13 +349,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="@string/txt_start_date"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                            android:textColor="@android:color/black"
+                            android:fontFamily="@font/roboto_regular"/>
 
                         <TextView
                             android:id="@+id/tv_start_date_range"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
+                            android:fontFamily="@font/roboto_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textStyle="bold"
                             tools:text="21 Feb 2020" />
@@ -357,7 +376,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="@string/txt_end_date"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                            android:textColor="@android:color/black"
+                            android:fontFamily="@font/roboto_regular" />
 
                         <TextView
                             android:id="@+id/tv_end_date_range"
@@ -374,7 +394,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorBlack" />
+                android:background="@color/colorLine" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -388,7 +408,8 @@
                     android:text="@string/txt_sort"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginTop="@dimen/et_top_margin"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -410,6 +431,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="@string/txt_by_data"
+                            android:textColor="@android:color/black"
+                            android:fontFamily="@font/roboto_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                         <Spinner
@@ -430,6 +453,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="@string/txt_from_value"
+                            android:textColor="@android:color/black"
+                            android:fontFamily="@font/roboto_regular"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                         <Spinner
@@ -439,18 +464,23 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+            <Button
+                android:id="@+id/btn_action_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height_bottom_sheet"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginLeft="@dimen/et_top_margin"
+                android:layout_marginRight="@dimen/et_top_margin"
+                android:layout_marginBottom="@dimen/et_top_margin"
+                android:background="@color/main_green"
+                android:text="@string/txt_action_apply"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white" />
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/btn_action_submit"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:layout_weight="0"
-        android:background="@color/main_green"
-        android:text="@string/txt_action_apply"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@android:color/white" />
+
 
 </LinearLayout>

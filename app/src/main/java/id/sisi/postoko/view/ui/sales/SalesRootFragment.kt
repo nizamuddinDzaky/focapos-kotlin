@@ -20,7 +20,7 @@ class SalesRootFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = getString(R.string.txt_sales_booking)
+        activity?.title = getString(R.string.txt_sales)
         return inflater.inflate(R.layout.fragment_root_sales, container, false)
     }
 

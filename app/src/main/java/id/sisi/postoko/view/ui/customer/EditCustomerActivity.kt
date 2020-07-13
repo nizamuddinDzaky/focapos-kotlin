@@ -3,6 +3,7 @@ package id.sisi.postoko.view.ui.customer
 //import sun.awt.windows.ThemeReader.getPosition
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Spinner
@@ -64,6 +65,7 @@ class EditCustomerActivity : AppCompatActivity() {
             }
         })
 
+        tabs_main_pagers.setSelectedTabIndicatorColor(Color.parseColor("#3F51B5"))
         main_view_pager?.let {
             it.adapter = CustomerPagerAdapter(supportFragmentManager, pages)
             tabs_main_pagers?.setupWithViewPager(it)

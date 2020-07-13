@@ -1,15 +1,16 @@
 package id.sisi.postoko.view.ui.addsales
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
 import id.sisi.postoko.view.ui.warehouse.WarehouseDialogFragment
@@ -74,8 +75,12 @@ class AddItemAddSaleFragment: Fragment() {
         }
 
         if (!expanded){
+            iv_arrow_up.visible()
+            iv_arrow_down.gone()
             expandable_layout.collapse(true)
         }else{
+            iv_arrow_up.gone()
+            iv_arrow_down.visible()
             expandable_layout.expand(true)
         }
 
@@ -83,8 +88,12 @@ class AddItemAddSaleFragment: Fragment() {
             expanded = !expanded
 
             if (!expanded){
+                iv_arrow_up.visible()
+                iv_arrow_down.gone()
                 expandable_layout.collapse(true)
             }else{
+                iv_arrow_up.gone()
+                iv_arrow_down.visible()
                 expandable_layout.expand(true)
             }
         }
@@ -157,6 +166,19 @@ class AddItemAddSaleFragment: Fragment() {
         }
         dialogFragment.show(childFragmentManager, AddItemSaleDialogFragment(product).tag)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_cart, menu)
+        val actionView = menu.findItem(R.id.action_cart)?.actionView
+        val total = (activity as? AddSaleActivity)?.countItemSelected()
+        actionView?.rootView?.findViewById<TextView>(R.id.cart_badge)?.text = total.toString()
+        actionView?.setOnClickListener {
+            (activity as? AddSaleActivity)?.showCart()
+        }
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
 
     companion object {
         val TAG: String = AddItemAddSaleFragment::class.java.simpleName

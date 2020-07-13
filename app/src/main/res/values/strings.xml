@@ -8,8 +8,8 @@
     <string name="txt_login">Masuk</string>
     <string name="txt_sign_up">Daftar</string>
     <string name="txt_copyright">Ⓒ 2020 PT. SISI, All Rights Reserved.</string>
-    <string name="txt_purchase">Pemesanan</string>
-    <string name="txt_sale_list">Data Pemesanan</string>
+    <string name="txt_purchase">Penerimaan</string>
+    <string name="txt_sale_list">Data Penjualan</string>
     <string name="txt_detail_sales_booking">Detail Penjualan</string>
     <string name="txt_pembayaran">Pembayaran</string>
     <string name="txt_pengiriman">Pengiriman</string>
@@ -46,6 +46,7 @@
     <string name="empty" />
     <string name="txt_title_add_sale">Menambah Penjualan</string>
     <string name="txt_warehouse">Gudang</string>
+    <string name="txt_all_warehouse">Semua Gudang</string>
     <string name="txt_choose_warehouse">Pilih Gudang</string>
     <string name="txt_customer">Customer/Toko</string>
     <string name="txt_choose_customer">Pilih Customer/Toko</string>
@@ -121,6 +122,7 @@
     <string name="txt_already_received">Sudah Diterima</string>
     <string name="txt_sales_reference_numbers">Referensi Nomor Penjualan</string>
     <string name="txt_hint_example_sales_number">SALE/2020/02/0001</string>
+    <string name="txt_hint_example_delivery_number">DO/2020/02/0001</string>
     <string name="txt_posted_by">Dikirim oleh</string>
     <string name="txt_received_by">Diterima oleh</string>
     <string name="txt_customer_name">Nama Pelanggan</string>
@@ -313,13 +315,14 @@
     <string name="txt_bad">Buruk</string>
     <string name="txt_good">Baik</string>
     <string name="txt_not_yet_sent">Belum Terkirim</string>
+    <string name="txt_sent">Terkirim</string>
     <string name="title_activity_add_sale">AddSaleActivity</string>
-    <string name="txt_add_sale">Menambah Pesanan</string>
+    <string name="txt_add_sale">Menambah Penjualan</string>
     <string name="txt_continue">Lanjutkan</string>
     <string name="title_activity_add_item_add_sale">AddItemAddSaleActivity</string>
     <string name="txt_add_to_cart">Tambah Ke Keranjang</string>
     <string name="txt_cart">Keranjang</string>
-    <string name="txt_action_sure">Yakin</string>
+    <string name="txt_action_sure">Simpan</string>
     <string name="txt_notif_remove_cart">Anda yakin akan menghapus barang dari keranjang?</string>
     <string name="txt_notif_syn_to_bk">Anda yakin akan melakukan sinkron data pelanggan?</string>
     <string name="txt_alert_item_sale">Silahkan Pilih Item Terlebih Dahulu</string>
@@ -346,6 +349,7 @@
     <string name="txt_value_credit_card">CC</string>
     <string name="txt_value_gift_card">gift_card</string>
     <string name="txt_value_bank">bank</string>
+    <string name="txt_ok">OK</string>
     <string name="txt_proifle">Profile</string>
     <string name="txt_must_reserved">Status Pengiriman Harus "Dipesan"</string>
     <string name="txt_confirm_unduh">Lampiran Akan Di Unduh, Apakah Anda Yakin ?</string>
@@ -359,4 +363,5 @@
     <string name="txt_choose_district">Pilih Kabupaten</string>
     <string name="txt_choose_state">Pilih Kecamatan</string>
     <string name="txt_delivery_payment">Biaya Pengiriman</string>
+    <string name="txt_confirm_add_data_delivery">Buat Pengiriman Setelah Menyimpan Data Penjualan</string>
 </resources>

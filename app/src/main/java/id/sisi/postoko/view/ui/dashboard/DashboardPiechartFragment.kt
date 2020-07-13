@@ -119,18 +119,18 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
                 (parentFragment as DashboardFragment).idWarehouse =it.id
                 (parentFragment as DashboardFragment).warehouseName =it.name
                 tv_warehouse_name_piechart.text = (parentFragment as DashboardFragment).warehouseName
-                iv_delete_warehouse_piechart.visible()
+
                 this.refresh(selectedYear, it.id)
             }
             dialogFragment.show(childFragmentManager, "dialog")
         }
 
-        iv_delete_warehouse_piechart.setOnClickListener {
-            tv_warehouse_name_piechart.text = R.string.txt_warehouse.toString()
+        /*iv_delete_warehouse_piechart.setOnClickListener {
+            tv_warehouse_name_piechart.text = context?.getString(R.string.txt_warehouse)
             iv_delete_warehouse_piechart.gone()
             (parentFragment as DashboardFragment).idWarehouse = ""
             (parentFragment as DashboardFragment).warehouseName = null
-        }
+        }*/
         viewModel.requestPieChartData("$selectedYear-${month+1}", warehouseId)
     }
 

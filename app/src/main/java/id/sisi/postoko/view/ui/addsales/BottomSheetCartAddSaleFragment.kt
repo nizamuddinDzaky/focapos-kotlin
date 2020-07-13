@@ -18,13 +18,15 @@ import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.helper.findSaleFragmentByTag
 import kotlinx.android.synthetic.main.fragment_bottom_cart_add_sale.*
 
 class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSaleAdapter.OnClickListenerInterface {
     var position: Int? = null
     private lateinit var adapterCart: ListCartAddSaleAdapter
     private var listProduct: List<Product> = arrayListOf()
-    var listener: () -> Unit = {}
+    private var btnClicked: Boolean = false
+    var listener: (btnClicked: Boolean) -> Unit = {}
     private val myDialog = MyDialog()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -55,6 +57,11 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
 
         btn_close.setOnClickListener {
             this.dismiss()
+        }
+
+        btn_action_submit.setOnClickListener {
+            this.dismiss()
+            (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(PaymentAddSaleFragment.TAG))
         }
     }
 
@@ -112,7 +119,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
     }
 
     override fun onChange(product: Product?) {
-        myDialog.qty(product?.name ?: "",getString(R.string.txt_sale_quantity), product?.sale_qty ?: 0, context)
+        myDialog.qty(product?.name ?: "",getString(R.string.txt_sale_quantity), product?.sale_qty ?: 0, context, product?.unit_name)
         myDialog.listenerPositifNote={ qty ->
             val index = listProduct.indexOf(product)
             if (TextUtils.isEmpty(qty)){
@@ -139,18 +146,18 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        listener()
+        listener(btnClicked)
     }
 
     companion object {
-        var listener: () -> Unit = {}
+        var listener: (btnClicked: Boolean) -> Unit = {}
         fun show(
             fragmentManager: FragmentManager
         ) {
 
             val bottomSheetFragment = BottomSheetCartAddSaleFragment()
             bottomSheetFragment.listener={
-                listener()
+                listener(it)
             }
             bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
         }
