@@ -111,6 +111,15 @@ class AddSaleActivity : BaseActivity() {
         return total
     }
 
+    fun getDiscount(): Double{
+        var disc = 0.0
+        listProduct.forEach { product ->
+            if (product.isSelected)
+                disc += (product.sale_qty * product.discount)
+        }
+        return disc
+    }
+
     private fun setUpTotal(){
         if (findViewById<TextView>(R.id.tv_total_add_sale) != null)
             findViewById<TextView>(R.id.tv_total_add_sale).text = getTotal().toCurrencyID()

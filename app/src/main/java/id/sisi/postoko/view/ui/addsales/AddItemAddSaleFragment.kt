@@ -98,8 +98,7 @@ class AddItemAddSaleFragment: Fragment() {
             }
         }
 
-        val total = (activity as AddSaleActivity?)?.getTotal()
-        tv_total_add_sale.text = total?.toCurrencyID()
+        setUpTotal()
 
         sv_item.setOnClickListener {
             sv_item?.onActionViewExpanded()
@@ -129,6 +128,14 @@ class AddItemAddSaleFragment: Fragment() {
                 myDialog.alert(getString(R.string.txt_alert_id_warehouse), context)
         }
     }
+
+    private fun setUpTotal(){
+        val total = (activity as AddSaleActivity?)?.getTotal()
+        val disc = (activity as AddSaleActivity?)?.getDiscount()
+        tv_total_add_sale.text = total?.toCurrencyID()
+        tv_total_diskon.text = disc?.toCurrencyID()
+    }
+
     private fun startSearchData(query: String) {
         listProduct.let {
             val listSearchResult = listProduct.filter {
@@ -156,13 +163,11 @@ class AddItemAddSaleFragment: Fragment() {
         val dialogFragment = AddItemSaleDialogFragment(product)
         dialogFragment.listenerAdd={
             (activity as AddSaleActivity?)?.setUpBadge()
-            val total = (activity as AddSaleActivity?)?.getTotal()
-            tv_total_add_sale.text = total?.toCurrencyID()
+            setUpTotal()
         }
         dialogFragment.listenerRemove = {
             (activity as AddSaleActivity?)?.setUpBadge()
-            val total = (activity as AddSaleActivity?)?.getTotal()
-            tv_total_add_sale.text = total?.toCurrencyID()
+            setUpTotal()
         }
         dialogFragment.show(childFragmentManager, AddItemSaleDialogFragment(product).tag)
     }

@@ -49,6 +49,8 @@ class ListProductAddSalesAdapter(private var masterData: List<SaleItem>? = array
 
             itemView.tv_subtoal_add_sale?.text = value?.subtotal?.toCurrencyID()
 
+            itemView.tv_product_discount_add_sale?.text = value?.discount?.toCurrencyID()
+
             itemView.iv_remove_product_add_sale.setOnClickListener {
                 value?.quantity?.let { it1 -> listener?.onClickMinus(it1, position) }
             }

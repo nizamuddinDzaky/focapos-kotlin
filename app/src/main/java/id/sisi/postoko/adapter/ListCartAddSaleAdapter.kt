@@ -40,6 +40,8 @@ class ListCartAddSaleAdapter(
             itemView.et_sale_item_qty.setOnClickListener {
                 listenerProduct?.onChange(product)
             }
+
+            itemView.tv_discount_item.text = product?.discount?.toCurrencyID()
             itemView.et_sale_item_qty.text = product?.sale_qty.toString()
             itemView.tv_product_name.text = product?.name
             itemView.tv_product_price.text = product?.price?.toCurrencyID()
