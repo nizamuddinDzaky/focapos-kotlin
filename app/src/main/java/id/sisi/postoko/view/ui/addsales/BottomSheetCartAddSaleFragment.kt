@@ -16,6 +16,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListCartAddSaleAdapter
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag

@@ -13,14 +13,37 @@ class ProductViewModel : ViewModel() {
     private val products = MutableLiveData<List<Product>?>()
     private var isExecute = MutableLiveData<Boolean>()
 
-    init {
+    /*init {
         getListProduct()
-    }
+    }*/
 
     fun getListProduct() {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getListProduct(headers)?.exe(
+            onFailure = { _, _ ->
+                isExecute.postValue(false)
+                products.postValue(null)
+            },
+            onResponse = { _, response ->
+                if (response.isSuccessful) {
+                    tryMe {
+                        isExecute.postValue(false)
+                        products.postValue(response.body()?.data?.list_products)
+                    }
+                } else {
+                    isExecute.postValue(false)
+                    products.postValue(listOf())
+                }
+            }
+        )
+    }
+
+    fun getListProductSales(idCustomer: Int) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf("customer_id" to idCustomer.toString())
+        ApiServices.getInstance()?.getListProductSales(headers, params)?.exe(
             onFailure = { _, _ ->
                 isExecute.postValue(false)
                 products.postValue(null)

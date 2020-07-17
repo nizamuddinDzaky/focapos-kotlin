@@ -35,6 +35,8 @@ class AddProductSalesActivity : BaseActivity() {
                 setupUI(it)
             }
         })
+        viewModel.getListProduct()
+
         sv_search_product_add_sales.setOnClickListener {
             sv_search_product_add_sales?.onActionViewExpanded()
         }

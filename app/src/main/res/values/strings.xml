@@ -42,6 +42,7 @@
     <string name="txt_status_received">Diterima</string>
     <string name="txt_sales_booking">Sales Booking</string>
     <string name="choose_product">Pilih Product</string>
+    <string name="txt_helper_product">Silahkan Pilih Product</string>
     <string name="txt_title_detail_good_receive">Rincian Pembelian</string>
     <string name="empty" />
     <string name="txt_title_add_sale">Menambah Penjualan</string>
@@ -366,4 +367,5 @@
     <string name="txt_confirm_add_data_delivery">Buat Pengiriman Setelah Menyimpan Data Penjualan</string>
     <string name="txt_total_item">Jumlah Barang</string>
     <string name="txt_discount_item">Diskon Item (Rp)</string>
+    <string name="txt_see_note">Lihat Catatan</string>
 </resources>

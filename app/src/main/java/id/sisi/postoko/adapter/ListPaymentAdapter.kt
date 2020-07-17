@@ -13,6 +13,8 @@ import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.toDisplayDateTime
 import id.sisi.postoko.utils.extensions.toDisplayPaymentType
 import kotlinx.android.synthetic.main.list_item_pembayaran.view.*
+import kotlinx.android.synthetic.main.list_item_pembayaran.view.expandable_layout
+import kotlinx.android.synthetic.main.list_item_product_price_group.view.*
 
 
 class ListPaymentAdapter(
@@ -44,10 +46,40 @@ class ListPaymentAdapter(
                 itemView.tv_payment_amount?.text = it.amount.toCurrencyID()
                 itemView.tv_payment_date?.text = it.date.toDisplayDateTime()
                 itemView.tv_payment_type.text = itemView.context.getText(it.paid_by.toDisplayPaymentType())
+
+                if (it.isCollapse){
+                    itemView.expandable_layout.expand(true)
+                }else{
+                    itemView.expandable_layout.collapse(true)
+                }
+
+                itemView.tv_note.text = payment.note
+                itemView.tv_see_note.setOnClickListener {v ->
+                    it.isCollapse = !(it.isCollapse)
+                    if (it.isCollapse){
+                        itemView.expandable_layout.expand(true)
+                    }else{
+                        itemView.expandable_layout.collapse(true)
+                    }
+                }
             }
             itemView.btn_menu_more.setOnClickListener {
-                val listAction: MutableList<() -> Unit?> = mutableListOf({listenerEdit(payment)})
-                val listMenu: MutableList<String> = mutableListOf(itemView.context.getString(R.string.txt_edit))
+                val listAction: MutableList<() -> Unit?> = mutableListOf(
+                    {
+                        listenerEdit(payment)
+                    },
+                    {
+                        if (payment?.attachment == null){
+                            Toast.makeText(itemView.context, itemView.context.getString(R.string.txt_no_attachment), Toast.LENGTH_SHORT).show()
+                        }else{
+                            listener(payment.attachment)
+                        }
+                    }
+                )
+                val listMenu: MutableList<String> = mutableListOf(
+                    itemView.context.getString(R.string.txt_edit),
+                    itemView.context.getString(R.string.txt_see_attachment)
+                )
                 MyPopupMenu(
                     it,
                     listMenu,
@@ -55,13 +87,8 @@ class ListPaymentAdapter(
                     highlight = itemView
                 ).show()
             }
-            itemView.tv_attachment.setOnClickListener {
-                if (payment?.attachment == null){
-                    Toast.makeText(itemView.context, itemView.context.getString(R.string.txt_no_attachment), Toast.LENGTH_SHORT).show()
-                }else{
-                    listener(payment.attachment)
-                }
-            }
+
+
             itemView.main_layout.setOnClickListener {
                 itemView.btn_menu_more?.performClick()
             }

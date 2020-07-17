@@ -49,6 +49,8 @@ class ProductFragment : BaseFragment() {
             /**/
         })
 
+        viewModel.getListProduct()
+
         sv_master.setOnClickListener {
             sv_master?.onActionViewExpanded()
         }

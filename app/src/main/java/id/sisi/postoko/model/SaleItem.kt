@@ -23,7 +23,7 @@ data class SaleItem (
     val item_discount : Double? = 0.0,
     var subtotal : Double? = 0.0,
     val serial_no : String? = null,
-    val real_unit_price : Double? = 0.0,
+    var real_unit_price : Double? = 0.0,
     val sale_item_id : String? = null,
     val product_unit_id : Int? = 0,
     val product_unit_code : String? = null,

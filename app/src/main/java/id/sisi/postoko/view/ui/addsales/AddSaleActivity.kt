@@ -41,7 +41,7 @@ class AddSaleActivity : BaseActivity() {
     var date: String? = null
     private val progressBar = CustomProgressBar()
     lateinit var adapter: ListItemAddSaleAdapter
-    private lateinit var vmProduct: ProductViewModel
+    lateinit var vmProduct: ProductViewModel
     var listProduct: List<Product> = arrayListOf()
     lateinit var vmAddSale: AddSalesViewModel
     private var myDialog = MyDialog()
@@ -86,8 +86,8 @@ class AddSaleActivity : BaseActivity() {
     fun switchFragment(fragment: AddSaleFragment): Boolean{
         return findFragment(fragment).let {
             if (it.isAdded) return false
-            supportFragmentManager.detach() // Extension function
-            supportFragmentManager.attach(it, fragment.getTag()) // Extension function
+            supportFragmentManager.remove() // Extension function
+            supportFragmentManager.add(it, fragment.getTag()) // Extension function
             supportFragmentManager.executePendingTransactions()
         }
     }
@@ -105,8 +105,10 @@ class AddSaleActivity : BaseActivity() {
     fun getTotal(): Double{
         var total = 0.0
         listProduct.forEach { product ->
-            if (product.isSelected)
+//            logE("selectedTotal : ${product.isSelected}")
+            if (product.isSelected){
                 total += (product.sale_qty * product.price)
+            }
         }
         return total
     }
