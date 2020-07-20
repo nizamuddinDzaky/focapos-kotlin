@@ -337,6 +337,12 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataCustomerSelected>>
 
+    @GET("api/v1/distributor/products/list_product_sales")
+    fun getListProductSales(
+        @HeaderMap headers: Map<String, String>,
+        @QueryMap params: Map<String, String>
+    ): Call<BaseResponse<DataProduct>>
+
     companion object {
         private var retrofit: Retrofit? = null
 

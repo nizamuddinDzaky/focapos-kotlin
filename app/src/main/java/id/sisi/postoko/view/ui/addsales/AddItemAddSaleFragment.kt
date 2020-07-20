@@ -9,9 +9,11 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
+import id.sisi.postoko.view.ui.addsales.SelectCustomerFragment.Companion.TAG
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
 import id.sisi.postoko.view.ui.warehouse.WarehouseDialogFragment
 import kotlinx.android.synthetic.main.add_item_add_sale_fragment.*
@@ -60,6 +62,19 @@ class AddItemAddSaleFragment: Fragment() {
         sp_customer.setOnClickListener {
             val dialogFragment = FragmentSearchCustomer()
             dialogFragment.listener={ customer ->
+                (activity as AddSaleActivity?)?.vmProduct?.getListProductSales(
+                    customer.id?.toInt() ?: 0
+                )
+
+                (activity as AddSaleActivity?)?.listProduct?.let { it1 -> setupUI(it1) }
+
+                /*(activity as AddSaleActivity?)?.listProduct.let {
+                    if (it != null) {
+                        listProduct = it
+                        setupUI(it)
+                    }
+                }*/
+
                 (activity as AddSaleActivity?)?.idCustomer = customer.id
                 (activity as AddSaleActivity?)?.customerName = customer.company
                 sp_customer.setText(customer.company)
@@ -98,8 +113,7 @@ class AddItemAddSaleFragment: Fragment() {
             }
         }
 
-        val total = (activity as AddSaleActivity?)?.getTotal()
-        tv_total_add_sale.text = total?.toCurrencyID()
+        setUpTotal()
 
         sv_item.setOnClickListener {
             sv_item?.onActionViewExpanded()
@@ -110,9 +124,9 @@ class AddItemAddSaleFragment: Fragment() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isNotEmpty() && newText.length > 2) {
-                    startSearchData(newText)
+//                    startSearchData(newText)
                 } else {
-                    setupUI(listProduct)
+//                    setupUI(listProduct)
                 }
                 return true
             }
@@ -126,9 +140,17 @@ class AddItemAddSaleFragment: Fragment() {
             if (((activity as AddSaleActivity?)?.countItemSelected() ?: 0) > 0)
                 (activity as AddSaleActivity?)?.switchFragment(findSaleFragmentByTag(PaymentAddSaleFragment.TAG))
             else
-                myDialog.alert(getString(R.string.txt_alert_id_warehouse), context)
+                myDialog.alert(getString(R.string.txt_helper_product), context)
         }
     }
+
+    private fun setUpTotal(){
+        val total = (activity as AddSaleActivity?)?.getTotal()
+        val disc = (activity as AddSaleActivity?)?.getDiscount()
+        tv_total_add_sale.text = total?.toCurrencyID()
+        tv_total_diskon.text = disc?.toCurrencyID()
+    }
+
     private fun startSearchData(query: String) {
         listProduct.let {
             val listSearchResult = listProduct.filter {
@@ -155,14 +177,13 @@ class AddItemAddSaleFragment: Fragment() {
     private fun showPopUp(product: Product) {
         val dialogFragment = AddItemSaleDialogFragment(product)
         dialogFragment.listenerAdd={
+            logE("selected123 ${product.isSelected}")
             (activity as AddSaleActivity?)?.setUpBadge()
-            val total = (activity as AddSaleActivity?)?.getTotal()
-            tv_total_add_sale.text = total?.toCurrencyID()
+            setUpTotal()
         }
         dialogFragment.listenerRemove = {
             (activity as AddSaleActivity?)?.setUpBadge()
-            val total = (activity as AddSaleActivity?)?.getTotal()
-            tv_total_add_sale.text = total?.toCurrencyID()
+            setUpTotal()
         }
         dialogFragment.show(childFragmentManager, AddItemSaleDialogFragment(product).tag)
     }

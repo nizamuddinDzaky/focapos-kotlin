@@ -16,6 +16,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListCartAddSaleAdapter
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setupFullHeight
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
@@ -53,7 +54,6 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
                 setupData()
             }
         }
-        setUpTotal()
 
         btn_close.setOnClickListener {
             this.dismiss()
@@ -67,6 +67,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
 
     private fun setUpTotal(){
         tv_total_add_sale.text = (activity as AddSaleActivity).getTotal().toCurrencyID()
+        tv_total_diskon.text = (activity as AddSaleActivity).getDiscount().toCurrencyID()
     }
 
     fun setupData() {
@@ -77,6 +78,7 @@ class BottomSheetCartAddSaleFragment: BottomSheetDialogFragment(), ListCartAddSa
     }
 
     private fun setupDataCart() {
+        setUpTotal()
         adapterCart = ListCartAddSaleAdapter()
         adapterCart.listenerProduct = this
         listProduct.forEach {product ->

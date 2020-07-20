@@ -3,26 +3,31 @@ package id.sisi.postoko.view.ui.addsales
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
-import id.sisi.postoko.model.Product
-import androidx.lifecycle.Observer
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.ui.delivery.BottomSheetAddDeliveryFragment
 import id.sisi.postoko.view.ui.sales.SaleBookingFactory
 import id.sisi.postoko.view.ui.sales.SaleBookingViewModel
 import id.sisi.postoko.view.ui.sales.SaleStatus
 import kotlinx.android.synthetic.main.payment_add_sale_fragment.*
+import org.w3c.dom.Text
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,13 +50,16 @@ class PaymentAddSaleFragment: Fragment() {
     private var saleNote: String? = null
     private var employeeNote: String? = null
     private lateinit var vmDetailSale: SaleBookingViewModel
+    private var total = 0.0
+    private var totalDisc = 0.0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         saleNote = (activity as AddSaleActivity).saleNote
         employeeNote = (activity as AddSaleActivity).employeeNote
-
+        total = (activity as AddSaleActivity).getTotal()
+        totalDisc = (activity as AddSaleActivity).getDiscount()
         setUpUI()
 
         setUpEventUi()
@@ -65,6 +73,47 @@ class PaymentAddSaleFragment: Fragment() {
             val radioButton = radioGroup.findViewById<RadioButton>(i)
             rg_status_add_sale.tag = radioButton.tag.toString()
         }
+
+        et_discount_add_sale.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                val str = et_discount_add_sale.text.toString().replace(",".toRegex(), "")
+                if (!TextUtils.isEmpty(str)) {
+                    tv_order_discount.text = str.toInt().toCurrencyID()
+                }
+                setUpResult()
+            }
+        })
+
+        et_shipping_add_sale.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                val str = et_shipping_add_sale.text.toString().replace(",".toRegex(), "")
+                if (!TextUtils.isEmpty(str)){
+                    tv_delivery_fee.text = str.toInt().toCurrencyID()
+                }
+                setUpResult()
+            }
+        })
+
 
         tv_add_sale_note.setOnClickListener {
             showPopUpNote(getString(R.string.txt_sale_note), saleNote ?: "", KEY_SALE)
@@ -166,6 +215,15 @@ class PaymentAddSaleFragment: Fragment() {
 
 
     private fun setUpUI() {
+
+        tv_total_item.text = (activity as AddSaleActivity).countItemSelected().toString()
+        tv_total.text = total.toCurrencyID()
+        tv_total_disc_item.text = totalDisc.toCurrencyID()
+        tv_order_discount.text = 0.toCurrencyID()
+        tv_delivery_fee.text = 0.toCurrencyID()
+
+        setUpResult()
+
         et_discount_add_sale.addTextChangedListener(NumberSeparator(et_discount_add_sale))
         if (TextUtils.isEmpty((activity as AddSaleActivity).discount)){
             et_discount_add_sale.setText((activity as AddSaleActivity).discount)
@@ -189,6 +247,24 @@ class PaymentAddSaleFragment: Fragment() {
         }
         setSaleNote()
         setEmployeeNote()
+    }
+
+    private fun setUpResult(){
+        val strDisc = et_discount_add_sale.text.toString().replace(",".toRegex(), "")
+        val strDeliveryFee = et_shipping_add_sale.text.toString().replace(",".toRegex(), "")
+        var disc = 0
+        var deliveryFee = 0
+        if (!TextUtils.isEmpty(strDisc)){
+            disc = strDisc.toInt()
+        }
+
+        if (!TextUtils.isEmpty(strDeliveryFee)){
+            deliveryFee = strDeliveryFee.toInt()
+        }
+
+        val grandTotal = total - totalDisc - disc + deliveryFee
+        logE("final => $total => $disc => $deliveryFee")
+        tv_final_amount.text = grandTotal.toCurrencyID()
     }
 
     private fun setEmployeeNote() {

@@ -205,6 +205,7 @@
             android:background="#f3f2f2"
             android:text="@string/txt_add_product"
             android:textColor="#0f569d"
+            android:fontFamily="@font/roboto_bold"
             style="?android:attr/borderlessButtonStyle"/>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -229,7 +230,7 @@
                     android:layout_height="50dp"
                     android:importantForAutofill="no"
                     android:inputType="numberSigned"
-                    android:focusable="false"
+                    android:focusableInTouchMode="true"
                     tools:ignore="LabelFor" />
 
                 <TextView
@@ -395,6 +396,7 @@
             android:background="#1CA865"
             android:text="@string/txt_edit"
             android:textAllCaps="true"
+            android:fontFamily="@font/roboto_regular"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/white"/>
     </LinearLayout>

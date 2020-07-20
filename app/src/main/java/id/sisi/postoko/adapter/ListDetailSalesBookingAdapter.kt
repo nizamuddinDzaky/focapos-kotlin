@@ -34,16 +34,11 @@ class ListDetailSalesBookingAdapter(private var saleItems: List<SaleItem>? = arr
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(saleItem: SaleItem?) {
-            if (saleItem?.discount ?: 0 > 0) {
-                itemView.tv_detail_sbo_item_price?.text = saleItem?.unit_price?.toCurrencyID()
-                itemView.tv_detail_sbo_item_price?.strikeText()
-            }
-            itemView.tv_detail_sbo_item_price?.goneIfEmptyOrNull()
+            itemView.tv_detail_sbo_item_price.text = saleItem?.unit_price?.toCurrencyID()
             itemView.tv_detail_sbo_item_name?.text = saleItem?.product_name
-            val quantity = "${saleItem?.quantity?.toNumberID()} SAK"
+            val quantity = "${saleItem?.quantity?.toNumberID()} ${saleItem?.product_unit_code}"
             itemView.tv_detail_sbo_item_quantity?.text = quantity
-            itemView.tv_detail_sbo_item_end_price?.text =
-                saleItem?.unit_price?.minus(saleItem.discount ?: 0)?.toCurrencyID()
+            itemView.tv_detail_sbo_item_discount?.text =saleItem?.discount?.toCurrencyID()
         }
     }
 

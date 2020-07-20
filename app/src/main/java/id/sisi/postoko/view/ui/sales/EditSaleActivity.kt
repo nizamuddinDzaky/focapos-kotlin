@@ -86,7 +86,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         et_shipping_edit_sale.addTextChangedListener(NumberSeparator(et_shipping_edit_sale))
 
         if (sale?.order_discount != 0.0)
-            et_discount_edit_sale.setText(sale?.order_discount.toString())
+            et_discount_edit_sale.setText(sale?.order_discount?.toInt().toString())
         if (sale?.shipping != 0.0 && sale?.shipping.toString() != "null")
             et_shipping_edit_sale.setText(sale?.shipping?.toInt().toString())
         if (sale?.payment_term != 0 && sale?.payment_term.toString() != "null")
@@ -326,7 +326,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         si.net_unit_price = product.price.toDouble()
         si.unit_price = product.price.toDouble()
         si.quantity = 1.0
-        si.subtotal = si.quantity!! * si.unit_price!!
+        si.subtotal = (si.quantity ?: 0.0) * (si.unit_price ?: 0.0)
         var cek = true
         for (x in 0 until saleItem?.size!!) {
             if (product.code == saleItem?.get(x)?.product_code) {
@@ -343,10 +343,10 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private fun setDataFromUpdateProduct(data: Intent, position: Int) {
         val si = data.getParcelableExtra<SaleItem>(KEY_SALE_ITEM)
         saleItem?.let {
-            saleItem?.get(position)?.quantity = si.quantity
-            saleItem?.get(position)?.discount = si.discount
-            saleItem?.get(position)?.unit_price = si.unit_price
-            saleItem?.get(position)?.subtotal = si.unit_price?.times(si.quantity!!)
+            saleItem?.get(position)?.quantity = si?.quantity
+            saleItem?.get(position)?.discount = si?.discount
+            saleItem?.get(position)?.unit_price = si?.unit_price
+            saleItem?.get(position)?.subtotal = si?.unit_price?.times(si.quantity ?: 1.0)
         }
         saleItem?.let { setupRecycleView(it) }
     }
@@ -357,7 +357,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             val saleItems = saleItem?.map {
                 return@map mutableMapOf(
                     "product_id" to it.product_id.toString(),
-                    "price" to it.unit_price.toString(),
+                    "price" to it.real_unit_price.toString(),
                     "quantity" to it.quantity,
                     "discount" to it.discount
                 )

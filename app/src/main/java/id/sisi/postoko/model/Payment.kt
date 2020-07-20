@@ -1,6 +1,7 @@
 package id.sisi.postoko.model
 
 import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -45,4 +46,7 @@ data class Payment(
     val url_image: String
 //    val uuid: Any,
 //    val uuid_app: Any
-) : Parcelable
+) : Parcelable{
+    @IgnoredOnParcel
+    var isCollapse = false
+}

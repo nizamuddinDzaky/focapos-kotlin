@@ -112,7 +112,7 @@ class AddDataCustomerFragment : BaseFragment() {
 
                 if((position-1) >= 0){
                     (activity as AddCustomerActivity).provinsiSelected = provinceList[position-1]
-                    mViewModelDaerah.getCity(provinceList[position]).toString()
+                    mViewModelDaerah.getCity(provinceList[position-1]).toString()
                 }else{
                     (activity as AddCustomerActivity).provinsiSelected = null
                 }
@@ -125,7 +125,7 @@ class AddDataCustomerFragment : BaseFragment() {
 
                 if((position-1) >= 0){
                     (activity as AddCustomerActivity).districtSelected = cityList[position-1]
-                    mViewModelDaerah.getStates(cityList[position])
+                    mViewModelDaerah.getStates(cityList[position-1])
                 }else{
                     (activity as AddCustomerActivity).districtSelected = null
                 }
