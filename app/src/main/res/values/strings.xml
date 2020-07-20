@@ -105,6 +105,7 @@
     <string name="txt_spj_date">Tanggal SPJ</string>
     <string name="txt_police_number">No Polisi</string>
     <string name="txt_plant_code">Kode Pabrik</string>
+    <string name="txt_code">Kode</string>
     <string name="txt_plant_name">Nama Pabrik</string>
     <string name="txt_add_payment">Menambah Pembayaran</string>
     <string name="txt_payment_cash">Tunai</string>
@@ -116,6 +117,7 @@
     <string name="txt_purchases">Pembelian</string>
     <string name="txt_initial_price_idr">Harga Awal (Rp)</string>
     <string name="txt_qty">Qty</string>
+    <string name="txt_brand">Merek</string>
     <string name="txt_new_price_idr">Harga Baru (Rp)</string>
     <string name="txt_add_delivery">Menambah Pengiriman</string>
     <string name="txt_being_packed">Sedang Dikemas</string>
@@ -135,6 +137,7 @@
     <string name="txt_final_amount_idr">Jumlah Akhir (Rp)</string>
     <string name="txt_so_date">Tanggal SO</string>
     <string name="txt_order_type">Tipe Order</string>
+    <string name="txt_type">Tipe</string>
     <string name="txt_image_search_product">image search product</string>
     <string name="txt_serial_number">Nomor Serial</string>
     <string name="txt_unit">Satuan</string>
@@ -345,6 +348,7 @@
     <string name="txt_two_point">:</string>
     <string name="txt_sale_quantity">Jumlah Yang Dipesan </string>
     <string name="txt_name">Nama</string>
+    <string name="txt_category">Kategori</string>
     <string name="txt_card_number">Nomor Kartu</string>
     <string name="txt_value_cash">cash</string>
     <string name="txt_value_credit_card">CC</string>
@@ -368,4 +372,5 @@
     <string name="txt_total_item">Jumlah Barang</string>
     <string name="txt_discount_item">Diskon Item (Rp)</string>
     <string name="txt_see_note">Lihat Catatan</string>
+    <string name="txt_detail_product">Detail Product</string>
 </resources>

@@ -61,7 +61,7 @@ data class Product(
 //    val supplier5price: Any,
     var tax_method: Int = 0,
     var tax_rate: Int = 0,
-//    val thumb_image: String,
+    val thumb_image: String? = null,
 //    val track_quantity: String,
 //    val type: String,
     var unit: String? = null,

@@ -1,16 +1,24 @@
 package id.sisi.postoko.view.ui.product
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterProdukAdapter
 import id.sisi.postoko.model.Product
+import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
+import id.sisi.postoko.utils.KEY_SALE_STATUS
+import id.sisi.postoko.utils.MyPopupMenu
+import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
+import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
+import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
 class ProductFragment : BaseFragment() {
@@ -20,8 +28,11 @@ class ProductFragment : BaseFragment() {
     }
 
     private lateinit var viewModel: ProductViewModel
+    private lateinit var vmWarehouse: WarehouseViewModel
     private lateinit var adapter: ListMasterProdukAdapter
     var listProdcut: List<Product>? = arrayListOf()
+    val listAction: MutableList<() -> Unit?> = mutableListOf()
+    val listMenu: MutableList<String> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +48,6 @@ class ProductFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-
         viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutMaster?.isRefreshing = it
@@ -50,6 +59,29 @@ class ProductFragment : BaseFragment() {
         })
 
         viewModel.getListProduct()
+
+        vmWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
+        vmWarehouse.getListWarehouses().observe(viewLifecycleOwner, Observer {
+            listAction.clear()
+            listMenu.clear()
+            it?.forEach {wh ->
+                listAction.add {
+                    Toast.makeText(context, "id => ${wh.id}", Toast.LENGTH_SHORT).show()
+                }
+
+                listMenu.add(wh.name)
+            }
+        })
+
+        iv_filter_warehouse.visible()
+        iv_filter_warehouse.setOnClickListener {
+            MyPopupMenu(
+                it,
+                listMenu,
+                listAction,
+                highlight = it
+            ).show()
+        }
 
         sv_master.setOnClickListener {
             sv_master?.onActionViewExpanded()

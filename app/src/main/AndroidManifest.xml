@@ -66,6 +66,10 @@
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".view.ui.product.DetailProductActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".view.ui.sales.EditSaleActivity"
             android:label="@string/title_activity_edit_sale"
             android:theme="@style/AppTheme.NoActionBar" />
