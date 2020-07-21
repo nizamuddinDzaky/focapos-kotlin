@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterProdukAdapter
 import id.sisi.postoko.model.Product
+import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.KEY_SALE_STATUS
 import id.sisi.postoko.utils.MyPopupMenu
@@ -33,6 +34,7 @@ class ProductFragment : BaseFragment() {
     var listProdcut: List<Product>? = arrayListOf()
     val listAction: MutableList<() -> Unit?> = mutableListOf()
     val listMenu: MutableList<String> = mutableListOf()
+    var warehouseId: Int? = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,15 +66,23 @@ class ProductFragment : BaseFragment() {
         vmWarehouse.getListWarehouses().observe(viewLifecycleOwner, Observer {
             listAction.clear()
             listMenu.clear()
+            listMenu.add(getString(R.string.txt_all_warehouse))
+            listAction.add {
+                viewModel.getListProduct()
+                wkwk(0, getString(R.string.txt_all_warehouse))
+            }
+
             it?.forEach {wh ->
                 listAction.add {
-                    Toast.makeText(context, "id => ${wh.id}", Toast.LENGTH_SHORT).show()
+                    viewModel.getListProduct(wh.id.toInt())
+                    wkwk(wh.id.toInt(), wh.name)
                 }
 
                 listMenu.add(wh.name)
             }
         })
 
+        tv_warehouse_name.visible()
         iv_filter_warehouse.visible()
         iv_filter_warehouse.setOnClickListener {
             MyPopupMenu(
@@ -104,6 +114,11 @@ class ProductFragment : BaseFragment() {
         })
     }
 
+    fun wkwk(warehousId: Int?, warehousName: String?){
+        warehouseId = warehousId
+        tv_warehouse_name.text = warehousName
+    }
+
     private fun startSearchData(query: String) {
         listProdcut?.let {
             val listSearchResult = listProdcut!!.filter {
@@ -116,7 +131,7 @@ class ProductFragment : BaseFragment() {
     private fun setupUI(listProdcut: List<Product>) {
         setupRecycleView(listProdcut)
         swipeRefreshLayoutMaster?.setOnRefreshListener {
-            viewModel.getListProduct()
+            viewModel.getListProduct(warehouseId)
         }
     }
 

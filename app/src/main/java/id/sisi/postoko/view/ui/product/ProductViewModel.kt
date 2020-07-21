@@ -17,10 +17,11 @@ class ProductViewModel : ViewModel() {
         getListProduct()
     }*/
 
-    fun getListProduct() {
+    fun getListProduct(warehouseId: Int? = 0) {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-        ApiServices.getInstance()?.getListProduct(headers)?.exe(
+        val params = mutableMapOf("warehouse_id" to warehouseId.toString())
+        ApiServices.getInstance()?.getListProduct(headers, params)?.exe(
             onFailure = { _, _ ->
                 isExecute.postValue(false)
                 products.postValue(null)

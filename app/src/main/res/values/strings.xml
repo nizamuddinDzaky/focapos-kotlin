@@ -76,6 +76,7 @@
     <string name="txt_do_number">No DO</string>
     <string name="txt_so_number">No SO</string>
     <string name="txt_quantity">Kuantitas</string>
+    <string name="txt_quantity_booking">Pesanan Kuantitas</string>
     <string name="txt_nominal">Nominal</string>
     <string name="txt_driver_name">Nama Pengemudi</string>
     <string name="txt_date">Tanggal</string>

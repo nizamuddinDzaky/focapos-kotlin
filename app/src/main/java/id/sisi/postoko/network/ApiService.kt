@@ -203,7 +203,10 @@ interface ApiServices {
     ): Call<BaseResponse<DataLogin>>
 
     @GET("api/v1/distributor/products/list_products")
-    fun getListProduct(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<DataProduct>>
+    fun getListProduct(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, Any>
+    ): Call<BaseResponse<DataProduct>>
 
     @GET("api/v1/distributor/Sales_booking/list_transaction_sales_booking")
     fun getPieChartData(
