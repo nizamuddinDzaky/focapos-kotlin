@@ -50,8 +50,9 @@ class ListMasterProdukAdapter (
                 loadImage.execute("${product?.image}")
             }
             itemView.setOnClickListener {
-                    val page = Intent(itemView.context, DetailProductActivity::class.java)
-                    itemView.context.startActivity(page)
+                val page = Intent(itemView.context, DetailProductActivity::class.java)
+                page.putExtra(KEY_PRODUCT_ID, product?.id)
+                itemView.context.startActivity(page)
             }
 
             itemView.tv_qty.text = product?.quantity?.toNumberID()

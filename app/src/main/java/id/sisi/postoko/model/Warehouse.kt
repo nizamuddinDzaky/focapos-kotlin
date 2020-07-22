@@ -21,7 +21,9 @@ data class Warehouse(
     val price_group_id: String,
     val shipment_price_group_id: String,
     val uuid: String,
-    val uuid_app: String
+    val uuid_app: String,
+    var quantity_booking: String? = null,
+    var quantity: String? = null
 ): Parcelable {
     @IgnoredOnParcel
     var isSelected = false

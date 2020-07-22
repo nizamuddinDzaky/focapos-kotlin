@@ -55,6 +55,11 @@ data class DataCustomer(
     var list_customers: List<Customer>?
 )
 
+data class DetailProduct(
+    var product: Product?,
+    var warehouses: List<Warehouse>?
+)
+
 data class DataWarehouseCustomer(
     var warehouses_selected: List<Warehouse>?,
     var warehouses: List<Warehouse>?,

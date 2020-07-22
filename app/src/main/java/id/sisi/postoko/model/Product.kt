@@ -31,6 +31,7 @@ data class Product(
 //    val item_id: String,
 //    val mtid: Any,
     val name: String,
+    val type: String? = null,
     var price: Int,
 //
 //    val price_public: String,
@@ -77,6 +78,8 @@ data class Product(
     var price_kredit: Int? = 0,
     var min_order: Int = 0,
     var unit_name: String? = null,
+    var category_name: String? = null,
+    var brand_name: String? = null,
     var is_multiple: Int? = null,
     var priceGroup_id: Int? = null
     /*=======*/
@@ -85,4 +88,5 @@ data class Product(
     var isCollapse = false
     @IgnoredOnParcel
     var isSelected = false
+    var warehouse: List<Warehouse>? = arrayListOf()
 }

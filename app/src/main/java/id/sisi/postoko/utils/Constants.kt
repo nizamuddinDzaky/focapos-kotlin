@@ -2,6 +2,7 @@ package id.sisi.postoko.utils
 
 const val KEY_FORCA_TOKEN = "Forca-Token"
 const val KEY_ID_SALES_BOOKING = "id_sales_booking"
+const val KEY_PRODUCT_ID = "id_products"
 const val KEY_ID_GOODS_RECEIVED = "id_goods_received"
 const val KEY_ID_WAREHOUSE = "id_warehouse"
 const val KEY_ID_SUPPLIER = "id_supplier"
@@ -53,8 +54,8 @@ const val RC_IMAGE_CAPTURE_CODE = 1001
 const val RC_PERMISSION_CAMERA = 1000
 //const val BASE_URL = "https://qp.forca.id/"
 const val BASE_URL = "https://pos.forca.id/"
-const val BASE_URL_DIRTY = "https://qp.forca.id/"
-//const val BASE_URL_DIRTY = "http://10.15.4.102:9090/"
+//const val BASE_URL_DIRTY = "https://qp.forca.id/"
+const val BASE_URL_DIRTY = "http://10.15.4.102:9090/"
 const val DEFAULT_LOGO_CUSTOMER = "logo.png"
 const val DEFAULT_LOGO_PRODUCT = "no_image.png"
 const val URL_AVATAR_PROFILE = "$BASE_URL/assets/uploads/avatars/thumbs/"
