@@ -17,18 +17,44 @@
             android:background="@android:color/white"
             android:layout_marginBottom="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_10">
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/margin_10">
-
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/sv_master"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_10"
+                android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:background="#eee" />
+                    android:layout_height="match_parent"
 
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/sv_master"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="30dp"
+                        android:background="#eee" />
+                    <ImageView
+                        android:id="@+id/iv_filter_warehouse"
+                        android:padding="5dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:src="@drawable/ic_building"
+                        android:layout_marginStart="@dimen/et_top_margin"
+                        android:visibility="gone"
+                        />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_warehouse_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_all_warehouse"
+                    android:layout_marginTop="@dimen/et_top_margin"
+                    android:fontFamily="@font/roboto_regular"
+                    android:visibility="gone"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

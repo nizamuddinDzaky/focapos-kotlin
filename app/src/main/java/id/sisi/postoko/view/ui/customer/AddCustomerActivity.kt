@@ -51,6 +51,7 @@ class AddCustomerActivity : AppCompatActivity() {
     var provinsiSelected: String? = null
     var districtSelected: String? = null
     var stateSelected: String? = null
+
     private val pages = listOf(
         AddDataCustomerFragment(),
         AddWarehouseCustomerFragment()

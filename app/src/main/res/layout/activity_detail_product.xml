@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ui.customer.AddCustomerActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_add_customer"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#fff"
+            app:navigationIcon="@drawable/back_arrow_foreground"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/txt_detail_product"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/text_grey"
+                android:textSize="20sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:id="@+id/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="@dimen/et_top_margin">
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                tools:ignore="UselessParent">
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/conDes"
+                    android:src="@drawable/toko2" />
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="asdasdasd"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="@dimen/et_top_margin"/>
+
+        </LinearLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/main_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_header">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs_main_pagers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:tabBackground="?selectableItemBackground"
+                app:tabIndicatorColor="@android:color/darker_gray"
+                app:tabIndicatorHeight="@dimen/tab_indicator_height"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@android:color/background_dark"
+                app:tabTextColor="@android:color/darker_gray" />
+
+        </androidx.viewpager.widget.ViewPager>
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

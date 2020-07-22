@@ -14,8 +14,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <RelativeLayout
+                android:id="@+id/layout_alias"
                 android:layout_width="74dp"
                 android:layout_height="74dp"
+                android:layout_gravity="center"
                 android:layout_margin="@dimen/et_top_margin">
                 <View
                     android:layout_width="64dp"
@@ -31,9 +33,24 @@
                     android:textColor="@android:color/white"
                     android:text="AR"/>
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layout_thumb"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/et_top_margin">
+                <ImageView
+                    android:id="@+id/iv_icon_product"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/toko2"
+                    />
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/standard_margin"
                 android:paddingRight="@dimen/standard_margin"
@@ -52,12 +69,59 @@
 
                 <TextView
                     android:id="@+id/tv_product_price"
-                    android:layout_marginTop="@dimen/et_top_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
                     android:textColor="@color/text_grey"
                     tools:text = "Rp 50.000"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/et_top_margin"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            tools:ignore="NestedWeights,RtlSymmetry"
+                            style="@style/TextAppearance.AppCompat.Small"
+                            android:text = "@string/txt_quantity"/>
+                        <TextView
+                            android:id="@+id/tv_qty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            tools:ignore="NestedWeights,RtlSymmetry"
+                            style="@style/TextAppearance.AppCompat.Small"
+                            tools:text = "Kuantitas"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            tools:ignore="NestedWeights,RtlSymmetry"
+                            style="@style/TextAppearance.AppCompat.Small"
+                            android:text = "@string/txt_quantity_booking"/>
+                        <TextView
+                            android:id="@+id/tv_qty_booking"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            tools:ignore="NestedWeights,RtlSymmetry"
+                            style="@style/TextAppearance.AppCompat.Small"
+                            tools:text = "Kuantitas"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 </LinearLayout>

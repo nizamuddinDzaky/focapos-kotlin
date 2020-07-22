@@ -25,12 +25,13 @@ data class Product(
 //    val end_date: Any,
 //    val `file`: Any,
     val id: String,
-//    val image: String,
+    val image: String? = null,
 //    val is_deleted: Any,
 //    val is_retail: String,
 //    val item_id: String,
 //    val mtid: Any,
     val name: String,
+    val type: String? = null,
     var price: Int,
 //
 //    val price_public: String,
@@ -39,8 +40,8 @@ data class Product(
 //    val promotion: Any,
 //    val `public`: Any,
 //    val purchase_unit: String,
-//    val quantity: String,
-//    val quantity_booking: Any,
+    var quantity: Double? = 0.0,
+    var quantity_booking: Double? = 0.0,
 //    val sale_unit: String,
 //    val start_date: Any,
 //    val subcategory_id: Any,
@@ -61,7 +62,7 @@ data class Product(
 //    val supplier5price: Any,
     var tax_method: Int = 0,
     var tax_rate: Int = 0,
-//    val thumb_image: String,
+//    val thumb_image: String? = null,
 //    val track_quantity: String,
 //    val type: String,
     var unit: String? = null,
@@ -77,6 +78,8 @@ data class Product(
     var price_kredit: Int? = 0,
     var min_order: Int = 0,
     var unit_name: String? = null,
+    var category_name: String? = null,
+    var brand_name: String? = null,
     var is_multiple: Int? = null,
     var priceGroup_id: Int? = null
     /*=======*/
@@ -85,4 +88,5 @@ data class Product(
     var isCollapse = false
     @IgnoredOnParcel
     var isSelected = false
+    var warehouse: List<Warehouse>? = arrayListOf()
 }
