@@ -102,7 +102,7 @@ class ListProductPriceGroupAdapter(private var product: List<Product>? = arrayLi
                 }
                 val newProduct = Product(
                     id = value.id,
-                    price = itemView.et_price.tag.toString().toInt(),
+                    price = itemView.et_price.tag.toString(),
                     price_kredit =  itemView.et_price_credit.tag.toString().toInt(),
                     min_order =  itemView.et_min_order.text.toString().toInt(),
                     code = value.product_code ?: "",

@@ -32,7 +32,7 @@ data class Product(
 //    val mtid: Any,
     val name: String,
     val type: String? = null,
-    var price: Int,
+    var price: String,
 //
 //    val price_public: String,
 //    val product_details: String,
@@ -79,6 +79,7 @@ data class Product(
     var min_order: Int = 0,
     var unit_name: String? = null,
     var category_name: String? = null,
+    var categori_name: String? = null,
     var brand_name: String? = null,
     var is_multiple: Int? = null,
     var priceGroup_id: Int? = null

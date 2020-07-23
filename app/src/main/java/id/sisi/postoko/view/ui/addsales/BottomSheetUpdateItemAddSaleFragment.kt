@@ -57,7 +57,7 @@ class BottomSheetUpdateItemAddSaleFragment: BottomSheetDialogFragment() {
     }
 
     private fun setUpNewProduct() {
-        listProduct[index].price = et_unit_price.text.toString().toInt()
+        listProduct[index].price = et_unit_price.text.toString()
         listProduct[index].sale_qty = et_qty_produk.text.toString().toInt()
         listProduct[index].discount = et_discount.text.toString().toInt()
         listProduct[index].code = et_product_serial_number.text.toString()
