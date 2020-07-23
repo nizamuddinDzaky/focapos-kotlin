@@ -10,6 +10,7 @@ import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.utils.RC_ADD_PRICE_GROUP
+import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.isSuperAdmin
 import id.sisi.postoko.utils.extensions.logE
@@ -26,6 +27,11 @@ import id.sisi.postoko.view.ui.profile.ProfileViewModel
 import id.sisi.postoko.view.ui.supplier.SupplierFragment
 import id.sisi.postoko.view.ui.warehouse.WarehouseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.fb_add_transaction
+import kotlinx.android.synthetic.main.fragment_home.main_container
+import kotlinx.android.synthetic.main.fragment_home.main_view_pager
+import kotlinx.android.synthetic.main.fragment_home.tabs_main_pagers
+import kotlinx.android.synthetic.main.fragment_root_sales.*
 
 
 class MasterDataFragment : Fragment() {
@@ -33,6 +39,7 @@ class MasterDataFragment : Fragment() {
 
     private lateinit var mViewModel: ProfileViewModel
 
+    private val typeface = TypeFace()
     private var pages = arrayListOf<BaseFragment>(
         CustomerFragment(),
         /*CustomerGroupFragment(),
@@ -75,6 +82,7 @@ class MasterDataFragment : Fragment() {
             it.adapter = HomePagerAdapter(childFragmentManager, pages)
             tabs_main_pagers?.setupWithViewPager(it)
         }
+        context?.assets?.let { typeface.fontTab(tabs_main_pagers, "robot_font/Roboto-Regular.ttf", it) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
