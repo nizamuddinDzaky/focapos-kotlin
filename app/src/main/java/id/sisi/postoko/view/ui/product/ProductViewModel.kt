@@ -33,6 +33,7 @@ class ProductViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     tryMe {
                         isExecute.postValue(false)
+                        logE("asdsad : ${response.body()?.data?.list_products}")
                         products.postValue(response.body()?.data?.list_products)
                     }
                 } else {

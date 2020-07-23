@@ -239,7 +239,11 @@ class HomeActivity : BaseActivity() {
     fun hideBottomNavigation() {
         val roleId = prefs.posRoleId ?: 0
         bottom_navigation?.menu?.findItem(R.id.menu_master_data)?.isVisible =
-            roleId.isSuperAdmin()
+            (roleId.isSuperAdmin() || roleId.isAdminGudang())
+
+        /*bottom_navigation?.menu?.findItem(R.id.menu_master_data)?.isVisible =*/
+
+
         bottom_navigation?.menu?.findItem(R.id.menu_good_receive)?.isVisible =
             roleId.isNotCashier()
     }

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterProdukAdapter
 import id.sisi.postoko.model.Product
@@ -16,7 +17,10 @@ import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.KEY_SALE_STATUS
 import id.sisi.postoko.utils.MyPopupMenu
+import id.sisi.postoko.utils.extensions.isSuperAdmin
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
+import id.sisi.postoko.utils.helper.Prefs
 import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.ui.sales.DetailSalesBookingActivity
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
@@ -28,6 +32,9 @@ class ProductFragment : BaseFragment() {
         fun newInstance() = ProductFragment()
     }
 
+    private val prefs: Prefs by lazy {
+        Prefs(MyApp.instance)
+    }
     private lateinit var viewModel: ProductViewModel
     private lateinit var vmWarehouse: WarehouseViewModel
     private lateinit var adapter: ListMasterProdukAdapter
@@ -56,6 +63,7 @@ class ProductFragment : BaseFragment() {
         })
         viewModel.getListProducts().observe(viewLifecycleOwner, Observer {
             listProdcut=it
+            logE("popo $it")
             listProdcut?.let { it1 -> setupUI(it1) }
             /**/
         })
@@ -82,15 +90,18 @@ class ProductFragment : BaseFragment() {
             }
         })
 
-        tv_warehouse_name.visible()
-        iv_filter_warehouse.visible()
-        iv_filter_warehouse.setOnClickListener {
-            MyPopupMenu(
-                it,
-                listMenu,
-                listAction,
-                highlight = it
-            ).show()
+        val roleId = prefs.posRoleId ?: 0
+        if (roleId.isSuperAdmin()) {
+            tv_warehouse_name.visible()
+            iv_filter_warehouse.visible()
+            iv_filter_warehouse.setOnClickListener {
+                MyPopupMenu(
+                    it,
+                    listMenu,
+                    listAction,
+                    highlight = it
+                ).show()
+            }
         }
 
         sv_master.setOnClickListener {
@@ -131,6 +142,7 @@ class ProductFragment : BaseFragment() {
     private fun setupUI(listProdcut: List<Product>) {
         setupRecycleView(listProdcut)
         swipeRefreshLayoutMaster?.setOnRefreshListener {
+            logE("asd")
             viewModel.getListProduct(warehouseId)
         }
     }
