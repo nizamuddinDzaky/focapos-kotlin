@@ -62,11 +62,11 @@ class AddItemAddSaleFragment: Fragment() {
         sp_customer.setOnClickListener {
             val dialogFragment = FragmentSearchCustomer()
             dialogFragment.listener={ customer ->
-                (activity as AddSaleActivity?)?.vmProduct?.getListProductSales(
+                /*(activity as AddSaleActivity?)?.vmProduct?.getListProductSales(
                     customer.id?.toInt() ?: 0
-                )
+                )*/
 
-                (activity as AddSaleActivity?)?.listProduct?.let { it1 -> setupUI(it1) }
+//                (activity as AddSaleActivity?)?.listProduct?.let { it1 -> setupUI(it1) }
 
                 /*(activity as AddSaleActivity?)?.listProduct.let {
                     if (it != null) {
@@ -124,9 +124,9 @@ class AddItemAddSaleFragment: Fragment() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isNotEmpty() && newText.length > 2) {
-//                    startSearchData(newText)
+                    startSearchData(newText)
                 } else {
-//                    setupUI(listProduct)
+                    setupUI(listProduct)
                 }
                 return true
             }
@@ -159,7 +159,7 @@ class AddItemAddSaleFragment: Fragment() {
             setupUI(listSearchResult)
         }
     }
-    private fun setupUI(listProduct: List<Product>) {
+    fun setupUI(listProduct: List<Product>) {
         setupRecycleView(listProduct)
     }
 

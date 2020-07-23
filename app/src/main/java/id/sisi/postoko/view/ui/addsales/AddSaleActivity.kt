@@ -61,6 +61,8 @@ class AddSaleActivity : BaseActivity() {
             }
         })
 
+        vmProduct.getListProduct()
+
         vmAddSale = ViewModelProvider(
             this
         ).get(AddSalesViewModel::class.java)
@@ -105,9 +107,9 @@ class AddSaleActivity : BaseActivity() {
     fun getTotal(): Double{
         var total = 0.0
         listProduct.forEach { product ->
-//            logE("selectedTotal : ${product.isSelected}")
+            /*logE("selectedTotal : ${product.price.toDouble()}")*/
             if (product.isSelected){
-                total += (product.sale_qty * product.price.toInt())
+                total += (product.sale_qty * product.price.toDouble().toInt())
             }
         }
         return total

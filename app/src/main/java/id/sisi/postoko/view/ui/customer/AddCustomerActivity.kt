@@ -65,7 +65,7 @@ class AddCustomerActivity : AppCompatActivity() {
 
         mViewModelWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
 
-        tabs_main_pagers.setSelectedTabIndicatorColor(Color.parseColor("#3F51B5"))
+        tabs_main_pagers.setSelectedTabIndicatorColor(Color.parseColor("#004C97"))
         main_view_pager?.let {
             it.adapter = CustomerPagerAdapter(supportFragmentManager, pages)
             tabs_main_pagers?.setupWithViewPager(it)

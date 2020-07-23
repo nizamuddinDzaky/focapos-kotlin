@@ -1,5 +1,6 @@
 package id.sisi.postoko.view.ui.product
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -9,10 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Product
-import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
-import id.sisi.postoko.utils.KEY_PRODUCT_ID
-import id.sisi.postoko.utils.LoadImageFromUrl
-import id.sisi.postoko.utils.URL_AVATAR_PROFILE
+import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.customer.CustomerPagerAdapter
 import kotlinx.android.synthetic.main.activity_detail_product.*
@@ -21,13 +19,12 @@ import kotlinx.android.synthetic.main.activity_detail_product.main_view_pager
 import kotlinx.android.synthetic.main.activity_detail_product.tabs_main_pagers
 import kotlinx.android.synthetic.main.content_detail_customer.*
 import kotlinx.android.synthetic.main.content_edit_customer.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class DetailProductActivity: AppCompatActivity() {
-
-
     var product = MutableLiveData<Product>()
     private lateinit var mViewModelProduct: ProductViewModel
-
+    private val typeface = TypeFace()
     private val pages = listOf(
         DetailProductFragment(),
         QuantityProductFragment()
@@ -51,10 +48,11 @@ class DetailProductActivity: AppCompatActivity() {
         })
 
         mViewModelProduct.getDetailProduct(intent.getStringExtra(KEY_PRODUCT_ID)?.toInt() ?: 0)
-
+        tabs_main_pagers.setSelectedTabIndicatorColor(Color.parseColor("#004C97"))
         main_view_pager?.let {
             it.adapter = CustomerPagerAdapter(supportFragmentManager, pages)
             tabs_main_pagers?.setupWithViewPager(it)
         }
+        assets?.let { typeface.fontTab(tabs_main_pagers, "robot_font/Roboto-Regular.ttf", it) }
     }
 }

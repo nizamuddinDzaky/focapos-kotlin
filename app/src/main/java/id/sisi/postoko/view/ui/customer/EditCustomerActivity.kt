@@ -20,7 +20,12 @@ import id.sisi.postoko.utils.URL_AVATAR_PROFILE
 import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_edit_customer.*
+import kotlinx.android.synthetic.main.content_add_customer.*
 import kotlinx.android.synthetic.main.content_edit_customer.*
+import kotlinx.android.synthetic.main.content_edit_customer.btn_action_submit
+import kotlinx.android.synthetic.main.content_edit_customer.iv_logo
+import kotlinx.android.synthetic.main.content_edit_customer.main_view_pager
+import kotlinx.android.synthetic.main.content_edit_customer.tabs_main_pagers
 
 
 class EditCustomerActivity : AppCompatActivity() {
@@ -65,7 +70,7 @@ class EditCustomerActivity : AppCompatActivity() {
             }
         })
 
-        tabs_main_pagers.setSelectedTabIndicatorColor(Color.parseColor("#3F51B5"))
+        tabs_main_pagers.setSelectedTabIndicatorColor(Color.parseColor("#004C97"))
         main_view_pager?.let {
             it.adapter = CustomerPagerAdapter(supportFragmentManager, pages)
             tabs_main_pagers?.setupWithViewPager(it)
