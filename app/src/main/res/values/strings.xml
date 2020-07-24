@@ -76,7 +76,7 @@
     <string name="txt_do_number">No DO</string>
     <string name="txt_so_number">No SO</string>
     <string name="txt_quantity">Kuantitas</string>
-    <string name="txt_quantity_booking">Pesanan Kuantitas</string>
+    <string name="txt_quantity_booking">Kuantitas Pemesanan</string>
     <string name="txt_nominal">Nominal</string>
     <string name="txt_driver_name">Nama Pengemudi</string>
     <string name="txt_date">Tanggal</string>
@@ -373,5 +373,5 @@
     <string name="txt_total_item">Jumlah Barang</string>
     <string name="txt_discount_item">Diskon Item (Rp)</string>
     <string name="txt_see_note">Lihat Catatan</string>
-    <string name="txt_detail_product">Detail Product</string>
+    <string name="txt_detail_product">Detail Produk</string>
 </resources>

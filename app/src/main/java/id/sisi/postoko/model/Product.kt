@@ -32,7 +32,7 @@ data class Product(
 //    val mtid: Any,
     val name: String,
     val type: String? = null,
-    var price: String,
+    var price: Int? = null,
 //
 //    val price_public: String,
 //    val product_details: String,

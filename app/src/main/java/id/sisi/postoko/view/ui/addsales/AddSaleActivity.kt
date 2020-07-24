@@ -109,7 +109,7 @@ class AddSaleActivity : BaseActivity() {
         listProduct.forEach { product ->
             /*logE("selectedTotal : ${product.price.toDouble()}")*/
             if (product.isSelected){
-                total += (product.sale_qty * product.price.toDouble().toInt())
+                total += (product.sale_qty * (product.price?.toDouble()?.toInt() ?: 0))
             }
         }
         return total

@@ -323,8 +323,8 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         si.product_id = product.id.toInt()
         si.product_code = product.code
         si.product_name = product.name
-        si.net_unit_price = product.price.toDouble()
-        si.unit_price = product.price.toDouble()
+        si.net_unit_price = product.price?.toDouble()
+        si.unit_price = product.price?.toDouble()
         si.quantity = 1.0
         si.subtotal = (si.quantity ?: 0.0) * (si.unit_price ?: 0.0)
         var cek = true

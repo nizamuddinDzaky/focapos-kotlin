@@ -33,7 +33,7 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         tv_alias_product.text = product.name.toAlias()
         tv_product_name.text = product.name
-        tv_product_price.text = product.price.toCurrencyID()
+        tv_product_price.text = product.price?.toCurrencyID()
 
         et_sale_item_qty.onChange {
             val strQty = et_sale_item_qty.text.toString()
