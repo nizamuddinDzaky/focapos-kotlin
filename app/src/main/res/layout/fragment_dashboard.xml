@@ -60,6 +60,36 @@
                     android:orientation="horizontal"
                     android:baselineAligned="false"
                     android:background="@drawable/shadow">
+                    <LinearLayout
+                        android:id="@+id/view_04"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/et_top_margin"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/iv_view_04"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:contentDescription="@string/conDes"
+                            app:layout_constraintBottom_toTopOf="@id/tv_view_04"
+                            app:srcCompat="@drawable/icon_master" />
+
+                        <TextView
+                            android:id="@+id/tv_view_04"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_master_data"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/colorTittleInput"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/margin_5"
+                            app:layout_constraintTop_toBottomOf="@id/iv_view_04" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/view_01"
@@ -154,36 +184,7 @@
                             android:layout_marginTop="@dimen/margin_5"
                             app:layout_constraintTop_toBottomOf="@id/iv_view_03" />
                     </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/view_04"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/et_top_margin"
-                        tools:ignore="UseCompoundDrawables">
 
-                        <ImageView
-                            android:id="@+id/iv_view_04"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="@dimen/margin_10"
-                            android:contentDescription="@string/conDes"
-                            app:layout_constraintBottom_toTopOf="@id/tv_view_04"
-                            app:srcCompat="@drawable/icon_master" />
-
-                        <TextView
-                            android:id="@+id/tv_view_04"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/txt_master_data"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="@color/colorTittleInput"
-                            android:textStyle="bold"
-                            android:layout_marginTop="@dimen/margin_5"
-                            app:layout_constraintTop_toBottomOf="@id/iv_view_04" />
-                    </LinearLayout>
 
                 </LinearLayout>
 

@@ -49,7 +49,7 @@
     <string name="txt_warehouse">Gudang</string>
     <string name="txt_all_warehouse">Semua Gudang</string>
     <string name="txt_choose_warehouse">Pilih Gudang</string>
-    <string name="txt_customer">Customer/Toko</string>
+    <string name="txt_customer">Nama Pelanggan</string>
     <string name="txt_choose_customer">Pilih Customer/Toko</string>
     <string name="txt_product">Produk</string>
     <string name="txt_add_product">Tambah Produk</string>
@@ -72,6 +72,8 @@
     <string name="txt_edit">Ubah</string>
     <string name="txt_sub_total">Sub Total</string>
     <string name="txt_price">Harga</string>
+    <string name="txt_sell_price">Harga Jual</string>
+    <string name="txt_cost">Harga Beli</string>
     <string name="txt_delivery_status">Status Pengiriman</string>
     <string name="txt_do_number">No DO</string>
     <string name="txt_so_number">No SO</string>
@@ -283,11 +285,11 @@
     <string name="txt_min_order">Min Order</string>
     <string name="txt_title_detail_price_group">Detail Kelompok Harga</string>
     <string name="txt_multiple">Multiple</string>
-    <string name="txt_add_price_group">Tambah Price Group</string>
+    <string name="txt_add_price_group">Tambah Kelompok Harga</string>
     <string name="txt_maksimal_30_karakter">Maksimal 30 Karakter</string>
-    <string name="title_activity_edit_price_group">Edit Price Group</string>
+    <string name="title_activity_edit_price_group">Ubah Kelompok Harga</string>
     <string name="title_activity_customer_selected_price_group">Pelanggan Yang Dipilih</string>
-    <string name="title_activity_edit_customer_group">Edit Kelompok Pelanggan</string>
+    <string name="title_activity_edit_customer_group">Ubah Kelompok Pelanggan</string>
     <string name="txt_tanpa_tanda_persen">Tanpa Tanda %</string>
     <string name="txt_add_customer_group">Tambah Kelompok Pelanggan</string>
     <string name="title_activity_customer_selected_customer_group">Pelanggan Yang Dipilih</string>
@@ -374,4 +376,5 @@
     <string name="txt_discount_item">Diskon Item (Rp)</string>
     <string name="txt_see_note">Lihat Catatan</string>
     <string name="txt_detail_product">Detail Produk</string>
+    <string name="txt_supplier">Pemasok</string>
 </resources>

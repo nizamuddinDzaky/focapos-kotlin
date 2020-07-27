@@ -50,15 +50,27 @@ class DetailProductFragment: BaseFragment() {
     }
 
     private fun setupUI(it: Product?) {
+        val strSupplier: String = ""
+
         tv_product_type.text = it?.type
         tv_product_code.text = it?.code
         tv_product_brand.text = it?.brand_name
         tv_product_category.text = it?.category_name
         tv_product_unit.text = it?.unit_name
-        logE("${it?.price}")
-        if(TextUtils.isEmpty(it?.price.toString())){
+        tv_supplier.text = it?.supplier
+
+        if(!TextUtils.isEmpty(it?.price.toString())){
             tv_product_price.text = it?.price?.toCurrencyID()
             layout_price.visible()
+            line_price.visible()
         }
+
+        if(!TextUtils.isEmpty(it?.cost.toString())){
+            tv_product_cost.text = it?.cost?.toCurrencyID()
+            layout_cost.visible()
+            line_cost.visible()
+        }
+
+        logE("${it?.price}")
     }
 }

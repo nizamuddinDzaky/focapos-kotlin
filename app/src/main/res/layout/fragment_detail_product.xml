@@ -232,7 +232,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_price"
+                android:text="@string/txt_sell_price"
                 android:textColor="#676767"
                 android:fontFamily="@font/roboto_bold"
                 android:textSize="13dp"
@@ -249,6 +249,96 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:textAlignment="textEnd"
+                android:fontFamily="@font/roboto_regular"
+                android:text="standart"
+                android:textSize="13dp"
+                tools:ignore="SpUsage" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:id="@+id/line_price"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:visibility="gone"
+        android:background="@color/colorLine" />
+
+    <LinearLayout
+        android:id="@+id/layout_cost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_10"
+        android:visibility="gone"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_cost"
+                android:textColor="#676767"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="13dp"
+                tools:ignore="SpUsage" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/tv_product_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textAlignment="textEnd"
+                android:fontFamily="@font/roboto_regular"
+                android:text="standart"
+                android:textSize="13dp"
+                tools:ignore="SpUsage" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:id="@+id/line_cost"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:visibility="gone"
+        android:background="@color/colorLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_10"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_supplier"
+                android:textColor="#676767"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="13dp"
+                tools:ignore="SpUsage" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/tv_supplier"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textAlignment="textStart"
                 android:fontFamily="@font/roboto_regular"
                 android:text="standart"
                 android:textSize="13dp"

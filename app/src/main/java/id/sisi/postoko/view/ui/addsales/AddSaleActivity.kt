@@ -59,9 +59,10 @@ class AddSaleActivity : BaseActivity() {
             if (it != null) {
                 listProduct=it
             }
+
         })
 
-        vmProduct.getListProduct()
+//        vmProduct.getListProduct()
 
         vmAddSale = ViewModelProvider(
             this

@@ -18,7 +18,7 @@ data class Product(
 //    val cf6: String,
     var code: String,
 //    val company_id: String,
-//    val cost: String,
+    val cost: String? = null,
 //    val credit_price: String,
 //    val details: String,
 //    val e_minqty: String,
@@ -45,19 +45,19 @@ data class Product(
 //    val sale_unit: String,
 //    val start_date: Any,
 //    val subcategory_id: Any,
-//    val supplier1: String,
+//    val supplier1: String? = null,
 //    val supplier1_part_no: String,
 //    val supplier1price: Any,
-//    val supplier2: String,
+//    val supplier2: String? = null,
 //    val supplier2_part_no: String,
 //    val supplier2price: Any,
-//    val supplier3: String,
+//    val supplier3: String? = null,
 //    val supplier3_part_no: String,
 //    val supplier3price: Any,
-//    val supplier4: String,
+//    val supplier4: String? = null,
 //    val supplier4_part_no: String,
 //    val supplier4price: Any,
-//    val supplier5: String,
+//    val supplier5: String? = null,
 //    val supplier5_part_no: String,
 //    val supplier5price: Any,
     var tax_method: Int = 0,
@@ -82,7 +82,8 @@ data class Product(
     var categori_name: String? = null,
     var brand_name: String? = null,
     var is_multiple: Int? = null,
-    var priceGroup_id: Int? = null
+    var priceGroup_id: Int? = null,
+    var supplier: String? = null
     /*=======*/
 ) : Parcelable {
     @IgnoredOnParcel

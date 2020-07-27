@@ -666,6 +666,7 @@
                             android:layout_margin="@dimen/standard_margin"
                             android:background="@color/main_green"
                             android:text="@string/txt_change_password"
+                            android:fontFamily="@font/roboto_bold"
                             android:textAllCaps="false"
                             android:textAppearance="@style/TextAppearance.AppCompat.Large"
                             android:textColor="@android:color/white" />

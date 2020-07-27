@@ -58,6 +58,7 @@ class ProductViewModel : ViewModel() {
                     tryMe {
                         isExecute.postValue(false)
                         products.postValue(response.body()?.data?.list_products)
+                        
                     }
                 } else {
                     isExecute.postValue(false)

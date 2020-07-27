@@ -42,5 +42,6 @@
         android:layout_marginBottom="@dimen/et_top_margin"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:fontFamily="@font/roboto_regular"
         tools:text="Judul" />
 </LinearLayout>
