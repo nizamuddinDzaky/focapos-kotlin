@@ -351,6 +351,9 @@ interface ApiServices {
         @HeaderMap headers: MutableMap<String, String>,
         @QueryMap params: MutableMap<String, String>): Call<BaseResponse<DetailProduct>>
 
+    @GET("api/v1/distributor/sales_booking/term_of_payment")
+    fun getTermOfPayment(@HeaderMap headerMap: Map<String, String>): Call<BaseResponse<List<DataTermOfPayment>>>
+
     companion object {
         private var retrofit: Retrofit? = null
 

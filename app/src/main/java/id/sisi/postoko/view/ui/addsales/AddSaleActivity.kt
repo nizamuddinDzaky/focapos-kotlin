@@ -55,12 +55,12 @@ class AddSaleActivity : BaseActivity() {
         adapter = ListItemAddSaleAdapter()
 
         vmProduct = ViewModelProvider(this).get(ProductViewModel::class.java)
-        vmProduct.getListProducts().observe(this, Observer {
+        /*vmProduct.getListProducts().observe(this, Observer {
             if (it != null) {
                 listProduct=it
             }
 
-        })
+        })*/
 
 //        vmProduct.getListProduct()
 

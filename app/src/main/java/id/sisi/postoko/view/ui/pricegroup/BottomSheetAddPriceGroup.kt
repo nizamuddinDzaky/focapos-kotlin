@@ -100,7 +100,7 @@ class BottomSheetAddPriceGroup: BottomSheetDialogFragment() {
         if (numbersMap["type"] as Boolean){
             context?.let { progressBar.show(it, "Silakan tunggu...") }
             val body: MutableMap<String, Any> = mutableMapOf(
-                "name" to (et_price_group_name?.text?.toString() ?: ""),
+                    "name" to (et_price_group_name?.text?.toString() ?: ""),
                 "warehouse_id" to (idWarehouse?: "")
             )
 

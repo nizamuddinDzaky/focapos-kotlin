@@ -49,6 +49,11 @@ data class DataDaerah(
     var id_wilayah:String?
 )
 
+data class DataTermOfPayment(
+    var description: String?,
+    var duration: String?
+)
+
 data class DataCustomer(
     var total_supplier: Int?,
     var customer: Customer?,

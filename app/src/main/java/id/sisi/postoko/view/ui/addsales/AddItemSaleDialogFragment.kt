@@ -9,10 +9,7 @@ import androidx.fragment.app.DialogFragment
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.MyDialog
-import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.onChange
-import id.sisi.postoko.utils.extensions.toAlias
-import id.sisi.postoko.utils.extensions.toCurrencyID
+import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.dialog_fragment_item_add_sale.*
 
 class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
@@ -53,7 +50,7 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
             if (qty < 1){
                 myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
             }else{
-                product.sale_qty -= qty
+                product.sale_qty = qty
                 et_sale_item_qty.setText(product.sale_qty.toString())
             }
         }

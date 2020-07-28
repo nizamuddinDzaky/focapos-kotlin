@@ -64,6 +64,8 @@ class PaymentAddSaleFragment: Fragment() {
 
         setUpEventUi()
 
+        (activity as AddSaleActivity).vmAddSale.getTermOfPayment()
+
         rg_status_add_sale?.check(rg_status_add_sale?.get(0)?.id ?: 0)
     }
 

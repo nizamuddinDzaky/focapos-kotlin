@@ -49,6 +49,70 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/layout_ref_do"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_delivery_reference_numbers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_reference_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/file"
+                    android:drawableLeft="@drawable/file"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/txt_hint_example_delivery_number"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:targetApi="lollipop"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_sales_reference_numbers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/colorTittleInput"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_add_delivery_sales_ref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/file"
+                    android:drawableLeft="@drawable/file"
+                    android:drawablePadding="@dimen/et_top_margin"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/txt_hint_example_sales_number"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    tools:targetApi="lollipop"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -116,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         android:buttonTint="@color/radio_button"
-                        android:text="@string/txt_in_shipping"
+                        android:text="@string/txt_in_shipping_delivery"
                         android:layout_weight="1"
                         tools:targetApi="lollipop" />
 
@@ -159,69 +223,7 @@
                         </LinearLayout>
             -->
 
-            <LinearLayout
-                android:id="@+id/layout_ref_do"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/et_top_margin">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_delivery_reference_numbers"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorTittleInput"
-                    android:fontFamily="@font/roboto_bold" />
-
-                <EditText
-                    android:id="@+id/et_add_delivery_reference_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/file"
-                    android:drawableLeft="@drawable/file"
-                    android:drawablePadding="@dimen/et_top_margin"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:textColor="@color/text_grey"
-                    android:fontFamily="@font/roboto_regular"
-                    android:hint="@string/txt_hint_example_delivery_number"
-                    android:importantForAutofill="no"
-                    android:inputType="none"
-                    tools:targetApi="lollipop"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_sales_reference_numbers"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorTittleInput"
-                    android:fontFamily="@font/roboto_bold" />
-
-                <EditText
-                    android:id="@+id/et_add_delivery_sales_ref"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/file"
-                    android:drawableLeft="@drawable/file"
-                    android:drawablePadding="@dimen/et_top_margin"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:textColor="@color/text_grey"
-                    android:fontFamily="@font/roboto_regular"
-                    android:hint="@string/txt_hint_example_sales_number"
-                    android:importantForAutofill="no"
-                    android:inputType="none"
-                    tools:targetApi="lollipop"/>
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

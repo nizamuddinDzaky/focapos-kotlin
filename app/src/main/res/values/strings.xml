@@ -125,6 +125,7 @@
     <string name="txt_add_delivery">Menambah Pengiriman</string>
     <string name="txt_being_packed">Sedang Dikemas</string>
     <string name="txt_in_shipping">Mengirim</string>
+    <string name="txt_in_shipping_delivery">Dalam Pengiriman</string>
     <string name="txt_already_received">Sudah Diterima</string>
     <string name="txt_sales_reference_numbers">Referensi Nomor Penjualan</string>
     <string name="txt_hint_example_sales_number">SALE/2020/02/0001</string>
@@ -277,7 +278,7 @@
     <string name="txt_error_try_again_later">Ulangi beberapa saat lagi.</string>
     <string name="txt_title_price_group">Kelompok Harga</string>
     <string name="txt_add_remove_customer">Tambah/Hapus Daftar Pelanggan</string>
-    <string name="txt_group_percentage">Group Percentage</string>
+    <string name="txt_percentage">Persentase</string>
     <string name="txt_kredit_limit">Kredit Limit</string>
     <string name="txt_title_customer_group">Kelompok Pelanggan</string>
     <string name="txt_price_sale">Harga Penjualan</string>

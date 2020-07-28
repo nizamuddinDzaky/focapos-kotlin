@@ -423,7 +423,7 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
 
     private fun setUpUI(deliveryItems: List<DeliveryItem>?) {
         adapter = ListItemDeliveryAdapter()
-        adapter.updateDate(deliveryItems)
+        adapter.updateDate(deliveryItems, true)
         adapter.listenerProduct = this
         rv_list_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_data?.setHasFixedSize(false)
