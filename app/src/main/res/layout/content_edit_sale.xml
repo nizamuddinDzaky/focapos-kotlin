@@ -288,13 +288,14 @@
                     android:textColor="@color/text_grey"
                     android:fontFamily="@font/roboto_bold" />
 
-                <EditText
-                    android:id="@+id/et_payment_term_edit_sale"
+                <Spinner
+                    android:id="@+id/sp_payment_term_edit_sale"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:importantForAutofill="no"
-                    android:inputType="numberSigned"
-                    tools:ignore="LabelFor" />
+                    android:layout_height="40dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:focusable="false"/>
 
                 <TextView
                     android:layout_width="wrap_content"
