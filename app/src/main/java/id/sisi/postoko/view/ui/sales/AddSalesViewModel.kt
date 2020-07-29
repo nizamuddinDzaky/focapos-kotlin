@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.sisi.postoko.MyApp
-import id.sisi.postoko.model.BaseResponse
-import id.sisi.postoko.model.DataDaerah
-import id.sisi.postoko.model.DataLogin
-import id.sisi.postoko.model.DataTermOfPayment
+import id.sisi.postoko.model.*
 import id.sisi.postoko.network.ApiServices
 import id.sisi.postoko.utils.KEY_FORCA_TOKEN
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
@@ -102,7 +99,7 @@ class AddSalesViewModel : ViewModel() {
         )
     }
 
-    fun getTermOfPayment(){
+    fun getTermOfPayment(listener: (listTOP: List<DataTermOfPayment>?) -> Unit? = {}){
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.getTermOfPayment(headers)?.exe(
@@ -113,7 +110,8 @@ class AddSalesViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     tryMe {
                         isExecute.postValue(false)
-                        termOfPayment.postValue(response.body()?.data)
+                        logE("${response.body()?.data}")
+                        listener(response.body()?.data?.term_of_payment)
                     }
                 } else {
                     isExecute.postValue(false)

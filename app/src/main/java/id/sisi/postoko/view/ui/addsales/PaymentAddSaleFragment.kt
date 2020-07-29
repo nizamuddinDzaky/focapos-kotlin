@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.RadioButton
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
@@ -16,16 +17,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.model.DataSpinner
+import id.sisi.postoko.model.DataTermOfPayment
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.*
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.visible
+import id.sisi.postoko.view.ui.customer.AddCustomerActivity
 import id.sisi.postoko.view.ui.delivery.BottomSheetAddDeliveryFragment
 import id.sisi.postoko.view.ui.sales.SaleBookingFactory
 import id.sisi.postoko.view.ui.sales.SaleBookingViewModel
 import id.sisi.postoko.view.ui.sales.SaleStatus
+import kotlinx.android.synthetic.main.fragment_add_data_customer.view.*
 import kotlinx.android.synthetic.main.payment_add_sale_fragment.*
 import org.w3c.dom.Text
 import java.util.*
@@ -52,6 +57,8 @@ class PaymentAddSaleFragment: Fragment() {
     private lateinit var vmDetailSale: SaleBookingViewModel
     private var total = 0.0
     private var totalDisc = 0.0
+    private var listTOP: Array<DataTermOfPayment> = arrayOf()
+    private var termOfPayment: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,9 +71,30 @@ class PaymentAddSaleFragment: Fragment() {
 
         setUpEventUi()
 
-        (activity as AddSaleActivity).vmAddSale.getTermOfPayment()
+        (activity as AddSaleActivity).vmAddSale.getTermOfPayment {
+            it?.let {listTOP ->
+                this.listTOP = listTOP.toTypedArray()
+            }
+            setUpTOP()
+        }
 
         rg_status_add_sale?.check(rg_status_add_sale?.get(0)?.id ?: 0)
+    }
+
+    private fun setUpTOP() {
+        val adapter = context?.let {
+            MySpinnerAdapter(
+                it,
+                android.R.layout.simple_spinner_dropdown_item
+            )
+        }
+
+        listTOP.let {
+            adapter?.udpateView(it.map { top->
+                return@map DataSpinner(top.description ?: "" , top.duration ?: "")
+            }.toMutableList())
+        }
+        sp_payment_term_add_sale.adapter = adapter
     }
 
     private fun setUpEventUi() {
@@ -74,6 +102,13 @@ class PaymentAddSaleFragment: Fragment() {
         rg_status_add_sale?.setOnCheckedChangeListener { radioGroup, i ->
             val radioButton = radioGroup.findViewById<RadioButton>(i)
             rg_status_add_sale.tag = radioButton.tag.toString()
+        }
+
+        sp_payment_term_add_sale.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                termOfPayment = listTOP[position].duration
+            }
         }
 
         et_discount_add_sale.addTextChangedListener(object : TextWatcher {
@@ -156,7 +191,7 @@ class PaymentAddSaleFragment: Fragment() {
                 "order_discount" to (et_discount_add_sale?.tag?.toString() ?: "0"),
                 "shipping" to (et_shipping_add_sale?.tag?.toString() ?: "0"),
                 "sale_status" to (rg_status_add_sale?.tag?.toString() ?: ""),
-                "payment_term" to (et_payment_term_add_sale?.text?.toString() ?: ""),
+                "payment_term" to (termOfPayment ?: "0"),
                 "staff_note" to ((activity as AddSaleActivity).employeeNote ?: ""),
                 "note" to ((activity as AddSaleActivity).saleNote ?: ""),
                 "products" to saleItems
@@ -236,10 +271,10 @@ class PaymentAddSaleFragment: Fragment() {
             et_shipping_add_sale.setText((activity as AddSaleActivity).shipmentPrice)
         }
 
-        et_payment_term_add_sale.addTextChangedListener(NumberSeparator(et_payment_term_add_sale))
+        /*et_payment_term_add_sale.addTextChangedListener(NumberSeparator(et_payment_term_add_sale))
         if (TextUtils.isEmpty((activity as AddSaleActivity).paymentTerm)){
             et_payment_term_add_sale.setText((activity as AddSaleActivity).paymentTerm)
-        }
+        }*/
 
         for (i in 0 until (rg_status_add_sale?.childCount ?: 0)) {
             (rg_status_add_sale?.get(i) as? RadioButton)?.tag =

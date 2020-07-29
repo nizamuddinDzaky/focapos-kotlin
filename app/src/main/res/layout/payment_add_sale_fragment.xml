@@ -92,7 +92,15 @@
                     android:textColor="#676767"
                     android:fontFamily="@font/roboto_bold" />
 
-                <EditText
+                <Spinner
+                    android:id="@+id/sp_payment_term_add_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:focusable="false"/>
+                <!--<EditText
                     android:id="@+id/et_payment_term_add_sale"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -100,7 +108,7 @@
                     android:inputType="numberSigned"
                     android:fontFamily="@font/roboto_regular"
                     android:textSize="14sp"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor" />-->
 
                 <TextView
                     android:layout_width="wrap_content"

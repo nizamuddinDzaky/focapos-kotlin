@@ -54,6 +54,10 @@ data class DataTermOfPayment(
     var duration: String?
 )
 
+data class DataResponseTOP(
+    var term_of_payment: List<DataTermOfPayment>
+)
+
 data class DataCustomer(
     var total_supplier: Int?,
     var customer: Customer?,
