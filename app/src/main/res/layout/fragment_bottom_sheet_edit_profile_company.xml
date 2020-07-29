@@ -8,9 +8,8 @@
     <RelativeLayout
         android:id="@+id/layout_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:paddingTop="8dp">
+        android:layout_height="48dp"
+        android:layout_weight="0">
 
         <ImageView
             android:id="@+id/btn_close"
@@ -18,6 +17,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="@dimen/et_top_margin"
             android:layout_marginLeft="@dimen/et_top_margin"
+            android:layout_centerVertical="true"
             android:src="@drawable/back_arrow_foreground"
             android:contentDescription="@string/txt_image_avatar"/>
 
