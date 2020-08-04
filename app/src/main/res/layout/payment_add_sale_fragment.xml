@@ -95,11 +95,15 @@
                 <Spinner
                     android:id="@+id/sp_payment_term_add_sale"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:focusable="false"/>
+                <!--<Spinner
+                    android:id="@+id/sp_payment_term_add_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />-->
                 <!--<EditText
                     android:id="@+id/et_payment_term_add_sale"
                     android:layout_width="match_parent"

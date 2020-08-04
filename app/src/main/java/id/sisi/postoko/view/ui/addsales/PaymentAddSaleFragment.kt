@@ -85,7 +85,7 @@ class PaymentAddSaleFragment: Fragment() {
         val adapter = context?.let {
             MySpinnerAdapter(
                 it,
-                android.R.layout.simple_spinner_dropdown_item
+                R.layout.list_spinner
             )
         }
 

@@ -58,12 +58,12 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
             dataSortBy.add(DataSpinner("Tanggal", "date"))
             dataSortBy.add(DataSpinner("Jumlah", "amount"))
             spinner_sort_by.adapter =
-                MySpinnerAdapter(context, android.R.layout.simple_list_item_1, dataSortBy)
+                MySpinnerAdapter(context, R.layout.list_spinner, dataSortBy)
 
-            dataSortType.add(DataSpinner("Besar > Kecil", "desc"))
-            dataSortType.add(DataSpinner("Kecil > Besar", "asc"))
+            dataSortType.add(DataSpinner("Terbesar", "desc"))
+            dataSortType.add(DataSpinner("Terkecil", "asc"))
             spinner_sort_type.adapter =
-                MySpinnerAdapter(context, android.R.layout.simple_list_item_1, dataSortType)
+                MySpinnerAdapter(context, R.layout.list_spinner, dataSortType)
         }
     }
 

@@ -50,6 +50,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:text="@string/txt_action_cancel"
+            android:gravity="center"
             android:textSize="14sp"
             android:padding="10dp"
             android:textStyle="bold"
@@ -58,14 +59,13 @@
             android:id="@+id/tv_sure"
             style="@style/AlertDialog.AppCompat.Light"
             android:layout_width="0dp"
-            android:gravity="end"
+            android:gravity="center"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:text="@string/txt_ok"
             android:textSize="14sp"
             android:padding="10dp"
             android:textStyle="bold"
-            android:layout_gravity="end"
             android:textColor="@color/main_green"
              />
     </LinearLayout>

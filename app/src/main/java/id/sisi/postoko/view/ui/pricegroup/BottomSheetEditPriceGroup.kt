@@ -32,9 +32,6 @@ import java.util.ArrayList
 
 class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
     private var priceGroup: PriceGroup? = null
-    private lateinit var vmWarehouse: WarehouseViewModel
-    private var idWarehouse: String? = null
-    private var listWarehouse: List<Warehouse> = ArrayList()
     private lateinit var vmPriceGroup: PriceGroupViewModel
     private val progressBar = CustomProgressBar()
     var listener: () -> Unit = {}
@@ -64,15 +61,15 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
             }
         })
 
-        vmWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
+        /*vmWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)*/
 
         tv_title_bottom_sheet.text = getString(R.string.title_activity_edit_price_group)
         tv_subtitle_bottom_sheet.visible()
         val strSubTitle = "( ${priceGroup?.name})"
         tv_subtitle_bottom_sheet.text = strSubTitle
-        idWarehouse = priceGroup?.warehouse_id?.toString()
+        /*idWarehouse = priceGroup?.warehouse_id?.toString()*/
 
-        val adapterWarehouse =
+        /*val adapterWarehouse =
             context?.let { MySpinnerAdapter(it, android.R.layout.simple_spinner_dropdown_item) }
         adapterWarehouse?.udpateView(mutableListOf(DataSpinner(getString(R.string.txt_no_data), "")))
         sp_price_group_warehouse?.adapter = adapterWarehouse
@@ -102,7 +99,7 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-        }
+        }*/
 
         et_price_group_name.setText(priceGroup?.name)
 
@@ -126,8 +123,8 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
         val numbersMap = validationEditPriceGroup()
         if (numbersMap["type"] as Boolean){
             val body: MutableMap<String, Any> = mutableMapOf(
-                "name" to (et_price_group_name?.text?.toString() ?: ""),
-                "warehouse_id" to (idWarehouse?: "")
+                "name" to (et_price_group_name?.text?.toString() ?: "")
+//                "warehouse_id" to (idWarehouse?: "")
             )
 
             vmPriceGroup.putEditPriceGroup(body,priceGroup?.id.toString()){
@@ -152,10 +149,10 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
             cek = false
         }
 
-        if (idWarehouse == null || idWarehouse == ""){
+        /*if (idWarehouse == null || idWarehouse == ""){
             message += "- Warehouse Tidak Boleh Kosong\n"
             cek = false
-        }
+        }*/
         return mapOf("message" to message, "type" to cek)
     }
 }

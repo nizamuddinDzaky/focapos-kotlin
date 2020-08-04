@@ -1,5 +1,6 @@
 package id.sisi.postoko.adapter
 
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Payment
 import id.sisi.postoko.utils.MyPopupMenu
-import id.sisi.postoko.utils.extensions.toCurrencyID
-import id.sisi.postoko.utils.extensions.toDisplayDate
-import id.sisi.postoko.utils.extensions.toDisplayDateTime
-import id.sisi.postoko.utils.extensions.toDisplayPaymentType
+import id.sisi.postoko.utils.extensions.*
 import kotlinx.android.synthetic.main.list_item_pembayaran.view.*
 import kotlinx.android.synthetic.main.list_item_pembayaran.view.expandable_layout
 import kotlinx.android.synthetic.main.list_item_product_price_group.view.*
@@ -54,6 +52,19 @@ class ListPaymentAdapter(
                 }
 
                 itemView.tv_note.text = payment.note
+                /*when(TextUtils.isEmpty(payment.note)){
+                    is true ->{
+                        itemView.tv_note.text = payment.note
+                    }
+                    is false -> {
+                        itemView.tv_note.text = payment.note
+                    }
+                }*/
+                if (!TextUtils.isEmpty(payment.note)){
+                    itemView.tv_note.text = payment.note
+                }else{
+                    itemView.tv_note.text = itemView.context.getText(R.string.txt_not_set_note)
+                }
                 itemView.tv_see_note.setOnClickListener {v ->
                     it.isCollapse = !(it.isCollapse)
                     if (it.isCollapse){

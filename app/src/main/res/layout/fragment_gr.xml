@@ -66,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:fontFamily="@font/roboto_bold"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     tools:text="Gagal Memuat" />
 
@@ -74,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/standard_margin"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="@string/txt_action_swipe_layout"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>

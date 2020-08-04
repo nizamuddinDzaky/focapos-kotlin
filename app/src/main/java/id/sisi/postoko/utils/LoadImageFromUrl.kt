@@ -11,7 +11,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.utils.extensions.logE
 import java.net.URL
 
-class LoadImageFromUrl(private var imageView: ImageView, var context: Context, var defaultIcon: Int) :
+class LoadImageFromUrl(private var imageView: ImageView, var context: Context, var defaultIcon: Int, var isCircle: Boolean = false) :
     AsyncTask<String?, Void?, Bitmap?>() {
 
     override fun doInBackground(vararg params: String?): Bitmap? {
@@ -31,12 +31,21 @@ class LoadImageFromUrl(private var imageView: ImageView, var context: Context, v
     override fun onPostExecute(result: Bitmap?) {
 
         val myOptions = RequestOptions().override(100,100)
-        Glide.with(context)
-            .load(result)
-            .placeholder(defaultIcon)
-            .circleCrop()
-            .apply(myOptions)
-            .into(imageView)
+        if (isCircle){
+            Glide.with(context)
+                .load(result)
+                .placeholder(defaultIcon)
+                .circleCrop()
+                .apply(myOptions)
+                .into(imageView)
+        }else{
+            Glide.with(context)
+                .load(result)
+                .placeholder(defaultIcon)
+                .apply(myOptions)
+                .into(imageView)
+        }
+
     }
 
 

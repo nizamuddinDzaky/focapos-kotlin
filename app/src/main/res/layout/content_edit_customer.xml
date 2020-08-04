@@ -82,7 +82,8 @@
             android:background="@color/main_green"
             android:text="@string/txt_action_save"
             android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:fontFamily="@font/roboto_regular"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/white" />
     </LinearLayout>
 </RelativeLayout>

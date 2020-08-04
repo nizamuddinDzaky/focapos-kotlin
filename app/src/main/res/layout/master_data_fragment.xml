@@ -73,8 +73,9 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fb_add_master"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        app:fabCustomSize="@dimen/fab_size"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/standard_margin"

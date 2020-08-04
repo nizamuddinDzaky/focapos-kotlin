@@ -13,9 +13,8 @@
         <RelativeLayout
             android:id="@+id/layout_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fff"
-            android:paddingTop="8dp">
+            android:layout_height="48dp"
+            android:background="#fff">
 
             <ImageView
                 android:id="@+id/btn_close"
@@ -23,6 +22,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/et_top_margin"
                 android:layout_marginLeft="@dimen/et_top_margin"
+                android:layout_centerVertical="true"
                 android:src="@drawable/back_arrow_foreground"
                 android:contentDescription="@string/txt_image_avatar"/>
 
@@ -255,6 +255,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/text_grey"
+                        android:layout_marginTop="@dimen/et_top_margin"
                         tools:text="Desa Sumberarum, Kec. Kerek, Kabupaten, Tuban " />
                     <TextView
                         android:id="@+id/tv_biller_province"
@@ -283,7 +284,7 @@
             android:layout_marginTop="@dimen/et_top_margin"
             android:text="@string/txt_product"
             android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto_bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_item_delivery"
@@ -291,6 +292,7 @@
             android:layout_height="wrap_content"
             android:background="#E5E5E5"
             android:clipToPadding="false"
+            android:layout_marginTop="@dimen/et_top_margin"
             tools:itemCount="2"
             tools:listitem="@layout/list_product_detail_delivery" />
 

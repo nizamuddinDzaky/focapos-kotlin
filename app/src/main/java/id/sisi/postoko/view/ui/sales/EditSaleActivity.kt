@@ -19,6 +19,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.model.*
 import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.validation
@@ -104,7 +105,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
 
         et_note_edit_sale.setText(sale?.note.toString())
         et_staff_note_edit_sale.setText(sale?.staff_note.toString())
-
+        et_reason_edit_sale.setText(sale?.reason)
         et_date_edit_sale?.setText(strCurrentDate.toDisplayDate())
         et_date_edit_sale?.hint = strCurrentDate.toDisplayDate()
         et_date_edit_sale?.tag = strCurrentDate
@@ -152,7 +153,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             }
         }
 
-        val adapterWarehouse = MySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item)
+        val adapterWarehouse = MySpinnerAdapter(this, R.layout.list_spinner)
         viewModelWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
         viewModelWarehouse.getListWarehouses().observe(this, Observer {
             it?.let {
@@ -228,7 +229,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         val adapter = this.let {
             MySpinnerAdapter(
                 it,
-                android.R.layout.simple_spinner_dropdown_item
+                R.layout.list_spinner
             )
         }
 
@@ -408,6 +409,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 "payment_term" to (termOfPayment ?: ""),
                 "staff_note" to (et_staff_note_edit_sale?.text?.toString() ?: ""),
                 "note" to (et_note_edit_sale?.text?.toString() ?: ""),
+                "reason" to (et_reason_edit_sale?.text?.toString() ?: ""),
                 "products" to saleItems
             )
             sale?.id?.let { viewModel.setIdSalesBooking(it) }

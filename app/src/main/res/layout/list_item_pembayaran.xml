@@ -50,11 +50,15 @@
                         android:layout_height="64dp"
                         android:layout_margin="@dimen/margin_6"
                         android:background="@drawable/bg_avatar_transaksi" />
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/add_payment"
-                        android:layout_centerInParent="true"/>
+                    <TextView
+                        android:id="@+id/tv_alias_product"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="PAY"/>
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -153,8 +157,8 @@
             </LinearLayout>
             <ImageView
                 android:id="@+id/btn_menu_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_weight="0"
                 android:layout_marginTop="@dimen/margin_6"
                 android:contentDescription="@string/conDes"

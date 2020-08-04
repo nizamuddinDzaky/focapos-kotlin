@@ -24,6 +24,7 @@ import com.github.mikephil.charting.utils.MPPointF
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListLegendDashboardAdapter
 import id.sisi.postoko.model.Warehouse
+import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.view.BaseFragment
@@ -141,6 +142,7 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
         pieChart.setExtraOffsets(5f, 10f, 5f, 5f)
 
         pieChart.dragDecelerationFrictionCoef = 0.95f
+
         pieChart.setDrawRoundedSlices(true)
         totalTransaksi = totClosed + totPending + totReserved
         pieChart.centerText = generateCenterSpannableText(totalTransaksi)
@@ -211,7 +213,7 @@ class DashboardPiechartFragment(private var month: Int) : BaseFragment() {
 
     private fun generateCenterSpannableText(totalTransaksi: Double): SpannableString? {
         val s = SpannableString("Total Transaksi\n $totalTransaksi")
-        s.setSpan(RelativeSizeSpan(1.7f), 0, 15, 0)
+        s.setSpan(RelativeSizeSpan(1.5f), 0, 15, 0)
         s.setSpan(StyleSpan(Typeface.NORMAL), 15, s.length, 0)
         s.setSpan(ForegroundColorSpan(Color.GRAY), 15, s.length, 0)
         s.setSpan(RelativeSizeSpan(1.1f), 15, s.length, 0)

@@ -49,7 +49,7 @@ class AddDataCustomerFragment : BaseFragment() {
         val adapterCustomerGroup = context?.let {
             MySpinnerAdapter(
                 it,
-                android.R.layout.simple_spinner_dropdown_item
+                R.layout.list_spinner
             )
         }
 
@@ -79,7 +79,7 @@ class AddDataCustomerFragment : BaseFragment() {
         val adapterPriceGroup = context?.let {
             MySpinnerAdapter(
                 it,
-                android.R.layout.simple_spinner_dropdown_item
+                R.layout.list_spinner
             )
         }
         mViewModelPriceGroup = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
@@ -197,7 +197,7 @@ class AddDataCustomerFragment : BaseFragment() {
         val adapter = context?.let {
             MySpinnerAdapter(
                 it,
-                android.R.layout.simple_spinner_dropdown_item
+                R.layout.list_spinner
             )
         }
         provinceList.let {
@@ -212,7 +212,7 @@ class AddDataCustomerFragment : BaseFragment() {
         val adapter = context?.let {
             MySpinnerAdapter(
                 it,
-                android.R.layout.simple_spinner_dropdown_item
+                R.layout.list_spinner
             )
         }
 
@@ -228,7 +228,7 @@ class AddDataCustomerFragment : BaseFragment() {
         val adapter = context?.let {
             MySpinnerAdapter(
                 it,
-                android.R.layout.simple_spinner_dropdown_item
+                R.layout.list_spinner
             )
         }
 

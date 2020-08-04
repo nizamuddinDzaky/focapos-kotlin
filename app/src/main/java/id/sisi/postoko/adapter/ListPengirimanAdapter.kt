@@ -1,6 +1,7 @@
 package id.sisi.postoko.adapter
 
 import android.os.Build
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,8 +59,10 @@ class ListPengirimanAdapter(
                 }else{
                     itemView.tv_status_deliv.setTextColor(ResourcesCompat.getColor(itemView.resources, it.status.toDisplayStatusColor(), null))
                 }
-
-                itemView.tv_delivery_driver_name?.text = it.delivered_by
+                if (!TextUtils.isEmpty(it.delivered_by))
+                    itemView.tv_delivery_driver_name?.text = it.delivered_by
+                else
+                    itemView.tv_delivery_driver_name?.text = "-"
             }
             itemView.btn_menu_more.setOnClickListener {
                 val listAction: MutableList<() -> Unit?>

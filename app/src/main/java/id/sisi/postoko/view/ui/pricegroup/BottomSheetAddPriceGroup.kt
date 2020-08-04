@@ -28,9 +28,6 @@ import java.util.*
 class BottomSheetAddPriceGroup: BottomSheetDialogFragment() {
 
     private lateinit var vmPriceGroup: PriceGroupViewModel
-    private lateinit var vmWarehouse: WarehouseViewModel
-    private var listWarehouse: List<Warehouse> = ArrayList()
-    private var idWarehouse: String? = null
     private val progressBar = CustomProgressBar()
     var listener: () -> Unit = {}
 
@@ -44,10 +41,10 @@ class BottomSheetAddPriceGroup: BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         tv_title_bottom_sheet.text = getString(R.string.txt_add_price_group)
-        vmWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
+        /*vmWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)*/
         vmPriceGroup = ViewModelProvider(this).get(PriceGroupViewModel::class.java)
 
-        val adapterWarehouse =
+        /*val adapterWarehouse =
             context?.let { MySpinnerAdapter(it, android.R.layout.simple_spinner_dropdown_item) }
         adapterWarehouse?.udpateView(mutableListOf(DataSpinner(getString(R.string.txt_no_data), "")))
         sp_price_group_warehouse?.adapter = adapterWarehouse
@@ -59,9 +56,9 @@ class BottomSheetAddPriceGroup: BottomSheetDialogFragment() {
                 listWarehouse=it
 
             }
-        })
+        })*/
 
-        sp_price_group_warehouse.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
+        /*sp_price_group_warehouse.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -73,7 +70,7 @@ class BottomSheetAddPriceGroup: BottomSheetDialogFragment() {
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-        }
+        }*/
 
         btn_action_submit.setOnClickListener {
             actionAddPriceGroup()
@@ -100,8 +97,8 @@ class BottomSheetAddPriceGroup: BottomSheetDialogFragment() {
         if (numbersMap["type"] as Boolean){
             context?.let { progressBar.show(it, "Silakan tunggu...") }
             val body: MutableMap<String, Any> = mutableMapOf(
-                    "name" to (et_price_group_name?.text?.toString() ?: ""),
-                "warehouse_id" to (idWarehouse?: "")
+                    "name" to (et_price_group_name?.text?.toString() ?: "")
+//                "warehouse_id" to (idWarehouse?: "")
             )
 
             vmPriceGroup.postAddPriceGroup(body){
@@ -130,10 +127,10 @@ class BottomSheetAddPriceGroup: BottomSheetDialogFragment() {
             cek = false
         }
 
-        if (idWarehouse == null || idWarehouse == ""){
+        /*if (idWarehouse == null || idWarehouse == ""){
             message += "- Warehouse Tidak Boleh Kosong\n"
             cek = false
-        }
+        }*/
         return mapOf("message" to message, "type" to cek)
     }
 }

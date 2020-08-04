@@ -34,8 +34,9 @@
                     android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     tools:ignore="LabelFor"
-                    android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     android:inputType="text" />
 
                 <TextView
@@ -50,8 +51,9 @@
                     android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     tools:ignore="LabelFor"
-                    android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     android:inputType="text" />
 
                 <TextView
@@ -63,7 +65,7 @@
                 <Spinner
                     android:id="@+id/sp_customer_group_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
@@ -78,7 +80,7 @@
                 <Spinner
                     android:id="@+id/sp_price_group_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
@@ -95,8 +97,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:importantForAutofill="no"
-                    android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:ignore="LabelFor,TextFields" />
 
                 <TextView
@@ -111,8 +114,9 @@
                     android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="numberSigned"
-                    android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:ignore="LabelFor,TextFields" />
 
                 <TextView
@@ -127,8 +131,9 @@
                     android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:ignore="LabelFor" />
 
                 <TextView
@@ -142,9 +147,10 @@
                     android:id="@+id/sp_provinsi_group_add_customer"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:textSize="14sp"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     android:focusable="false" />
 
                 <TextView
@@ -156,7 +162,7 @@
                 <Spinner
                     android:id="@+id/sp_district_group_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
@@ -171,7 +177,7 @@
                 <Spinner
                     android:id="@+id/sp_city_group_add_customer"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
@@ -189,8 +195,9 @@
                     android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="number"
-                    android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:ignore="LabelFor" />
 
                 <TextView
@@ -205,8 +212,9 @@
                     android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    android:textSize="14sp"
                     android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:ignore="LabelFor" />
 
                 <!--<TextView
@@ -295,12 +303,18 @@
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
                         android:text="@string/txt_inactive"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorTittleInput"
+                        android:textSize="@dimen/font_size_input"
                         tools:targetApi="lollipop" />
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#B20838"
                         android:text="@string/txt_active"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorTittleInput"
+                        android:textSize="@dimen/font_size_input"
                         tools:targetApi="lollipop" />
                 </RadioGroup>
             </LinearLayout>

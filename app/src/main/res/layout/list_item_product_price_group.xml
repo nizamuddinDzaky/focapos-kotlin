@@ -47,6 +47,7 @@
                         android:layout_centerInParent="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@android:color/white"
+                        android:fontFamily="@font/roboto_regular"
                         android:text="AR"/>
                 </RelativeLayout>
                 <LinearLayout
@@ -72,6 +73,7 @@
                                 android:paddingLeft="16dp"
                                 android:paddingTop="16dp"
                                 android:paddingStart="16dp"
+                                android:fontFamily="@font/roboto_bold"
                                 tools:ignore="NestedWeights,RtlSymmetry" />
                         </LinearLayout>
                         <LinearLayout
@@ -104,6 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="16dp"
+                        android:fontFamily="@font/roboto_regular"
                         tools:ignore="RtlSymmetry" />
 
                 </LinearLayout>
@@ -115,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 app:el_duration="300"
-                app:el_expanded="false"
+                app:el_expanded="true"
                 app:el_parallax="0.5">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -137,7 +140,7 @@
                                 android:text="@string/txt_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"/>
+                                android:fontFamily="@font/roboto_bold"/>
 
                             <EditText
                                 android:id="@+id/et_price"
@@ -148,7 +151,9 @@
                                 android:focusableInTouchMode="true"
                                 android:autofillHints="Rp10000"
                                 tools:ignore="LabelFor"
-                                android:backgroundTint="@android:color/holo_blue_bright"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@color/colorTittleInput"
+                                android:textSize="@dimen/font_size_input"
                                 tools:targetApi="lollipop" />
                             <TextView
                                 android:id="@+id/tv_subtitle_price"
@@ -156,7 +161,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="#6666"
-                                android:textStyle="italic" />
+                                android:fontFamily="@font/roboto_italic" />
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="0dp"
@@ -169,7 +174,7 @@
                                 android:text="@string/txt_price_credit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"/>
+                                android:fontFamily="@font/roboto_bold"/>
                             <EditText
                                 android:id="@+id/et_price_credit"
                                 android:layout_width="match_parent"
@@ -178,7 +183,9 @@
                                 android:importantForAutofill="no"
                                 android:focusableInTouchMode="true"
                                 android:autofillHints="Rp10000"
-                                android:backgroundTint="#00B0FF"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@color/colorTittleInput"
+                                android:textSize="@dimen/font_size_input"
                                 tools:ignore="LabelFor"
                                 tools:targetApi="lollipop" />
                             <TextView
@@ -187,7 +194,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="#6666"
-                                android:textStyle="italic"/>
+                                android:fontFamily="@font/roboto_italic"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -207,7 +214,7 @@
                                 android:text="@string/txt_min_order"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"/>
+                                android:fontFamily="@font/roboto_bold"/>
                             <EditText
                                 android:id="@+id/et_min_order"
                                 android:layout_width="match_parent"
@@ -216,7 +223,9 @@
                                 android:importantForAutofill="no"
                                 android:focusableInTouchMode="true"
                                 android:autofillHints="Rp10000"
-                                android:backgroundTint="@android:color/holo_blue_bright"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@color/colorTittleInput"
+                                android:textSize="@dimen/font_size_input"
                                 tools:ignore="LabelFor"
                                 tools:targetApi="lollipop" />
                             <TextView
@@ -225,7 +234,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="#6666"
-                                android:textStyle="italic"/>
+                                android:fontFamily="@font/roboto_italic"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="0dp"
@@ -238,7 +247,7 @@
                                 android:text="@string/txt_multiple"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"/>
+                                android:fontFamily="@font/roboto_bold"/>
                             <Spinner
                                 android:id="@+id/sp_multiple"
                                 android:layout_width="match_parent"
@@ -252,7 +261,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="#6666"
-                                android:textStyle="italic"/>
+                                android:fontFamily="@font/roboto_italic"/>
                         </LinearLayout>
                     </LinearLayout>
                     <Button
@@ -262,6 +271,7 @@
                         android:layout_marginBottom="@dimen/margin_15"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height_bottom_sheet"
+                        android:fontFamily="@font/roboto_regular"
                         android:background="@color/main_green"
                         android:textColor="@android:color/white"
                         android:text="@string/txt_action_save"/>
