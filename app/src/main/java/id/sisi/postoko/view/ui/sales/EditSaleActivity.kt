@@ -235,7 +235,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
 
         listTOP.let {
             adapter.udpateView(it.map { top->
-                return@map DataSpinner(top.description ?: "" , top.duration ?: "")
+                return@map DataSpinner((top.duration + " Hari") , top.duration ?: "")
             }.toMutableList())
         }
         sp_payment_term_edit_sale.adapter = adapter

@@ -12,6 +12,7 @@ import id.sisi.postoko.utils.RC_ADD_CUSTOMER_GROUP
 import id.sisi.postoko.utils.RC_ADD_PRICE_GROUP
 import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.utils.extensions.isAdminGudang
 import id.sisi.postoko.utils.extensions.isSuperAdmin
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.helper.Prefs
@@ -40,14 +41,7 @@ class MasterDataFragment : Fragment() {
     private lateinit var mViewModel: ProfileViewModel
 
     private val typeface = TypeFace()
-    private var pages = arrayListOf<BaseFragment>(
-        CustomerFragment(),
-        /*CustomerGroupFragment(),
-        PriceGroupFragment(),*/
-        ProductFragment()
-        /*SupplierFragment(),
-        WarehouseFragment()*/
-    )
+    private var pages = arrayListOf<BaseFragment>()
 
     private val prefs: Prefs by lazy {
         Prefs(MyApp.instance)
@@ -67,12 +61,20 @@ class MasterDataFragment : Fragment() {
 
 
         val roleId = prefs.posRoleId ?: 0
-
-        if (roleId.isSuperAdmin()){
-            pages.add(CustomerGroupFragment())
-            pages.add(PriceGroupFragment())
-            pages.add(SupplierFragment())
-            pages.add(WarehouseFragment())
+        if (roleId.isAdminGudang()){
+            pages = arrayListOf<BaseFragment>(
+                CustomerFragment(),
+                ProductFragment()
+            )
+        }else{
+            pages = arrayListOf<BaseFragment>(
+                CustomerFragment(),
+                CustomerGroupFragment(),
+                PriceGroupFragment(),
+                ProductFragment(),
+                SupplierFragment(),
+                WarehouseFragment()
+            )
         }
         fb_add_transaction?.setOnClickListener {
             startActivity(Intent(this.context, AddProductActivity::class.java))

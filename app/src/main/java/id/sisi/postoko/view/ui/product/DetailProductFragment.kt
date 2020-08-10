@@ -26,7 +26,7 @@ class DetailProductFragment: BaseFragment() {
 
 
     override var tagName: String
-        get() = "Detail Product"
+        get() = "Detail Produk"
         set(_) {}
 
     companion object {
