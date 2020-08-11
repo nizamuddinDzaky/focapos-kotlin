@@ -20,6 +20,7 @@ import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.MySpinnerAdapter
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
@@ -35,6 +36,7 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
     private lateinit var vmPriceGroup: PriceGroupViewModel
     private val progressBar = CustomProgressBar()
     var listener: () -> Unit = {}
+    private val myDialog = MyDialog()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -124,7 +126,6 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
         if (numbersMap["type"] as Boolean){
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (et_price_group_name?.text?.toString() ?: "")
-//                "warehouse_id" to (idWarehouse?: "")
             )
 
             vmPriceGroup.putEditPriceGroup(body,priceGroup?.id.toString()){
@@ -132,12 +133,7 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
                 listener()
             }
         }else{
-            AlertDialog.Builder(context)
-                .setTitle("Konfirmasi")
-                .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
+            myDialog.alert(numbersMap["message"] as String, context)
         }
     }
 
@@ -145,14 +141,9 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
         var message = ""
         var cek = true
         if (TextUtils.isEmpty(et_price_group_name.text)){
-            message += "- Nama Price Group Tidak Boleh Kosong\n"
+            message += "- Nama Kelompok Harga Tidak Boleh Kosong\n"
             cek = false
         }
-
-        /*if (idWarehouse == null || idWarehouse == ""){
-            message += "- Warehouse Tidak Boleh Kosong\n"
-            cek = false
-        }*/
         return mapOf("message" to message, "type" to cek)
     }
 }

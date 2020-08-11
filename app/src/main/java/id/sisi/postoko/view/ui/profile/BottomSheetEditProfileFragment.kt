@@ -106,7 +106,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
     private fun setUIProvince(user: User){
         spinner_profile_province.adapter = ArrayAdapter(
             requireActivity(),
-            R.layout.support_simple_spinner_dropdown_item,
+            R.layout.list_spinner,
             provinceList
         )
         logE("${user.country}")
@@ -116,7 +116,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
     private fun setUICity(user: User){
         spinner_profile_city.adapter = ArrayAdapter(
             requireActivity(),
-            R.layout.support_simple_spinner_dropdown_item,
+            R.layout.list_spinner,
             cityList
         )
         var index = 0
@@ -129,7 +129,7 @@ class BottomSheetEditProfileFragment : BottomSheetDialogFragment() {
     private fun setUIStates(user: User){
         spinner_profile_village.adapter = ArrayAdapter(
             requireActivity(),
-            R.layout.support_simple_spinner_dropdown_item,
+            R.layout.list_spinner,
             villageList
         )
 

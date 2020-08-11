@@ -113,9 +113,9 @@
                                 android:id="@+id/rbtn_reserved"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/txt_status_reserved"
                                 android:fontFamily="@font/roboto_regular"
-                                android:textColor="@color/colorTittleInput"/>
+                                android:text="@string/txt_status_reserved"
+                                android:textColor="@color/colorTittleInput" />
 
                             <RadioButton
                                 android:id="@+id/rbtn_cancel"

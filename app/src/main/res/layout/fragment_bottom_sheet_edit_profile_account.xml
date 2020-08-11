@@ -29,7 +29,7 @@
             android:text="@string/txt_account"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#676767"
-            android:textStyle="bold" />
+            android:fontFamily="@font/roboto_bold" />
 
         <TextView
             android:id="@+id/btn_reset"
@@ -90,6 +90,9 @@
                     android:backgroundTint="@android:color/holo_blue_bright"
                     android:paddingStart="@dimen/margin_15"
                     tools:ignore="LabelFor,RtlSymmetry,TextFields"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:targetApi="lollipop" />
                 <TextView
                     android:id="@+id/tv_helper_email"
@@ -128,6 +131,9 @@
                     android:focusableInTouchMode="true"
                     android:backgroundTint="@android:color/holo_blue_bright"
                     android:paddingStart="@dimen/margin_15"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:ignore="LabelFor,RtlSymmetry,TextFields"
                     tools:targetApi="lollipop" />
                 <TextView
@@ -151,7 +157,8 @@
                 android:background="@color/main_green"
                 android:text="@string/txt_action_save"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:fontFamily="@font/roboto_regular"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

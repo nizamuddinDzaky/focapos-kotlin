@@ -73,72 +73,54 @@ class PriceGroupViewModel : ViewModel() {
         )
     }
 
-    fun postAddPriceGroup(body: Map<String, Any?>, listener: (Map<String, Any?>) -> Unit) {
+    fun postAddPriceGroup(body: Map<String, Any?>, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         ApiServices.getInstance()?.postAddPriceGroup(headers, body)?.exe(
-            onFailure = { _, _ ->
-                listener(
-                    mapOf(
-                        "networkRespone" to NetworkResponse.FAILURE,
-                        "message" to "koneksi gagal"
-                    )
-                )
+            onFailure = { _, t ->
+                message.postValue(t.toString())
                 isExecute.postValue(false)
             },
             onResponse = { _, response ->
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
-                    listener(
-                        mapOf(
-                            "networkRespone" to NetworkResponse.SUCCESS,
-                            "message" to response.body()?.message
-                        )
-                    )
+                    isExecute.postValue(false)
+                    message.postValue(response.body()?.message)
+                    listener()
                 } else {
                     isExecute.postValue(false)
-                    listener(
-                        mapOf(
-                            "networkRespone" to NetworkResponse.ERROR,
-                            "message" to response.body()?.message
-                        )
-                    )
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )
     }
 
-    fun postAddCustomerToPriceGroup(body: Map<String, Any?>, idPriceGroup: String, listener: (Map<String, Any>) -> Unit) {
+    fun postAddCustomerToPriceGroup(body: Map<String, Any?>, idPriceGroup: String, listener: () -> Unit) {
         isExecute.postValue(true)
         val headers = mutableMapOf(KEY_FORCA_TOKEN to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf(KEY_ID_PRICE_GROUP to idPriceGroup)
         ApiServices.getInstance()?.postAddCustomerToPriceGroup(headers, params, body)?.exe(
-            onFailure = { _, _ ->
-                listener(
-                    mapOf(
-                        "networkRespone" to NetworkResponse.FAILURE,
-                        "message" to "koneksi gagal"
-                    )
-                )
+            onFailure = { _, t ->
+                message.postValue(t.toString())
                 isExecute.postValue(false)
             },
             onResponse = { _, response ->
                 if (response.isSuccessful) {
-                    isExecute.postValue(true)
-                    listener(
-                        mapOf(
-                            "networkRespone" to NetworkResponse.SUCCESS,
-                            "message" to response.message()
-                        )
-                    )
+                    isExecute.postValue(false)
+                    message.postValue(response.body()?.message)
+                    listener()
                 } else {
                     isExecute.postValue(false)
-                    listener(
-                        mapOf(
-                            "networkRespone" to NetworkResponse.ERROR,
-                            "message" to response.message()
-                        )
-                    )
+                    val errorResponse =
+                        response.errorBody()?.string()?.json2obj<BaseResponse<DataLogin>>()
+                    if (TextUtils.isEmpty(errorResponse?.message)){
+                        message.postValue(TXT_URL_NOT_FOUND)
+                    }else
+                        message.postValue(errorResponse?.message)
                 }
             }
         )

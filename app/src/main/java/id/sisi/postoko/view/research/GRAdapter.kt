@@ -50,7 +50,6 @@ class GRAdapter(private var listener: (GoodReceived?) -> Unit = {}) :
                 itemView.context.startActivity(page)
             }
             itemView.btn_action_receive_gr?.setOnClickListener {
-                logE("click action receive")
                 listener(goodReceived)
             }
         }
