@@ -91,7 +91,7 @@ class PaymentAddSaleFragment: Fragment() {
 
         listTOP.let {
             adapter?.udpateView(it.map { top->
-                return@map DataSpinner(top.description ?: "" , top.duration ?: "")
+                return@map DataSpinner((top.duration + " Hari") , top.duration ?: "")
             }.toMutableList())
         }
         sp_payment_term_add_sale.adapter = adapter

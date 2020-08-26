@@ -393,7 +393,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             val saleItems = saleItem?.map {
                 return@map mutableMapOf(
                     "product_id" to it.product_id.toString(),
-                    "price" to it.real_unit_price.toString(),
+                    "price" to it.unit_price.toString(),
                     "quantity" to it.quantity,
                     "discount" to it.discount
                 )
