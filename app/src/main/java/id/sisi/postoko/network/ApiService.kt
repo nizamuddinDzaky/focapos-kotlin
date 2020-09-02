@@ -393,10 +393,17 @@ interface ApiServices {
             sslContext.init(null, trustAllCerts, SecureRandom())
 
             val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
-            val spec = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+            val spec1 = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                 .tlsVersions(TlsVersion.TLS_1_0)
                 .cipherSuites(
                     CipherSuite.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+                )
+                .build()
+            val spec2 = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                .tlsVersions(TlsVersion.TLS_1_2)
+                .cipherSuites(
+                    CipherSuite.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+                    CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
                 )
                 .build()
 
@@ -404,7 +411,7 @@ interface ApiServices {
             interceptor.level = HttpLoggingInterceptor.Level.HEADERS
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             val builder =
-                OkHttpClient.Builder().connectionSpecs(arrayListOf(spec, ConnectionSpec.CLEARTEXT))
+                OkHttpClient.Builder().connectionSpecs(arrayListOf(spec1, spec2, ConnectionSpec.CLEARTEXT))
             builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
             builder.hostnameVerifier { _, _ -> true }
             builder.addInterceptor(interceptor)
