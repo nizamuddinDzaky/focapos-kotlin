@@ -23,6 +23,9 @@
         <item name="windowNoTitle">true</item>
         <item name="android:actionMenuTextColor">@android:color/holo_blue_light</item>
     </style>
+    <style name="Style_TextView">
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

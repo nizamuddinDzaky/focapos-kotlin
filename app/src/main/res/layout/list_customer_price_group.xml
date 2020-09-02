@@ -32,6 +32,7 @@
             android:layout_centerInParent="true"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white"
+            android:fontFamily="@font/roboto_regular"
             tools:text="AR" />
     </RelativeLayout>
 
@@ -48,12 +49,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:fontFamily="@font/roboto_regular"
             tools:text="Judul" />
 
         <TextView
             android:id="@+id/tv_customer_price_group_item_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
             android:textAppearance="?android:attr/textAppearanceSmall"
             tools:text="Sub Judul" />
     </LinearLayout>

@@ -62,19 +62,17 @@ class AddItemAddSaleFragment: Fragment() {
         sp_customer.setOnClickListener {
             val dialogFragment = FragmentSearchCustomer()
             dialogFragment.listener={ customer ->
-                /*(activity as AddSaleActivity?)?.vmProduct?.getListProductSales(
+                (activity as AddSaleActivity?)?.vmProduct?.getListProductSales(
                     customer.id?.toInt() ?: 0
-                )*/
-
-//                (activity as AddSaleActivity?)?.listProduct?.let { it1 -> setupUI(it1) }
-
-                /*(activity as AddSaleActivity?)?.listProduct.let {
-                    if (it != null) {
-                        listProduct = it
-                        setupUI(it)
+                ){listProduct ->
+                    if (listProduct != null) {
+                        (activity as AddSaleActivity?)?.listProduct = listProduct
+                        this.listProduct = listProduct
+                        setupUI(listProduct)
+                        (activity as AddSaleActivity?)?.setUpBadge()
+                        setUpTotal()
                     }
-                }*/
-
+                }
                 (activity as AddSaleActivity?)?.idCustomer = customer.id
                 (activity as AddSaleActivity?)?.customerName = customer.company
                 sp_customer.setText(customer.company)
@@ -82,11 +80,9 @@ class AddItemAddSaleFragment: Fragment() {
             dialogFragment.show(childFragmentManager, FragmentSearchCustomer().tag)
         }
 
-        (activity as AddSaleActivity?)?.listProduct.let {
-            if (it != null) {
-                listProduct = it
-                setupUI(it)
-            }
+        (activity as AddSaleActivity?)?.listProduct?.let {
+            listProduct = it
+            setupUI(it)
         }
 
         if (!expanded){

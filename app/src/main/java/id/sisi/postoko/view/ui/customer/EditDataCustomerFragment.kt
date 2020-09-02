@@ -69,7 +69,7 @@ class EditDataCustomerFragment : BaseFragment() {
 
 
         view.rg_status_edit_customer
-        val adapterCustomerGroup = MySpinnerAdapter(activity!!.applicationContext, android.R.layout.simple_spinner_dropdown_item)
+        val adapterCustomerGroup = MySpinnerAdapter(activity!!.applicationContext, R.layout.list_spinner)
 
         viewModelCustomer = ViewModelProvider(this).get(CustomerViewModel::class.java)
         viewModelCustomer.getListCustomerGroup()
@@ -96,7 +96,7 @@ class EditDataCustomerFragment : BaseFragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
 
-        val adapterPriceGroup = MySpinnerAdapter(activity!!.applicationContext, android.R.layout.simple_spinner_dropdown_item)
+        val adapterPriceGroup = MySpinnerAdapter(activity!!.applicationContext, R.layout.list_spinner)
         viewModelCustomer.getListPriceGroup()
         viewModelCustomer.getListPriceGroups().observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -186,7 +186,7 @@ class EditDataCustomerFragment : BaseFragment() {
         view2.sp_provinsi_group_edit_customer.adapter = context?.let {
             ArrayAdapter(
                 it,
-                R.layout.support_simple_spinner_dropdown_item,
+                R.layout.list_spinner,
                 provinceList
             )
         }
@@ -196,7 +196,7 @@ class EditDataCustomerFragment : BaseFragment() {
         view2.sp_city_group_edit_customer.adapter = context?.let {
             ArrayAdapter(
                 it,
-                R.layout.support_simple_spinner_dropdown_item,
+                R.layout.list_spinner,
                 cityList
             )
         }
@@ -206,7 +206,7 @@ class EditDataCustomerFragment : BaseFragment() {
         view2.sp_district_group_edit_customer.adapter = context?.let {
             ArrayAdapter(
                 it,
-                R.layout.support_simple_spinner_dropdown_item,
+                R.layout.list_spinner,
                 villageList
             )
         }

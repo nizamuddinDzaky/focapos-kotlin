@@ -20,6 +20,7 @@ import id.sisi.postoko.model.PriceGroup
 import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
+import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.MySpinnerAdapter
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
@@ -32,12 +33,10 @@ import java.util.ArrayList
 
 class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
     private var priceGroup: PriceGroup? = null
-    private lateinit var vmWarehouse: WarehouseViewModel
-    private var idWarehouse: String? = null
-    private var listWarehouse: List<Warehouse> = ArrayList()
     private lateinit var vmPriceGroup: PriceGroupViewModel
     private val progressBar = CustomProgressBar()
     var listener: () -> Unit = {}
+    private val myDialog = MyDialog()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,15 +63,15 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
             }
         })
 
-        vmWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
+        /*vmWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)*/
 
         tv_title_bottom_sheet.text = getString(R.string.title_activity_edit_price_group)
         tv_subtitle_bottom_sheet.visible()
         val strSubTitle = "( ${priceGroup?.name})"
         tv_subtitle_bottom_sheet.text = strSubTitle
-        idWarehouse = priceGroup?.warehouse_id?.toString()
+        /*idWarehouse = priceGroup?.warehouse_id?.toString()*/
 
-        val adapterWarehouse =
+        /*val adapterWarehouse =
             context?.let { MySpinnerAdapter(it, android.R.layout.simple_spinner_dropdown_item) }
         adapterWarehouse?.udpateView(mutableListOf(DataSpinner(getString(R.string.txt_no_data), "")))
         sp_price_group_warehouse?.adapter = adapterWarehouse
@@ -102,7 +101,7 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-        }
+        }*/
 
         et_price_group_name.setText(priceGroup?.name)
 
@@ -126,8 +125,7 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
         val numbersMap = validationEditPriceGroup()
         if (numbersMap["type"] as Boolean){
             val body: MutableMap<String, Any> = mutableMapOf(
-                "name" to (et_price_group_name?.text?.toString() ?: ""),
-                "warehouse_id" to (idWarehouse?: "")
+                "name" to (et_price_group_name?.text?.toString() ?: "")
             )
 
             vmPriceGroup.putEditPriceGroup(body,priceGroup?.id.toString()){
@@ -135,12 +133,7 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
                 listener()
             }
         }else{
-            AlertDialog.Builder(context)
-                .setTitle("Konfirmasi")
-                .setMessage(numbersMap["message"] as String)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                }
-                .show()
+            myDialog.alert(numbersMap["message"] as String, context)
         }
     }
 
@@ -148,12 +141,7 @@ class BottomSheetEditPriceGroup: BottomSheetDialogFragment() {
         var message = ""
         var cek = true
         if (TextUtils.isEmpty(et_price_group_name.text)){
-            message += "- Nama Price Group Tidak Boleh Kosong\n"
-            cek = false
-        }
-
-        if (idWarehouse == null || idWarehouse == ""){
-            message += "- Warehouse Tidak Boleh Kosong\n"
+            message += "- Nama Kelompok Harga Tidak Boleh Kosong\n"
             cek = false
         }
         return mapOf("message" to message, "type" to cek)

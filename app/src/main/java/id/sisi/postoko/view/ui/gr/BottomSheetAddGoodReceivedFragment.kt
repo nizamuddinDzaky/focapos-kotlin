@@ -118,7 +118,7 @@ class BottomSheetAddGoodReceivedFragment : BottomSheetDialogFragment() {
         val adapterWarehouse = context?.let {
             MySpinnerAdapter(
                 it,
-                android.R.layout.simple_spinner_dropdown_item
+                R.layout.list_spinner
             )
         }
 

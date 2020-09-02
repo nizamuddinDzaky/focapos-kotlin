@@ -166,7 +166,8 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
 
         et_add_delivery_sales_ref?.setText(sale?.reference_no)
 
-        adapter = ListItemDeliveryAdapter(listSaleItems)
+        adapter = ListItemDeliveryAdapter()
+        adapter.updateDate(listSaleItems, false)
         adapter.listenerProduct = this
 
         rv_list_data?.layoutManager = LinearLayoutManager(this.context)

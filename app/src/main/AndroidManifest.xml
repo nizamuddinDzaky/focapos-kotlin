@@ -129,7 +129,10 @@
         <activity
             android:name=".view.ui.profile.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.ui.pricegroup.DetailPriceGroupActivity" /> <!-- <activity -->
+        <activity
+            android:name=".view.ui.pricegroup.DetailPriceGroupActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity android:name=".view.ui.pricegroup.DetailPriceGroupActivity" />--> <!-- <activity -->
         <!-- android:name=".view.ui.pricegroup.AddPriceGroupActivity" -->
         <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity

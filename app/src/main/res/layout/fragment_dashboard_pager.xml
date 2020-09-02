@@ -30,15 +30,17 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/building_icon_foreground"/>
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_building"/>
                 <TextView
                     android:id="@+id/tv_warehouse_name_piechart"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:textStyle="bold"
                     android:text="@string/txt_all_warehouse"
+                    android:layout_marginStart="@dimen/et_top_margin"
                     android:textColor="#858484"
                     android:gravity="center_vertical"/>
             </LinearLayout>

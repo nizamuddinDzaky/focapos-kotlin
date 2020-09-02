@@ -28,6 +28,7 @@ import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_edit_sale.*
 import kotlinx.android.synthetic.main.content_edit_sale.*
+import kotlinx.android.synthetic.main.payment_add_sale_fragment.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,6 +49,8 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     private lateinit var viewModel: AddSalesViewModel
     private val progressBar = CustomProgressBar()
     private var myDialog = MyDialog()
+    private var listTOP: Array<DataTermOfPayment> = arrayOf()
+    private var termOfPayment: String? = null
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +81,13 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             }
         })
 
+        viewModel.getTermOfPayment {
+            it?.let {listTOP ->
+                this.listTOP = listTOP.toTypedArray()
+            }
+            setUpTOP()
+        }
+
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val currentDate = sdf.parse(sale?.date)
         val strCurrentDate = sdf.format(currentDate)
@@ -89,13 +99,13 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             et_discount_edit_sale.setText(sale?.order_discount?.toInt().toString())
         if (sale?.shipping != 0.0 && sale?.shipping.toString() != "null")
             et_shipping_edit_sale.setText(sale?.shipping?.toInt().toString())
-        if (sale?.payment_term != 0 && sale?.payment_term.toString() != "null")
-            et_payment_term_edit_sale.setText(sale?.payment_term.toString())
+        /*if (sale?.payment_term != 0 && sale?.payment_term.toString() != "null")
+            et_payment_term_edit_sale.setText(sale?.payment_term.toString())*/
         idWarehouse = sale?.warehouse_id.toString()
 
         et_note_edit_sale.setText(sale?.note.toString())
         et_staff_note_edit_sale.setText(sale?.staff_note.toString())
-
+        et_reason_edit_sale.setText(sale?.reason)
         et_date_edit_sale?.setText(strCurrentDate.toDisplayDate())
         et_date_edit_sale?.hint = strCurrentDate.toDisplayDate()
         et_date_edit_sale?.tag = strCurrentDate
@@ -135,7 +145,15 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             dpd.show()
         }
 
-        val adapterWarehouse = MySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item)
+        sp_payment_term_edit_sale.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                termOfPayment = listTOP[position].duration
+
+            }
+        }
+
+        val adapterWarehouse = MySpinnerAdapter(this, R.layout.list_spinner)
         viewModelWarehouse = ViewModelProvider(this).get(WarehouseViewModel::class.java)
         viewModelWarehouse.getListWarehouses().observe(this, Observer {
             it?.let {
@@ -146,6 +164,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 listWarehouse=it
             }
         })
+
         sp_warehouse_edit_sale.adapter = adapterWarehouse
         sp_warehouse_edit_sale.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -204,6 +223,23 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             }
             actionEditSale()
         }
+    }
+
+    private fun setUpTOP() {
+        val adapter = this.let {
+            MySpinnerAdapter(
+                it,
+                R.layout.list_spinner
+            )
+        }
+
+        listTOP.let {
+            adapter.udpateView(it.map { top->
+                return@map DataSpinner((top.duration + " Hari") , top.duration ?: "")
+            }.toMutableList())
+        }
+        sp_payment_term_edit_sale.adapter = adapter
+        sp_payment_term_edit_sale.setIfExist(sale?.payment_term.toString())
     }
 
 
@@ -323,8 +359,8 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
         si.product_id = product.id.toInt()
         si.product_code = product.code
         si.product_name = product.name
-        si.net_unit_price = product.price.toDouble()
-        si.unit_price = product.price.toDouble()
+        si.net_unit_price = product.price?.toDouble()
+        si.unit_price = product.price?.toDouble()
         si.quantity = 1.0
         si.subtotal = (si.quantity ?: 0.0) * (si.unit_price ?: 0.0)
         var cek = true
@@ -357,7 +393,7 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             val saleItems = saleItem?.map {
                 return@map mutableMapOf(
                     "product_id" to it.product_id.toString(),
-                    "price" to it.real_unit_price.toString(),
+                    "price" to it.unit_price.toString(),
                     "quantity" to it.quantity,
                     "discount" to it.discount
                 )
@@ -370,9 +406,10 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 "order_discount" to (et_discount_edit_sale?.tag?.toString() ?: ""),
                 "shipping" to (et_shipping_edit_sale?.tag?.toString() ?: ""),
                 "sale_status" to (rg_status_edit_sale?.tag?.toString() ?: ""),
-                "payment_term" to (et_payment_term_edit_sale?.text?.toString() ?: ""),
+                "payment_term" to (termOfPayment ?: ""),
                 "staff_note" to (et_staff_note_edit_sale?.text?.toString() ?: ""),
                 "note" to (et_note_edit_sale?.text?.toString() ?: ""),
+                "reason" to (et_reason_edit_sale?.text?.toString() ?: ""),
                 "products" to saleItems
             )
             sale?.id?.let { viewModel.setIdSalesBooking(it) }

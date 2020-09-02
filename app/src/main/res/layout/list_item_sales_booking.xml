@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_5"
-    android:layout_marginBottom="@dimen/margin_5"
+    android:layout_marginBottom="@dimen/margin_10"
     android:background="@android:color/white">
 
     <LinearLayout
@@ -37,6 +36,7 @@
                     android:layout_centerInParent="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@android:color/white"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="PoS"/>
             </RelativeLayout>
 
@@ -57,8 +57,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="@dimen/margin_5">
+                        android:layout_weight="1">
 
                         <TextView
                             android:id="@+id/tv_sales_reference_no"
@@ -66,6 +65,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto_bold"
                             android:textColor="#0893B2"
+                            android:textSize="13dp"
                             tools:text="SO/2020/02/0001" />
                     </LinearLayout>
 
@@ -75,9 +75,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:drawableStart="@drawable/ic_time"
-                        android:drawableLeft="@drawable/ic_time"
                         android:fontFamily="@font/roboto_bold"
-                        android:padding="@dimen/margin_5"
+                        android:paddingBottom="@dimen/margin_5"
+                        android:paddingLeft="@dimen/margin_5"
+                        android:paddingRight="@dimen/margin_5"
                         android:textColor="#666666"
                         android:textSize="12sp"
                         tools:text=" 20 feb 2020" />
@@ -97,8 +98,8 @@
             </LinearLayout>
             <ImageView
                 android:id="@+id/btn_menu_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_weight="0"
                 android:layout_marginTop="@dimen/margin_6"
                 android:contentDescription="@string/conDes"

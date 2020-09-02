@@ -1,450 +1,468 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <RelativeLayout
-        android:id="@+id/layout_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp">
-
-        <ImageView
-            android:id="@+id/btn_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/et_top_margin"
-            android:layout_marginLeft="@dimen/et_top_margin"
-            android:src="@drawable/back_arrow_foreground"
-            android:contentDescription="@string/txt_image_avatar"/>
-
-        <TextView
-            android:id="@+id/tv_title_bottom_sheet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/txt_add_payment"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#676767"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLine" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/layout_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingTop="8dp">
 
-            <RadioGroup
-                android:id="@+id/rg_payment_type"
+            <ImageView
+                android:id="@+id/btn_close"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/et_top_margin"
+                android:layout_marginLeft="@dimen/et_top_margin"
+                android:src="@drawable/back_arrow_foreground"
+                android:contentDescription="@string/txt_image_avatar"/>
+
+            <TextView
+                android:id="@+id/tv_title_bottom_sheet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/txt_add_payment"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#676767"
+                android:fontFamily="@font/roboto_bold" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLine" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/et_top_margin"
-                android:paddingRight="@dimen/et_top_margin">
-                <RadioButton
-                    android:id="@+id/rb_cash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:buttonTint="#B20838"
-                    android:text="@string/txt_payment_cash"
-                    android:fontFamily="@font/roboto_regular"
-                    tools:targetApi="lollipop" />
-                <RadioButton
-                    android:id="@+id/rb_gift_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:buttonTint="#B20838"
-                    android:text="@string/txt_gift_card"
-                    android:fontFamily="@font/roboto_regular"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    tools:targetApi="lollipop" />
-                <RadioButton
-                    android:id="@+id/rb_credit_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:buttonTint="#B20838"
-                    android:text="@string/txt_credit_card"
-                    android:fontFamily="@font/roboto_regular"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    tools:targetApi="lollipop" />
-                <RadioButton
-                    android:id="@+id/rb_bank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:buttonTint="#B20838"
-                    android:text="@string/txt_bank"
-                    android:fontFamily="@font/roboto_regular"
-                    tools:targetApi="lollipop" />
-            </RadioGroup>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/et_top_margin"
-                android:background="@color/colorLine" />
+                android:orientation="vertical">
 
-            <net.cachapa.expandablelayout.ExpandableLayout
-                android:id="@+id/layout_gift_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/et_top_margin"
-                android:background="#fff"
-                android:paddingStart="@dimen/et_top_margin"
-                android:layout_marginTop="@dimen/et_top_margin"
-                tools:ignore="RtlHardcoded,RtlSymmetry"
-                app:el_duration="300"
-                app:el_expanded="false"
-                app:el_parallax="0.5">
-                <LinearLayout
+                <RadioGroup
+                    android:id="@+id/rg_payment_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/et_top_margin"
+                    android:paddingRight="@dimen/et_top_margin">
+                    <RadioButton
+                        android:id="@+id/rb_cash"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_payment_cash"
+                        android:fontFamily="@font/roboto_regular"
+                        tools:targetApi="lollipop" />
+                    <RadioButton
+                        android:id="@+id/rb_gift_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:buttonTint="#B20838"
                         android:text="@string/txt_gift_card"
-                        android:textColor="#646464"
-                        android:fontFamily="@font/roboto_bold"
-                        tools:targetApi="jelly_bean" />
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        tools:ignore="LabelFor" />
-                </LinearLayout>
-            </net.cachapa.expandablelayout.ExpandableLayout>
-
-            <net.cachapa.expandablelayout.ExpandableLayout
-                android:id="@+id/layout_credit_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/et_top_margin"
-                android:orientation="vertical"
-                android:background="#fff"
-                android:paddingStart="@dimen/et_top_margin"
-                app:el_duration="300"
-                app:el_expanded="false"
-                app:el_parallax="0.5"
-                tools:ignore="RtlSymmetry">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:baselineAligned="false">
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="0.5"
-                            android:layout_marginRight="@dimen/margin_20"
-                            android:layout_marginEnd="@dimen/margin_20">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/txt_card_number"/>
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:importantForAutofill="no"
-                                android:inputType="text"
-                                tools:ignore="LabelFor" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="0.5">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/txt_name"/>
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:importantForAutofill="no"
-                                android:inputType="text"
-                                tools:ignore="LabelFor" />
-                        </LinearLayout>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <Spinner
-                            android:layout_width="0dp"
-                            android:layout_weight="0.3"
-                            android:layout_height="50dp"
-                            android:clickable="true"
-                            style="@style/Widget.AppCompat.Spinner.Underlined"
-                            android:focusable="true"/>
-                        <Spinner
-                            android:layout_width="0dp"
-                            android:layout_weight="0.3"
-                            android:layout_height="50dp"
-                            android:clickable="true"
-                            style="@style/Widget.AppCompat.Spinner.Underlined"
-                            android:focusable="true"/>
-                        <Spinner
-                            android:layout_width="0dp"
-                            android:layout_weight="0.3"
-                            android:layout_height="50dp"
-                            android:clickable="true"
-                            style="@style/Widget.AppCompat.Spinner.Underlined"
-                            android:focusable="true"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-            </net.cachapa.expandablelayout.ExpandableLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/et_top_margin"
-                android:paddingLeft="@dimen/et_top_margin"
-                android:paddingRight="@dimen/et_top_margin"
-                android:baselineAligned="false">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:orientation="vertical"
-                    android:layout_marginRight="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_date"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/colorTittleInput"
-                        android:textStyle="bold" />
-                    <EditText
-                        android:id="@+id/et_add_payment_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="1dp"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:importantForAutofill="no"
-                        android:inputType="none"
-                        tools:ignore="KeyboardInaccessibleWidget,LabelFor,TextFields" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_marginStart="@dimen/margin_10">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/txt_reference_number"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/colorTittleInput"
-                        android:textStyle="bold" />
-                    <EditText
-                        android:id="@+id/et_add_payment_reference"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="1dp"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:importantForAutofill="no"
-                        android:inputType="none"
-                        tools:ignore="KeyboardInaccessibleWidget,LabelFor,TextFields" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/et_top_margin"
-                android:paddingLeft="@dimen/et_top_margin"
-                android:paddingRight="@dimen/et_top_margin">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_total_idr"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorTittleInput"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/et_add_payment_total"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:importantForAutofill="no"
-                    android:inputType="numberSigned"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textStyle="bold"
-                    tools:text="Rp 100.000"
-                    tools:ignore="LabelFor" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_upload_file"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/square_dash"
-                android:layout_marginBottom="@dimen/et_top_margin">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:paddingTop="@dimen/et_top_margin"
-                    tools:ignore="RtlSymmetry,UselessParent"
-                    android:paddingEnd="@dimen/et_top_margin">
-
-                    <ImageView
-                        android:id="@+id/iv_delete"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:contentDescription="@string/txt_image_minus"
-                        android:src="@drawable/trash"
+                        android:fontFamily="@font/roboto_regular"
                         android:visibility="gone"
-                        android:layout_alignParentEnd="true" />
+                        tools:visibility="visible"
+                        tools:targetApi="lollipop" />
+                    <RadioButton
+                        android:id="@+id/rb_credit_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_credit_card"
+                        android:fontFamily="@font/roboto_regular"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        tools:targetApi="lollipop" />
+                    <RadioButton
+                        android:id="@+id/rb_bank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:buttonTint="#B20838"
+                        android:text="@string/txt_bank"
+                        android:fontFamily="@font/roboto_regular"
+                        tools:targetApi="lollipop" />
+                </RadioGroup>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/et_top_margin"
+                    android:background="@color/colorLine" />
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/layout_gift_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/et_top_margin"
+                    android:background="#fff"
+                    android:paddingStart="@dimen/et_top_margin"
+                    android:layout_marginTop="@dimen/et_top_margin"
+                    tools:ignore="RtlHardcoded,RtlSymmetry"
+                    app:el_duration="300"
+                    app:el_expanded="false"
+                    app:el_parallax="0.5">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="@dimen/standard_margin">
-                        <ImageView
-                            android:id="@+id/iv_file"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:contentDescription="@string/txt_image_minus"
-                            android:src="@drawable/ic_upload" />
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_gift_card"
+                            android:textColor="#646464"
+                            android:fontFamily="@font/roboto_bold"
+                            tools:targetApi="jelly_bean" />
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+                </net.cachapa.expandablelayout.ExpandableLayout>
 
-                        <ImageView
-                            android:id="@+id/iv_prev_image"
-                            android:layout_width="127dp"
-                            android:layout_height="141dp"
-                            android:layout_gravity="center"
-                            android:contentDescription="@string/txt_image_minus"
-                            android:src="@drawable/ic_upload"
-                            android:visibility="gone"/>
-
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/layout_credit_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/et_top_margin"
+                    android:orientation="vertical"
+                    android:background="#fff"
+                    android:paddingStart="@dimen/et_top_margin"
+                    app:el_duration="300"
+                    app:el_expanded="false"
+                    app:el_parallax="0.5"
+                    tools:ignore="RtlSymmetry">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:gravity="center_horizontal"
-                            >
-                            <TextView
-                                android:id="@+id/tv_prefix_image_name"
-                                android:layout_width="wrap_content"
+                            android:baselineAligned="false">
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/text_blue"
-                                android:fontFamily="@font/roboto_bold"
-                                android:text="@string/txt_search_for"/>
-                            <TextView
-                                android:id="@+id/tv_image_name"
-                                android:layout_width="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="0.5"
+                                android:layout_marginRight="@dimen/margin_20"
+                                android:layout_marginEnd="@dimen/margin_20">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/txt_card_number"/>
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:importantForAutofill="no"
+                                    android:inputType="text"
+                                    tools:ignore="LabelFor" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_bold"
-                                android:text="@string/txt_upload_file"/>
+                                android:orientation="vertical"
+                                android:layout_weight="0.5">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/txt_name"/>
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:importantForAutofill="no"
+                                    android:inputType="text"
+                                    tools:ignore="LabelFor" />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <Spinner
+                                android:layout_width="0dp"
+                                android:layout_weight="0.3"
+                                android:layout_height="50dp"
+                                android:clickable="true"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"
+                                android:focusable="true"/>
+                            <Spinner
+                                android:layout_width="0dp"
+                                android:layout_weight="0.3"
+                                android:layout_height="50dp"
+                                android:clickable="true"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"
+                                android:focusable="true"/>
+                            <Spinner
+                                android:layout_width="0dp"
+                                android:layout_weight="0.3"
+                                android:layout_height="50dp"
+                                android:clickable="true"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"
+                                android:focusable="true"/>
                         </LinearLayout>
                     </LinearLayout>
 
-                </RelativeLayout>
-            </LinearLayout>
+                </net.cachapa.expandablelayout.ExpandableLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/et_top_margin"
-                android:layout_marginLeft="@dimen/et_top_margin"
-                android:layout_marginRight="@dimen/et_top_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/et_top_margin"
+                    android:paddingLeft="@dimen/et_top_margin"
+                    android:paddingRight="@dimen/et_top_margin"
+                    android:baselineAligned="false">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_date"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/colorTittleInput"
+                            android:fontFamily="@font/roboto_bold" />
+                        <EditText
+                            android:id="@+id/et_add_payment_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="1dp"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:importantForAutofill="no"
+                            android:inputType="none"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorTittleInput"
+                            android:textSize="@dimen/font_size_input"
+                            tools:ignore="KeyboardInaccessibleWidget,LabelFor,TextFields" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginStart="@dimen/margin_10">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_reference_number"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/colorTittleInput"
+                            android:fontFamily="@font/roboto_bold" />
+                        <EditText
+                            android:id="@+id/et_add_payment_reference"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="1dp"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:importantForAutofill="no"
+                            android:inputType="none"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorTittleInput"
+                            android:textSize="@dimen/font_size_input"
+                            tools:ignore="KeyboardInaccessibleWidget,LabelFor,TextFields" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/et_top_margin"
+                    android:paddingLeft="@dimen/et_top_margin"
+                    android:paddingRight="@dimen/et_top_margin">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_total_idr"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorTittleInput"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_add_payment_total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:importantForAutofill="no"
+                        android:inputType="numberSigned"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textStyle="bold"
+                        tools:text="Rp 100.000"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorTittleInput"
+                        android:textSize="@dimen/font_size_input"
+                        tools:ignore="LabelFor" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_upload_file"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/square_dash"
+                    android:layout_margin="@dimen/et_top_margin">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:paddingTop="@dimen/et_top_margin"
+                        tools:ignore="RtlSymmetry,UselessParent"
+                        android:paddingEnd="@dimen/et_top_margin">
+
+                        <ImageView
+                            android:id="@+id/iv_delete"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="@string/txt_image_minus"
+                            android:src="@drawable/trash"
+                            android:visibility="gone"
+                            android:layout_alignParentEnd="true" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/standard_margin">
+                            <ImageView
+                                android:id="@+id/iv_file"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/txt_image_minus"
+                                android:src="@drawable/ic_upload" />
+
+                            <ImageView
+                                android:id="@+id/iv_prev_image"
+                                android:layout_width="127dp"
+                                android:layout_height="141dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/txt_image_minus"
+                                android:src="@drawable/ic_upload"
+                                android:visibility="gone"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_horizontal"
+                                >
+                                <TextView
+                                    android:id="@+id/tv_prefix_image_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/text_blue"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:text="@string/txt_search_for"/>
+                                <TextView
+                                    android:id="@+id/tv_image_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:text="@string/txt_upload_file"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/et_top_margin"
+                    android:layout_marginLeft="@dimen/et_top_margin"
+                    android:layout_marginRight="@dimen/et_top_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_note"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_bold" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+                        tools:ignore="RelativeOverlap">
+
+                        <TextView
+                            android:id="@+id/tv_edit_payment_note"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="@string/txt_edit"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/main_red"
+                            tools:ignore="RelativeOverlap" />
+
+                        <TextView
+                            android:id="@+id/tv_add_payment_note"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="@string/txt_add"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/main_red"
+                            tools:ignore="RelativeOverlap" />
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/tv_payment_note"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_note"
-                    android:textColor="#676767"
-                    android:fontFamily="@font/roboto_bold" />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal"
-                    tools:ignore="RelativeOverlap">
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/et_top_margin"
+                    android:layout_marginLeft="@dimen/et_top_margin"
+                    android:fontFamily="@font/roboto_italic"
+                    android:textColor="@color/text_grey"
+                    tools:text="@string/txt_sale_note" />
 
-                    <TextView
-                        android:id="@+id/tv_edit_payment_note"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="@string/txt_edit"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/main_red"
-                        tools:ignore="RelativeOverlap" />
-
-                    <TextView
-                        android:id="@+id/tv_add_payment_note"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="@string/txt_add"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/main_red"
-                        tools:ignore="RelativeOverlap" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tv_payment_note"
-                android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:layout_marginStart="@dimen/et_top_margin"
-                android:layout_marginLeft="@dimen/et_top_margin"
-                android:fontFamily="@font/roboto_italic"
-                android:textColor="@color/text_grey"
-                tools:text="@string/txt_sale_note" />
-            <Button
-                android:id="@+id/btn_confirmation_add_payment"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height_bottom_sheet"
-                android:layout_marginTop="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/et_top_margin"
-                android:layout_marginRight="@dimen/et_top_margin"
-                android:background="@color/main_green"
-                android:text="@string/txt_action_add_payment"
-                android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
 
+    <Button
+        android:id="@+id/btn_confirmation_add_payment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_bottom_sheet"
+        android:layout_marginLeft="@dimen/et_top_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/et_top_margin"
+        android:layout_marginBottom="@dimen/bs_bottom_margin"
+        android:background="@color/main_green"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/txt_action_add_payment"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/white" />
 
-</LinearLayout>
+</RelativeLayout>

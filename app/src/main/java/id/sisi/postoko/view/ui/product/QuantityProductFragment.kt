@@ -21,7 +21,7 @@ class QuantityProductFragment: BaseFragment() {
     private lateinit var adapter: QuantityWarehouseAdapter
 
     override var tagName: String
-        get() = "Kuantitas Warehouse"
+        get() = "Kuantitas Gudang"
         set(_) {}
 
     companion object {

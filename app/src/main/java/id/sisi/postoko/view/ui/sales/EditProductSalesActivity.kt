@@ -13,6 +13,7 @@ import id.sisi.postoko.utils.KEY_MESSAGE
 import id.sisi.postoko.utils.KEY_SALE_ITEM
 import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.NumberSeparator
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toCurrencyID
 
 import id.sisi.postoko.view.BaseActivity
@@ -95,9 +96,12 @@ class EditProductSalesActivity : BaseActivity() {
     private fun setUpResult() {
         val strDisc = et_discount_edit_produk_add_sale.text.toString().replace(",".toRegex(), "")
         val strRealUnitPrice = et_real_unit_price_edit_produk_add_sale.text.toString().replace(",".toRegex(), "")
-
-        if (!TextUtils.isEmpty(strDisc) && !TextUtils.isEmpty(strRealUnitPrice)){
-            unitPrice = strRealUnitPrice.toDouble().minus(strDisc.toDouble())
+        var disc = 0.0
+        if (!TextUtils.isEmpty(strDisc)){
+            disc = strDisc.toDouble()
+        }
+        if (!TextUtils.isEmpty(strRealUnitPrice)){
+            unitPrice = strRealUnitPrice.toDouble().minus(disc)
         }
 
         tv_unit_price_edit_produk_add_sale.text = unitPrice.toCurrencyID()

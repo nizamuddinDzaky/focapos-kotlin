@@ -12,6 +12,7 @@
     <dimen name="margin_30">30dp</dimen>
     <dimen name="margin_90">90dp</dimen>
     <dimen name="margin_10">10dp</dimen>
+    <dimen name="fab_size">50dp</dimen>
     <dimen name="margin_title_edit_profile">16dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_6">6dp</dimen>
@@ -24,6 +25,7 @@
     <dimen name="header_profile">40dp</dimen>
     <dimen name="avatar_size">64dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="font_size_input">14sp</dimen>
     <dimen name="search_view_text_padding">65dp</dimen>
     <dimen name="tab_indicator_height">4dp</dimen>
     <dimen name="bottom_navigation_height">56dp</dimen>

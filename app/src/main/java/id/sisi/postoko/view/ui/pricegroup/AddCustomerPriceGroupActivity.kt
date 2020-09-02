@@ -17,6 +17,7 @@ import id.sisi.postoko.network.NetworkResponse
 import id.sisi.postoko.utils.KEY_PRICE_GROUP
 import id.sisi.postoko.utils.RC_ADD_CUSTOMER_TO_PG
 import id.sisi.postoko.utils.extensions.addVerticalDivider
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.BaseActivity
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_customer_price_group.*
@@ -60,6 +61,20 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
         initView()
         setupData()
         setupAction()
+
+        vmPriceGroup.getIsExecute().observe(this, Observer {
+            logE("$it")
+            if (it && !progressBar.isShowing()) {
+                progressBar.show(this, getString(R.string.txt_please_wait))
+            } else {
+                progressBar.dialog.dismiss()
+            }
+        })
+        vmPriceGroup.getMessage().observe(this, Observer {
+            it?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun initView() {
@@ -131,7 +146,7 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
     }
 
     private fun actionSave() {
-        progressBar.show(this, "Silakan tunggu...")
+        /*progressBar.show(this, "Silakan tunggu...")*/
         val listIdSelected: ArrayList<String> = arrayListOf()
         for (index in 0 until listCustomerCart.size){
             listIdSelected.add(listCustomerCart[index].customer_id ?: "")
@@ -140,12 +155,13 @@ class AddCustomerPriceGroupActivity : BaseActivity() {
             "id_customer" to listIdSelected
         )
         vmPriceGroup.postAddCustomerToPriceGroup(body, priceGroup?.id.toString()){
-            progressBar.dialog.dismiss()
+            /*progressBar.dialog.dismiss()
             Toast.makeText(this, "" + it["message"], Toast.LENGTH_SHORT).show()
             if (it["networkRespone"]?.equals(NetworkResponse.SUCCESS)!!) {
                 setResult(Activity.RESULT_OK)
                 finish()
-            }
+            }*/
+            finish()
         }
     }
     

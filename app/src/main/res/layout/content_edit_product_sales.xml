@@ -32,6 +32,9 @@
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
                 android:inputType="text"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/colorTittleInput"
+                android:textSize="@dimen/font_size_input"
                 tools:ignore="LabelFor,TextFields" />
         </LinearLayout>
 
@@ -54,6 +57,9 @@
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
                 android:inputType="numberSigned"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/colorTittleInput"
+                android:textSize="@dimen/font_size_input"
                 tools:ignore="LabelFor" />
         </LinearLayout>
 
@@ -100,6 +106,9 @@
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
                 android:inputType="numberSigned"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/colorTittleInput"
+                android:textSize="@dimen/font_size_input"
                 tools:ignore="LabelFor" />
         </LinearLayout>
 
@@ -122,6 +131,9 @@
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
                 android:inputType="numberSigned"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/colorTittleInput"
+                android:textSize="@dimen/font_size_input"
                 tools:ignore="LabelFor" />
         </LinearLayout>
 
@@ -156,6 +168,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     tools:text="Rp 20000"
+                    android:fontFamily="@font/roboto_regular"
                     android:textColor="#DE515151" />
             </LinearLayout>
         </LinearLayout>
@@ -190,22 +203,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:fontFamily="@font/roboto_regular"
                     android:textColor="#DE515151" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/et_top_margin">
         <Button
             android:id="@+id/btn_edit_product_add_sale"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_bottom_sheet"
+            android:background="@color/main_green"
             android:text="@string/txt_edit"
-            android:background="#1CA865"
+            android:textAllCaps="false"
+            android:fontFamily="@font/roboto_regular"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:layout_alignParentBottom="true"
-            android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 </LinearLayout>

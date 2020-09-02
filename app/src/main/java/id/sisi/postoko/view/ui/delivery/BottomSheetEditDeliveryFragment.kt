@@ -474,7 +474,7 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
 
     private fun setUpUI(deliveryItems: List<DeliveryItem>?) {
         adapter = ListItemDeliveryAdapter()
-        adapter.updateDate(deliveryItems)
+        adapter.updateDate(deliveryItems, false)
         adapter.listenerProduct = this
         rv_list_data?.layoutManager = LinearLayoutManager(this.context)
         rv_list_data?.setHasFixedSize(false)

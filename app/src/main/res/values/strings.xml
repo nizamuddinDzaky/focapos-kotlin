@@ -49,7 +49,7 @@
     <string name="txt_warehouse">Gudang</string>
     <string name="txt_all_warehouse">Semua Gudang</string>
     <string name="txt_choose_warehouse">Pilih Gudang</string>
-    <string name="txt_customer">Customer/Toko</string>
+    <string name="txt_customer">Nama Pelanggan</string>
     <string name="txt_choose_customer">Pilih Customer/Toko</string>
     <string name="txt_product">Produk</string>
     <string name="txt_add_product">Tambah Produk</string>
@@ -72,11 +72,13 @@
     <string name="txt_edit">Ubah</string>
     <string name="txt_sub_total">Sub Total</string>
     <string name="txt_price">Harga</string>
+    <string name="txt_sell_price">Harga Jual</string>
+    <string name="txt_cost">Harga Beli</string>
     <string name="txt_delivery_status">Status Pengiriman</string>
     <string name="txt_do_number">No DO</string>
     <string name="txt_so_number">No SO</string>
     <string name="txt_quantity">Kuantitas</string>
-    <string name="txt_quantity_booking">Pesanan Kuantitas</string>
+    <string name="txt_quantity_booking">Kuantitas Pemesanan</string>
     <string name="txt_nominal">Nominal</string>
     <string name="txt_driver_name">Nama Pengemudi</string>
     <string name="txt_date">Tanggal</string>
@@ -123,6 +125,7 @@
     <string name="txt_add_delivery">Menambah Pengiriman</string>
     <string name="txt_being_packed">Sedang Dikemas</string>
     <string name="txt_in_shipping">Mengirim</string>
+    <string name="txt_in_shipping_delivery">Dalam Pengiriman</string>
     <string name="txt_already_received">Sudah Diterima</string>
     <string name="txt_sales_reference_numbers">Referensi Nomor Penjualan</string>
     <string name="txt_hint_example_sales_number">SALE/2020/02/0001</string>
@@ -197,7 +200,7 @@
     <string name="txt_point_customer">Point Pelanggan</string>
     <string name="txt_email">Email</string>
     <string name="txt_telp">Telp</string>
-    <string name="txt_search_for">Telusuri</string>
+    <string name="txt_search_for">Telusuri </string>
     <string name="txt_upload_file">File Untuk Upload</string>
     <string name="txt_district">Kabupaten/Kota</string>
     <string name="txt_province">Provinsi</string>
@@ -275,7 +278,7 @@
     <string name="txt_error_try_again_later">Ulangi beberapa saat lagi.</string>
     <string name="txt_title_price_group">Kelompok Harga</string>
     <string name="txt_add_remove_customer">Tambah/Hapus Daftar Pelanggan</string>
-    <string name="txt_group_percentage">Group Percentage</string>
+    <string name="txt_percentage">Persentase</string>
     <string name="txt_kredit_limit">Kredit Limit</string>
     <string name="txt_title_customer_group">Kelompok Pelanggan</string>
     <string name="txt_price_sale">Harga Penjualan</string>
@@ -283,11 +286,11 @@
     <string name="txt_min_order">Min Order</string>
     <string name="txt_title_detail_price_group">Detail Kelompok Harga</string>
     <string name="txt_multiple">Multiple</string>
-    <string name="txt_add_price_group">Tambah Price Group</string>
+    <string name="txt_add_price_group">Tambah Kelompok Harga</string>
     <string name="txt_maksimal_30_karakter">Maksimal 30 Karakter</string>
-    <string name="title_activity_edit_price_group">Edit Price Group</string>
+    <string name="title_activity_edit_price_group">Ubah Kelompok Harga</string>
     <string name="title_activity_customer_selected_price_group">Pelanggan Yang Dipilih</string>
-    <string name="title_activity_edit_customer_group">Edit Kelompok Pelanggan</string>
+    <string name="title_activity_edit_customer_group">Ubah Kelompok Pelanggan</string>
     <string name="txt_tanpa_tanda_persen">Tanpa Tanda %</string>
     <string name="txt_add_customer_group">Tambah Kelompok Pelanggan</string>
     <string name="title_activity_customer_selected_customer_group">Pelanggan Yang Dipilih</string>
@@ -373,5 +376,6 @@
     <string name="txt_total_item">Jumlah Barang</string>
     <string name="txt_discount_item">Diskon Item (Rp)</string>
     <string name="txt_see_note">Lihat Catatan</string>
-    <string name="txt_detail_product">Detail Product</string>
+    <string name="txt_detail_product">Detail Produk</string>
+    <string name="txt_supplier">Pemasok</string>
 </resources>

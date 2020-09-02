@@ -55,13 +55,14 @@ class AddSaleActivity : BaseActivity() {
         adapter = ListItemAddSaleAdapter()
 
         vmProduct = ViewModelProvider(this).get(ProductViewModel::class.java)
-        vmProduct.getListProducts().observe(this, Observer {
+        /*vmProduct.getListProducts().observe(this, Observer {
             if (it != null) {
                 listProduct=it
             }
-        })
 
-        vmProduct.getListProduct()
+        })*/
+
+//        vmProduct.getListProduct()
 
         vmAddSale = ViewModelProvider(
             this
@@ -109,7 +110,7 @@ class AddSaleActivity : BaseActivity() {
         listProduct.forEach { product ->
             /*logE("selectedTotal : ${product.price.toDouble()}")*/
             if (product.isSelected){
-                total += (product.sale_qty * product.price.toDouble().toInt())
+                total += (product.sale_qty * (product.price?.toDouble()?.toInt() ?: 0))
             }
         }
         return total

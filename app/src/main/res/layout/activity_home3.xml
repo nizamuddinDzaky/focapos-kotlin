@@ -69,6 +69,8 @@
             app:itemIconTint="@drawable/selector_bottombar_text"
             app:itemTextColor="@drawable/selector_bottombar_text"
             app:labelVisibilityMode="labeled"
+            app:itemTextAppearanceActive="@style/Style_TextView"
+            app:itemTextAppearanceInactive="@style/Style_TextView"
             app:menu="@menu/bottom_navigation_items" />
     </RelativeLayout>
 

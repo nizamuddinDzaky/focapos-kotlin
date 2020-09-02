@@ -33,7 +33,6 @@ class ProductViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     tryMe {
                         isExecute.postValue(false)
-                        logE("asdsad : ${response.body()?.data?.list_products}")
                         products.postValue(response.body()?.data?.list_products)
                     }
                 } else {
@@ -44,7 +43,7 @@ class ProductViewModel : ViewModel() {
         )
     }
 
-    fun getListProductSales(idCustomer: Int) {
+    fun getListProductSales(idCustomer: Int, listener: (listProduct: List<Product>?) -> Unit? = {}) {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
         val params = mutableMapOf("customer_id" to idCustomer.toString())
@@ -57,7 +56,7 @@ class ProductViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     tryMe {
                         isExecute.postValue(false)
-                        products.postValue(response.body()?.data?.list_products)
+                        listener(response.body()?.data?.list_products)
                     }
                 } else {
                     isExecute.postValue(false)

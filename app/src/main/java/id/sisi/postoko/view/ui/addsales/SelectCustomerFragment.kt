@@ -61,9 +61,13 @@ class SelectCustomerFragment: Fragment() {
             val dialogFragment = FragmentSearchCustomer()
             dialogFragment.listener={ customer ->
                 (activity as AddSaleActivity?)?.idCustomer = customer.id
-                /*(activity as AddSaleActivity?)?.vmProduct?.getListProductSales(
+                (activity as AddSaleActivity?)?.vmProduct?.getListProductSales(
                     customer.id?.toInt() ?: 0
-                )*/
+                ){listProduct ->
+                    if (listProduct != null) {
+                        (activity as AddSaleActivity?)?.listProduct = listProduct
+                    }
+                }
                 (activity as AddSaleActivity?)?.customerName = customer.company
                 (activity as AddSaleActivity?)?.customerAddress = customer.address
                 sp_customer.setText(customer.company)

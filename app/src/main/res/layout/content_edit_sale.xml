@@ -55,6 +55,9 @@
                             android:focusable="false"
                             android:importantForAutofill="no"
                             android:inputType="none"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/colorTittleInput"
+                            android:textSize="@dimen/font_size_input"
                             tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget" />
                     </LinearLayout>
                 </LinearLayout>
@@ -87,12 +90,13 @@
                         <Spinner
                             android:id="@+id/sp_warehouse_edit_sale"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:importantForAutofill="no"
                             android:autofillHints="nothing"
                             android:inputType="text"
                             android:clickable="true"
                             android:focusable="false"
+
                             tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
                             style="@style/Widget.AppCompat.Spinner.Underlined"/>
                     </LinearLayout>
@@ -125,12 +129,14 @@
                         <EditText
                             android:id="@+id/et_customer_edit_sale"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:importantForAutofill="no"
+                            android:textColor="@color/colorTittleInput"
                             android:autofillHints="nothing"
                             android:inputType="text"
                             android:clickable="true"
                             android:focusable="false"
+                            android:fontFamily="@font/roboto_regular"
                             tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
                             style="@style/Widget.AppCompat.Spinner.Underlined"/>
                     </LinearLayout>
@@ -150,7 +156,7 @@
                 android:layout_marginLeft="@dimen/margin_10"
                 android:text="@string/txt_product"
                 android:textColor="#676767"
-                android:textStyle="bold" />
+                android:fontFamily="@font/roboto_bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list_product_edit_sale"
@@ -179,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/txt_total"
                         android:textColor="#676767"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_bold" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -193,6 +199,7 @@
                         android:gravity="end"
                         android:text="@string/txt_nol_total_rupiah"
                         android:textAlignment="textEnd"
+                        android:fontFamily="@font/roboto_regular"
                         android:textColor="#000" />
                 </LinearLayout>
             </LinearLayout>
@@ -205,6 +212,7 @@
             android:background="#f3f2f2"
             android:text="@string/txt_add_product"
             android:textColor="#0f569d"
+            android:textSize="13sp"
             android:fontFamily="@font/roboto_bold"
             style="?android:attr/borderlessButtonStyle"/>
         <androidx.cardview.widget.CardView
@@ -230,6 +238,9 @@
                     android:layout_height="50dp"
                     android:importantForAutofill="no"
                     android:inputType="numberSigned"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     android:focusableInTouchMode="true"
                     tools:ignore="LabelFor" />
 
@@ -245,6 +256,9 @@
                     android:id="@+id/et_shipping_edit_sale"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     android:importantForAutofill="no"
                     android:inputType="numberSigned"
                     tools:ignore="LabelFor" />
@@ -288,13 +302,14 @@
                     android:textColor="@color/text_grey"
                     android:fontFamily="@font/roboto_bold" />
 
-                <EditText
-                    android:id="@+id/et_payment_term_edit_sale"
+                <Spinner
+                    android:id="@+id/sp_payment_term_edit_sale"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:importantForAutofill="no"
-                    android:inputType="numberSigned"
-                    tools:ignore="LabelFor" />
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:focusable="false"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -354,6 +369,9 @@
                     android:layout_height="50dp"
                     android:importantForAutofill="no"
                     android:inputType="text"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:ignore="LabelFor" />
 
                 <TextView
@@ -370,6 +388,9 @@
                     android:layout_height="50dp"
                     android:importantForAutofill="no"
                     android:inputType="text"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:ignore="LabelFor" />
 
                 <TextView
@@ -386,6 +407,9 @@
                     android:layout_height="50dp"
                     android:importantForAutofill="no"
                     android:inputType="text"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:ignore="LabelFor" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -395,7 +419,8 @@
             android:layout_height="@dimen/button_height_bottom_sheet"
             android:background="#1CA865"
             android:text="@string/txt_edit"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
+            android:layout_margin="@dimen/et_top_margin"
             android:fontFamily="@font/roboto_regular"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/white"/>

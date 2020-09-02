@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.main.list_item_add_delivery.view.*
 
 
 class ListItemDeliveryAdapter<T>(
-    private var item: List<T>? = arrayListOf()
+    private var item: List<T>? = arrayListOf(),
+    private var isReturn: Boolean = false
 ) : RecyclerView.Adapter<ListItemDeliveryAdapter.ProductViewHolder<T>>(){
 
     var listenerProduct: OnClickListenerInterface? = null
@@ -28,7 +29,7 @@ class ListItemDeliveryAdapter<T>(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder<T>, position: Int) {
-        holder.bind(item?.get(position), listenerProduct, position)
+        holder.bind(item?.get(position), listenerProduct, position, isReturn)
     }
 
     class ProductViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -39,14 +40,14 @@ class ListItemDeliveryAdapter<T>(
         fun bind(
             value: T?,
             listenerProduct: OnClickListenerInterface?,
-            position: Int
+            position: Int,
+            isReturn: Boolean
         ) {
             when(value){
                 is SaleItem -> {
                     unsentQty = value.unit_quantity?.minus(value.sent_quantity) ?: 0.0
                     strUnsentQty = "${unsentQty.toInt().toNumberID()} ${value.product_unit_code}"
                     quantity = value.quantity ?: 0.0
-                    itemView.tv_title_qty.text = itemView.context.getText(R.string.txt_delivery_total_qty)
 
                     itemView.tv_sale_item_name?.text = value.product_name
                     itemView.tv_product_code?.text = value.product_code
@@ -59,7 +60,7 @@ class ListItemDeliveryAdapter<T>(
                 is DeliveryItem -> {
                     strUnsentQty = "${value.quantity_sent?.toNumberID()} ${value.product_unit_code}"
                     quantity = value.quantity_sent ?: 0.0
-                    itemView.tv_title_qty.text = itemView.context.getText(R.string.txt_retur_total_qty)
+
                     itemView.tv_title_unsent_qty.text = itemView.context.getText(R.string.txt_sent)
                     itemView.tv_sale_item_name?.text = value.product_name
                     itemView.tv_product_code?.text = value.product_code
@@ -68,6 +69,12 @@ class ListItemDeliveryAdapter<T>(
                     itemView.tv_alias_product?.text = value.product_name.toAlias()
                     itemView.btn_delete.gone()
                 }
+            }
+
+            if (isReturn){
+                itemView.tv_title_qty.text = itemView.context.getText(R.string.txt_retur_total_qty)
+            }else{
+                itemView.tv_title_qty.text = itemView.context.getText(R.string.txt_delivery_total_qty)
             }
 
             itemView.iv_remove_product_delivery.setOnClickListener {
@@ -88,7 +95,8 @@ class ListItemDeliveryAdapter<T>(
         }
     }
 
-    fun updateDate(deliveryItems: List<T>?) {
+    fun updateDate(deliveryItems: List<T>?, isReturn: Boolean) {
+        this.isReturn = isReturn
         item = deliveryItems
         notifyDataSetChanged()
     }

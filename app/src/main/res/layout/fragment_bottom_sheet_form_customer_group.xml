@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/layout_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:background="#fff">
 
         <ImageView
@@ -17,6 +17,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="@dimen/et_top_margin"
             android:layout_marginLeft="@dimen/et_top_margin"
+            android:layout_centerVertical="true"
             android:src="@drawable/back_arrow_foreground"
             android:contentDescription="@string/txt_image_avatar"/>
         <LinearLayout
@@ -51,133 +52,149 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorLine" />
-
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/bs_bottom_margin">
-        <LinearLayout
-
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/et_top_margin"
-            tools:ignore="MissingConstraints">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_group_name"
-                android:textColor="#666"
-                android:layout_marginLeft="@dimen/standard_margin"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/et_customer_group_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:paddingLeft="30dp"
-                android:importantForAutofill="no"
-                android:focusableInTouchMode="true"
-                android:backgroundTint="@android:color/holo_blue_bright"
-                android:paddingStart="@dimen/margin_15"
-                tools:ignore="LabelFor,RtlSymmetry"
-                tools:targetApi="lollipop" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_maksimal_30_karakter"
-                android:layout_marginLeft="@dimen/standard_margin"
-                android:layout_marginStart="@dimen/standard_margin"
-                android:textStyle="italic"
-                android:textSize="@dimen/margin_10"
-                tools:ignore="SpUsage" />
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_marginTop="@dimen/standard_margin"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/et_top_margin"
+                tools:ignore="MissingConstraints">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_group_percentage"
-                    android:textColor="#666"
+                    android:text="@string/txt_group_name"
                     android:layout_marginLeft="@dimen/standard_margin"
                     android:layout_marginStart="@dimen/standard_margin"
-                    android:textStyle="bold" />
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_bold" />
                 <EditText
-                    android:id="@+id/et_customer_group_percentage"
+                    android:id="@+id/et_customer_group_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:paddingLeft="30dp"
                     android:importantForAutofill="no"
                     android:focusableInTouchMode="true"
-                    android:backgroundTint="@android:color/holo_blue_bright"
                     android:paddingStart="@dimen/margin_15"
                     tools:ignore="LabelFor,RtlSymmetry"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorTittleInput"
+                    android:textSize="@dimen/font_size_input"
                     tools:targetApi="lollipop" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_tanpa_tanda_persen"
+                    android:text="@string/txt_maksimal_30_karakter"
                     android:layout_marginLeft="@dimen/standard_margin"
                     android:layout_marginStart="@dimen/standard_margin"
-                    android:textStyle="italic"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_italic"
                     android:textSize="@dimen/margin_10"
                     tools:ignore="SpUsage" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_marginTop="@dimen/standard_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
+                <LinearLayout
+                    android:layout_marginTop="@dimen/standard_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_kredit_limit"
-                    android:textColor="#666"
-                    android:layout_marginLeft="@dimen/standard_margin"
-                    android:layout_marginStart="@dimen/standard_margin"
-                    android:textStyle="bold" />
-                <EditText
-                    android:id="@+id/et_customer_group_kredit_limit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:paddingLeft="30dp"
-                    android:importantForAutofill="no"
-                    android:focusableInTouchMode="true"
-                    android:backgroundTint="@android:color/holo_blue_bright"
-                    android:paddingStart="@dimen/margin_15"
-                    tools:ignore="LabelFor,RtlSymmetry"
-                    tools:targetApi="lollipop" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_kredit_limit"
-                    android:layout_marginLeft="@dimen/standard_margin"
-                    android:layout_marginStart="@dimen/standard_margin"
-                    android:textStyle="italic"
-                    android:textSize="@dimen/margin_10"
-                    tools:ignore="SpUsage" />
-            </LinearLayout>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_percentage"
+                        android:layout_marginLeft="@dimen/standard_margin"
+                        android:layout_marginStart="@dimen/standard_margin"
+                        android:textColor="@color/text_grey"
+                        android:fontFamily="@font/roboto_bold" />
+                    <EditText
+                        android:id="@+id/et_customer_group_percentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:paddingLeft="30dp"
+                        android:importantForAutofill="no"
+                        android:focusableInTouchMode="true"
+                        android:paddingStart="@dimen/margin_15"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorTittleInput"
+                        android:textSize="@dimen/font_size_input"
+                        tools:ignore="LabelFor,RtlSymmetry"
+                        tools:targetApi="lollipop" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_tanpa_tanda_persen"
+                        android:layout_marginLeft="@dimen/standard_margin"
+                        android:layout_marginStart="@dimen/standard_margin"
+                        android:textColor="@color/text_grey"
+                        android:fontFamily="@font/roboto_italic"
+                        android:textSize="@dimen/margin_10"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_action_submit"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height_bottom_sheet"
-                android:layout_marginTop="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/et_top_margin"
-                android:layout_marginRight="@dimen/et_top_margin"
-                android:background="@color/main_green"
-                android:text="@string/txt_action_save"
-                android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <LinearLayout
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_kredit_limit"
+                        android:layout_marginLeft="@dimen/standard_margin"
+                        android:layout_marginStart="@dimen/standard_margin"
+                        android:textColor="@color/text_grey"
+                        android:fontFamily="@font/roboto_bold" />
+                    <EditText
+                        android:id="@+id/et_customer_group_kredit_limit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:paddingLeft="30dp"
+                        android:importantForAutofill="no"
+                        android:focusableInTouchMode="true"
+                        android:paddingStart="@dimen/margin_15"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorTittleInput"
+                        android:textSize="@dimen/font_size_input"
+                        tools:ignore="LabelFor,RtlSymmetry"
+                        tools:targetApi="lollipop" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_kredit_limit"
+                        android:layout_marginLeft="@dimen/standard_margin"
+                        android:layout_marginStart="@dimen/standard_margin"
+                        android:textColor="@color/text_grey"
+                        android:fontFamily="@font/roboto_italic"
+                        android:textSize="@dimen/margin_10"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+        <Button
+            android:id="@+id/btn_action_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_bottom_sheet"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:layout_marginLeft="@dimen/et_top_margin"
+            android:layout_marginRight="@dimen/et_top_margin"
+            android:background="@color/main_green"
+            android:text="@string/txt_action_save"
+            android:textAllCaps="false"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_alignParentBottom="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
 </LinearLayout>
