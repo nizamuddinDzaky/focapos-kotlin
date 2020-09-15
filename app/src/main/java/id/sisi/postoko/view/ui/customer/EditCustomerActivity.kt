@@ -49,6 +49,7 @@ class EditCustomerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_customer)
         setSupportActionBar(toolbar_edit_customer)
         supportActionBar?.title = null
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         intent.extras?.getParcelable<Customer>("customer").let{
             customer = it
@@ -113,6 +114,14 @@ class EditCustomerActivity : AppCompatActivity() {
                 listIdSelected.add(wh.id)
             if (wh.isDefault)
                 defaultWarehouse = wh.id.toInt()
+        }
+
+        if (defaultWarehouse == 0){
+            myDialog.alert("Deafult Gudang Belum Dipilih", this)
+        }
+
+        if (listIdSelected.isEmpty()){
+            myDialog.alert("Gudang Belum Dipilih", this)
         }
 
         if (validation["type"] as Boolean){

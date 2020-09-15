@@ -165,6 +165,10 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
             }
         })
 
+        if (sale?.sale_status.equals("reserved")){
+            sp_warehouse_edit_sale.isEnabled = false
+
+        }
         sp_warehouse_edit_sale.adapter = adapterWarehouse
         sp_warehouse_edit_sale.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

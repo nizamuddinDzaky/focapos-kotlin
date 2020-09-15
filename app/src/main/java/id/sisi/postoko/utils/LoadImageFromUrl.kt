@@ -32,18 +32,27 @@ class LoadImageFromUrl(private var imageView: ImageView, var context: Context, v
 
         val myOptions = RequestOptions().override(100,100)
         if (isCircle){
-            Glide.with(context)
-                .load(result)
-                .placeholder(defaultIcon)
-                .circleCrop()
-                .apply(myOptions)
-                .into(imageView)
+            try {
+                Glide.with(context)
+                    .load(result)
+                    .placeholder(defaultIcon)
+                    .circleCrop()
+                    .apply(myOptions)
+                    .into(imageView)
+            }catch (e: Exception) {
+
+            }
         }else{
-            Glide.with(context)
-                .load(result)
-                .placeholder(defaultIcon)
-                .apply(myOptions)
-                .into(imageView)
+            try {
+                Glide.with(context)
+                    .load(result)
+                    .placeholder(defaultIcon)
+                    .apply(myOptions)
+                    .into(imageView)
+            }catch (e: Exception) {
+
+            }
+
         }
 
     }

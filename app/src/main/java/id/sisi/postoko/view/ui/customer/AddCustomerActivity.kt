@@ -278,6 +278,14 @@ class AddCustomerActivity : AppCompatActivity() {
                 defaultWarehouse = wh.id.toInt()
         }
 
+        if (defaultWarehouse == 0){
+            myDialog.alert("Deafult Gudang Belum Dipilih", this)
+        }
+
+        if (listIdSelected.isEmpty()){
+            myDialog.alert("Gudang Belum Dipilih", this)
+        }
+
         if (validation["type"] as Boolean){
             val body: MutableMap<String, Any> = mutableMapOf(
                 "name" to (findViewById<EditText>(R.id.et_name_add_customer)?.text?.toString() ?: ""),
@@ -293,7 +301,7 @@ class AddCustomerActivity : AppCompatActivity() {
                 "city" to (findViewById<Spinner>(R.id.sp_district_group_add_customer)?.selectedItem?.toString() ?: ""),
                 "state" to (findViewById<Spinner>(R.id.sp_city_group_add_customer)?.selectedItem?.toString() ?: ""),
                 "warehouses" to listIdSelected,
-                "default" to defaultWarehouse
+                "default" to (defaultWarehouse)
             )
 
             viewModelCustomer.postAddCustomer(body, requestPart){

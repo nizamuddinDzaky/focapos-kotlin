@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Warehouse
+import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toAlias
 import kotlinx.android.synthetic.main.list_warehouse_form_customer.view.*
 
@@ -50,8 +51,8 @@ class ListWareHouseOfAddCustomerAdapter (
                     }
                 }
 
-                itemView.cb_select_warehouse.setOnCheckedChangeListener { buttonView, isChecked ->
-                    listenerItem?.onClickSelected(wh, isChecked)
+                itemView.cb_select_warehouse.setOnClickListener {
+                    listenerItem?.onClickSelected(wh, itemView.cb_select_warehouse.isChecked)
                 }
 
                 when(wh.isDefault){
