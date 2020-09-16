@@ -46,8 +46,7 @@ class ListMasterProdukAdapter (
             }else{
                 itemView.layout_alias.gone()
                 itemView.layout_thumb.visible()
-                val loadImage = LoadImageFromUrl(itemView.iv_icon_product, itemView.context, R.drawable.toko2, false)
-                loadImage.execute("${product?.image}")
+                itemView.iv_icon_product?.loadImage(product?.image, R.drawable.toko2)
             }
             itemView.setOnClickListener {
                 val page = Intent(itemView.context, DetailProductActivity::class.java)
