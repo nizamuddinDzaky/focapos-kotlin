@@ -13,6 +13,7 @@ import id.sisi.postoko.adapter.ListWareHouseOfDetailCustomerAdapter
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.extensions.loadImage
 import id.sisi.postoko.view.ui.MasterDetailViewModel
 import kotlinx.android.synthetic.main.activity_customer_detail.*
 import kotlinx.android.synthetic.main.content_detail_customer.*
@@ -40,9 +41,9 @@ class DetailCustomerActivity : AppCompatActivity() {
             if (it != null) {
                 customer = it
             }
-
-            val loadImage = LoadImageFromUrl(iv_logo, this, R.drawable.toko2)
-            loadImage.execute("$URL_AVATAR_PROFILE${it?.logo}")
+            iv_logo.loadImage("$URL_AVATAR_PROFILE${it?.logo}", R.drawable.toko2)
+            /*val loadImage = LoadImageFromUrl(iv_logo, this, R.drawable.toko2)
+            loadImage.execute("$URL_AVATAR_PROFILE${it?.logo}")*/
 
             tv_customer_name_header.text = it?.company
             tv_customer_name.text = it?.company

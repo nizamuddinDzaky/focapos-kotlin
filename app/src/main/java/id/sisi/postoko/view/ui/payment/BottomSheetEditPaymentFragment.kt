@@ -106,11 +106,12 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
                 if(extensionImage.indexOf(extension) != -1){
                     iv_file.gone()
                     iv_prev_image.visible()
-                    val loadImage = context?.let { it1 ->
+                    /*val loadImage = context?.let { it1 ->
                         LoadImageFromUrl(iv_prev_image,
                             it1, R.drawable.female_forca)
                     }
-                    loadImage?.execute("$URL_FILE_ATTACHMENT${it.attachment}")
+                    loadImage?.execute("$URL_FILE_ATTACHMENT${it.attachment}")*/
+                    iv_prev_image.loadImage("$URL_FILE_ATTACHMENT${it.attachment}", R.drawable.toko2)
                 }
             }else{
                 removeFile()

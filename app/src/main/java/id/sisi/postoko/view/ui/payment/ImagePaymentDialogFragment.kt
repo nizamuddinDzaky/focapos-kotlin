@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import id.sisi.postoko.R
-import id.sisi.postoko.utils.LoadImageFromUrl
-import id.sisi.postoko.utils.extensions.logE
+import id.sisi.postoko.utils.BASE_URL
+import id.sisi.postoko.utils.extensions.loadImage
 import kotlinx.android.synthetic.main.dialog_image.*
 
 
@@ -32,10 +32,12 @@ class ImagePaymentDialogFragment: DialogFragment()  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val loadImage = context?.let { LoadImageFromUrl(iv_image, it, 0) }
+        /*val loadImage = context?.let { LoadImageFromUrl(iv_image, it, 0) }*/
 
         val attachment = arguments?.getString("payment")
-        loadImage?.execute("https://qp.forca.id/welcome/$attachment")
+
+        iv_image.loadImage("$BASE_URL/welcome/$attachment", R.drawable.toko2)
+        /*loadImage?.execute("https://qp.forca.id/welcome/$attachment")*/
     }
 
     override fun onStart() {

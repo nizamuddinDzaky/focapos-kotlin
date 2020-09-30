@@ -14,18 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Warehouse
-import id.sisi.postoko.utils.LoadImageFromUrl
 import id.sisi.postoko.utils.MyDialog
 import id.sisi.postoko.utils.URL_AVATAR_PROFILE
+import id.sisi.postoko.utils.extensions.loadImage
 import id.sisi.postoko.utils.extensions.validation
 import id.sisi.postoko.view.custom.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_edit_customer.*
-import kotlinx.android.synthetic.main.content_add_customer.*
 import kotlinx.android.synthetic.main.content_edit_customer.*
-import kotlinx.android.synthetic.main.content_edit_customer.btn_action_submit
-import kotlinx.android.synthetic.main.content_edit_customer.iv_logo
-import kotlinx.android.synthetic.main.content_edit_customer.main_view_pager
-import kotlinx.android.synthetic.main.content_edit_customer.tabs_main_pagers
 
 
 class EditCustomerActivity : AppCompatActivity() {
@@ -53,8 +48,9 @@ class EditCustomerActivity : AppCompatActivity() {
 
         intent.extras?.getParcelable<Customer>("customer").let{
             customer = it
-            val loadImage = LoadImageFromUrl(iv_logo, this, R.drawable.toko2)
-            loadImage.execute("$URL_AVATAR_PROFILE${it?.logo}")
+            iv_logo.loadImage("$URL_AVATAR_PROFILE${it?.logo}", R.drawable.toko2)
+            /*val loadImage = LoadImageFromUrl(iv_logo, this, R.drawable.toko2)
+            loadImage.execute("$URL_AVATAR_PROFILE${it?.logo}")*/
         }
 
         viewModelCustomer = ViewModelProvider(this).get(CustomerViewModel::class.java)

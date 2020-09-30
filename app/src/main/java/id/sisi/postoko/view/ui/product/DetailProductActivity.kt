@@ -11,6 +11,7 @@ import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
 import id.sisi.postoko.model.Product
 import id.sisi.postoko.utils.*
+import id.sisi.postoko.utils.extensions.loadImage
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.view.ui.customer.CustomerPagerAdapter
 import kotlinx.android.synthetic.main.activity_detail_product.*
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_detail_product.main_view_pager
 import kotlinx.android.synthetic.main.activity_detail_product.tabs_main_pagers
 import kotlinx.android.synthetic.main.content_detail_customer.*
 import kotlinx.android.synthetic.main.content_edit_customer.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_form_payment.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class DetailProductActivity: AppCompatActivity() {
@@ -43,8 +45,9 @@ class DetailProductActivity: AppCompatActivity() {
         mViewModelProduct.getDetailProducts().observe(this, Observer {
             product.postValue(it)
             tv_product_name.text = it.name
-            val loadImage = LoadImageFromUrl(iv_logo, this, R.drawable.toko2)
-            loadImage.execute("${it?.image}")
+            /*val loadImage = LoadImageFromUrl(iv_logo, this, R.drawable.toko2)
+            loadImage.execute("${it?.image}")*/
+            iv_logo.loadImage("${it?.image}", R.drawable.toko2)
         })
 
         mViewModelProduct.getDetailProduct(intent.getStringExtra(KEY_PRODUCT_ID)?.toInt() ?: 0)

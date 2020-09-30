@@ -10,7 +10,6 @@ import androidx.viewpager.widget.ViewPager
 import com.whiteelephant.monthpicker.MonthPickerDialog
 import id.sisi.postoko.MyApp
 import id.sisi.postoko.R
-import id.sisi.postoko.utils.LoadImageFromUrl
 import id.sisi.postoko.utils.MySession
 import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.URL_AVATAR_PROFILE
@@ -166,13 +165,13 @@ class DashboardFragment : Fragment() {
         })
         viewModel.getUser().observe(viewLifecycleOwner, Observer {
             val loadImage = context?.let { context ->
-                LoadImageFromUrl(
+                /*LoadImageFromUrl(
                     iv_header_avatar,
                     context,
                     R.drawable.avatar_account
-                )
+                )*/
             }
-            loadImage?.execute("$URL_AVATAR_PROFILE${it?.avatar}")
+            iv_header_avatar.loadImage("$URL_AVATAR_PROFILE${it?.avatar}", R.drawable.toko2)
             tv_user_company_name?.text = it?.company ?: "~"
             tv_user_company_address?.text = it?.address ?: "~"
             prefs.posRoleId = it?.group_id
