@@ -13,13 +13,12 @@ import id.sisi.postoko.model.User
 import id.sisi.postoko.utils.LoadImageFromUrl
 import id.sisi.postoko.utils.RC_PROFILE
 import id.sisi.postoko.utils.URL_AVATAR_PROFILE
-import id.sisi.postoko.utils.extensions.getTryString
-import id.sisi.postoko.utils.extensions.gone
-import id.sisi.postoko.utils.extensions.tryValue
-import id.sisi.postoko.utils.extensions.visible
+import id.sisi.postoko.utils.URL_FILE_ATTACHMENT
+import id.sisi.postoko.utils.extensions.*
 import id.sisi.postoko.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.failed_load_data.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet_form_payment.*
 
 
 class ProfileActivity : BaseActivity() {
@@ -106,8 +105,9 @@ class ProfileActivity : BaseActivity() {
     private fun showData(user: User?) {
         user?.let {
 
-            val loadImage = LoadImageFromUrl(iv_header_avatar, this, R.drawable.female_forca)
-            loadImage.execute("$URL_AVATAR_PROFILE${it.avatar}")
+            /*val loadImage = LoadImageFromUrl(iv_header_avatar, this, R.drawable.female_forca)
+            loadImage.execute("$URL_AVATAR_PROFILE${it.avatar}")*/
+            iv_header_avatar.loadImage("$URL_AVATAR_PROFILE${it.avatar}", R.drawable.female_forca)
 
             tv_user_company_name?.text = it.company
             tv_user_company_address?.text = it.address

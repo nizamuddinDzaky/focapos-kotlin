@@ -11,6 +11,8 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.widget.*
 import androidx.fragment.app.FragmentActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.sisi.postoko.R
@@ -97,4 +99,25 @@ fun EditText.onChange(listener: () ->Unit): (() -> Unit)? {
         override fun onTextChanged(s: CharSequence,start: Int,before: Int,count: Int) {}
     })
     return null
+}
+
+fun ImageView.loadImage(url: String?, defaultIcon: Int, isCircle: Boolean = false, width: Int? = 100, height: Int? = 100) {
+    var myOptions = RequestOptions()
+    if (width != null) {
+        myOptions = myOptions.override(width, height ?: width)
+    }
+    if (isCircle){
+        Glide.with(context)
+            .load(url)
+            .placeholder(defaultIcon)
+            .circleCrop()
+            .apply(myOptions)
+            .into(this)
+    } else {
+        Glide.with(context)
+            .load(url)
+            .placeholder(defaultIcon)
+            .apply(myOptions)
+            .into(this)
+    }
 }

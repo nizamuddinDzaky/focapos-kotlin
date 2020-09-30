@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListMasterAdapter
 import id.sisi.postoko.model.Supplier
+import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.view.BaseFragment
 import kotlinx.android.synthetic.main.master_data_fragment.*
 
@@ -36,7 +37,7 @@ class SupplierFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
+        fb_add_master.gone()
         viewModel = ViewModelProvider(this).get(SupplierViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {
             swipeRefreshLayoutMaster?.isRefreshing = it

@@ -17,6 +17,7 @@ import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.KEY_ID_SALES_BOOKING
 import id.sisi.postoko.utils.KEY_SALE_STATUS
 import id.sisi.postoko.utils.MyPopupMenu
+import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.isSuperAdmin
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.visible
@@ -56,6 +57,8 @@ class ProductFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        fb_add_master.gone()
 
         viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         viewModel.getIsExecute().observe(viewLifecycleOwner, Observer {

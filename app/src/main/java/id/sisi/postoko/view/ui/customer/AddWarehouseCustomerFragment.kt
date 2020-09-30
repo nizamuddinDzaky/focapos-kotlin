@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import id.sisi.postoko.R
@@ -66,7 +67,12 @@ class AddWarehouseCustomerFragment : BaseFragment(), ListWareHouseOfAddCustomerA
 
     override fun onClickSelected(warehouse: Warehouse, isSelected: Boolean) {
         val index = (activity as AddCustomerActivity).listWarehouse?.indexOf(warehouse) ?: 0
-        (activity as AddCustomerActivity).listWarehouse?.get(index)?.isSelected =isSelected
+        if((activity as AddCustomerActivity).listWarehouse?.get(index)?.isDefault == true && !isSelected){
+            Toast.makeText(context, "Terpilih sebagai gudang default", Toast.LENGTH_SHORT).show()   
+        }else{
+            (activity as AddCustomerActivity).listWarehouse?.get(index)?.isSelected = isSelected
+        }
+        adapterAdd.notifyItemChanged(index)
     }
 
     override fun onClickDefault(warehouse: Warehouse) {
@@ -75,6 +81,7 @@ class AddWarehouseCustomerFragment : BaseFragment(), ListWareHouseOfAddCustomerA
             wh.isDefault = false
         }
         (activity as AddCustomerActivity).listWarehouse?.get(index)?.isDefault = true
+        (activity as AddCustomerActivity).listWarehouse?.get(index)?.isSelected = true
         adapterAdd.notifyDataSetChanged()
     }
 }

@@ -91,12 +91,8 @@
                             android:id="@+id/sp_warehouse_edit_sale"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:importantForAutofill="no"
-                            android:autofillHints="nothing"
-                            android:inputType="text"
-                            android:clickable="true"
+                            android:clickable="false"
                             android:focusable="false"
-
                             tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
                             style="@style/Widget.AppCompat.Spinner.Underlined"/>
                     </LinearLayout>
