@@ -194,7 +194,8 @@ class PaymentAddSaleFragment: Fragment() {
                 "payment_term" to (termOfPayment ?: "0"),
                 "staff_note" to ((activity as AddSaleActivity).employeeNote ?: ""),
                 "note" to ((activity as AddSaleActivity).saleNote ?: ""),
-                "products" to saleItems
+                "products" to saleItems,
+                "device_type" to KEY_DEVICE_TYPE
             )
 
             if(cb_create_delivery.isChecked && rg_status_add_sale?.tag?.toString() == "pending"){
