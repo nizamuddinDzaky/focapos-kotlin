@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_root_detail_sales_booking.*
 import kotlinx.android.synthetic.main.fragment_root_detail_sales_booking.main_container
 import kotlinx.android.synthetic.main.fragment_root_detail_sales_booking.main_view_pager
 import kotlinx.android.synthetic.main.fragment_root_detail_sales_booking.tabs_main_pagers
-import kotlinx.android.synthetic.main.fragment_root_sales.*
+import kotlinx.android.synthetic.main.fragment_root_sales_booking.*
 
 
 class DetailSalesBookingRootFragment : Fragment() {

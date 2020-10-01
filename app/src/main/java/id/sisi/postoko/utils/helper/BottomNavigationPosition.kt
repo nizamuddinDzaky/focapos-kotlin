@@ -2,10 +2,10 @@ package id.sisi.postoko.utils.helper
 
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
+import id.sisi.postoko.view.ui.MasterDataFragment
 import id.sisi.postoko.view.ui.dashboard.DashboardFragment
 import id.sisi.postoko.view.ui.gr.GoodReceivedRootFragment
-import id.sisi.postoko.view.ui.sales.SalesRootFragment
-import id.sisi.postoko.view.ui.MasterDataFragment
+import id.sisi.postoko.view.ui.sales.SaleRootFragment
 
 enum class BottomNavigationPosition(val position: Int, val id: Int) {
     HOME(0, R.id.menu_home),
@@ -25,13 +25,13 @@ fun findNavigationPositionById(id: Int): BottomNavigationPosition = when (id) {
 fun BottomNavigationPosition.createFragment(): Fragment = when (this) {
     BottomNavigationPosition.HOME -> DashboardFragment.newInstance()
     BottomNavigationPosition.RECEIVE -> GoodReceivedRootFragment.newInstance()
-    BottomNavigationPosition.SALES -> SalesRootFragment.newInstance()
+    BottomNavigationPosition.SALES -> SaleRootFragment.newInstance()
     BottomNavigationPosition.MASTER -> MasterDataFragment.newInstance()
 }
 
 fun BottomNavigationPosition.getTag(): String = when (this) {
     BottomNavigationPosition.HOME -> DashboardFragment.TAG
     BottomNavigationPosition.RECEIVE -> GoodReceivedRootFragment.TAG
-    BottomNavigationPosition.SALES -> SalesRootFragment.TAG
+    BottomNavigationPosition.SALES -> SaleRootFragment.TAG
     BottomNavigationPosition.MASTER -> MasterDataFragment.TAG
 }

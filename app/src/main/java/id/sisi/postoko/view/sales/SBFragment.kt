@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.failed_load_data.*
 import kotlinx.android.synthetic.main.fragment_sales_booking.*
 
 
-class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
+class SBFragment(var status: SaleStatus = SaleStatus.PENDING, var isAksestoko: Boolean = false) : BaseFragment() {
 
     private lateinit var viewModel: SBViewModel
     private lateinit var vmSale: AddSalesViewModel
@@ -73,7 +73,7 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
         })
 
         viewModel =
-            ViewModelProvider(this, SBFactory(hashMapOf(KEY_SALE_STATUS to status.name))).get(
+            ViewModelProvider(this, SBFactory(hashMapOf(KEY_SALE_STATUS to status.name), isAksestoko)).get(
                 SBViewModel::class.java
             )
     }
@@ -139,16 +139,16 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(status != SaleStatus.ALL)
+        /*setHasOptionsMenu(status != SaleStatus.ALL)*/
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_filter, menu)
         super.onCreateOptionsMenu(menu, inflater)
-    }
+    }*/
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when (item.itemId) {
             R.id.menu_action_filter -> {
                 showBottomSheetFilter()
@@ -157,7 +157,7 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
             else ->
                 super.onOptionsItemSelected(item)
         })
-    }
+    }*/
 
     fun showBottomSheetFilter(isSearch: Boolean = false) {
         val filter = viewModel.getFilter().value ?: hashMapOf()
@@ -166,12 +166,13 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING) : BaseFragment() {
         } else {
             filter.remove(KEY_IS_SEARCH)
         }
-        BottomSheetFilterFragment.show(childFragmentManager, filter) {
+        Toast.makeText(context,"wahai", Toast.LENGTH_SHORT).show()
+       /* BottomSheetFilterFragment.show(childFragmentManager, filter) {
             if (status != SaleStatus.ALL) {
                 it[KEY_SALE_STATUS] = status.name.toLower()
             }
             viewModel.requestRefreshNewFilter(it)
-        }
+        }*/
     }
 
     fun scrollToTop() {

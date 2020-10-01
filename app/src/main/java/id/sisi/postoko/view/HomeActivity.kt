@@ -40,7 +40,7 @@ class HomeActivity : BaseActivity() {
     }
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
     val grFragment: GRFragment? = GRFragment(GoodReceiveStatus.ALL)
-    val sbFragment: SBFragment? = SBFragment(SaleStatus.ALL)
+    var sbFragment: SBFragment? = null
 
     var customer: Customer? = null
     private lateinit var viewModelCustomer: MasterDetailViewModel
@@ -63,7 +63,7 @@ class HomeActivity : BaseActivity() {
         }
 
 
-        initSearch()
+        /*initSearch()*/
 
         viewCustomerViewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
 
@@ -141,13 +141,19 @@ class HomeActivity : BaseActivity() {
             }
 
             override fun onFilter() {
-                if (search_view.typeView == 1) {
+                /*if (search_view.typeView == 1) {
                     grFragment?.showBottomSheetFilter(true)
                 } else if (search_view.typeView == 2) {
                     sbFragment?.showBottomSheetFilter(true)
-                }
+                }*/
             }
         })
+    }
+
+    fun initSBFragment(isAksestoko: Boolean, item: MenuItem, typeView: Int){
+        sbFragment = SBFragment(SaleStatus.ALL, isAksestoko)
+        initSearch()
+        assignActionSearch(item, typeView)
     }
 
     fun showSearch(isShown: Boolean) {

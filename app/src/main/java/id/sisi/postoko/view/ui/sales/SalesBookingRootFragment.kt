@@ -3,25 +3,32 @@ package id.sisi.postoko.view.ui.sales
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.HomeActivity
-import id.sisi.postoko.view.pager.SalesPagerAdapter
+import id.sisi.postoko.view.pager.SalesBookingPagerAdapter
+import id.sisi.postoko.view.sales.SBFragment
 import id.sisi.postoko.view.ui.addsales.AddSaleActivity
-import kotlinx.android.synthetic.main.fragment_root_sales.*
+import kotlinx.android.synthetic.main.fragment_root_sales_booking.*
 
 
-class SalesRootFragment : Fragment() {
+class SalesBookingRootFragment(var isAksestoko: Boolean = false, var strTag: String = "Sales Booking") : BaseFragment() {
     private val typeface = TypeFace()
+    override var tagName: String
+        get() = strTag
+        set(_) {}
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = getString(R.string.txt_sales)
-        return inflater.inflate(R.layout.fragment_root_sales, container, false)
+        return inflater.inflate(R.layout.fragment_root_sales_booking, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -31,10 +38,10 @@ class SalesRootFragment : Fragment() {
             startActivityForResult(Intent(this.context, AddSaleActivity::class.java), 2020)
         }
 
-
+        /*(activity as? HomeActivity)?.initSBFragment(isAksestoko)*/
         main_container?.gone()
         main_view_pager?.let {
-            it.adapter = SalesPagerAdapter(childFragmentManager, context)
+            it.adapter = SalesBookingPagerAdapter(childFragmentManager, context, isAksestoko)
             tabs_main_pagers?.setupWithViewPager(it)
         }
         context?.assets?.let { typeface.fontTab(tabs_main_pagers, "robot_font/Roboto-Regular.ttf", it) }
@@ -51,9 +58,24 @@ class SalesRootFragment : Fragment() {
         inflater.inflate(R.menu.menu_search, menu)
 
         val item = menu.findItem(R.id.menu_action_search)
-        (activity as? HomeActivity)?.assignActionSearch(item, 2)
-
+        (activity as? HomeActivity)?.initSBFragment(isAksestoko, item, 2)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return (when (item.itemId) {
+            R.id.menu_action_filter -> {
+                true
+            }
+            R.id.menu_action_search -> {
+                /*(activity as? HomeActivity)?.initSBFragment(isAksestoko)
+                (activity as? HomeActivity)?.assignActionSearch(item, 2)*/
+                /*Toast.makeText(context, "qqqqqq", Toast.LENGTH_SHORT).show()*/
+                true
+            }
+            else ->
+                super.onOptionsItemSelected(item)
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -67,13 +89,13 @@ class SalesRootFragment : Fragment() {
                 activeFragment = 1
             }
             main_view_pager.currentItem = activeFragment
-            (main_view_pager?.adapter as? SalesPagerAdapter)?.getItem(activeFragment)
+            (main_view_pager?.adapter as? SalesBookingPagerAdapter)?.getItem(activeFragment)
                 ?.onActivityResult(requestCode, resultCode, data)
         }
     }
 
     companion object {
-        val TAG: String = SalesRootFragment::class.java.simpleName
-        fun newInstance() = SalesRootFragment()
+        val TAG: String = SalesBookingRootFragment::class.java.simpleName
+        fun newInstance() = SalesBookingRootFragment()
     }
 }

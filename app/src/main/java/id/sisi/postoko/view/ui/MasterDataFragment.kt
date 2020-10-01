@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.fragment_home.fb_add_transaction
 import kotlinx.android.synthetic.main.fragment_home.main_container
 import kotlinx.android.synthetic.main.fragment_home.main_view_pager
 import kotlinx.android.synthetic.main.fragment_home.tabs_main_pagers
-import kotlinx.android.synthetic.main.fragment_root_sales.*
+import kotlinx.android.synthetic.main.fragment_root_sales_booking.*
 
 
 class MasterDataFragment : Fragment() {
