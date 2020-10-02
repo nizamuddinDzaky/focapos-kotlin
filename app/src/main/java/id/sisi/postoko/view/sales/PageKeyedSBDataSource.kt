@@ -13,7 +13,8 @@ import java.io.IOException
 class PageKeyedSBDataSource(
     private val api: ApiServices,
     var filter: Map<String, String>,
-    var networkState: MutableLiveData<NetworkState>
+    var networkState: MutableLiveData<NetworkState>,
+    var isAksestoko: Boolean
 ) :
     PageKeyedDataSource<Int, Sales>() {
 
@@ -23,7 +24,7 @@ class PageKeyedSBDataSource(
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Sales>) {
         val page = params.key
         val numberOfItems = params.requestedLoadSize
-        callAPI(page, page + 1, numberOfItems) { repos, next ->
+        callAPI(page, page + 1, numberOfItems, isAksestoko) { repos, next ->
             callback.onResult(repos, next)
         }
     }
@@ -33,7 +34,7 @@ class PageKeyedSBDataSource(
         callback: LoadInitialCallback<Int, Sales>
     ) {
         val numberOfItems = params.requestedLoadSize
-        callAPI(0, 1, numberOfItems) { repos, next ->
+        callAPI(0, 1, numberOfItems, isAksestoko) { repos, next ->
             callback.onResult(repos, null, next)
         }
     }
@@ -42,6 +43,7 @@ class PageKeyedSBDataSource(
         requestedPage: Int,
         adjacentPage: Int,
         requestedLoadSize: Int,
+        isAksestoko: Boolean,
         callback: (repos: List<Sales>, next: Int?) -> Unit
     ) {
         networkState.postValue(NetworkState.RUNNING)
@@ -50,10 +52,15 @@ class PageKeyedSBDataSource(
             val countOffset = requestedPage * requestedLoadSize
 
             val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
-            val params = mutableMapOf(
+            var params = mutableMapOf(
                 "offset" to countOffset.toString(),
                 "limit" to requestedLoadSize.toString()
             )
+
+            logE("isAksestoko : $isAksestoko")
+            if (isAksestoko){
+                params.set("aksestoko", "aksestoko")
+            }
             if (filter.containsKey(KEY_SALE_STATUS) && filter[KEY_SALE_STATUS] != SaleStatus.ALL.name) {
                 params[KEY_SALE_STATUS] = filter.getValue(KEY_SALE_STATUS)
             }

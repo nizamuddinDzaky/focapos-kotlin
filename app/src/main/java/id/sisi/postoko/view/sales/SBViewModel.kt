@@ -15,7 +15,7 @@ enum class NetworkState {
     FAILED
 }
 
-class SBViewModel(var filter: HashMap<String, String>) : ViewModel() {
+class SBViewModel(var filter: HashMap<String, String>, var isAksestoko: Boolean) : ViewModel() {
     companion object {
         private const val PAGE_SIZE = 10
     }
@@ -24,7 +24,7 @@ class SBViewModel(var filter: HashMap<String, String>) : ViewModel() {
     var networkState = MutableLiveData<NetworkState>()
     private var tempFilter = MutableLiveData<HashMap<String, String>>()
 
-    private val factory = SBSourceFactory(ApiServices.getInstance()!!, filter, networkState)
+    private val factory = SBSourceFactory(ApiServices.getInstance()!!, filter, networkState, isAksestoko)
 
     init {
         val config = PagedList.Config.Builder()

@@ -4,17 +4,24 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import id.sisi.postoko.view.ui.sales.SalesBookingRootFragment
+import id.sisi.postoko.utils.extensions.tryValue
+import id.sisi.postoko.view.sales.SBFragment
+import id.sisi.postoko.view.ui.sales.SaleStatus.*
+import id.sisi.postoko.view.ui.sales.SalesBookingFragment
 
-class SalesPagerAdapter(fm: FragmentManager, private var ctx: Context?) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class SalesBookingPagerAdapter(fm: FragmentManager, private var ctx: Context?, isAksestoko: Boolean) :
+    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private val pages = listOf(
-        SalesBookingRootFragment(false, "Sales Booking"),
-        SalesBookingRootFragment(true, "Akses Toko")
+        SBFragment(PENDING, isAksestoko),
+        SBFragment(RESERVED, isAksestoko),
+        SBFragment(CLOSED, isAksestoko)
         /*SalesBookingFragment(PENDING),
         SalesBookingFragment(RESERVED),
         SalesBookingFragment(CLOSED)*/
     )
     private var currentPosition: Int = 0
+
+    fun getCurrentFragment() = pages[currentPosition]
 
     override fun getItem(position: Int): Fragment {
         currentPosition = position
@@ -26,6 +33,6 @@ class SalesPagerAdapter(fm: FragmentManager, private var ctx: Context?) : Fragme
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return pages[position].tagName
+        return ctx?.getString(PENDING.tryValue(pages[position].tagName)?.stringId ?: 0)
     }
 }
