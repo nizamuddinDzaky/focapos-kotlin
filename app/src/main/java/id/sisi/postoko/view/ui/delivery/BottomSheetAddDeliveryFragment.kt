@@ -430,7 +430,8 @@ class BottomSheetAddDeliveryFragment : BottomSheetDialogFragment(), ListItemDeli
                 "delivered_by" to (et_add_delivery_delivered_by?.text?.toString() ?: ""),
                 "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
                 "products" to saleItems,
-                "note" to (note ?: "")
+                "note" to (note ?: ""),
+                "created_device" to KEY_DEVICE_TYPE
             )
             viewModel.postAddDelivery(sale?.id ?: 0, body, requestPart) {
                 listener()

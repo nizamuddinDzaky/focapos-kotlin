@@ -19,7 +19,6 @@ import id.sisi.postoko.R
 import id.sisi.postoko.adapter.ListProductAddSalesAdapter
 import id.sisi.postoko.model.*
 import id.sisi.postoko.utils.*
-import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.setIfExist
 import id.sisi.postoko.utils.extensions.toDisplayDate
 import id.sisi.postoko.utils.extensions.validation
@@ -28,7 +27,6 @@ import id.sisi.postoko.view.custom.CustomProgressBar
 import id.sisi.postoko.view.ui.warehouse.WarehouseViewModel
 import kotlinx.android.synthetic.main.activity_edit_sale.*
 import kotlinx.android.synthetic.main.content_edit_sale.*
-import kotlinx.android.synthetic.main.payment_add_sale_fragment.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -230,12 +228,10 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
     }
 
     private fun setUpTOP() {
-        val adapter = this.let {
-            MySpinnerAdapter(
-                it,
-                R.layout.list_spinner
-            )
-        }
+        val adapter = MySpinnerAdapter(
+            this,
+            R.layout.list_spinner
+        )
 
         listTOP.let {
             adapter.udpateView(it.map { top->
@@ -414,7 +410,8 @@ class EditSaleActivity : BaseActivity(), ListProductAddSalesAdapter.OnClickListe
                 "staff_note" to (et_staff_note_edit_sale?.text?.toString() ?: ""),
                 "note" to (et_note_edit_sale?.text?.toString() ?: ""),
                 "reason" to (et_reason_edit_sale?.text?.toString() ?: ""),
-                "products" to saleItems
+                "products" to saleItems,
+                "updated_device" to KEY_DEVICE_TYPE
             )
             sale?.id?.let { viewModel.setIdSalesBooking(it) }
             viewModel.postEditSale(body) {
