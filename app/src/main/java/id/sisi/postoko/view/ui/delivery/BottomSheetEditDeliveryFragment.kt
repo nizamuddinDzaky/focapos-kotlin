@@ -441,7 +441,8 @@ class BottomSheetEditDeliveryFragment : BottomSheetDialogFragment(), ListItemDel
                 "received_by" to (et_add_delivery_received_by?.text?.toString() ?: ""),
                 "note" to (note ?: ""),
                 "products" to deliItems,
-                "attachment" to (strAttachment ?: "")
+                "attachment" to (strAttachment ?: ""),
+                "updated_device" to KEY_DEVICE_TYPE
             )
             vmDelivery.putEditDeliv(body, idDelivery, requestPart) {
                 listener()

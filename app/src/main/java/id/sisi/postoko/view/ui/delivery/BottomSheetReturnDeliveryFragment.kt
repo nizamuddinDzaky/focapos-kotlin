@@ -315,7 +315,8 @@ class BottomSheetReturnDeliveryFragment: BottomSheetDialogFragment(), ListItemDe
                 "do_reference_no" to (et_reference_no?.text?.toString() ?: ""),
                 "note" to (note ?: ""),
                 "status" to "returned",
-                "products" to delItems
+                "products" to delItems,
+                "created_device" to KEY_DEVICE_TYPE
             )
             vmDelivery.postReturnDeliv(body, idDelivery, requestPart) {
                 listener()

@@ -343,7 +343,8 @@ class BottomSheetEditPaymentFragment : BottomSheetDialogFragment() {
                 "amount_paid" to (et_add_payment_total?.tag?.toString() ?: "0"),
                 "note" to (paymentNote ?: ""),
                 "payment_method" to (rg_payment_type.tag?.toString() ?: ""),
-                "attachment" to (strAttachment ?: "")
+                "attachment" to (strAttachment ?: ""),
+                "updated_device" to KEY_DEVICE_TYPE
             )
             viewModel.putEditayment(body, payment.id, requestPart) {
                 listener()
