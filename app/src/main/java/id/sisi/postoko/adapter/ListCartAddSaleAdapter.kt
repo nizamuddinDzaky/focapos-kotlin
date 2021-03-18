@@ -38,11 +38,11 @@ class ListCartAddSaleAdapter(
 
 
             itemView.et_sale_item_qty.setOnClickListener {
-                listenerProduct?.onChange(product)
+                listenerProduct?.onChangeQty(product)
             }
 
             itemView.tv_discount_item.text = product?.discount?.toCurrencyID()
-            itemView.et_sale_item_qty.text = product?.sale_qty.toString()
+            itemView.et_sale_item_qty.text = product?.orderQty.toString()
             itemView.tv_product_name.text = product?.name
             itemView.tv_product_price.text = product?.price?.toCurrencyID()
             itemView.tv_alias_product.text = product?.name.toAlias()
@@ -86,6 +86,6 @@ class ListCartAddSaleAdapter(
         fun onClickMinus(product: Product?)
         fun onClickDelete(product: Product?)
         fun onClickEdit(product: Product?)
-        fun onChange(product: Product?)
+        fun onChangeQty(product: Product?)
     }
 }

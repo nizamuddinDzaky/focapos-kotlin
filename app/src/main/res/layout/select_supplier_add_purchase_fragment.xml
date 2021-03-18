@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="@dimen/et_top_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/txt_choose_date"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="@dimen/margin_30"
+                        android:layout_height="@dimen/margin_30">
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/ic_calendar" />
+                    </RelativeLayout>
+                    <EditText
+                        android:id="@+id/et_date_purchase"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:importantForAutofill="no"
+                        android:autofillHints="nothing"
+                        android:inputType="text"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorTittleInput"
+                        android:textSize="@dimen/font_size_input"
+                        tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/txt_warehouse"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="@dimen/margin_30"
+                        android:layout_height="@dimen/margin_30">
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/warehouse" />
+                    </RelativeLayout>
+                    <EditText
+                        android:id="@+id/sp_warehouse"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:importantForAutofill="no"
+                        android:autofillHints="nothing"
+                        android:inputType="text"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:textSize="@dimen/font_size_input"
+                        android:textColor="@color/colorTittleInput"
+                        android:fontFamily="@font/roboto_regular"
+                        tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/txt_supplier"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="@dimen/margin_30"
+                        android:layout_height="@dimen/margin_30">
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/toko" />
+                    </RelativeLayout>
+                    <EditText
+                        android:id="@+id/sp_supplier"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:importantForAutofill="no"
+                        android:autofillHints="nothing"
+                        android:inputType="text"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:textSize="@dimen/font_size_input"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorTittleInput"
+                        tools:ignore="LabelFor,TextFields,KeyboardInaccessibleWidget"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_action_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_bottom_sheet"
+            android:background="@color/main_green"
+            android:text="@string/txt_continue"
+            android:textAllCaps="false"
+            android:fontFamily="@font/roboto_regular"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+

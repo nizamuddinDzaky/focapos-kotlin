@@ -58,7 +58,7 @@ class BottomSheetUpdateItemAddSaleFragment: BottomSheetDialogFragment() {
 
     private fun setUpNewProduct() {
         listProduct[index].price = et_unit_price.text.toString().toInt()
-        listProduct[index].sale_qty = et_qty_produk.text.toString().toInt()
+        listProduct[index].orderQty = et_qty_produk.text.toString().toInt()
         listProduct[index].discount = et_discount.text.toString().toInt()
         listProduct[index].code = et_product_serial_number.text.toString()
         this.dismiss()
@@ -72,7 +72,7 @@ class BottomSheetUpdateItemAddSaleFragment: BottomSheetDialogFragment() {
     private fun setupUI(product: Product?) {
         tv_title_bottom_sheet.text = product?.name
         et_product_serial_number.setText(product?.code)
-        et_qty_produk.setText(product?.sale_qty?.toNumberID())
+        et_qty_produk.setText(product?.orderQty?.toNumberID())
         et_discount.setText(product?.discount.toString())
         et_unit_price.setText(product?.price.toString())
     }

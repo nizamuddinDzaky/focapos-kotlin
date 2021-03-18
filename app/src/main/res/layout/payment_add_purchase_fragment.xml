@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_15"
+                android:background="#fff"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_discount"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="#676767" />
+
+                <EditText
+                    android:id="@+id/et_discount_purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_delivery_fee"
+                    android:textColor="#676767"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_shipping_add_purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_term_of_payment"
+                    android:textColor="#676767"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_top_add_purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_spj_number"
+                    android:textColor="#676767"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_no_spj_add_purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_do_number"
+                    android:textColor="#676767"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_no_do_add_purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_billing_number"
+                    android:textColor="#676767"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_no_billing_add_purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:importantForAutofill="no"
+                    android:textSize="14sp"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_receiver_name"
+                    android:textColor="#676767"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_receiver_name_add_purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_license_plate"
+                    android:textColor="#676767"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <EditText
+                    android:id="@+id/et_license_plate_add_purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:importantForAutofill="no"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_purchase_status"
+                    android:textColor="#676767"
+                    android:fontFamily="@font/roboto_bold" />
+
+                <RadioGroup
+                    android:id="@+id/rg_status_add_purchase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:buttonTint="@color/main_red"
+                        android:text="@string/txt_status_pending"
+                        android:fontFamily="@font/roboto_regular"
+                        tools:targetApi="lollipop" />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:buttonTint="@color/main_red"
+                        android:text="@string/txt_status_received"
+                        android:fontFamily="@font/roboto_regular"
+                        tools:targetApi="lollipop" />
+                </RadioGroup>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_sale_note"
+                        android:textColor="#676767"
+                        android:fontFamily="@font/roboto_bold" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+                        tools:ignore="RelativeOverlap">
+
+                        <TextView
+                            android:id="@+id/tv_edit_purchase_note"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="@string/txt_edit"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/main_red"
+                            tools:ignore="RelativeOverlap" />
+
+                        <TextView
+                            android:id="@+id/tv_add_purchase_note"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="@string/txt_add"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/main_red"
+                            tools:ignore="RelativeOverlap" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_purchase_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/txt_sale_note"
+                    android:textColor="@color/text_grey"
+                    android:fontFamily="@font/roboto_italic"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_action_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height_bottom_sheet"
+                android:background="@color/main_green"
+                android:text="@string/txt_action_save"
+                android:textAllCaps="false"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_marginTop="@dimen/et_top_margin"
+                android:layout_margin="@dimen/et_top_margin"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

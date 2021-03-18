@@ -378,7 +378,7 @@
                     android:background="@color/colorLine" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list_product_sales_booking"
+                    android:id="@+id/rv_list_product_purchase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#E5E5E5"

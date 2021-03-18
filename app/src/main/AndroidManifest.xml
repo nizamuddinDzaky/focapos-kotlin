@@ -5,12 +5,12 @@
     package="id.sisi.postoko">
 
     <dist:module dist:instant="true" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
 
     <application
         android:name=".MyApp"
@@ -24,12 +24,18 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
         tools:targetApi="n">
+        <activity
+            android:name=".view.ui.purchase.DetailPurchaseActivity"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/AppTheme.NoTitleBar"/>
+        <activity
+            android:name=".view.ui.purchase.AddPurchaseActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-
-
-        <service android:name=".MyFirebaseMessagingService"
-            android:permission="TODO"
-            android:exported="false">
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false"
+            android:permission="TODO">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -101,19 +107,15 @@
         <activity
             android:name=".view.MainActivity"
             android:noHistory="true"
-            android:theme="@style/AppTheme.NoTitleBar">
-        </activity>
+            android:theme="@style/AppTheme.NoTitleBar" />
         <activity
             android:name=".view.ui.customer.AddCustomerWarehouseActivity"
             android:noHistory="true"
-            android:theme="@style/AppTheme.NoTitleBar">
-        </activity>
+            android:theme="@style/AppTheme.NoTitleBar" />
         <activity
             android:name=".view.ui.customer.EditCustomerWarehouseActivity"
             android:noHistory="true"
-            android:theme="@style/AppTheme.NoTitleBar">
-        </activity>
-
+            android:theme="@style/AppTheme.NoTitleBar" />
         <activity
             android:name=".view.SplashScreenActivity"
             android:noHistory="true"
@@ -131,8 +133,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.pricegroup.DetailPriceGroupActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <!--<activity android:name=".view.ui.pricegroup.DetailPriceGroupActivity" />--> <!-- <activity -->
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- <activity android:name=".view.ui.pricegroup.DetailPriceGroupActivity" /> -->
+        <!-- <activity -->
         <!-- android:name=".view.ui.pricegroup.AddPriceGroupActivity" -->
         <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity

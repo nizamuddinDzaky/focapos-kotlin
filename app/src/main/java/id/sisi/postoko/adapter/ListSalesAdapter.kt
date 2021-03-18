@@ -36,16 +36,16 @@ class ListSalesAdapter(
         fun bind(sale: Sales?) {
 
             sale?.let {
-                itemView.tv_sales_reference_no?.text = it.reference_no
+                itemView.tv_reference_no?.text = it.reference_no
                 val date = " ${it.date.toDisplayDate()}"
-                itemView.tv_sales_date?.text = date
-                itemView.tv_sales_delevery_status?.text =
+                itemView.tv_date?.text = date
+                itemView.tv_delevery_status?.text =
                     it.delivery_status?.toDisplayStatus()?.let { it1 -> itemView.context.getText(it1) }
-                itemView.tv_sales_payment_status?.text =
+                itemView.tv_payment_status?.text =
                     itemView.context.getText(it.payment_status?.toDisplayStatus() ?: 0)
-                itemView.tv_sales_total_price?.text = it.grand_total?.toCurrencyID()
+                itemView.tv_total_price?.text = it.grand_total?.toCurrencyID()
                 val seeDetail = "Lihat ${it.total_items} Rincian Item"
-                itemView.tv_sales_detail?.text = seeDetail
+                itemView.tv_detail?.text = seeDetail
                 itemView.setOnClickListener {
                     val page = Intent(itemView.context, DetailSalesBookingActivity::class.java)
                     page.putExtra(KEY_ID_SALES_BOOKING, sale.id)

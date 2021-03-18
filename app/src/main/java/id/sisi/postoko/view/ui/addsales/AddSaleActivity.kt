@@ -2,7 +2,6 @@ package id.sisi.postoko.view.ui.addsales
 
 
 import android.os.Bundle
-import android.view.Menu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -55,14 +54,6 @@ class AddSaleActivity : BaseActivity() {
         adapter = ListItemAddSaleAdapter()
 
         vmProduct = ViewModelProvider(this).get(ProductViewModel::class.java)
-        /*vmProduct.getListProducts().observe(this, Observer {
-            if (it != null) {
-                listProduct=it
-            }
-
-        })*/
-
-//        vmProduct.getListProduct()
 
         vmAddSale = ViewModelProvider(
             this
@@ -110,7 +101,7 @@ class AddSaleActivity : BaseActivity() {
         listProduct.forEach { product ->
             /*logE("selectedTotal : ${product.price.toDouble()}")*/
             if (product.isSelected){
-                total += (product.sale_qty * (product.price?.toDouble()?.toInt() ?: 0))
+                total += (product.orderQty * (product.price?.toDouble()?.toInt() ?: 0))
             }
         }
         return total
@@ -120,7 +111,7 @@ class AddSaleActivity : BaseActivity() {
         var disc = 0.0
         listProduct.forEach { product ->
             if (product.isSelected)
-                disc += (product.sale_qty * product.discount)
+                disc += (product.orderQty * product.discount)
         }
         return disc
     }

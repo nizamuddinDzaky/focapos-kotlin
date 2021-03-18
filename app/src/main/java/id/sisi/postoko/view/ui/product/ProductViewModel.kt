@@ -66,6 +66,30 @@ class ProductViewModel : ViewModel() {
         )
     }
 
+    fun getListProductPurchase(idSupplier: Int, listener: (listProduct: List<Product>?) -> Unit? = {}) {
+        isExecute.postValue(true)
+        val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))
+        val params = mutableMapOf("supplier_id" to idSupplier.toString())
+        ApiServices.getInstance()?.getListProductPurchase(headers, params)?.exe(
+            onFailure = { _, _ ->
+                isExecute.postValue(false)
+                products.postValue(null)
+            },
+            onResponse = { _, response ->
+                if (response.isSuccessful) {
+                    tryMe {
+                        isExecute.postValue(false)
+
+                        listener(response.body()?.data?.list_products)
+                    }
+                } else {
+                    isExecute.postValue(false)
+                    listener(arrayListOf())
+                }
+            }
+        )
+    }
+
     fun getDetailProduct(productId: Int) {
         isExecute.postValue(true)
         val headers = mutableMapOf("Forca-Token" to (MyApp.prefs.posToken ?: ""))

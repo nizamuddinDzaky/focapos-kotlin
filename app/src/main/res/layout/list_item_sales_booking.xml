@@ -60,7 +60,7 @@
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/tv_sales_reference_no"
+                            android:id="@+id/tv_reference_no"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto_bold"
@@ -70,7 +70,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_sales_date"
+                        android:id="@+id/tv_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -122,14 +122,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_label_sales_payment"
+                    android:id="@+id/tv_label_payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/txt_payment_status" />
 
                 <TextView
-                    android:id="@+id/tv_sales_payment_status"
+                    android:id="@+id/tv_payment_status"
                     android:layout_width="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:layout_height="wrap_content"/>
@@ -144,14 +144,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_label_sales_deliv"
+                    android:id="@+id/tv_label_deliv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/txt_delivery_status" />
 
                 <TextView
-                    android:id="@+id/tv_sales_delevery_status"
+                    android:id="@+id/tv_delevery_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"/>
@@ -173,7 +173,7 @@
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/tv_sales_detail"
+                android:id="@+id/tv_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -181,7 +181,7 @@
                 tools:text="Rincian Penjualan" />
 
             <TextView
-                android:id="@+id/tv_sales_total_price"
+                android:id="@+id/tv_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"

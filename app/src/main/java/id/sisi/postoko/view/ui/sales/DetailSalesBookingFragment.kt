@@ -185,9 +185,9 @@ class DetailSalesBookingFragment : Fragment() {
 
     private fun setupRecycleView() {
         adapter = ListDetailSalesBookingAdapter()
-        rv_list_product_sales_booking?.layoutManager = LinearLayoutManager(this.context)
-        rv_list_product_sales_booking?.setHasFixedSize(false)
-        rv_list_product_sales_booking?.adapter = adapter
+        rv_list_product_purchase?.layoutManager = LinearLayoutManager(this.context)
+        rv_list_product_purchase?.setHasFixedSize(false)
+        rv_list_product_purchase?.adapter = adapter
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -227,7 +227,6 @@ class DetailSalesBookingFragment : Fragment() {
 
     private fun validationActionEditSale(): Map<String, Any>? {
         var message = ""
-        logE("${sale?.delivery_status}")
         var cek = true
         if (sale?.sale_status == SaleStatus.values()[2].name.toLowerCase(Locale.getDefault())) {
             message += "- ${getString(R.string.txt_sale_reserved)}\n"

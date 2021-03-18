@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.sisi.postoko.R
 import id.sisi.postoko.model.Customer
+import id.sisi.postoko.model.Supplier
 import id.sisi.postoko.model.Warehouse
 import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
@@ -15,6 +16,7 @@ class ListSearchDialogFragmentAdapter<T> (private var masterData: List<T>? = arr
 
     var listener: (Customer) -> Unit = {}
     var listenerWarehouse: (Warehouse)-> Unit = {}
+    var listenerSupplier: (Supplier)-> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchMasterViewHolder {
         val view =
@@ -28,12 +30,12 @@ class ListSearchDialogFragmentAdapter<T> (private var masterData: List<T>? = arr
     }
 
     override fun onBindViewHolder(holder: SearchMasterViewHolder, position: Int) {
-        holder.bind(masterData?.get(position), listener, listenerWarehouse)
+        holder.bind(masterData?.get(position), listener, listenerWarehouse, listenerSupplier)
     }
 
     class SearchMasterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(value: Any?, listener: (Customer) -> Unit, listenerWarehouse: (Warehouse)-> Unit) {
+        fun bind(value: Any?, listener: (Customer) -> Unit, listenerWarehouse: (Warehouse)-> Unit, listenerSupplier: (Supplier)-> Unit) {
             when (value) {
                 is Customer -> {
                     itemView.tv_master_data_name?.text = value.company
@@ -58,13 +60,24 @@ class ListSearchDialogFragmentAdapter<T> (private var masterData: List<T>? = arr
                     }
                 }
 
+                is Supplier -> {
+                    itemView.tv_master_data_name?.text = value.name
+                    itemView.tv_master_data_description?.text = value.address
+
+                    if (value.address == "")
+                        itemView.tv_master_data_description.gone()
+                    itemView.tv_master_data_description2.gone()
+                    itemView.setOnClickListener {
+                        listenerSupplier(value)
+                    }
+                }
+
             }
         }
     }
 
     fun updateMasterData(newMasterData: List<T>?) {
         masterData = newMasterData
-        logE("nizamuddin123: $masterData")
         notifyDataSetChanged()
     }
 }

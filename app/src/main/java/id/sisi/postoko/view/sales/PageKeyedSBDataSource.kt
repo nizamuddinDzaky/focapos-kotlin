@@ -57,7 +57,6 @@ class PageKeyedSBDataSource(
                 "limit" to requestedLoadSize.toString()
             )
 
-            logE("isAksestoko : $isAksestoko")
             if (isAksestoko){
                 params.set("aksestoko", "aksestoko")
             }

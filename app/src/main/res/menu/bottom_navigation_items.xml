@@ -7,7 +7,7 @@
     <item
         android:id="@+id/menu_good_receive"
         android:icon="@drawable/ic_purchase_black_24dp"
-        android:title="@string/txt_menu_good_receive"
+        android:title="@string/txt_menu_purchase"
         android:visible="false" />
     <item
         android:id="@+id/menu_sales_booking"

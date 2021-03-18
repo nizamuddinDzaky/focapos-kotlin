@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_6"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:src="@drawable/dynamix"
+                android:contentDescription="@string/txt_image_cement" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/et_top_margin"
+                android:layout_marginLeft="@dimen/et_top_margin"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_detail_purchase_item_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textAllCaps="true"
+                            android:textColor="#B20838"
+                            android:textSize="12dp"
+                            android:textStyle="bold"
+                            tools:targetApi="jelly_bean"
+                            tools:text="Dynamix Serbaguna 40KG" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:gravity="center"
+                        android:paddingEnd="@dimen/et_top_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_detail_purchase_item_quantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="#666666"
+                            android:textSize="12sp"
+                            tools:targetApi="jelly_bean"
+                            tools:text="200 SAK" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_price_unit"
+                            android:fontFamily="@font/roboto_regular"
+                            tools:targetApi="jelly_bean"
+                            android:textColor="@color/text_grey"
+                            android:textSize="12sp" />
+                        <TextView
+                            android:id="@+id/tv_detail_purchase_item_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/bt_buy_margin"
+                            android:fontFamily="@font/roboto_bold"
+                            tools:targetApi="jelly_bean"
+                            tools:text="Rp10.000" />
+                    </LinearLayout>
+
+                    <!--<LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_discount_item"
+                            android:fontFamily="@font/roboto_regular"
+                            tools:targetApi="jelly_bean"
+                            android:textColor="@color/text_grey"
+                            android:textSize="12sp" />
+                        <TextView
+                            android:id="@+id/tv_detail_sbo_item_discount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            tools:targetApi="jelly_bean"
+                            tools:text="Rp10.000" />
+                    </LinearLayout>-->
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line"
+            android:background="@color/colorLine" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

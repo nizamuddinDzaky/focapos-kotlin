@@ -35,23 +35,23 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
         et_sale_item_qty.onChange {
             val strQty = et_sale_item_qty.text.toString()
             if (!TextUtils.isEmpty(strQty))
-                product.sale_qty  = strQty.toInt()
+                product.orderQty  = strQty.toInt()
         }
 
-        et_sale_item_qty.setText(product.sale_qty.toString())
+        et_sale_item_qty.setText(product.orderQty.toString())
 
         iv_plus.setOnClickListener {
-            product.sale_qty += 1
-            et_sale_item_qty.setText(product.sale_qty.toString())
+            product.orderQty += 1
+            et_sale_item_qty.setText(product.orderQty.toString())
         }
 
         iv_minus.setOnClickListener {
-            val qty = product.sale_qty - 1
+            val qty = product.orderQty - 1
             if (qty < 1){
                 myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
             }else{
-                product.sale_qty = qty
-                et_sale_item_qty.setText(product.sale_qty.toString())
+                product.orderQty = qty
+                et_sale_item_qty.setText(product.orderQty.toString())
             }
         }
 
@@ -65,7 +65,7 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
 
 
         btn_add_to_cart.setOnClickListener {
-            if (product.sale_qty < 1){
+            if (product.orderQty < 1){
                 myDialog.alert(getString(R.string.txt_alert_must_more_than_one), context)
             }else{
                 product.isSelected = true
@@ -78,7 +78,7 @@ class AddItemSaleDialogFragment(var product: Product): DialogFragment() {
     private fun removeItemCart(product: Product) {
         myDialog.confirmation(getString(R.string.txt_notif_remove_cart),context)
         myDialog.listenerPositif={
-            product.sale_qty = 0
+            product.orderQty = 0
             product.isSelected = false
             listenerRemove(product)
             this.dismiss()

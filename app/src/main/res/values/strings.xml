@@ -9,6 +9,7 @@
     <string name="txt_sign_up">Daftar</string>
     <string name="txt_copyright">Ⓒ 2020 PT. SISI, All Rights Reserved.</string>
     <string name="txt_purchase">Penerimaan</string>
+    <string name="txt_good_receive">Good Receive</string>
     <string name="txt_sale_list">Data Penjualan</string>
     <string name="txt_detail_sales_booking">Detail Penjualan</string>
     <string name="txt_pembayaran">Pembayaran</string>
@@ -17,7 +18,7 @@
     <string name="txt_search_product">Cari Produk</string>
     <string name="txt_home">Beranda</string>
     <string name="txt_menu_sales_booking">Penjualan</string>
-    <string name="txt_menu_good_receive">Penerimaan</string>
+    <string name="txt_menu_purchase">Pembelian</string>
     <string name="txt_menu_master_data">Data</string>
     <string name="txt_menu_confirmation_delivery">Pengiriman</string>
     <string name="menu_search">Pencarian</string>
@@ -62,6 +63,7 @@
     <string name="txt_delivery_fee">Biaya Pengiriman</string>
     <string name="txt_sale_status">Status Penjualan</string>
     <string name="txt_payment_status">Status Pembayaran</string>
+    <string name="txt_purchase_status">Status Pembelian</string>
     <string name="txt_sale_note">Catatan Penjualan</string>
     <string name="txt_add">Tambah</string>
     <string name="txt_copy">Salin</string>
@@ -378,4 +380,12 @@
     <string name="txt_see_note">Lihat Catatan</string>
     <string name="txt_detail_product">Detail Produk</string>
     <string name="txt_supplier">Pemasok</string>
+    <string name="txt_add_purchase">Menambah Pembelian</string>
+    <string name="txt_billing_number">No Tagihan</string>
+    <string name="txt_receiver_name">Nama Penerima</string>
+    <string name="txt_license_plate">Plat Nomor</string>
+    <string name="txt_detail_purchase">Detail Pembelian</string>
+    <string name="txt_balance">Balance</string>
+    <string name="txt_created_by">Dibuat Oleh</string>
+    <string name="txt_created_date">Tanggal Pembuatan</string>
 </resources>

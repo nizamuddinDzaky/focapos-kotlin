@@ -66,7 +66,7 @@ data class Product(
 //    val track_quantity: String,
 //    val type: String,
     var unit: String? = null,
-    var sale_qty: Int = 0,
+    var orderQty: Int = 0,
     var discount : Int = 0,
 //    val uuid: Any,
 //    val uuid_app: Any,
@@ -83,8 +83,11 @@ data class Product(
     var brand_name: String? = null,
     var is_multiple: Int? = null,
     var priceGroup_id: Int? = null,
-    var supplier: String? = null
+    var supplier: String? = null,
     /*=======*/
+
+    var product_tax: Double? = null,
+    var expiry: String? = null
 ) : Parcelable {
     @IgnoredOnParcel
     var isCollapse = false

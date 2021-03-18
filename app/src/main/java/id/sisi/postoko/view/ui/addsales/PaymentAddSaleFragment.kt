@@ -25,14 +25,11 @@ import id.sisi.postoko.utils.extensions.gone
 import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.visible
-import id.sisi.postoko.view.ui.customer.AddCustomerActivity
 import id.sisi.postoko.view.ui.delivery.BottomSheetAddDeliveryFragment
 import id.sisi.postoko.view.ui.sales.SaleBookingFactory
 import id.sisi.postoko.view.ui.sales.SaleBookingViewModel
 import id.sisi.postoko.view.ui.sales.SaleStatus
-import kotlinx.android.synthetic.main.fragment_add_data_customer.view.*
 import kotlinx.android.synthetic.main.payment_add_sale_fragment.*
-import org.w3c.dom.Text
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -179,7 +176,7 @@ class PaymentAddSaleFragment: Fragment() {
                 return@map mutableMapOf(
                     "product_id" to it.id,
                     "price" to it.price.toString(),
-                    "quantity" to it.sale_qty,
+                    "quantity" to it.orderQty,
                     "discount" to it.discount
                 )
             }
@@ -195,7 +192,7 @@ class PaymentAddSaleFragment: Fragment() {
                 "staff_note" to ((activity as AddSaleActivity).employeeNote ?: ""),
                 "note" to ((activity as AddSaleActivity).saleNote ?: ""),
                 "products" to saleItems,
-                "device_type" to KEY_DEVICE_TYPE
+                "created_device" to KEY_DEVICE_TYPE
             )
 
             if(cb_create_delivery.isChecked && rg_status_add_sale?.tag?.toString() == "pending"){

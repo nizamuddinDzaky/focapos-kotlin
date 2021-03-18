@@ -115,6 +115,16 @@ data class DataSales(
     var list_sales_booking: List<Sales>?
 )
 
+data class DataPurchases(
+    var total_purchases: Int?,
+    var list_purchases: List<Purchases>?
+)
+
+data class DataDetailPurchases(
+    var purchase: Purchases?,
+    var purchase_items: List<PurchaseItem>?
+)
+
 data class DataSaleDetail(
     var sale: Sales?,
     var sale_items: List<SaleItem>?

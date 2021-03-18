@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import id.sisi.postoko.model.Sales
 import id.sisi.postoko.network.ApiServices
-import id.sisi.postoko.utils.extensions.logE
 
 class SBSourceFactory(
     var api: ApiServices,
@@ -15,14 +14,14 @@ class SBSourceFactory(
 ) :
     DataSource.Factory<Int, Sales>() {
 
-    private var listGoodReceived = MutableLiveData<PageKeyedSBDataSource>()
+    private var listSalesBooking = MutableLiveData<PageKeyedSBDataSource>()
 
-    internal fun getListGoodReceived(): LiveData<PageKeyedSBDataSource> = listGoodReceived
+    internal fun getListSalesBooking(): LiveData<PageKeyedSBDataSource> = listSalesBooking
 
     override fun create(): DataSource<Int, Sales> {
         val source = PageKeyedSBDataSource(api, filter, networkState, isAksestoko)
-        listGoodReceived = MutableLiveData()
-        listGoodReceived.postValue(source)
+        listSalesBooking = MutableLiveData()
+        listSalesBooking.postValue(source)
         return source
     }
 }

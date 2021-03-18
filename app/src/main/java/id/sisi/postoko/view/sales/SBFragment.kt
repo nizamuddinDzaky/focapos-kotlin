@@ -82,7 +82,6 @@ class SBFragment(var status: SaleStatus = SaleStatus.PENDING, var isAksestoko: B
         setupRecycleView()
 
         swipeRefreshLayoutSalesBooking?.setOnRefreshListener {
-            logE("bismillah")
             viewModel.requestRefreshNoFilter()
         }
     }

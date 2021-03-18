@@ -13,7 +13,6 @@ import id.sisi.postoko.utils.extensions.logE
 import id.sisi.postoko.utils.extensions.toCurrencyID
 import id.sisi.postoko.utils.extensions.visible
 import id.sisi.postoko.utils.helper.findSaleFragmentByTag
-import id.sisi.postoko.view.ui.addsales.SelectCustomerFragment.Companion.TAG
 import id.sisi.postoko.view.ui.sales.FragmentSearchCustomer
 import id.sisi.postoko.view.ui.warehouse.WarehouseDialogFragment
 import kotlinx.android.synthetic.main.add_item_add_sale_fragment.*

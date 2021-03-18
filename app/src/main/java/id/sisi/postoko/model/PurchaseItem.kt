@@ -2,6 +2,7 @@ package id.sisi.postoko.model
 
 data class PurchaseItem(
     val client_id: Any,
+    val purchase_id: Int,
     val deliveries_smig_id: String,
     val device_id: Any,
     val discount: Any,
@@ -18,7 +19,7 @@ data class PurchaseItem(
     val product_unit_code: String,
     val product_unit_id: String,
     val quantity: String,
-    val real_unit_price: String,
+    val real_unit_cost: String,
     val serial_no: Any,
     val subtotal: String,
     val tax: String,

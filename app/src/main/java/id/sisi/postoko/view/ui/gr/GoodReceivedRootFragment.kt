@@ -8,19 +8,23 @@ import androidx.fragment.app.Fragment
 import id.sisi.postoko.R
 import id.sisi.postoko.utils.TypeFace
 import id.sisi.postoko.utils.extensions.gone
+import id.sisi.postoko.view.BaseFragment
 import id.sisi.postoko.view.ui.product.AddProductActivity
 import id.sisi.postoko.view.HomeActivity
 import id.sisi.postoko.view.pager.GoodReceivedPagerAdapter
 import kotlinx.android.synthetic.main.fragment_root_good_received.*
 
-class GoodReceivedRootFragment : Fragment() {
+class GoodReceivedRootFragment : BaseFragment() {
     private var typeface = TypeFace()
+    override var tagName: String
+        get() = "Good Received"
+        set(_) {}
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = getString(R.string.txt_purchase)
         return inflater.inflate(R.layout.fragment_root_good_received, container, false)
     }
 

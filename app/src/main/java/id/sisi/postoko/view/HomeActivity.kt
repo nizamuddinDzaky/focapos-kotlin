@@ -238,7 +238,6 @@ class HomeActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         findFragment(navPosition).onActivityResult(requestCode, resultCode, data)
     }
 

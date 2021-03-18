@@ -220,6 +220,24 @@ interface ApiServices {
         @QueryMap params: Map<String, String> = mapOf()
     ): Call<BaseResponse<DataSales>>
 
+    @POST("api/v1/distributor/Purchases/add_purchases")
+    fun postAddPurchase(
+        @HeaderMap headerMap: Map<String, String>,
+        @Body body: Map<String, Any?>
+    ): Call<BaseResponse<Response<ResponseData>>>
+
+    @GET("api/v1/distributor/Purchases/list_purchases")
+    fun getListPurchases(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataPurchases>>
+
+    @GET("api/v1/distributor/purchases/detail_purchases")
+    fun getDetailPurchase(
+        @HeaderMap headerMap: Map<String, String>,
+        @QueryMap params: Map<String, String> = mapOf()
+    ): Call<BaseResponse<DataDetailPurchases>>
+
     @GET("api/v1/distributor/sales_booking/list_payments")
     fun getListSalePayment(
         @HeaderMap headerMap: Map<String, String>,
@@ -342,6 +360,12 @@ interface ApiServices {
 
     @GET("api/v1/distributor/products/list_product_sales")
     fun getListProductSales(
+        @HeaderMap headers: Map<String, String>,
+        @QueryMap params: Map<String, String>
+    ): Call<BaseResponse<DataProduct>>
+
+    @GET("api/v1/distributor/products/list_product_purchase")
+    fun getListProductPurchase(
         @HeaderMap headers: Map<String, String>,
         @QueryMap params: Map<String, String>
     ): Call<BaseResponse<DataProduct>>

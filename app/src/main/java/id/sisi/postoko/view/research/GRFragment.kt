@@ -110,7 +110,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
         swipeRefreshLayout?.isRefreshing = false
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(status != ALL)
         super.onCreate(savedInstanceState)
     }
@@ -118,9 +118,9 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_filter, menu)
         super.onCreateOptionsMenu(menu, inflater)
-    }
+    }*/
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when (item.itemId) {
             R.id.menu_action_filter -> {
                 showBottomSheetFilter()
@@ -129,7 +129,7 @@ class GRFragment(var status: GoodReceiveStatus = DELIVERING) : BaseFragment() {
             else ->
                 super.onOptionsItemSelected(item)
         })
-    }
+    }*/
 
     fun showBottomSheetFilter(isSearch: Boolean = false) {
         val filter = viewModel.getFilter().value ?: hashMapOf()
